@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<title>comm</title>
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="./coderay-asciidoctor.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>comm</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_purpose">purpose</a></li>
+<li><a href="#_data_structures">data structures</a></li>
+<li><a href="#_allocation_mod">allocation mod</a></li>
+<li><a href="#_interface">interface</a>
+<ul class="sectlevel2">
+<li><a href="#_memory_management">memory management</a></li>
+<li><a href="#_communication">communication</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>generic communicator with "halo".</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_purpose">purpose</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Communicate data with the neighboring ranks</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_data_structures">data structures</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>hBags</code>: buffers on the host, contains all necessary information of the data to communicate:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="keyword">struct</span> hBags {
+    data_t *data[NBAGS]; <span class="comment">/* data on the host           */</span>
+    <span class="predefined-type">int</span>         *counts; <span class="comment">/* size of the data           */</span>
+    <span class="predefined-type">int</span> capacity[NBAGS]; <span class="comment">/* capacity of each frag      */</span>
+    size_t bsize;        <span class="comment">/* size of one datum in bytes */</span>
+};</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>dBags</code>: buffers on the device</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="keyword">struct</span> dBags {
+    data_t *data[NBAGS]; <span class="comment">/* data on the device         */</span>
+};</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>Stamp</code>: contains the communication related variables:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="keyword">struct</span> Stamp {
+    MPI_Request sreq[NBAGS]; <span class="comment">/* send requests */</span>
+    MPI_Request rreq[NBAGS]; <span class="comment">/* recv requests */</span>
+    MPI_Comm cart;           <span class="comment">/* cartesian communicator */</span>
+    <span class="predefined-type">int</span> ranks[NFRAGS];       <span class="comment">/* ranks of neighbors     */</span>
+    <span class="predefined-type">int</span>  tags[NFRAGS];       <span class="comment">/* tags in bt coordinates */</span>
+};</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_allocation_mod">allocation mod</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>User can choose how the buffers are allocated with the enum type <code>AllocMod</code>.
+This is used in the funcion <code>ini</code> and <code>fin</code>. allocation mode and free mode are assumed to be the same</p>
+</div>
+<div class="paragraph">
+<p>currently supported allocation modes:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp">    HST_ONLY,   <span class="comment">/* only host bags allocated                 */</span>
+    DEV_ONLY,   <span class="comment">/* only device bags allocated               */</span>
+    PINNED,     <span class="comment">/* both host and device pinned              */</span>
+    PINNED_HST, <span class="comment">/* host pinned; no device memory            */</span>
+    PINNED_DEV, <span class="comment">/* host pinned; device global memory on gpu */</span>
+    NONE        <span class="comment">/* no allocation                            */</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_interface">interface</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_memory_management">memory management</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="comment">/* bags alloc */</span>
+<span class="predefined-type">int</span> ini(AllocMod fmod, AllocMod bmod, size_t bsize, <span class="directive">const</span> <span class="predefined-type">int</span> capacity[NBAGS], <span class="comment">/**/</span> hBags *hb, dBags *db);
+<span class="predefined-type">int</span> fin(AllocMod fmod, AllocMod bmod, <span class="comment">/**/</span> hBags *hb, dBags *db);
+
+<span class="comment">/* stamp alloc */</span>
+<span class="predefined-type">int</span> ini(MPI_Comm comm, <span class="comment">/**/</span> Stamp *s);
+<span class="predefined-type">int</span> fin(<span class="comment">/**/</span> Stamp *s);</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>bags alloc:</strong> Given two structures <code>hBags</code> and <code>dBags</code>, <code>ini</code> allocates the buffers on host and device. <code>ini</code> expects 2 allocation modes:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>fmod</code>: allocation mode for fragment buffers</p>
+</li>
+<li>
+<p><code>bmod</code>: allocation mode for bulk buffer</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>stamp alloc</strong>: initialize <code>Stamp</code> structure</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_communication">communication</h3>
+<div class="paragraph">
+<p>Communication happens between host bags (see <code>hBags</code> structure).
+It needs 3 entities:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>receiver bags</p>
+</li>
+<li>
+<p>sender bags</p>
+</li>
+<li>
+<p>a <code>Stamp</code> for communicating through MPI</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The interface is as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="predefined-type">int</span> post_recv(hBags *b, Stamp *s);           <b class="conum">(1)</b>
+<span class="predefined-type">int</span> post_send(<span class="directive">const</span> hBags *b, Stamp *s);     <b class="conum">(2)</b>
+
+<span class="predefined-type">int</span> wait_recv(Stamp *s, <span class="comment">/**/</span> hBags *b);      <b class="conum">(3)</b>
+<span class="predefined-type">int</span> wait_send(Stamp *s);                     <b class="conum">(4)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>call MPI asynchroneous recv and store requests in <code>s</code></p>
+</li>
+<li>
+<p>call MPI asynchroneous send and store requests in <code>s</code></p>
+</li>
+<li>
+<p>wait for recv requests</p>
+</li>
+<li>
+<p>wait for send requests</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
