@@ -1,2 +1,0 @@
-= RBC membrane forces
-:lext: .adoc
