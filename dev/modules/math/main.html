@@ -119,10 +119,10 @@ A =  ( xy yy yz)
 <h3 id="_interface_3">interface</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span class="directive">void</span> tform_ini(Tform**); <b class="conum">(1)</b>
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="directive">void</span> tform_ini(Tform**); <span class="comment">// &lt;I&gt;</span>
 <span class="directive">void</span> tform_fin(Tform*);
 
-<span class="directive">void</span> tform_vector(<span class="directive">const</span> <span class="predefined-type">float</span> a0[<span class="integer">3</span>], <span class="directive">const</span> <span class="predefined-type">float</span> a1[<span class="integer">3</span>],   <span class="directive">const</span> <span class="predefined-type">float</span> b0[<span class="integer">3</span>], <span class="directive">const</span> <span class="predefined-type">float</span> b1[<span class="integer">3</span>], <span class="comment">/**/</span> Tform*);
+<span class="directive">void</span> tform_vector(<span class="directive">const</span> <span class="predefined-type">float</span> a0[<span class="integer">3</span>], <span class="directive">const</span> <span class="predefined-type">float</span> a1[<span class="integer">3</span>],   <span class="directive">const</span> <span class="predefined-type">float</span> b0[<span class="integer">3</span>], <span class="directive">const</span> <span class="predefined-type">float</span> b1[<span class="integer">3</span>], <span class="comment">/**/</span> Tform*); <span class="comment">// &lt;C&gt;</span>
 <span class="directive">void</span> tform_chain(Tform*, Tform*, <span class="comment">/**/</span> Tform*);
 <span class="directive">void</span> tform_grid2grid(<span class="directive">const</span> <span class="predefined-type">float</span> f_lo[<span class="integer">3</span>], <span class="directive">const</span> <span class="predefined-type">float</span> f_hi[<span class="integer">3</span>], <span class="directive">const</span> <span class="predefined-type">int</span> f_n[<span class="integer">3</span>],
                      <span class="directive">const</span> <span class="predefined-type">float</span> t_lo[<span class="integer">3</span>], <span class="directive">const</span> <span class="predefined-type">float</span> t_hi[<span class="integer">3</span>], <span class="directive">const</span> <span class="predefined-type">int</span> t_n[<span class="integer">3</span>], <span class="comment">/**/</span>
@@ -130,31 +130,25 @@ A =  ( xy yy yz)
 <span class="directive">void</span> tform_to_grid(<span class="directive">const</span> <span class="predefined-type">float</span> a0[<span class="integer">3</span>], <span class="directive">const</span> <span class="predefined-type">float</span> b0[<span class="integer">3</span>], <span class="directive">const</span> <span class="predefined-type">int</span> n[<span class="integer">3</span>], <span class="comment">/**/</span> Tform*);
 <span class="directive">void</span> tform_from_grid(<span class="directive">const</span> <span class="predefined-type">float</span> a0[<span class="integer">3</span>], <span class="directive">const</span> <span class="predefined-type">float</span> b0[<span class="integer">3</span>], <span class="directive">const</span> <span class="predefined-type">int</span> n[<span class="integer">3</span>], <span class="comment">/**/</span> Tform*);
 
-<span class="directive">void</span> tform_convert(Tform*, <span class="directive">const</span> <span class="predefined-type">float</span> a0[<span class="integer">3</span>], <span class="comment">/**/</span> <span class="predefined-type">float</span> a1[<span class="integer">3</span>]); <b class="conum">(2)</b>
-<span class="directive">void</span> tform_to_view(Tform*, <span class="comment">/**/</span> Tform_v*);
+<span class="directive">void</span> tform_convert(Tform*, <span class="directive">const</span> <span class="predefined-type">float</span> a0[<span class="integer">3</span>], <span class="comment">/**/</span> <span class="predefined-type">float</span> a1[<span class="integer">3</span>]); <span class="comment">// &lt;U&gt;</span>
 
-<span class="directive">void</span> tform_log(Tform*); <b class="conum">(3)</b>
+<span class="directive">void</span> tform_to_view(Tform*, <span class="comment">/**/</span> Tform_v*); <span class="comment">// &lt;V&gt;</span>
+
+<span class="directive">void</span> tform_log(Tform*); <span class="comment">// &lt;L&gt;</span>
 <span class="directive">void</span> tform_dump(Tform*, FILE*);</code></pre>
 </div>
 </div>
-<div class="colist arabic">
-<ol>
-<li>
-<p>allocate/deallocate</p>
-</li>
-<li>
-<p>initialize from two pairs of vectors</p>
-</li>
-<li>
-<p>initialize from a chain of transformations</p>
-</li>
-<li>
-<p>log and dump the state of the transform</p>
-</li>
-<li>
-<p>convert to a structure which can be used on device</p>
-</li>
-</ol>
+<div class="paragraph">
+<p>&lt;I&gt; allocate/deallocate</p>
+</div>
+<div class="paragraph">
+<p>&lt;C&gt; create <code>Tform</code></p>
+</div>
+<div class="paragraph">
+<p>&lt;U&gt; using <code>Tform</code> to transform coordinates</p>
+</div>
+<div class="paragraph">
+<p>&lt;L&gt; loging and dump of the <code>Tform</code> state</p>
 </div>
 </div>
 </div>
