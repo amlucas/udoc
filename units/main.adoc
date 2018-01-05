@@ -1,0 +1,70 @@
+= units
+:lext: .adoc
+
+uDeviceX consists of units. They are implemented in link::/src/u/[/src/u/].
+
+== Build and run
+
+Compile unit `A`: from `/src` directory
+
+[source, shell]
+----
+u.conf0 ./u/A
+u.make -j
+----
+
+== Update make file fragments
+
+From `/src`
+
+[source, shell]
+----
+u.u u/A
+----
+
+updates `hw/make/*.mk` files
+
+== Create a new unit
+
+From `/src`
+
+[source, shell]
+----
+mkdir -p hw/make
+----
+
+Add two file: `hw/make/i` and `hw/make/e`. The files are used by `u.u`
+to create a list of unit source files. `i` is a script which returns a
+list of [i]ncluded files. `e` returns a list of [e]xcluded files. The
+`i` list "minus" `e` list is used as a source. `e` file is
+optional. In other words `e` "black lists" files returned by `i`.
+
+For `i` and `e` the variable `$U` is set to `u/hw/hst`.
+
+Run
+
+[source, shell]
+----
+u.u u/hw/hst
+----
+
+Add `u/hw/hst/make/dep.mk u/hw/hst/make/obj.mk u/hw/hstmake/dir.mk
+u/hw/hst/make/rule.mk` to git.
+
+== list of units
+
+* link:comm{lext}[comm]
+* link:error{lext}[error]
+* hello world
+** link:hw/hst{lext}[host]
+** link:hw/dev{lext}[cuda]
+* link:meshbb{lext}[meshbb]
+* link:mpi{lext}[mpi]
+* link:pair{lext}[pair]
+* red blood cell units
+** link:rbc/force{lext}[force]
+** link:rbc/main{lext}[main]
+** link:rbc/rnd{lext}[rnd]
+* link:sdf{lext}[sdf]
+* link:scan{lext}[scan]
+* link:x{lext}[x]

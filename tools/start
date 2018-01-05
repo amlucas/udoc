@@ -1,0 +1,8 @@
+#!/bin/sh
+
+: ${PYTHON=python}
+
+e () { echo >&2 "cmd: $@"; eval "$@"; }
+
+e $PYTHON -m SimpleHTTPServer '&'
+e echo $! > .pid

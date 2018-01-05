@@ -1,0 +1,16 @@
+= signed distance function (sdf)
+:lext: .adoc
+:src: ../../../../src
+
+== purpose
+
+Signed distance function is interpolated from a uniform grid.
+
+== implementation
+
+== components
+
+* `field`: read sdf field from a file
+* `bounce`: bounce back particles
+* `label`: label which particle stays in bulk, turns into wall, or
+  deleted

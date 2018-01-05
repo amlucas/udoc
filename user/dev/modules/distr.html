@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<title>distr</title>
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="./coderay-asciidoctor.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>distr</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_map">map</a>
+<ul class="sectlevel2">
+<li><a href="#_data_structure">data structure</a></li>
+<li><a href="#_interface">interface</a></li>
+</ul>
+</li>
+<li><a href="#_flu">flu</a>
+<ul class="sectlevel2">
+<li><a href="#_data_structures">data structures</a></li>
+<li><a href="#_interface_2">interface</a></li>
+</ul>
+</li>
+<li><a href="#_rbc">rbc</a>
+<ul class="sectlevel2">
+<li><a href="#_data_structures_2">data structures</a></li>
+<li><a href="#_interface_3">interface</a></li>
+</ul>
+</li>
+<li><a href="#_rig">rig</a>
+<ul class="sectlevel2">
+<li><a href="#_data_structures_3">data structures</a></li>
+<li><a href="#_interface_4">interface</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Redistribution of quantities across nodes.
+Each node has a local coordinate system. The origin is the center of a
+"subdomain" of size <code>Sx</code>, <code>Sy</code>, <code>Sz</code>.</p>
+</div>
+<div class="paragraph">
+<p>A quantity is sent to a neighboring rank if its position is outside of
+the subdomain.</p>
+</div>
+<div class="paragraph">
+<p>The workflow is very similar for every quantity to redistribute:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>build a map from the positions of the quatities and store it in a
+<code>Map</code> structure.</p>
+</li>
+<li>
+<p>pack the data using <code>Map</code> in a <code>Pack</code> structure</p>
+</li>
+<li>
+<p>communicaion: exchange packed data with neighbors, receive data into
+<code>Unpack</code> structure. This is done using the
+<a href="comm.html">generic communicator</a>.</p>
+</li>
+<li>
+<p>Unpack the data from <code>Unpack</code> to quantities.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_map">map</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Helper for packing data to send buffers. This is common to all quantities.</p>
+</div>
+<div class="sect2">
+<h3 id="_data_structure">data structure</h3>
+<div class="paragraph">
+<p>The structure to map local data from an array to packed data in 27
+arrays is implemented as:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="comment">/* [D]istr Map */</span>
+<span class="keyword">struct</span> DMap {
+    <span class="predefined-type">int</span> *counts;  <span class="comment">/* number of entities leaving in each fragment */</span>
+    <span class="predefined-type">int</span> *starts;  <span class="comment">/* cumulative sum of the above                 */</span>
+    <span class="predefined-type">int</span> *ids[<span class="integer">27</span>]; <span class="comment">/* indices of leaving objects                  */</span>
+
+    <span class="predefined-type">int</span> *hcounts; <span class="comment">/* counts on host (pinned) */</span>
+};</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This can be allocated on device or on host memory (see interface).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_interface">interface</h3>
+<div class="paragraph">
+<p>Host interface:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="directive">void</span> dmap_ini(<span class="predefined-type">int</span> nfrags, <span class="directive">const</span> <span class="predefined-type">int</span> capacity[], <span class="comment">/**/</span> DMap *m);
+<span class="directive">void</span> dmap_fin(<span class="predefined-type">int</span> nfrags, <span class="comment">/**/</span> DMap *m);
+<span class="directive">void</span> dmap_reini(<span class="predefined-type">int</span> nfrags, <span class="comment">/**/</span> DMap m);
+<span class="directive">void</span> dmap_download_counts(<span class="predefined-type">int</span> nfrags, <span class="comment">/**/</span> DMap *m);
+<span class="directive">void</span> dmap_ini_host(<span class="predefined-type">int</span> nfrags, <span class="directive">const</span> <span class="predefined-type">int</span> capacity[], <span class="comment">/**/</span> DMap *m);
+<span class="directive">void</span> dmap_fin_host(<span class="predefined-type">int</span> nfrags, <span class="comment">/**/</span> DMap *m);
+<span class="directive">void</span> dmap_reini_host(<span class="predefined-type">int</span> nfrags, <span class="comment">/**/</span> DMap m);
+<span class="directive">void</span> dmap_D2H(<span class="predefined-type">int</span> nfrags, <span class="directive">const</span> DMap *d, <span class="comment">/**/</span> DMap *h);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Device interface:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="comment">/* exclusive scan */</span>
+<span class="keyword">template</span> &lt;<span class="predefined-type">int</span> NCOUNTS&gt;
+<span class="directive">static</span> __global__ <span class="directive">void</span> dmap_scan(<span class="comment">/**/</span> DMap m)              <b class="conum">(1)</b>
+<span class="directive">static</span> __device__ <span class="predefined-type">int</span> dmap_get_fid(<span class="directive">const</span> <span class="predefined-type">float</span> r[<span class="integer">3</span>])       <b class="conum">(2)</b>
+<span class="directive">static</span> __device__ <span class="directive">void</span> dmap_add(<span class="predefined-type">int</span> pid, <span class="predefined-type">int</span> fid, DMap m)  <b class="conum">(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>prefix sum on counts to obtain starts</p>
+</li>
+<li>
+<p>get fragment id from position</p>
+</li>
+<li>
+<p>add a quantity to the map</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_flu">flu</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Redistribute solvent particles accross nodes.</p>
+</div>
+<div class="sect2">
+<h3 id="_data_structures">data structures</h3>
+<div class="paragraph">
+<p>Solvent distribution follow the common workflow described above and
+contains the three generic data structures:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="keyword">struct</span> Pack {
+    DMap map;
+    dBags dpp, dii, dcc;
+    hBags hpp, hii, hcc;
+    <span class="predefined-type">int</span> nhalo; <span class="comment">/* number of sent particles */</span>
+};
+
+<span class="keyword">struct</span> Comm {
+    Stamp pp, ii, cc;
+};
+
+<span class="keyword">struct</span> Unpack {
+    hBags hpp, hii, hcc;
+    Particle *ppre;
+    <span class="predefined-type">int</span> *iire, *ccre;
+    <span class="predefined-type">int</span> nhalo; <span class="comment">/* number of received particles */</span>
+};</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>where <code>[d,h]xx</code> means quantities on <code>[device,host]</code> and <code>pp</code>
+corresponds to particles, <code>cc</code> to colors and <code>ii</code> to global ids.
+The <code>xxre</code> variables in <code>Unpack</code> are buffer for remote quantities.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_interface_2">interface</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="directive">void</span> ini(<span class="predefined-type">int</span> maxdensity, Pack *p);
+<span class="directive">void</span> ini(MPI_Comm comm, <span class="comment">/**/</span> Comm *c);
+<span class="directive">void</span> ini(<span class="predefined-type">int</span> maxdensity, Unpack *u);
+
+<span class="directive">void</span> fin(Pack *p);
+<span class="directive">void</span> fin(Comm *c);
+<span class="directive">void</span> fin(Unpack *u);
+
+<span class="comment">/* map */</span>
+<span class="directive">void</span> build_map(<span class="predefined-type">int</span> n, <span class="directive">const</span> PartList lp, Pack *p);
+
+<span class="directive">using</span> <span class="keyword">namespace</span> ::flu;
+
+<span class="comment">/* pack */</span>
+<span class="directive">void</span> pack(<span class="directive">const</span> Quants *q, <span class="comment">/**/</span> Pack *p);
+
+<span class="directive">void</span> download(Pack *p);
+
+<span class="comment">/* communication */</span>
+<span class="directive">void</span> post_recv(Comm *c, Unpack *u);
+<span class="directive">void</span> post_send(Pack *p, Comm   *c);
+<span class="directive">void</span> wait_recv(Comm *c, Unpack *u);
+<span class="directive">void</span> wait_send(Comm *c);
+
+<span class="comment">/* unpack */</span>
+<span class="directive">void</span> unpack(<span class="comment">/**/</span> Unpack *u);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The map is build from <a href="partlist.html">partlist</a>, allowing the
+process to delete particles.</p>
+</div>
+<div class="paragraph">
+<p>The solvent distribution also include cell list generation (see
+<a href="clist.html">cell lists</a>).
+It is done in two phases:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>subindices, independant for bulk and remote particles</p>
+</li>
+<li>
+<p>gather, which needs the subindices to be computed</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Bulk subindices can be computed while comunicating remote particles.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="comment">/* cell lists */</span>
+<span class="directive">void</span> bulk(PartList lp, <span class="comment">/**/</span> Quants *q);
+<span class="directive">void</span> halo(<span class="directive">const</span> Unpack *u, <span class="comment">/**/</span> Quants *q);
+<span class="directive">void</span> gather(<span class="predefined-type">int</span> ndead, <span class="directive">const</span> Pack *p, <span class="directive">const</span> Unpack *u, <span class="comment">/**/</span> Quants *q);</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_rbc">rbc</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Redistribute red blood cells accross nodes according to the center of
+mass of their bounding box (see <a href="algo/minmax.html">minmax</a>).</p>
+</div>
+<div class="sect2">
+<h3 id="_data_structures_2">data structures</h3>
+<div class="paragraph">
+<p>RBC distribution follows the common workflow described above and
+contains the three generic data structures:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="keyword">struct</span> Pack {
+    DMap map;
+    float3 *minext, *maxext;
+    dBags dpp;
+    hBags hpp;
+
+    <span class="comment">/* optional: ids */</span>
+    DMap hmap;
+    hBags hii;
+};
+
+<span class="keyword">struct</span> Comm {
+    Stamp pp;
+
+    <span class="comment">/* optional: ids */</span>
+    Stamp ii;
+};
+
+<span class="keyword">struct</span> Unpack {
+    hBags hpp;
+
+    <span class="comment">/* optional: ids */</span>
+    hBags hii;
+};</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>where <code>minext</code> and <code>maxext</code> contain the bounding box informations of
+each RBC. Other variables have the same naming conventions than <code>distr::flu</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_interface_3">interface</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="directive">void</span> ini(<span class="predefined-type">int</span> maxc, <span class="predefined-type">int</span> nv, Pack *p);
+<span class="directive">void</span> ini(MPI_Comm comm, <span class="comment">/**/</span> Comm *c);
+<span class="directive">void</span> ini(<span class="predefined-type">int</span> maxc, <span class="predefined-type">int</span> nv, Unpack *u);
+
+<span class="directive">void</span> fin(Pack *p);
+<span class="directive">void</span> fin(Comm *c);
+<span class="directive">void</span> fin(Unpack *u);
+
+<span class="directive">using</span> <span class="keyword">namespace</span> ::rbc;
+
+<span class="directive">void</span> build_map(<span class="predefined-type">int</span> nc, <span class="predefined-type">int</span> nv, <span class="directive">const</span> Particle *pp, Pack *p);
+<span class="directive">void</span> pack(<span class="directive">const</span> rbc::Quants *q, <span class="comment">/**/</span> Pack *p);
+<span class="directive">void</span> download(Pack *p);
+
+<span class="directive">void</span> post_recv(Comm *c, Unpack *u);
+<span class="directive">void</span> post_send(Pack *p, Comm *c);
+<span class="directive">void</span> wait_recv(Comm *c, Unpack *u);
+<span class="directive">void</span> wait_send(Comm *c);
+
+<span class="directive">void</span> unpack_bulk(<span class="directive">const</span> Pack *p, <span class="comment">/**/</span> rbc::Quants *q);
+<span class="directive">void</span> unpack_halo(<span class="directive">const</span> Unpack *u, <span class="comment">/**/</span> rbc::Quants *q);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that <code>unpack_bulk</code> can be done before unpacking halo quantities.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_rig">rig</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Redistribute rigid objects accross nodes according to their center of
+mass.</p>
+</div>
+<div class="sect2">
+<h3 id="_data_structures_3">data structures</h3>
+<div class="paragraph">
+<p>Rigid bodies distribution is very similar to the above. The data
+structures fits again in the general workflow:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="comment">/*
+ ipp: particles of the mesh
+ ss:  &quot;Solid&quot; structures
+*/</span>
+
+<span class="keyword">struct</span> Pack {
+    DMap map;
+    dBags dipp, dss;
+    hBags hipp, hss;
+};
+
+<span class="keyword">struct</span> Comm {
+    Stamp ipp, ss;
+};
+
+<span class="keyword">struct</span> Unpack {
+    hBags hipp, hss;
+};</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_interface_4">interface</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="directive">void</span> ini(<span class="predefined-type">int</span> maxns, <span class="predefined-type">int</span> nv, Pack *p);
+<span class="directive">void</span> ini(MPI_Comm comm, <span class="comment">/**/</span> Comm *c);
+<span class="directive">void</span> ini(<span class="predefined-type">int</span> maxns, <span class="predefined-type">int</span> nv, Unpack *u);
+
+<span class="directive">void</span> fin(Pack *p);
+<span class="directive">void</span> fin(Comm *c);
+<span class="directive">void</span> fin(Unpack *u);
+
+<span class="directive">void</span> build_map(<span class="predefined-type">int</span> ns, <span class="directive">const</span> Solid *ss, <span class="comment">/**/</span> Pack *p);
+<span class="directive">void</span> pack(<span class="predefined-type">int</span> ns, <span class="predefined-type">int</span> nv, <span class="directive">const</span> Solid *ss, <span class="directive">const</span> Particle *ipp, <span class="comment">/**/</span> Pack *p);
+<span class="directive">void</span> download(Pack *p);
+
+<span class="directive">void</span> post_recv(Comm *c, Unpack *u);
+<span class="directive">void</span> post_send(Pack *p, Comm *c);
+<span class="directive">void</span> wait_recv(Comm *c, Unpack *u);
+<span class="directive">void</span> wait_send(Comm *c);
+
+<span class="directive">using</span> <span class="keyword">namespace</span> ::rig;
+<span class="directive">void</span> unpack_bulk(<span class="directive">const</span> Pack *p, <span class="comment">/**/</span> rig::Quants *q);
+<span class="directive">void</span> unpack_halo(<span class="directive">const</span> Unpack *u, <span class="comment">/**/</span> rig::Quants *q);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that <code>unpack_bulk</code> can be done before unpacking halo quantities.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

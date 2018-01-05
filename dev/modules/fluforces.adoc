@@ -1,0 +1,34 @@
+= fluforces
+:lext: .adoc
+
+solvent forces
+
+== interface
+
+TODO
+
+== data structures
+
+TODO
+
+== submodules
+
+=== bulk
+
+compute local interactions of solvent particles, given cell starts,
+cell counts (see link:clist{lext}[clist]) and particles array
+
+=== fluforces: halo
+
+solvent forces with remote particles (fragments)
+
+====  Internals
+
+main kernel is `dev::forces` and performs all interactions:
+
+* dispatch threads along fragments
+* fetch generalized particle
+* build map (how to access neighboring particles?)
+* loop over neighboring particles according to map
+* compute pairwise interactions
+

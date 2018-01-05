@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<title>parser</title>
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="./coderay-asciidoctor.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>parser</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_purpose">purpose</a></li>
+<li><a href="#_data_structure">data structure</a></li>
+<li><a href="#_interface">interface</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_purpose">purpose</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>wrapper for the <code>libconfig</code> library</p>
+</li>
+<li>
+<p>holds configurations from 3 sources:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>arguments (priority 3)</p>
+</li>
+<li>
+<p>configuration file (priority 2)</p>
+</li>
+<li>
+<p>default parameters (priority 1)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>When retrieving a value, the source with higher priority is used.
+If not found in a source, the value is retrieved from the next highest
+priority.
+If no source contains the parmeter, an error is raised.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_data_structure">data structure</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++"><span class="keyword">enum</span> {
+    ARG, <span class="comment">/* from arguments       */</span>
+    OPT, <span class="comment">/* from additional file */</span>
+    DEF, <span class="comment">/* from default file    */</span>
+    NCFG
+};
+
+<span class="keyword">struct</span> Config {
+    config_t c[NCFG];
+};</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Consists of an array of <code>config_t</code> descriptors, ordered by priority.
+Indices correspond to the <code>enum</code> keys.
+The first key has the highest priority, second key has second highest
+priority etc.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_interface">interface</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++"><span class="directive">void</span> conf_ini(<span class="comment">/**/</span> Config **c);
+<span class="directive">void</span> conf_destroy(<span class="comment">/**/</span> Config *c);
+
+<span class="directive">void</span> conf_read(<span class="predefined-type">int</span> argc, <span class="predefined-type">char</span> **argv, <span class="comment">/**/</span> Config *cfg);
+
+<span class="directive">void</span> conf_lookup_int(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="predefined-type">int</span> *a);
+<span class="directive">void</span> conf_lookup_float(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="predefined-type">float</span> *a);
+<span class="directive">void</span> conf_lookup_bool(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="predefined-type">int</span> *a);
+<span class="directive">void</span> conf_lookup_string(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="directive">const</span> <span class="predefined-type">char</span> **a);</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
