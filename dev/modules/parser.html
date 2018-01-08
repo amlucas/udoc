@@ -109,7 +109,9 @@ priority etc.</p>
 <pre class="CodeRay highlight"><code data-lang="c++"><span class="directive">void</span> conf_lookup_int(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="predefined-type">int</span> *a);
 <span class="directive">void</span> conf_lookup_float(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="predefined-type">float</span> *a);
 <span class="directive">void</span> conf_lookup_bool(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="predefined-type">int</span> *a);
-<span class="directive">void</span> conf_lookup_string(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="directive">const</span> <span class="predefined-type">char</span> **a);</code></pre>
+<span class="directive">void</span> conf_lookup_string(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="directive">const</span> <span class="predefined-type">char</span> **a);
+<span class="directive">void</span> conf_lookup_vint(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="predefined-type">int</span> *n, <span class="predefined-type">int</span> a[]);
+<span class="directive">void</span> conf_lookup_vfloat(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="predefined-type">int</span> *n, <span class="predefined-type">float</span> a[]);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -123,7 +125,9 @@ priority etc.</p>
 <pre class="CodeRay highlight"><code data-lang="c++"><span class="predefined-type">bool</span> conf_opt_int(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="predefined-type">int</span> *a);
 <span class="predefined-type">bool</span> conf_opt_float(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="predefined-type">float</span> *a);
 <span class="predefined-type">bool</span> conf_opt_bool(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="predefined-type">int</span> *a);
-<span class="predefined-type">bool</span> conf_opt_string(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="directive">const</span> <span class="predefined-type">char</span> **a);</code></pre>
+<span class="predefined-type">bool</span> conf_opt_string(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="directive">const</span> <span class="predefined-type">char</span> **a);
+<span class="predefined-type">bool</span> conf_opt_vint(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="predefined-type">int</span> *n, <span class="predefined-type">int</span> a[]);
+<span class="predefined-type">bool</span> conf_opt_vfloat(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="predefined-type">int</span> *n, <span class="predefined-type">float</span> a[]);</code></pre>
 </div>
 </div>
 <div class="paragraph">

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<title>Control</title>
+<link rel="stylesheet" href="/udoc/css/main.css">
+<link rel="stylesheet" href="./coderay-asciidoctor.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>Control</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_velocity_controller">Velocity controller</a></li>
+<li><a href="#_inflow">Inflow</a>
+<ul class="sectlevel2">
+<li><a href="#_interface">interface</a></li>
+<li><a href="#_configuration">configuration</a></li>
+</ul>
+</li>
+<li><a href="#_outflow">Outflow</a></li>
+<li><a href="#_density_controller">Density controller</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>velocity controller</p>
+</li>
+<li>
+<p>open boundary conditions</p>
+</li>
+<li>
+<p>density controller</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_velocity_controller">Velocity controller</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_inflow">Inflow</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Mass rate inflow</p>
+</div>
+<div class="sect2">
+<h3 id="_interface">interface</h3>
+<div class="paragraph">
+<p>allocate, deallocate:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="directive">void</span> ini(int2 nc, Inflow **i);
+<span class="directive">void</span> fin(Inflow *i);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>initialize the inflow structure (to be done only once):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="directive">void</span> ini_velocity(Inflow *i);
+
+<span class="directive">void</span> ini_params_plate(Coords c, float3 o, <span class="predefined-type">int</span> dir, <span class="predefined-type">float</span> L1, <span class="predefined-type">float</span> L2,
+                      float3 u, <span class="predefined-type">bool</span> upoiseuille, <span class="predefined-type">bool</span> vpoiseuille,
+                      <span class="comment">/**/</span> Inflow *i);
+<span class="directive">void</span> ini_params_circle(Coords c, float3 o, <span class="predefined-type">float</span> R, <span class="predefined-type">float</span> H, <span class="predefined-type">float</span> u, <span class="predefined-type">bool</span> poiseuille,
+                       <span class="comment">/**/</span> Inflow *i);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>depending on the type of inflow, call the appropriate
+<code>ini_params_xxx</code>.
+<code>ini_velocity</code> must be called after initializing the parameters.
+it is used to setup the inlet velocity from parameters.</p>
+</div>
+<div class="paragraph">
+<p>create particles (at every time step):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="directive">void</span> create_pp(Inflow *i, <span class="predefined-type">int</span> *n, Particle *pp);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>this will add particles to the array <code>pp</code> and increase <code>n</code> accordingly.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_configuration">configuration</h3>
+<div class="sect3">
+<h4 id="_circle">circle</h4>
+<div class="paragraph">
+<p>cylinder inflow</p>
+</div>
+<div class="paragraph">
+<p>example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cfg">inflow = {
+    active = true;
+    type   = &quot;circle&quot;;
+    R      = 1.0;
+    H      = 16.0;
+    U      = 1.0;
+    center = [8.0, 8.0, 8.0];
+    poiseuille = false;
+};</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_outflow">Outflow</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_density_controller">Density controller</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+</div>
+</body>
+</html>
