@@ -84,18 +84,51 @@ priority etc.</p>
 <div class="sect1">
 <h2 id="_interface">interface</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Allocate and free the structure:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="c++"><span class="directive">void</span> conf_ini(<span class="comment">/**/</span> Config **c);
-<span class="directive">void</span> conf_destroy(<span class="comment">/**/</span> Config *c);
-
-<span class="directive">void</span> conf_read(<span class="predefined-type">int</span> argc, <span class="predefined-type">char</span> **argv, <span class="comment">/**/</span> Config *cfg);
-
-<span class="directive">void</span> conf_lookup_int(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="predefined-type">int</span> *a);
+<span class="directive">void</span> conf_destroy(<span class="comment">/**/</span> Config *c);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Read data from the default, optional and command line config:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++"><span class="directive">void</span> conf_read(<span class="predefined-type">int</span> argc, <span class="predefined-type">char</span> **argv, <span class="comment">/**/</span> Config *cfg);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Lookup variables from the configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++"><span class="directive">void</span> conf_lookup_int(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="predefined-type">int</span> *a);
 <span class="directive">void</span> conf_lookup_float(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="predefined-type">float</span> *a);
 <span class="directive">void</span> conf_lookup_bool(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="predefined-type">int</span> *a);
 <span class="directive">void</span> conf_lookup_string(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="directive">const</span> <span class="predefined-type">char</span> **a);</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Note that the program raises an error if the argument is not found.</p>
+</div>
+<div class="paragraph">
+<p>Lookup variables from the configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++"><span class="predefined-type">bool</span> conf_opt_int(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="predefined-type">int</span> *a);
+<span class="predefined-type">bool</span> conf_opt_float(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="predefined-type">float</span> *a);
+<span class="predefined-type">bool</span> conf_opt_bool(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="predefined-type">int</span> *a);
+<span class="predefined-type">bool</span> conf_opt_string(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="directive">const</span> <span class="predefined-type">char</span> **a);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The program does not raise error if the variable is not found.
+The return value is <code>true</code> if the variable has been found and <code>false</code> otherwise.</p>
 </div>
 </div>
 </div>

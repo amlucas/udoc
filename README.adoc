@@ -1,3 +1,0 @@
-= uDeviceX Documentaion
-
-https://amlucas.github.io/udoc/
