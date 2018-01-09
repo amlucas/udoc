@@ -7,7 +7,6 @@
 <meta name="generator" content="Asciidoctor 1.5.6.1">
 <title>Control</title>
 <link rel="stylesheet" href="/udoc/css/main.css">
-<link rel="stylesheet" href="./coderay-asciidoctor.css">
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
@@ -15,11 +14,16 @@
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_velocity_controller">Velocity controller</a></li>
-<li><a href="#_inflow">Inflow</a>
+<li><a href="#_velocity_controller">Velocity controller</a>
 <ul class="sectlevel2">
 <li><a href="#_interface">interface</a></li>
 <li><a href="#_configuration">configuration</a></li>
+</ul>
+</li>
+<li><a href="#_inflow">Inflow</a>
+<ul class="sectlevel2">
+<li><a href="#_interface_2">interface</a></li>
+<li><a href="#_configuration_2">configuration</a></li>
 </ul>
 </li>
 <li><a href="#_outflow">Outflow</a></li>
@@ -48,7 +52,86 @@
 <div class="sect1">
 <h2 id="_velocity_controller">Velocity controller</h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p>control velocity by modifying the imposed hydrostatic force</p>
+</div>
+<div class="sect2">
+<h3 id="_interface">interface</h3>
+<div class="paragraph">
+<p>allocate, deallocate:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> vcont_ini(MPI_Comm comm, int3 L, float3 vtarget, <span style="color:#0a8;font-weight:bold">float</span> factor, <span style="color:#777">/**/</span> PidVCont **c);
+<span style="color:#088;font-weight:bold">void</span> vcont_fin(<span style="color:#777">/**/</span> PidVCont *cont);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>initialize the transformation structure (to be done only once):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> vcon_set_cart(<span style="color:#777">/**/</span> PidVCont *cont);
+<span style="color:#088;font-weight:bold">void</span> vcon_set_radial(<span style="color:#777">/**/</span> PidVCont *cont);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>the transformation is the way of averaging the velocity:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>cartesian transformation keeps the velocity as it is before averaging.</p>
+</li>
+<li>
+<p>radial transformation returns the velocity in polar coordinates
+scaled by the radial position. the <code>z</code> component corresponds to
+cartesian transformation</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Control operations:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span>   vcont_sample(Coords coords, <span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> Particle *pp, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> *starts, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> *counts, <span style="color:#777">/**/</span> PidVCont *c); <b class="conum">(1)</b>
+float3 vcont_adjustF(<span style="color:#777">/**/</span> PidVCont *c); <b class="conum">(2)</b>
+<span style="color:#088;font-weight:bold">void</span>   vcont_log(<span style="color:#088;font-weight:bold">const</span> PidVCont *c);    <b class="conum">(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>get average velocity according to transformation and store it</p>
+</li>
+<li>
+<p>reduce sampled quantities and update the controller. return the force</p>
+</li>
+<li>
+<p>logging informations; dumped into the file <code>vcon.txt</code></p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_configuration">configuration</h3>
+<div class="paragraph">
+<p>syntax:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cfg">vcon = {
+     active = true;
+     type   = &quot;cart&quot;;          # can be also &quot;rad&quot;
+     U      = [1.0, 1.0, 0.0]; # target velocity in transformed spaace
+     log_freq    = 500;
+     adjust_freq = 500;
+     sample_freq = 1;
+};</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -58,14 +141,14 @@
 <p>Mass rate inflow</p>
 </div>
 <div class="sect2">
-<h3 id="_interface">interface</h3>
+<h3 id="_interface_2">interface</h3>
 <div class="paragraph">
 <p>allocate, deallocate:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span class="directive">void</span> ini(int2 nc, Inflow **i);
-<span class="directive">void</span> fin(Inflow *i);</code></pre>
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> ini(int2 nc, Inflow **i);
+<span style="color:#088;font-weight:bold">void</span> fin(Inflow *i);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -73,13 +156,13 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span class="directive">void</span> ini_velocity(Inflow *i);
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> ini_velocity(Inflow *i);
 
-<span class="directive">void</span> ini_params_plate(Coords c, float3 o, <span class="predefined-type">int</span> dir, <span class="predefined-type">float</span> L1, <span class="predefined-type">float</span> L2,
-                      float3 u, <span class="predefined-type">bool</span> upoiseuille, <span class="predefined-type">bool</span> vpoiseuille,
-                      <span class="comment">/**/</span> Inflow *i);
-<span class="directive">void</span> ini_params_circle(Coords c, float3 o, <span class="predefined-type">float</span> R, <span class="predefined-type">float</span> H, <span class="predefined-type">float</span> u, <span class="predefined-type">bool</span> poiseuille,
-                       <span class="comment">/**/</span> Inflow *i);</code></pre>
+<span style="color:#088;font-weight:bold">void</span> ini_params_plate(Coords c, float3 o, <span style="color:#0a8;font-weight:bold">int</span> dir, <span style="color:#0a8;font-weight:bold">float</span> L1, <span style="color:#0a8;font-weight:bold">float</span> L2,
+                      float3 u, <span style="color:#0a8;font-weight:bold">bool</span> upoiseuille, <span style="color:#0a8;font-weight:bold">bool</span> vpoiseuille,
+                      <span style="color:#777">/**/</span> Inflow *i);
+<span style="color:#088;font-weight:bold">void</span> ini_params_circle(Coords c, float3 o, <span style="color:#0a8;font-weight:bold">float</span> R, <span style="color:#0a8;font-weight:bold">float</span> H, <span style="color:#0a8;font-weight:bold">float</span> u, <span style="color:#0a8;font-weight:bold">bool</span> poiseuille,
+                       <span style="color:#777">/**/</span> Inflow *i);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -93,7 +176,7 @@ it is used to setup the inlet velocity from parameters.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span class="directive">void</span> create_pp(Inflow *i, <span class="predefined-type">int</span> *n, Particle *pp);</code></pre>
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> create_pp(Inflow *i, <span style="color:#0a8;font-weight:bold">int</span> *n, Particle *pp);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -101,7 +184,7 @@ it is used to setup the inlet velocity from parameters.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_configuration">configuration</h3>
+<h3 id="_configuration_2">configuration</h3>
 <div class="sect3">
 <h4 id="_circle">circle</h4>
 <div class="paragraph">
