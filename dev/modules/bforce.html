@@ -16,6 +16,16 @@
 <ul class="sectlevel1">
 <li><a href="#_data_structures">data structures</a></li>
 <li><a href="#_interface">interface</a></li>
+<li><a href="#_configuration">configuration</a>
+<ul class="sectlevel2">
+<li><a href="#_none">none</a></li>
+<li><a href="#_constant">constant</a></li>
+<li><a href="#_double_poiseuille">double poiseuille</a></li>
+<li><a href="#_shear">shear</a></li>
+<li><a href="#_4_roller_mill">4 roller mill</a></li>
+<li><a href="#_radial">radial</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -95,8 +105,9 @@ a specific time. It is passed to device kernels.</p>
 <h2 id="_interface">interface</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Host code is responsible for initialisation of <code>BForce</code> and convert
-<code>BForce</code> to a view at a given timestep.</p>
+<p>Host is responsible for initialisation of <code>BForce</code> and convert
+<code>BForce</code> to a view at a given timestep.
+The view version is passed to kernel calls.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -106,6 +117,92 @@ a specific time. It is passed to device kernels.</p>
 
 <span style="color:#088;font-weight:bold">void</span> get_view(<span style="color:#0a8;font-weight:bold">long</span> it, BForce bforce, <span style="color:#777">/**/</span> BForce_v *view);
 <span style="color:#088;font-weight:bold">void</span> body_force(Coords c, <span style="color:#0a8;font-weight:bold">float</span> mass, BForce_v fpar, <span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> Particle *pp, <span style="color:#777">/**/</span> Force *ff);</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuration">configuration</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_none">none</h3>
+<div class="paragraph">
+<p>no body force (default value)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cfg">bforce {
+    type = &quot;none&quot;;
+};</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_constant">constant</h3>
+<div class="paragraph">
+<p>constant force</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cfg">bforce {
+    type = &quot;constant&quot;;
+    f    = [1.0, 0.0, 0.0];
+};</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_double_poiseuille">double poiseuille</h3>
+<div class="paragraph">
+<p><code>fx = y &gt; yc ? a : -a</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cfg">bforce {
+    type = &quot;double_poiseuille&quot;;
+    a    = 1.0;
+};</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_shear">shear</h3>
+<div class="paragraph">
+<p><code>fx = a * (y - yc)</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cfg">bforce {
+    type = &quot;shear&quot;;
+    a    = 1.0;
+};</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_4_roller_mill">4 roller mill</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cfg">bforce {
+    type = &quot;four_roller&quot;;
+    a    = 1.0;
+};</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_radial">radial</h3>
+<div class="paragraph">
+<p><code>fr = a * er / r</code>, where <code>fr</code> is radial force, <code>er</code> is unit radial
+vector at position <code>r</code> and <code>r</code> is radial position.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cfg">bforce {
+    type = &quot;rad&quot;;
+    a    = 1.0;
+};</code></pre>
+</div>
 </div>
 </div>
 </div>
