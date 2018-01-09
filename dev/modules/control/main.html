@@ -186,23 +186,42 @@ it is used to setup the inlet velocity from parameters.</p>
 <div class="sect2">
 <h3 id="_configuration_2">configuration</h3>
 <div class="sect3">
+<h4 id="_plate">plate</h4>
+<div class="paragraph">
+<p>syntax for a <code>8.0 x 16.0</code> plate perpendicular to the x axis passing by
+the point <code>(1, 2, 3)</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cfg">inflow = {
+    active      = true;
+    type        = &quot;plate&quot;;
+    L1          = 1.0;
+    L2          = 16.0;
+    direction   = 0;                # [0,1,2] = [X,Y,Z]
+    origin      = [1.0, 2.0, 3.0];
+    upoiseuille = false;            # true for parabolic profile along L1
+    vpoiseuille = false;            # true for parabolic profile along L2
+    u           = [10.0, 0.0, 0.0];
+};</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
 <h4 id="_circle">circle</h4>
 <div class="paragraph">
-<p>cylinder inflow</p>
-</div>
-<div class="paragraph">
-<p>example:</p>
+<p>syntax for cylinder:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="cfg">inflow = {
     active = true;
     type   = &quot;circle&quot;;
-    R      = 1.0;
-    H      = 16.0;
-    U      = 1.0;
+    R      = 1.0;              # radius
+    H      = 16.0;             # hight of the cylinder
+    U      = 1.0;              # maximum velocity
     center = [8.0, 8.0, 8.0];
-    poiseuille = false;
+    poiseuille = false;        # parabolic profile along H if true
 };</code></pre>
 </div>
 </div>
