@@ -7,7 +7,6 @@
 <meta name="generator" content="Asciidoctor 1.5.6.1">
 <title>parser</title>
 <link rel="stylesheet" href="/udoc/css/main.css">
-<link rel="stylesheet" href="./coderay-asciidoctor.css">
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
@@ -61,14 +60,14 @@ If no source contains the parmeter, an error is raised.</p>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="c++"><span class="keyword">enum</span> {
-    ARG, <span class="comment">/* from arguments       */</span>
-    OPT, <span class="comment">/* from additional file */</span>
-    DEF, <span class="comment">/* from default file    */</span>
+<pre class="CodeRay highlight"><code data-lang="c++"><span style="color:#080;font-weight:bold">enum</span> {
+    ARG, <span style="color:#777">/* from arguments       */</span>
+    OPT, <span style="color:#777">/* from additional file */</span>
+    DEF, <span style="color:#777">/* from default file    */</span>
     NCFG
 };
 
-<span class="keyword">struct</span> Config {
+<span style="color:#080;font-weight:bold">struct</span> Config {
     config_t c[NCFG];
 };</code></pre>
 </div>
@@ -89,8 +88,8 @@ priority etc.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="c++"><span class="directive">void</span> conf_ini(<span class="comment">/**/</span> Config **c);
-<span class="directive">void</span> conf_destroy(<span class="comment">/**/</span> Config *c);</code></pre>
+<pre class="CodeRay highlight"><code data-lang="c++"><span style="color:#088;font-weight:bold">void</span> conf_ini(<span style="color:#777">/**/</span> Config **c);
+<span style="color:#088;font-weight:bold">void</span> conf_destroy(<span style="color:#777">/**/</span> Config *c);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -98,7 +97,7 @@ priority etc.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="c++"><span class="directive">void</span> conf_read(<span class="predefined-type">int</span> argc, <span class="predefined-type">char</span> **argv, <span class="comment">/**/</span> Config *cfg);</code></pre>
+<pre class="CodeRay highlight"><code data-lang="c++"><span style="color:#088;font-weight:bold">void</span> conf_read(<span style="color:#0a8;font-weight:bold">int</span> argc, <span style="color:#0a8;font-weight:bold">char</span> **argv, <span style="color:#777">/**/</span> Config *cfg);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -106,12 +105,13 @@ priority etc.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="c++"><span class="directive">void</span> conf_lookup_int(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="predefined-type">int</span> *a);
-<span class="directive">void</span> conf_lookup_float(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="predefined-type">float</span> *a);
-<span class="directive">void</span> conf_lookup_bool(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="predefined-type">int</span> *a);
-<span class="directive">void</span> conf_lookup_string(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="directive">const</span> <span class="predefined-type">char</span> **a);
-<span class="directive">void</span> conf_lookup_vint(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="predefined-type">int</span> *n, <span class="predefined-type">int</span> a[]);
-<span class="directive">void</span> conf_lookup_vfloat(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="predefined-type">int</span> *n, <span class="predefined-type">float</span> a[]);</code></pre>
+<pre class="CodeRay highlight"><code data-lang="c++"><span style="color:#088;font-weight:bold">void</span> conf_lookup_int(<span style="color:#088;font-weight:bold">const</span> Config *c, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">char</span> *desc, <span style="color:#0a8;font-weight:bold">int</span> *a);
+<span style="color:#088;font-weight:bold">void</span> conf_lookup_float(<span style="color:#088;font-weight:bold">const</span> Config *c, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">char</span> *desc, <span style="color:#0a8;font-weight:bold">float</span> *a);
+<span style="color:#088;font-weight:bold">void</span> conf_lookup_bool(<span style="color:#088;font-weight:bold">const</span> Config *c, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">char</span> *desc, <span style="color:#0a8;font-weight:bold">int</span> *a);
+<span style="color:#088;font-weight:bold">void</span> conf_lookup_string(<span style="color:#088;font-weight:bold">const</span> Config *c, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">char</span> *desc, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">char</span> **a);
+<span style="color:#088;font-weight:bold">void</span> conf_lookup_vint(<span style="color:#088;font-weight:bold">const</span> Config *c, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">char</span> *desc, <span style="color:#0a8;font-weight:bold">int</span> *n, <span style="color:#0a8;font-weight:bold">int</span> a[]);
+<span style="color:#088;font-weight:bold">void</span> conf_lookup_vfloat(<span style="color:#088;font-weight:bold">const</span> Config *c, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">char</span> *desc, <span style="color:#0a8;font-weight:bold">int</span> *n, <span style="color:#0a8;font-weight:bold">float</span> a[]);
+<span style="color:#088;font-weight:bold">void</span> conf_lookup_float3(<span style="color:#088;font-weight:bold">const</span> Config *c, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">char</span> *desc, float3 *a);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -122,12 +122,13 @@ priority etc.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="c++"><span class="predefined-type">bool</span> conf_opt_int(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="predefined-type">int</span> *a);
-<span class="predefined-type">bool</span> conf_opt_float(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="predefined-type">float</span> *a);
-<span class="predefined-type">bool</span> conf_opt_bool(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="predefined-type">int</span> *a);
-<span class="predefined-type">bool</span> conf_opt_string(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="directive">const</span> <span class="predefined-type">char</span> **a);
-<span class="predefined-type">bool</span> conf_opt_vint(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="predefined-type">int</span> *n, <span class="predefined-type">int</span> a[]);
-<span class="predefined-type">bool</span> conf_opt_vfloat(<span class="directive">const</span> Config *c, <span class="directive">const</span> <span class="predefined-type">char</span> *desc, <span class="predefined-type">int</span> *n, <span class="predefined-type">float</span> a[]);</code></pre>
+<pre class="CodeRay highlight"><code data-lang="c++"><span style="color:#0a8;font-weight:bold">bool</span> conf_opt_int(<span style="color:#088;font-weight:bold">const</span> Config *c, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">char</span> *desc, <span style="color:#0a8;font-weight:bold">int</span> *a);
+<span style="color:#0a8;font-weight:bold">bool</span> conf_opt_float(<span style="color:#088;font-weight:bold">const</span> Config *c, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">char</span> *desc, <span style="color:#0a8;font-weight:bold">float</span> *a);
+<span style="color:#0a8;font-weight:bold">bool</span> conf_opt_bool(<span style="color:#088;font-weight:bold">const</span> Config *c, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">char</span> *desc, <span style="color:#0a8;font-weight:bold">int</span> *a);
+<span style="color:#0a8;font-weight:bold">bool</span> conf_opt_string(<span style="color:#088;font-weight:bold">const</span> Config *c, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">char</span> *desc, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">char</span> **a);
+<span style="color:#0a8;font-weight:bold">bool</span> conf_opt_vint(<span style="color:#088;font-weight:bold">const</span> Config *c, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">char</span> *desc, <span style="color:#0a8;font-weight:bold">int</span> *n, <span style="color:#0a8;font-weight:bold">int</span> a[]);
+<span style="color:#0a8;font-weight:bold">bool</span> conf_opt_vfloat(<span style="color:#088;font-weight:bold">const</span> Config *c, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">char</span> *desc, <span style="color:#0a8;font-weight:bold">int</span> *n, <span style="color:#0a8;font-weight:bold">float</span> a[]);
+<span style="color:#0a8;font-weight:bold">bool</span> conf_opt_float3(<span style="color:#088;font-weight:bold">const</span> Config *c, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">char</span> *desc, float3 *a);</code></pre>
 </div>
 </div>
 <div class="paragraph">

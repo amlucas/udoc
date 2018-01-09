@@ -7,7 +7,6 @@
 <meta name="generator" content="Asciidoctor 1.5.6.1">
 <title>body forces</title>
 <link rel="stylesheet" href="/udoc/css/main.css">
-<link rel="stylesheet" href="./coderay-asciidoctor.css">
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
@@ -51,29 +50,29 @@ a specific time. It is passed to device kernels.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="c++"><span class="comment">/* constant force f */</span>
-<span class="keyword">struct</span> BForce_cste {
-    float3 a; <span class="comment">// acceleration vector</span>
+<pre class="CodeRay highlight"><code data-lang="c++"><span style="color:#777">/* constant force f */</span>
+<span style="color:#080;font-weight:bold">struct</span> BForce_cste {
+    float3 a; <span style="color:#777">// acceleration vector</span>
 };
 
-<span class="comment">/* double poiseuille */</span>
-<span class="keyword">struct</span> BForce_dp {
-    <span class="predefined-type">float</span> a; <span class="comment">// acceleration in x direction</span>
+<span style="color:#777">/* double poiseuille */</span>
+<span style="color:#080;font-weight:bold">struct</span> BForce_dp {
+    <span style="color:#0a8;font-weight:bold">float</span> a; <span style="color:#777">// acceleration in x direction</span>
 };
 
-<span class="comment">/* shear force fx = a * (y - yc) */</span>
-<span class="keyword">struct</span> BForce_shear {
-    <span class="predefined-type">float</span> a; <span class="comment">// acceleration is a * y in x direction</span>
+<span style="color:#777">/* shear force fx = a * (y - yc) */</span>
+<span style="color:#080;font-weight:bold">struct</span> BForce_shear {
+    <span style="color:#0a8;font-weight:bold">float</span> a; <span style="color:#777">// acceleration is a * y in x direction</span>
 };
 
-<span class="comment">/* 4 rollers mill */</span>
-<span class="keyword">struct</span> BForce_rol {
-    <span class="predefined-type">float</span> a;  <span class="comment">// intensity of the acceleration</span>
+<span style="color:#777">/* 4 rollers mill */</span>
+<span style="color:#080;font-weight:bold">struct</span> BForce_rol {
+    <span style="color:#0a8;font-weight:bold">float</span> a;  <span style="color:#777">// intensity of the acceleration</span>
 };
 
-<span class="comment">/* radial force decaying as 1/r */</span>
-<span class="keyword">struct</span> BForce_rad {
-    <span class="predefined-type">float</span> a; <span class="comment">// radial acceleartion is a / r</span>
+<span style="color:#777">/* radial force decaying as 1/r */</span>
+<span style="color:#080;font-weight:bold">struct</span> BForce_rad {
+    <span style="color:#0a8;font-weight:bold">float</span> a; <span style="color:#777">// radial acceleartion is a / r</span>
 };</code></pre>
 </div>
 </div>
@@ -82,12 +81,12 @@ a specific time. It is passed to device kernels.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="c++"><span class="directive">void</span> ini_none(<span class="comment">/**/</span> BForce *p);
-<span class="directive">void</span> ini(BForce_cste par, <span class="comment">/**/</span> BForce *p);
-<span class="directive">void</span> ini(BForce_dp par, <span class="comment">/**/</span> BForce *p);
-<span class="directive">void</span> ini(BForce_shear par, <span class="comment">/**/</span> BForce *p);
-<span class="directive">void</span> ini(BForce_rol par, <span class="comment">/**/</span> BForce *p);
-<span class="directive">void</span> ini(BForce_rad par, <span class="comment">/**/</span> BForce *p);</code></pre>
+<pre class="CodeRay highlight"><code data-lang="c++"><span style="color:#088;font-weight:bold">void</span> ini_none(<span style="color:#777">/**/</span> BForce *p);
+<span style="color:#088;font-weight:bold">void</span> ini(BForce_cste par, <span style="color:#777">/**/</span> BForce *p);
+<span style="color:#088;font-weight:bold">void</span> ini(BForce_dp par, <span style="color:#777">/**/</span> BForce *p);
+<span style="color:#088;font-weight:bold">void</span> ini(BForce_shear par, <span style="color:#777">/**/</span> BForce *p);
+<span style="color:#088;font-weight:bold">void</span> ini(BForce_rol par, <span style="color:#777">/**/</span> BForce *p);
+<span style="color:#088;font-weight:bold">void</span> ini(BForce_rad par, <span style="color:#777">/**/</span> BForce *p);</code></pre>
 </div>
 </div>
 </div>
@@ -101,12 +100,12 @@ a specific time. It is passed to device kernels.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="c++"><span class="comment">/* TODO not polymorphic for now   */</span>
-<span class="comment">/* related to velocity controller */</span>
-<span class="directive">void</span> adjust(float3 f, <span class="comment">/**/</span> BForce *fpar);
+<pre class="CodeRay highlight"><code data-lang="c++"><span style="color:#777">/* TODO not polymorphic for now   */</span>
+<span style="color:#777">/* related to velocity controller */</span>
+<span style="color:#088;font-weight:bold">void</span> adjust(float3 f, <span style="color:#777">/**/</span> BForce *fpar);
 
-<span class="directive">void</span> get_view(<span class="predefined-type">long</span> it, BForce bforce, <span class="comment">/**/</span> BForce_v *view);
-<span class="directive">void</span> body_force(Coords c, <span class="predefined-type">float</span> mass, BForce_v fpar, <span class="predefined-type">int</span> n, <span class="directive">const</span> Particle *pp, <span class="comment">/**/</span> Force *ff);</code></pre>
+<span style="color:#088;font-weight:bold">void</span> get_view(<span style="color:#0a8;font-weight:bold">long</span> it, BForce bforce, <span style="color:#777">/**/</span> BForce_v *view);
+<span style="color:#088;font-weight:bold">void</span> body_force(Coords c, <span style="color:#0a8;font-weight:bold">float</span> mass, BForce_v fpar, <span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> Particle *pp, <span style="color:#777">/**/</span> Force *ff);</code></pre>
 </div>
 </div>
 </div>

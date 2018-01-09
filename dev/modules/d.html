@@ -7,7 +7,6 @@
 <meta name="generator" content="Asciidoctor 1.5.6.1">
 <title>generic [d]evice API</title>
 <link rel="stylesheet" href="/udoc/css/main.css">
-<link rel="stylesheet" href="./coderay-asciidoctor.css">
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
@@ -37,26 +36,26 @@ they can be replaced by CPU calls.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span class="keyword">namespace</span> d {  <span class="comment">/* a wrapper for device API */</span>
-<span class="keyword">typedef</span> <span class="predefined-type">int</span> Stream_t; <span class="comment">/* TODO: streams are not supported */</span>
-<span class="keyword">enum</span> {MemcpyHostToHost, MemcpyHostToDevice, MemcpyDeviceToHost, MemcpyDeviceToDevice, MemcpyDefault};
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#080;font-weight:bold">namespace</span> d {  <span style="color:#777">/* a wrapper for device API */</span>
+<span style="color:#080;font-weight:bold">typedef</span> <span style="color:#0a8;font-weight:bold">int</span> Stream_t; <span style="color:#777">/* TODO: streams are not supported */</span>
+<span style="color:#080;font-weight:bold">enum</span> {MemcpyHostToHost, MemcpyHostToDevice, MemcpyDeviceToHost, MemcpyDeviceToDevice, MemcpyDefault};
 
-<span class="predefined-type">int</span> ini();
-<span class="directive">const</span> <span class="predefined-type">char</span> *emsg(); <span class="comment">/* last error message */</span>
-<span class="predefined-type">int</span> alloc_pinned(<span class="directive">void</span> **pHost, size_t size);
+<span style="color:#0a8;font-weight:bold">int</span> ini();
+<span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">char</span> *emsg(); <span style="color:#777">/* last error message */</span>
+<span style="color:#0a8;font-weight:bold">int</span> alloc_pinned(<span style="color:#088;font-weight:bold">void</span> **pHost, size_t size);
 
-<span class="predefined-type">int</span> Malloc(<span class="directive">void</span> **p, size_t);
-<span class="predefined-type">int</span> MemcpyToSymbol(<span class="directive">const</span> <span class="directive">void</span> *symbol, <span class="directive">const</span> <span class="directive">void</span> *src, size_t count, size_t offset=<span class="integer">0</span>, <span class="predefined-type">int</span> kind=MemcpyHostToDevice);
-<span class="predefined-type">int</span> MemcpyFromSymbol(<span class="directive">void</span> *dst, <span class="directive">const</span> <span class="directive">void</span> *symbol, size_t count, size_t offset=<span class="integer">0</span>, <span class="predefined-type">int</span> kind=MemcpyDeviceToHost);
-<span class="predefined-type">int</span> HostGetDevicePointer(<span class="directive">void</span> **pDevice, <span class="directive">void</span> *pHost, <span class="predefined-type">unsigned</span> <span class="predefined-type">int</span> flags);
-<span class="predefined-type">int</span> Memcpy (<span class="directive">void</span> *dst, <span class="directive">const</span> <span class="directive">void</span> *src, size_t count, <span class="predefined-type">int</span> kind);
-<span class="predefined-type">int</span> MemsetAsync (<span class="directive">void</span> *devPtr, <span class="predefined-type">int</span> value, size_t count, Stream_t stream=<span class="integer">0</span>);
-<span class="predefined-type">int</span> Memset (<span class="directive">void</span> *devPtr, <span class="predefined-type">int</span> value, size_t count);
-<span class="predefined-type">int</span> MemcpyAsync (<span class="directive">void</span> * dst, <span class="directive">const</span> <span class="directive">void</span> * src, size_t count, <span class="predefined-type">int</span> kind, Stream_t stream = <span class="integer">0</span>);
-<span class="predefined-type">int</span> Free (<span class="directive">void</span> *devPtr);
-<span class="predefined-type">int</span> FreeHost (<span class="directive">void</span> *hstPtr);
-<span class="predefined-type">int</span> DeviceSynchronize (<span class="directive">void</span>);
-<span class="predefined-type">int</span> PeekAtLastError(<span class="directive">void</span>);
+<span style="color:#0a8;font-weight:bold">int</span> Malloc(<span style="color:#088;font-weight:bold">void</span> **p, size_t);
+<span style="color:#0a8;font-weight:bold">int</span> MemcpyToSymbol(<span style="color:#088;font-weight:bold">const</span> <span style="color:#088;font-weight:bold">void</span> *symbol, <span style="color:#088;font-weight:bold">const</span> <span style="color:#088;font-weight:bold">void</span> *src, size_t count, size_t offset=<span style="color:#00D">0</span>, <span style="color:#0a8;font-weight:bold">int</span> kind=MemcpyHostToDevice);
+<span style="color:#0a8;font-weight:bold">int</span> MemcpyFromSymbol(<span style="color:#088;font-weight:bold">void</span> *dst, <span style="color:#088;font-weight:bold">const</span> <span style="color:#088;font-weight:bold">void</span> *symbol, size_t count, size_t offset=<span style="color:#00D">0</span>, <span style="color:#0a8;font-weight:bold">int</span> kind=MemcpyDeviceToHost);
+<span style="color:#0a8;font-weight:bold">int</span> HostGetDevicePointer(<span style="color:#088;font-weight:bold">void</span> **pDevice, <span style="color:#088;font-weight:bold">void</span> *pHost, <span style="color:#0a8;font-weight:bold">unsigned</span> <span style="color:#0a8;font-weight:bold">int</span> flags);
+<span style="color:#0a8;font-weight:bold">int</span> Memcpy (<span style="color:#088;font-weight:bold">void</span> *dst, <span style="color:#088;font-weight:bold">const</span> <span style="color:#088;font-weight:bold">void</span> *src, size_t count, <span style="color:#0a8;font-weight:bold">int</span> kind);
+<span style="color:#0a8;font-weight:bold">int</span> MemsetAsync (<span style="color:#088;font-weight:bold">void</span> *devPtr, <span style="color:#0a8;font-weight:bold">int</span> value, size_t count, Stream_t stream=<span style="color:#00D">0</span>);
+<span style="color:#0a8;font-weight:bold">int</span> Memset (<span style="color:#088;font-weight:bold">void</span> *devPtr, <span style="color:#0a8;font-weight:bold">int</span> value, size_t count);
+<span style="color:#0a8;font-weight:bold">int</span> MemcpyAsync (<span style="color:#088;font-weight:bold">void</span> * dst, <span style="color:#088;font-weight:bold">const</span> <span style="color:#088;font-weight:bold">void</span> * src, size_t count, <span style="color:#0a8;font-weight:bold">int</span> kind, Stream_t stream = <span style="color:#00D">0</span>);
+<span style="color:#0a8;font-weight:bold">int</span> Free (<span style="color:#088;font-weight:bold">void</span> *devPtr);
+<span style="color:#0a8;font-weight:bold">int</span> FreeHost (<span style="color:#088;font-weight:bold">void</span> *hstPtr);
+<span style="color:#0a8;font-weight:bold">int</span> DeviceSynchronize (<span style="color:#088;font-weight:bold">void</span>);
+<span style="color:#0a8;font-weight:bold">int</span> PeekAtLastError(<span style="color:#088;font-weight:bold">void</span>);
 }</code></pre>
 </div>
 </div>

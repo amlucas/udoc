@@ -7,7 +7,6 @@
 <meta name="generator" content="Asciidoctor 1.5.6.1">
 <title>Math</title>
 <link rel="stylesheet" href="/udoc/css/main.css">
-<link rel="stylesheet" href="./coderay-asciidoctor.css">
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
@@ -51,8 +50,8 @@
 <h3 id="_interface">interface</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span class="comment">/* invert symmetric matrix m0[6] */</span>
-<span class="directive">void</span> linal_inv3x3(<span class="directive">const</span> <span class="predefined-type">float</span> *m0, <span class="comment">/**/</span> <span class="predefined-type">float</span> *minv0); <b class="conum">(1)</b></code></pre>
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#777">/* invert symmetric matrix m0[6] */</span>
+<span style="color:#088;font-weight:bold">void</span> linal_inv3x3(<span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">float</span> *m0, <span style="color:#777">/**/</span> <span style="color:#0a8;font-weight:bold">float</span> *minv0); <b class="conum">(1)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -87,10 +86,10 @@ A =  ( xy yy yz)
 <h3 id="_interface_2">interface</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span class="keyword">struct</span> RNDunif;                                             <b class="conum">(1)</b>
-<span class="directive">void</span> rnd_ini(<span class="predefined-type">int</span> x, <span class="predefined-type">int</span> y, <span class="predefined-type">int</span> z, <span class="predefined-type">int</span> c, <span class="comment">/**/</span> RNDunif **r); <b class="conum">(2)</b>
-<span class="directive">void</span> rnd_fin(RNDunif *r);                                   <b class="conum">(3)</b>
-<span class="predefined-type">float</span> rnd_get(RNDunif *r);                                  <b class="conum">(4)</b></code></pre>
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#080;font-weight:bold">struct</span> RNDunif;                                             <b class="conum">(1)</b>
+<span style="color:#088;font-weight:bold">void</span> rnd_ini(<span style="color:#0a8;font-weight:bold">int</span> x, <span style="color:#0a8;font-weight:bold">int</span> y, <span style="color:#0a8;font-weight:bold">int</span> z, <span style="color:#0a8;font-weight:bold">int</span> c, <span style="color:#777">/**/</span> RNDunif **r); <b class="conum">(2)</b>
+<span style="color:#088;font-weight:bold">void</span> rnd_fin(RNDunif *r);                                   <b class="conum">(3)</b>
+<span style="color:#0a8;font-weight:bold">float</span> rnd_get(RNDunif *r);                                  <b class="conum">(4)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -119,23 +118,23 @@ A =  ( xy yy yz)
 <h3 id="_interface_3">interface</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span class="directive">void</span> tform_ini(Tform**); <span class="comment">// &lt;I&gt;</span>
-<span class="directive">void</span> tform_fin(Tform*);
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> tform_ini(Tform**); <span style="color:#777">// &lt;I&gt;</span>
+<span style="color:#088;font-weight:bold">void</span> tform_fin(Tform*);
 
-<span class="directive">void</span> tform_vector(<span class="directive">const</span> <span class="predefined-type">float</span> a0[<span class="integer">3</span>], <span class="directive">const</span> <span class="predefined-type">float</span> a1[<span class="integer">3</span>],   <span class="directive">const</span> <span class="predefined-type">float</span> b0[<span class="integer">3</span>], <span class="directive">const</span> <span class="predefined-type">float</span> b1[<span class="integer">3</span>], <span class="comment">/**/</span> Tform*); <span class="comment">// &lt;C&gt;</span>
-<span class="directive">void</span> tform_chain(Tform*, Tform*, <span class="comment">/**/</span> Tform*);
-<span class="directive">void</span> tform_grid2grid(<span class="directive">const</span> <span class="predefined-type">float</span> f_lo[<span class="integer">3</span>], <span class="directive">const</span> <span class="predefined-type">float</span> f_hi[<span class="integer">3</span>], <span class="directive">const</span> <span class="predefined-type">int</span> f_n[<span class="integer">3</span>],
-                     <span class="directive">const</span> <span class="predefined-type">float</span> t_lo[<span class="integer">3</span>], <span class="directive">const</span> <span class="predefined-type">float</span> t_hi[<span class="integer">3</span>], <span class="directive">const</span> <span class="predefined-type">int</span> t_n[<span class="integer">3</span>], <span class="comment">/**/</span>
+<span style="color:#088;font-weight:bold">void</span> tform_vector(<span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">float</span> a0[<span style="color:#00D">3</span>], <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">float</span> a1[<span style="color:#00D">3</span>],   <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">float</span> b0[<span style="color:#00D">3</span>], <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">float</span> b1[<span style="color:#00D">3</span>], <span style="color:#777">/**/</span> Tform*); <span style="color:#777">// &lt;C&gt;</span>
+<span style="color:#088;font-weight:bold">void</span> tform_chain(Tform*, Tform*, <span style="color:#777">/**/</span> Tform*);
+<span style="color:#088;font-weight:bold">void</span> tform_grid2grid(<span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">float</span> f_lo[<span style="color:#00D">3</span>], <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">float</span> f_hi[<span style="color:#00D">3</span>], <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> f_n[<span style="color:#00D">3</span>],
+                     <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">float</span> t_lo[<span style="color:#00D">3</span>], <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">float</span> t_hi[<span style="color:#00D">3</span>], <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> t_n[<span style="color:#00D">3</span>], <span style="color:#777">/**/</span>
                      Tform*);
-<span class="directive">void</span> tform_to_grid(<span class="directive">const</span> <span class="predefined-type">float</span> a0[<span class="integer">3</span>], <span class="directive">const</span> <span class="predefined-type">float</span> b0[<span class="integer">3</span>], <span class="directive">const</span> <span class="predefined-type">int</span> n[<span class="integer">3</span>], <span class="comment">/**/</span> Tform*);
-<span class="directive">void</span> tform_from_grid(<span class="directive">const</span> <span class="predefined-type">float</span> a0[<span class="integer">3</span>], <span class="directive">const</span> <span class="predefined-type">float</span> b0[<span class="integer">3</span>], <span class="directive">const</span> <span class="predefined-type">int</span> n[<span class="integer">3</span>], <span class="comment">/**/</span> Tform*);
+<span style="color:#088;font-weight:bold">void</span> tform_to_grid(<span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">float</span> a0[<span style="color:#00D">3</span>], <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">float</span> b0[<span style="color:#00D">3</span>], <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> n[<span style="color:#00D">3</span>], <span style="color:#777">/**/</span> Tform*);
+<span style="color:#088;font-weight:bold">void</span> tform_from_grid(<span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">float</span> a0[<span style="color:#00D">3</span>], <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">float</span> b0[<span style="color:#00D">3</span>], <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> n[<span style="color:#00D">3</span>], <span style="color:#777">/**/</span> Tform*);
 
-<span class="directive">void</span> tform_convert(Tform*, <span class="directive">const</span> <span class="predefined-type">float</span> a0[<span class="integer">3</span>], <span class="comment">/**/</span> <span class="predefined-type">float</span> a1[<span class="integer">3</span>]); <span class="comment">// &lt;U&gt;</span>
+<span style="color:#088;font-weight:bold">void</span> tform_convert(Tform*, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">float</span> a0[<span style="color:#00D">3</span>], <span style="color:#777">/**/</span> <span style="color:#0a8;font-weight:bold">float</span> a1[<span style="color:#00D">3</span>]); <span style="color:#777">// &lt;U&gt;</span>
 
-<span class="directive">void</span> tform_to_view(Tform*, <span class="comment">/**/</span> Tform_v*); <span class="comment">// &lt;V&gt;</span>
+<span style="color:#088;font-weight:bold">void</span> tform_to_view(Tform*, <span style="color:#777">/**/</span> Tform_v*); <span style="color:#777">// &lt;V&gt;</span>
 
-<span class="directive">void</span> tform_log(Tform*); <span class="comment">// &lt;L&gt;</span>
-<span class="directive">void</span> tform_dump(Tform*, FILE*);</code></pre>
+<span style="color:#088;font-weight:bold">void</span> tform_log(Tform*); <span style="color:#777">// &lt;L&gt;</span>
+<span style="color:#088;font-weight:bold">void</span> tform_dump(Tform*, FILE*);</code></pre>
 </div>
 </div>
 <div class="paragraph">

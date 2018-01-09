@@ -7,7 +7,6 @@
 <meta name="generator" content="Asciidoctor 1.5.6.1">
 <title>scan</title>
 <link rel="stylesheet" href="/udoc/css/main.css">
-<link rel="stylesheet" href="./coderay-asciidoctor.css">
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
@@ -43,9 +42,9 @@ output: 0 4 9 10 12 15</pre>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span class="keyword">struct</span> Work {
-    <span class="predefined-type">unsigned</span> <span class="predefined-type">int</span>  *tmp;
-    <span class="predefined-type">unsigned</span> <span class="predefined-type">char</span> *compressed;
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#080;font-weight:bold">struct</span> Work {
+    <span style="color:#0a8;font-weight:bold">unsigned</span> <span style="color:#0a8;font-weight:bold">int</span>  *tmp;
+    <span style="color:#0a8;font-weight:bold">unsigned</span> <span style="color:#0a8;font-weight:bold">char</span> *compressed;
 };</code></pre>
 </div>
 </div>
@@ -59,10 +58,10 @@ output: 0 4 9 10 12 15</pre>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span class="directive">void</span> scan(<span class="directive">const</span> <span class="predefined-type">int</span> *input, <span class="predefined-type">int</span> size, <span class="comment">/**/</span> <span class="predefined-type">int</span> *output, <span class="comment">/*w*/</span> Work *w); <b class="conum">(1)</b>
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> scan(<span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> *input, <span style="color:#0a8;font-weight:bold">int</span> size, <span style="color:#777">/**/</span> <span style="color:#0a8;font-weight:bold">int</span> *output, <span style="color:#777">/*w*/</span> Work *w); <b class="conum">(1)</b>
 
-<span class="directive">void</span> alloc_work(<span class="predefined-type">int</span> size, <span class="comment">/**/</span> Work *w);                                <b class="conum">(2)</b>
-<span class="directive">void</span> free_work(<span class="comment">/**/</span> Work *w);                                           <b class="conum">(3)</b></code></pre>
+<span style="color:#088;font-weight:bold">void</span> alloc_work(<span style="color:#0a8;font-weight:bold">int</span> size, <span style="color:#777">/**/</span> Work *w);                                <b class="conum">(2)</b>
+<span style="color:#088;font-weight:bold">void</span> free_work(<span style="color:#777">/**/</span> Work *w);                                           <b class="conum">(3)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">

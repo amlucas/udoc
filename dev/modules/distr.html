@@ -7,7 +7,6 @@
 <meta name="generator" content="Asciidoctor 1.5.6.1">
 <title>distr</title>
 <link rel="stylesheet" href="/udoc/css/main.css">
-<link rel="stylesheet" href="./coderay-asciidoctor.css">
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
@@ -92,13 +91,13 @@ arrays is implemented as:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span class="comment">/* [D]istr Map */</span>
-<span class="keyword">struct</span> DMap {
-    <span class="predefined-type">int</span> *counts;  <span class="comment">/* number of entities leaving in each fragment */</span>
-    <span class="predefined-type">int</span> *starts;  <span class="comment">/* cumulative sum of the above                 */</span>
-    <span class="predefined-type">int</span> *ids[<span class="integer">27</span>]; <span class="comment">/* indices of leaving objects                  */</span>
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#777">/* [D]istr Map */</span>
+<span style="color:#080;font-weight:bold">struct</span> DMap {
+    <span style="color:#0a8;font-weight:bold">int</span> *counts;  <span style="color:#777">/* number of entities leaving in each fragment */</span>
+    <span style="color:#0a8;font-weight:bold">int</span> *starts;  <span style="color:#777">/* cumulative sum of the above                 */</span>
+    <span style="color:#0a8;font-weight:bold">int</span> *ids[<span style="color:#00D">27</span>]; <span style="color:#777">/* indices of leaving objects                  */</span>
 
-    <span class="predefined-type">int</span> *hcounts; <span class="comment">/* counts on host (pinned) */</span>
+    <span style="color:#0a8;font-weight:bold">int</span> *hcounts; <span style="color:#777">/* counts on host (pinned) */</span>
 };</code></pre>
 </div>
 </div>
@@ -113,14 +112,14 @@ arrays is implemented as:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span class="directive">void</span> dmap_ini(<span class="predefined-type">int</span> nfrags, <span class="directive">const</span> <span class="predefined-type">int</span> capacity[], <span class="comment">/**/</span> DMap *m);
-<span class="directive">void</span> dmap_fin(<span class="predefined-type">int</span> nfrags, <span class="comment">/**/</span> DMap *m);
-<span class="directive">void</span> dmap_reini(<span class="predefined-type">int</span> nfrags, <span class="comment">/**/</span> DMap m);
-<span class="directive">void</span> dmap_download_counts(<span class="predefined-type">int</span> nfrags, <span class="comment">/**/</span> DMap *m);
-<span class="directive">void</span> dmap_ini_host(<span class="predefined-type">int</span> nfrags, <span class="directive">const</span> <span class="predefined-type">int</span> capacity[], <span class="comment">/**/</span> DMap *m);
-<span class="directive">void</span> dmap_fin_host(<span class="predefined-type">int</span> nfrags, <span class="comment">/**/</span> DMap *m);
-<span class="directive">void</span> dmap_reini_host(<span class="predefined-type">int</span> nfrags, <span class="comment">/**/</span> DMap m);
-<span class="directive">void</span> dmap_D2H(<span class="predefined-type">int</span> nfrags, <span class="directive">const</span> DMap *d, <span class="comment">/**/</span> DMap *h);</code></pre>
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> dmap_ini(<span style="color:#0a8;font-weight:bold">int</span> nfrags, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> capacity[], <span style="color:#777">/**/</span> DMap *m);
+<span style="color:#088;font-weight:bold">void</span> dmap_fin(<span style="color:#0a8;font-weight:bold">int</span> nfrags, <span style="color:#777">/**/</span> DMap *m);
+<span style="color:#088;font-weight:bold">void</span> dmap_reini(<span style="color:#0a8;font-weight:bold">int</span> nfrags, <span style="color:#777">/**/</span> DMap m);
+<span style="color:#088;font-weight:bold">void</span> dmap_download_counts(<span style="color:#0a8;font-weight:bold">int</span> nfrags, <span style="color:#777">/**/</span> DMap *m);
+<span style="color:#088;font-weight:bold">void</span> dmap_ini_host(<span style="color:#0a8;font-weight:bold">int</span> nfrags, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> capacity[], <span style="color:#777">/**/</span> DMap *m);
+<span style="color:#088;font-weight:bold">void</span> dmap_fin_host(<span style="color:#0a8;font-weight:bold">int</span> nfrags, <span style="color:#777">/**/</span> DMap *m);
+<span style="color:#088;font-weight:bold">void</span> dmap_reini_host(<span style="color:#0a8;font-weight:bold">int</span> nfrags, <span style="color:#777">/**/</span> DMap m);
+<span style="color:#088;font-weight:bold">void</span> dmap_D2H(<span style="color:#0a8;font-weight:bold">int</span> nfrags, <span style="color:#088;font-weight:bold">const</span> DMap *d, <span style="color:#777">/**/</span> DMap *h);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -128,11 +127,11 @@ arrays is implemented as:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span class="comment">/* exclusive scan */</span>
-<span class="keyword">template</span> &lt;<span class="predefined-type">int</span> NCOUNTS&gt;
-<span class="directive">static</span> __global__ <span class="directive">void</span> dmap_scan(<span class="comment">/**/</span> DMap m)              <b class="conum">(1)</b>
-<span class="directive">static</span> __device__ <span class="predefined-type">int</span> dmap_get_fid(<span class="directive">const</span> <span class="predefined-type">float</span> r[<span class="integer">3</span>])       <b class="conum">(2)</b>
-<span class="directive">static</span> __device__ <span class="directive">void</span> dmap_add(<span class="predefined-type">int</span> pid, <span class="predefined-type">int</span> fid, DMap m)  <b class="conum">(3)</b></code></pre>
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#777">/* exclusive scan */</span>
+<span style="color:#080;font-weight:bold">template</span> &lt;<span style="color:#0a8;font-weight:bold">int</span> NCOUNTS&gt;
+<span style="color:#088;font-weight:bold">static</span> __global__ <span style="color:#088;font-weight:bold">void</span> dmap_scan(<span style="color:#777">/**/</span> DMap m)              <b class="conum">(1)</b>
+<span style="color:#088;font-weight:bold">static</span> __device__ <span style="color:#0a8;font-weight:bold">int</span> dmap_get_fid(<span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">float</span> r[<span style="color:#00D">3</span>])       <b class="conum">(2)</b>
+<span style="color:#088;font-weight:bold">static</span> __device__ <span style="color:#088;font-weight:bold">void</span> dmap_add(<span style="color:#0a8;font-weight:bold">int</span> pid, <span style="color:#0a8;font-weight:bold">int</span> fid, DMap m)  <b class="conum">(3)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -165,22 +164,22 @@ contains the three generic data structures:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span class="keyword">struct</span> Pack {
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#080;font-weight:bold">struct</span> Pack {
     DMap map;
     dBags dpp, dii, dcc;
     hBags hpp, hii, hcc;
-    <span class="predefined-type">int</span> nhalo; <span class="comment">/* number of sent particles */</span>
+    <span style="color:#0a8;font-weight:bold">int</span> nhalo; <span style="color:#777">/* number of sent particles */</span>
 };
 
-<span class="keyword">struct</span> Comm {
+<span style="color:#080;font-weight:bold">struct</span> Comm {
     Stamp pp, ii, cc;
 };
 
-<span class="keyword">struct</span> Unpack {
+<span style="color:#080;font-weight:bold">struct</span> Unpack {
     hBags hpp, hii, hcc;
     Particle *ppre;
-    <span class="predefined-type">int</span> *iire, *ccre;
-    <span class="predefined-type">int</span> nhalo; <span class="comment">/* number of received particles */</span>
+    <span style="color:#0a8;font-weight:bold">int</span> *iire, *ccre;
+    <span style="color:#0a8;font-weight:bold">int</span> nhalo; <span style="color:#777">/* number of received particles */</span>
 };</code></pre>
 </div>
 </div>
@@ -194,32 +193,32 @@ The <code>xxre</code> variables in <code>Unpack</code> are buffer for remote qua
 <h3 id="_interface_2">interface</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span class="directive">void</span> ini(<span class="predefined-type">int</span> maxdensity, Pack *p);
-<span class="directive">void</span> ini(MPI_Comm comm, <span class="comment">/**/</span> Comm *c);
-<span class="directive">void</span> ini(<span class="predefined-type">int</span> maxdensity, Unpack *u);
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> ini(<span style="color:#0a8;font-weight:bold">int</span> maxdensity, Pack *p);
+<span style="color:#088;font-weight:bold">void</span> ini(MPI_Comm comm, <span style="color:#777">/**/</span> Comm *c);
+<span style="color:#088;font-weight:bold">void</span> ini(<span style="color:#0a8;font-weight:bold">int</span> maxdensity, Unpack *u);
 
-<span class="directive">void</span> fin(Pack *p);
-<span class="directive">void</span> fin(Comm *c);
-<span class="directive">void</span> fin(Unpack *u);
+<span style="color:#088;font-weight:bold">void</span> fin(Pack *p);
+<span style="color:#088;font-weight:bold">void</span> fin(Comm *c);
+<span style="color:#088;font-weight:bold">void</span> fin(Unpack *u);
 
-<span class="comment">/* map */</span>
-<span class="directive">void</span> build_map(<span class="predefined-type">int</span> n, <span class="directive">const</span> PartList lp, Pack *p);
+<span style="color:#777">/* map */</span>
+<span style="color:#088;font-weight:bold">void</span> build_map(<span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> PartList lp, Pack *p);
 
-<span class="directive">using</span> <span class="keyword">namespace</span> ::flu;
+<span style="color:#088;font-weight:bold">using</span> <span style="color:#080;font-weight:bold">namespace</span> ::flu;
 
-<span class="comment">/* pack */</span>
-<span class="directive">void</span> pack(<span class="directive">const</span> Quants *q, <span class="comment">/**/</span> Pack *p);
+<span style="color:#777">/* pack */</span>
+<span style="color:#088;font-weight:bold">void</span> pack(<span style="color:#088;font-weight:bold">const</span> Quants *q, <span style="color:#777">/**/</span> Pack *p);
 
-<span class="directive">void</span> download(Pack *p);
+<span style="color:#088;font-weight:bold">void</span> download(Pack *p);
 
-<span class="comment">/* communication */</span>
-<span class="directive">void</span> post_recv(Comm *c, Unpack *u);
-<span class="directive">void</span> post_send(Pack *p, Comm   *c);
-<span class="directive">void</span> wait_recv(Comm *c, Unpack *u);
-<span class="directive">void</span> wait_send(Comm *c);
+<span style="color:#777">/* communication */</span>
+<span style="color:#088;font-weight:bold">void</span> post_recv(Comm *c, Unpack *u);
+<span style="color:#088;font-weight:bold">void</span> post_send(Pack *p, Comm   *c);
+<span style="color:#088;font-weight:bold">void</span> wait_recv(Comm *c, Unpack *u);
+<span style="color:#088;font-weight:bold">void</span> wait_send(Comm *c);
 
-<span class="comment">/* unpack */</span>
-<span class="directive">void</span> unpack(<span class="comment">/**/</span> Unpack *u);</code></pre>
+<span style="color:#777">/* unpack */</span>
+<span style="color:#088;font-weight:bold">void</span> unpack(<span style="color:#777">/**/</span> Unpack *u);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -246,10 +245,10 @@ It is done in two phases:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span class="comment">/* cell lists */</span>
-<span class="directive">void</span> bulk(PartList lp, <span class="comment">/**/</span> Quants *q);
-<span class="directive">void</span> halo(<span class="directive">const</span> Unpack *u, <span class="comment">/**/</span> Quants *q);
-<span class="directive">void</span> gather(<span class="predefined-type">int</span> ndead, <span class="directive">const</span> Pack *p, <span class="directive">const</span> Unpack *u, <span class="comment">/**/</span> Quants *q);</code></pre>
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#777">/* cell lists */</span>
+<span style="color:#088;font-weight:bold">void</span> bulk(PartList lp, <span style="color:#777">/**/</span> Quants *q);
+<span style="color:#088;font-weight:bold">void</span> halo(<span style="color:#088;font-weight:bold">const</span> Unpack *u, <span style="color:#777">/**/</span> Quants *q);
+<span style="color:#088;font-weight:bold">void</span> gather(<span style="color:#0a8;font-weight:bold">int</span> ndead, <span style="color:#088;font-weight:bold">const</span> Pack *p, <span style="color:#088;font-weight:bold">const</span> Unpack *u, <span style="color:#777">/**/</span> Quants *q);</code></pre>
 </div>
 </div>
 </div>
@@ -270,28 +269,28 @@ contains the three generic data structures:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span class="keyword">struct</span> Pack {
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#080;font-weight:bold">struct</span> Pack {
     DMap map;
     float3 *minext, *maxext;
     dBags dpp;
     hBags hpp;
 
-    <span class="comment">/* optional: ids */</span>
+    <span style="color:#777">/* optional: ids */</span>
     DMap hmap;
     hBags hii;
 };
 
-<span class="keyword">struct</span> Comm {
+<span style="color:#080;font-weight:bold">struct</span> Comm {
     Stamp pp;
 
-    <span class="comment">/* optional: ids */</span>
+    <span style="color:#777">/* optional: ids */</span>
     Stamp ii;
 };
 
-<span class="keyword">struct</span> Unpack {
+<span style="color:#080;font-weight:bold">struct</span> Unpack {
     hBags hpp;
 
-    <span class="comment">/* optional: ids */</span>
+    <span style="color:#777">/* optional: ids */</span>
     hBags hii;
 };</code></pre>
 </div>
@@ -305,27 +304,27 @@ each RBC. Other variables have the same naming conventions than <code>distr::flu
 <h3 id="_interface_3">interface</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span class="directive">void</span> ini(<span class="predefined-type">int</span> maxc, <span class="predefined-type">int</span> nv, Pack *p);
-<span class="directive">void</span> ini(MPI_Comm comm, <span class="comment">/**/</span> Comm *c);
-<span class="directive">void</span> ini(<span class="predefined-type">int</span> maxc, <span class="predefined-type">int</span> nv, Unpack *u);
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> ini(<span style="color:#0a8;font-weight:bold">int</span> maxc, <span style="color:#0a8;font-weight:bold">int</span> nv, Pack *p);
+<span style="color:#088;font-weight:bold">void</span> ini(MPI_Comm comm, <span style="color:#777">/**/</span> Comm *c);
+<span style="color:#088;font-weight:bold">void</span> ini(<span style="color:#0a8;font-weight:bold">int</span> maxc, <span style="color:#0a8;font-weight:bold">int</span> nv, Unpack *u);
 
-<span class="directive">void</span> fin(Pack *p);
-<span class="directive">void</span> fin(Comm *c);
-<span class="directive">void</span> fin(Unpack *u);
+<span style="color:#088;font-weight:bold">void</span> fin(Pack *p);
+<span style="color:#088;font-weight:bold">void</span> fin(Comm *c);
+<span style="color:#088;font-weight:bold">void</span> fin(Unpack *u);
 
-<span class="directive">using</span> <span class="keyword">namespace</span> ::rbc;
+<span style="color:#088;font-weight:bold">using</span> <span style="color:#080;font-weight:bold">namespace</span> ::rbc;
 
-<span class="directive">void</span> build_map(<span class="predefined-type">int</span> nc, <span class="predefined-type">int</span> nv, <span class="directive">const</span> Particle *pp, Pack *p);
-<span class="directive">void</span> pack(<span class="directive">const</span> rbc::Quants *q, <span class="comment">/**/</span> Pack *p);
-<span class="directive">void</span> download(Pack *p);
+<span style="color:#088;font-weight:bold">void</span> build_map(<span style="color:#0a8;font-weight:bold">int</span> nc, <span style="color:#0a8;font-weight:bold">int</span> nv, <span style="color:#088;font-weight:bold">const</span> Particle *pp, Pack *p);
+<span style="color:#088;font-weight:bold">void</span> pack(<span style="color:#088;font-weight:bold">const</span> rbc::Quants *q, <span style="color:#777">/**/</span> Pack *p);
+<span style="color:#088;font-weight:bold">void</span> download(Pack *p);
 
-<span class="directive">void</span> post_recv(Comm *c, Unpack *u);
-<span class="directive">void</span> post_send(Pack *p, Comm *c);
-<span class="directive">void</span> wait_recv(Comm *c, Unpack *u);
-<span class="directive">void</span> wait_send(Comm *c);
+<span style="color:#088;font-weight:bold">void</span> post_recv(Comm *c, Unpack *u);
+<span style="color:#088;font-weight:bold">void</span> post_send(Pack *p, Comm *c);
+<span style="color:#088;font-weight:bold">void</span> wait_recv(Comm *c, Unpack *u);
+<span style="color:#088;font-weight:bold">void</span> wait_send(Comm *c);
 
-<span class="directive">void</span> unpack_bulk(<span class="directive">const</span> Pack *p, <span class="comment">/**/</span> rbc::Quants *q);
-<span class="directive">void</span> unpack_halo(<span class="directive">const</span> Unpack *u, <span class="comment">/**/</span> rbc::Quants *q);</code></pre>
+<span style="color:#088;font-weight:bold">void</span> unpack_bulk(<span style="color:#088;font-weight:bold">const</span> Pack *p, <span style="color:#777">/**/</span> rbc::Quants *q);
+<span style="color:#088;font-weight:bold">void</span> unpack_halo(<span style="color:#088;font-weight:bold">const</span> Unpack *u, <span style="color:#777">/**/</span> rbc::Quants *q);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -349,22 +348,22 @@ structures fits again in the general workflow:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span class="comment">/*
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#777">/*
  ipp: particles of the mesh
  ss:  &quot;Solid&quot; structures
 */</span>
 
-<span class="keyword">struct</span> Pack {
+<span style="color:#080;font-weight:bold">struct</span> Pack {
     DMap map;
     dBags dipp, dss;
     hBags hipp, hss;
 };
 
-<span class="keyword">struct</span> Comm {
+<span style="color:#080;font-weight:bold">struct</span> Comm {
     Stamp ipp, ss;
 };
 
-<span class="keyword">struct</span> Unpack {
+<span style="color:#080;font-weight:bold">struct</span> Unpack {
     hBags hipp, hss;
 };</code></pre>
 </div>
@@ -374,26 +373,26 @@ structures fits again in the general workflow:</p>
 <h3 id="_interface_4">interface</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span class="directive">void</span> ini(<span class="predefined-type">int</span> maxns, <span class="predefined-type">int</span> nv, Pack *p);
-<span class="directive">void</span> ini(MPI_Comm comm, <span class="comment">/**/</span> Comm *c);
-<span class="directive">void</span> ini(<span class="predefined-type">int</span> maxns, <span class="predefined-type">int</span> nv, Unpack *u);
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> ini(<span style="color:#0a8;font-weight:bold">int</span> maxns, <span style="color:#0a8;font-weight:bold">int</span> nv, Pack *p);
+<span style="color:#088;font-weight:bold">void</span> ini(MPI_Comm comm, <span style="color:#777">/**/</span> Comm *c);
+<span style="color:#088;font-weight:bold">void</span> ini(<span style="color:#0a8;font-weight:bold">int</span> maxns, <span style="color:#0a8;font-weight:bold">int</span> nv, Unpack *u);
 
-<span class="directive">void</span> fin(Pack *p);
-<span class="directive">void</span> fin(Comm *c);
-<span class="directive">void</span> fin(Unpack *u);
+<span style="color:#088;font-weight:bold">void</span> fin(Pack *p);
+<span style="color:#088;font-weight:bold">void</span> fin(Comm *c);
+<span style="color:#088;font-weight:bold">void</span> fin(Unpack *u);
 
-<span class="directive">void</span> build_map(<span class="predefined-type">int</span> ns, <span class="directive">const</span> Solid *ss, <span class="comment">/**/</span> Pack *p);
-<span class="directive">void</span> pack(<span class="predefined-type">int</span> ns, <span class="predefined-type">int</span> nv, <span class="directive">const</span> Solid *ss, <span class="directive">const</span> Particle *ipp, <span class="comment">/**/</span> Pack *p);
-<span class="directive">void</span> download(Pack *p);
+<span style="color:#088;font-weight:bold">void</span> build_map(<span style="color:#0a8;font-weight:bold">int</span> ns, <span style="color:#088;font-weight:bold">const</span> Solid *ss, <span style="color:#777">/**/</span> Pack *p);
+<span style="color:#088;font-weight:bold">void</span> pack(<span style="color:#0a8;font-weight:bold">int</span> ns, <span style="color:#0a8;font-weight:bold">int</span> nv, <span style="color:#088;font-weight:bold">const</span> Solid *ss, <span style="color:#088;font-weight:bold">const</span> Particle *ipp, <span style="color:#777">/**/</span> Pack *p);
+<span style="color:#088;font-weight:bold">void</span> download(Pack *p);
 
-<span class="directive">void</span> post_recv(Comm *c, Unpack *u);
-<span class="directive">void</span> post_send(Pack *p, Comm *c);
-<span class="directive">void</span> wait_recv(Comm *c, Unpack *u);
-<span class="directive">void</span> wait_send(Comm *c);
+<span style="color:#088;font-weight:bold">void</span> post_recv(Comm *c, Unpack *u);
+<span style="color:#088;font-weight:bold">void</span> post_send(Pack *p, Comm *c);
+<span style="color:#088;font-weight:bold">void</span> wait_recv(Comm *c, Unpack *u);
+<span style="color:#088;font-weight:bold">void</span> wait_send(Comm *c);
 
-<span class="directive">using</span> <span class="keyword">namespace</span> ::rig;
-<span class="directive">void</span> unpack_bulk(<span class="directive">const</span> Pack *p, <span class="comment">/**/</span> rig::Quants *q);
-<span class="directive">void</span> unpack_halo(<span class="directive">const</span> Unpack *u, <span class="comment">/**/</span> rig::Quants *q);</code></pre>
+<span style="color:#088;font-weight:bold">using</span> <span style="color:#080;font-weight:bold">namespace</span> ::rig;
+<span style="color:#088;font-weight:bold">void</span> unpack_bulk(<span style="color:#088;font-weight:bold">const</span> Pack *p, <span style="color:#777">/**/</span> rig::Quants *q);
+<span style="color:#088;font-weight:bold">void</span> unpack_halo(<span style="color:#088;font-weight:bold">const</span> Unpack *u, <span style="color:#777">/**/</span> rig::Quants *q);</code></pre>
 </div>
 </div>
 <div class="paragraph">

@@ -7,7 +7,6 @@
 <meta name="generator" content="Asciidoctor 1.5.6.1">
 <title>wvel</title>
 <link rel="stylesheet" href="/udoc/css/main.css">
-<link rel="stylesheet" href="./coderay-asciidoctor.css">
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
@@ -83,12 +82,12 @@ specific time. It is passed to device kernels.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="c++"><span class="directive">void</span> ini(WvelCste p, Wvel *vw);
-<span class="directive">void</span> ini(WvelShear p, Wvel *vw);
-<span class="directive">void</span> ini(WvelShearSin p, Wvel *vw);
-<span class="directive">void</span> ini(WvelHS p, Wvel *vw);
+<pre class="CodeRay highlight"><code data-lang="c++"><span style="color:#088;font-weight:bold">void</span> ini(WvelCste p, Wvel *vw);
+<span style="color:#088;font-weight:bold">void</span> ini(WvelShear p, Wvel *vw);
+<span style="color:#088;font-weight:bold">void</span> ini(WvelShearSin p, Wvel *vw);
+<span style="color:#088;font-weight:bold">void</span> ini(WvelHS p, Wvel *vw);
 
-<span class="directive">void</span> step2params(<span class="predefined-type">long</span> it, <span class="directive">const</span> Wvel *wv, <span class="comment">/**/</span> Wvel_v *view);</code></pre>
+<span style="color:#088;font-weight:bold">void</span> step2params(<span style="color:#0a8;font-weight:bold">long</span> it, <span style="color:#088;font-weight:bold">const</span> Wvel *wv, <span style="color:#777">/**/</span> Wvel_v *view);</code></pre>
 </div>
 </div>
 </div>
@@ -101,19 +100,19 @@ position and velocity.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="c++"><span class="directive">static</span> __device__ <span class="directive">void</span> wvel(Wvel_v wv, Coords c, float3 r, <span class="comment">/**/</span> float3 *v) {
-    <span class="predefined-type">int</span> type;
+<pre class="CodeRay highlight"><code data-lang="c++"><span style="color:#088;font-weight:bold">static</span> __device__ <span style="color:#088;font-weight:bold">void</span> wvel(Wvel_v wv, Coords c, float3 r, <span style="color:#777">/**/</span> float3 *v) {
+    <span style="color:#0a8;font-weight:bold">int</span> type;
     wvel_fun wvel_funs[] = {&amp;wvel_cste, &amp;wvel_shear, &amp;wvel_hs};
     type = wv.type;
-    wvel_funs[type](wv.p, c, r, <span class="comment">/**/</span> v);
+    wvel_funs[type](wv.p, c, r, <span style="color:#777">/**/</span> v);
 }
 
-<span class="directive">static</span> __device__ <span class="directive">void</span> bounce_vel(Wvel_v wv, Coords c, float3 rw, <span class="comment">/* io */</span> float3* v) {
+<span style="color:#088;font-weight:bold">static</span> __device__ <span style="color:#088;font-weight:bold">void</span> bounce_vel(Wvel_v wv, Coords c, float3 rw, <span style="color:#777">/* io */</span> float3* v) {
     float3 vw;
-    wvel(wv, c, rw, <span class="comment">/**/</span> &amp;vw);
-    v-&gt;x = <span class="integer">2</span> * vw.x - v-&gt;x;
-    v-&gt;y = <span class="integer">2</span> * vw.y - v-&gt;y;
-    v-&gt;z = <span class="integer">2</span> * vw.z - v-&gt;z;
+    wvel(wv, c, rw, <span style="color:#777">/**/</span> &amp;vw);
+    v-&gt;x = <span style="color:#00D">2</span> * vw.x - v-&gt;x;
+    v-&gt;y = <span style="color:#00D">2</span> * vw.y - v-&gt;y;
+    v-&gt;z = <span style="color:#00D">2</span> * vw.z - v-&gt;z;
 }</code></pre>
 </div>
 </div>

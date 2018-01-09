@@ -26,7 +26,12 @@
 <li><a href="#_configuration_2">configuration</a></li>
 </ul>
 </li>
-<li><a href="#_outflow">Outflow</a></li>
+<li><a href="#_outflow">Outflow</a>
+<ul class="sectlevel2">
+<li><a href="#_interface_3">interface</a></li>
+<li><a href="#_configuration_3">configuration</a></li>
+</ul>
+</li>
 <li><a href="#_density_controller">Density controller</a></li>
 </ul>
 </div>
@@ -232,7 +237,100 @@ the point <code>(1, 2, 3)</code>:</p>
 <div class="sect1">
 <h2 id="_outflow">Outflow</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Delete particles satisfying a predicate</p>
+</div>
+<div class="sect2">
+<h3 id="_interface_3">interface</h3>
+<div class="paragraph">
+<p>allocate, deallocate:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> ini(<span style="color:#0a8;font-weight:bold">int</span> maxp, <span style="color:#777">/**/</span> Outflow **o);
+<span style="color:#088;font-weight:bold">void</span> fin(<span style="color:#777">/**/</span> Outflow *o);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>initialize the outflow structure (to be done only once):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> ini_params_circle(Coords coords, float3 c, <span style="color:#0a8;font-weight:bold">float</span> R, Outflow *o);
+<span style="color:#088;font-weight:bold">void</span> ini_params_plate(Coords c, <span style="color:#0a8;font-weight:bold">int</span> dir, <span style="color:#0a8;font-weight:bold">float</span> r0, Outflow *o);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>depending on the geometry of outflow, call the appropriate
+<code>ini_params_xxx</code>.</p>
+</div>
+<div class="paragraph">
+<p>filter and mark particles (at every time step):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> filter_particles(<span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> Particle *pp, <span style="color:#777">/**/</span> Outflow *o); <b class="conum">(1)</b>
 
+<span style="color:#088;font-weight:bold">void</span> download_ndead(Outflow *o);                                   <b class="conum">(2)</b>
+
+<span style="color:#0a8;font-weight:bold">int</span>* get_deathlist(Outflow *o);                                    <b class="conum">(3)</b>
+<span style="color:#0a8;font-weight:bold">int</span>  get_ndead(Outflow *o);                                        <b class="conum">(4)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>store dying particles infos inside Outflow struct</p>
+</li>
+<li>
+<p>copy from device to host number of dead particles</p>
+</li>
+<li>
+<p>return the list of dead marks (dead=1, alive=0)</p>
+</li>
+<li>
+<p>return the number of dead particles</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_configuration_3">configuration</h3>
+<div class="sect3">
+<h4 id="_plate_2">plate</h4>
+<div class="paragraph">
+<p>will delete particles crossing a plate along the positive direction.
+syntax for the plate <code>y=4</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cfg">outflow = {
+    active     = true;
+    type       = &quot;plate&quot;;
+    direction  = 1;      # [0,1,2] = [X,Y,Z]
+    position   = 4.0;    # position along &quot;direction&quot;
+};</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_circle_2">circle</h4>
+<div class="paragraph">
+<p>delete particles going out of the cylinder.
+syntax for a cylinder of radius 8 centered at <code>(8, 8, 8)</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cfg">outflow = {
+    active = true;
+    type   = &quot;circle&quot;;
+    R      = 8.0;
+    center = [8.0, 8.0, 8.0];
+};</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">

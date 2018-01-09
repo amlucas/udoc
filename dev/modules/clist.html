@@ -7,7 +7,6 @@
 <meta name="generator" content="Asciidoctor 1.5.6.1">
 <title>clist</title>
 <link rel="stylesheet" href="/udoc/css/main.css">
-<link rel="stylesheet" href="./coderay-asciidoctor.css">
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
@@ -92,10 +91,10 @@ cell and <code>ss</code> (starts) is the prefix sum of <code>cc</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span class="keyword">struct</span> Clist {
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#080;font-weight:bold">struct</span> Clist {
     int3 dims;
-    <span class="predefined-type">int</span> ncells;
-    <span class="predefined-type">int</span> *starts, *counts;
+    <span style="color:#0a8;font-weight:bold">int</span> ncells;
+    <span style="color:#0a8;font-weight:bold">int</span> *starts, *counts;
 };</code></pre>
 </div>
 </div>
@@ -123,12 +122,12 @@ cell and <code>ss</code> (starts) is the prefix sum of <code>cc</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span class="keyword">struct</span> Map {
-    <span class="predefined-type">int</span> nA;              <span class="comment">/* number of source arrays to build the cell lists, e.g remote+bulk -&gt; 2 */</span>
-    uchar4 *ee[MAXA];    <span class="comment">/* cell entries */</span>
-    uint *ii;            <span class="comment">/* codes containing: indices of data to fetch and array id from which to fetch */</span>
-    scan::Work scan;     <span class="comment">/* scan workspace */</span>
-    <span class="predefined-type">long</span> maxp;           <span class="comment">/* maximum number of particles per input vector */</span>
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#080;font-weight:bold">struct</span> Map {
+    <span style="color:#0a8;font-weight:bold">int</span> nA;              <span style="color:#777">/* number of source arrays to build the cell lists, e.g remote+bulk -&gt; 2 */</span>
+    uchar4 *ee[MAXA];    <span style="color:#777">/* cell entries */</span>
+    uint *ii;            <span style="color:#777">/* codes containing: indices of data to fetch and array id from which to fetch */</span>
+    scan::Work scan;     <span style="color:#777">/* scan workspace */</span>
+    <span style="color:#0a8;font-weight:bold">long</span> maxp;           <span style="color:#777">/* maximum number of particles per input vector */</span>
 };</code></pre>
 </div>
 </div>

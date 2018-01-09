@@ -7,7 +7,6 @@
 <meta name="generator" content="Asciidoctor 1.5.6.1">
 <title>comm</title>
 <link rel="stylesheet" href="/udoc/css/main.css">
-<link rel="stylesheet" href="./coderay-asciidoctor.css">
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
@@ -51,11 +50,11 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span class="keyword">struct</span> hBags {
-    data_t *data[NBAGS]; <span class="comment">/* data on the host           */</span>
-    <span class="predefined-type">int</span>         *counts; <span class="comment">/* size of the data           */</span>
-    <span class="predefined-type">int</span> capacity[NBAGS]; <span class="comment">/* capacity of each frag      */</span>
-    size_t bsize;        <span class="comment">/* size of one datum in bytes */</span>
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#080;font-weight:bold">struct</span> hBags {
+    data_t *data[NBAGS]; <span style="color:#777">/* data on the host           */</span>
+    <span style="color:#0a8;font-weight:bold">int</span>         *counts; <span style="color:#777">/* size of the data           */</span>
+    <span style="color:#0a8;font-weight:bold">int</span> capacity[NBAGS]; <span style="color:#777">/* capacity of each frag      */</span>
+    size_t bsize;        <span style="color:#777">/* size of one datum in bytes */</span>
 };</code></pre>
 </div>
 </div>
@@ -64,8 +63,8 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span class="keyword">struct</span> dBags {
-    data_t *data[NBAGS]; <span class="comment">/* data on the device         */</span>
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#080;font-weight:bold">struct</span> dBags {
+    data_t *data[NBAGS]; <span style="color:#777">/* data on the device         */</span>
 };</code></pre>
 </div>
 </div>
@@ -74,12 +73,12 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span class="keyword">struct</span> Stamp {
-    MPI_Request sreq[NBAGS]; <span class="comment">/* send requests */</span>
-    MPI_Request rreq[NBAGS]; <span class="comment">/* recv requests */</span>
-    MPI_Comm cart;           <span class="comment">/* cartesian communicator */</span>
-    <span class="predefined-type">int</span> ranks[NFRAGS];       <span class="comment">/* ranks of neighbors     */</span>
-    <span class="predefined-type">int</span>  tags[NFRAGS];       <span class="comment">/* tags in bt coordinates */</span>
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#080;font-weight:bold">struct</span> Stamp {
+    MPI_Request sreq[NBAGS]; <span style="color:#777">/* send requests */</span>
+    MPI_Request rreq[NBAGS]; <span style="color:#777">/* recv requests */</span>
+    MPI_Comm cart;           <span style="color:#777">/* cartesian communicator */</span>
+    <span style="color:#0a8;font-weight:bold">int</span> ranks[NFRAGS];       <span style="color:#777">/* ranks of neighbors     */</span>
+    <span style="color:#0a8;font-weight:bold">int</span>  tags[NFRAGS];       <span style="color:#777">/* tags in bt coordinates */</span>
 };</code></pre>
 </div>
 </div>
@@ -97,12 +96,12 @@ This is used in the funcion <code>ini</code> and <code>fin</code>. allocation mo
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp">    HST_ONLY,   <span class="comment">/* only host bags allocated                 */</span>
-    DEV_ONLY,   <span class="comment">/* only device bags allocated               */</span>
-    PINNED,     <span class="comment">/* both host and device pinned              */</span>
-    PINNED_HST, <span class="comment">/* host pinned; no device memory            */</span>
-    PINNED_DEV, <span class="comment">/* host pinned; device global memory on gpu */</span>
-    NONE        <span class="comment">/* no allocation                            */</span></code></pre>
+<pre class="CodeRay highlight"><code data-lang="cpp">    HST_ONLY,   <span style="color:#777">/* only host bags allocated                 */</span>
+    DEV_ONLY,   <span style="color:#777">/* only device bags allocated               */</span>
+    PINNED,     <span style="color:#777">/* both host and device pinned              */</span>
+    PINNED_HST, <span style="color:#777">/* host pinned; no device memory            */</span>
+    PINNED_DEV, <span style="color:#777">/* host pinned; device global memory on gpu */</span>
+    NONE        <span style="color:#777">/* no allocation                            */</span></code></pre>
 </div>
 </div>
 </div>
@@ -114,13 +113,13 @@ This is used in the funcion <code>ini</code> and <code>fin</code>. allocation mo
 <h3 id="_memory_management">memory management</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span class="comment">/* bags alloc */</span>
-<span class="predefined-type">int</span> ini(AllocMod fmod, AllocMod bmod, size_t bsize, <span class="directive">const</span> <span class="predefined-type">int</span> capacity[NBAGS], <span class="comment">/**/</span> hBags *hb, dBags *db);
-<span class="predefined-type">int</span> fin(AllocMod fmod, AllocMod bmod, <span class="comment">/**/</span> hBags *hb, dBags *db);
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#777">/* bags alloc */</span>
+<span style="color:#0a8;font-weight:bold">int</span> ini(AllocMod fmod, AllocMod bmod, size_t bsize, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> capacity[NBAGS], <span style="color:#777">/**/</span> hBags *hb, dBags *db);
+<span style="color:#0a8;font-weight:bold">int</span> fin(AllocMod fmod, AllocMod bmod, <span style="color:#777">/**/</span> hBags *hb, dBags *db);
 
-<span class="comment">/* stamp alloc */</span>
-<span class="predefined-type">int</span> ini(MPI_Comm comm, <span class="comment">/**/</span> Stamp *s);
-<span class="predefined-type">int</span> fin(<span class="comment">/**/</span> Stamp *s);</code></pre>
+<span style="color:#777">/* stamp alloc */</span>
+<span style="color:#0a8;font-weight:bold">int</span> ini(MPI_Comm comm, <span style="color:#777">/**/</span> Stamp *s);
+<span style="color:#0a8;font-weight:bold">int</span> fin(<span style="color:#777">/**/</span> Stamp *s);</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -168,11 +167,11 @@ It needs 3 entities:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span class="predefined-type">int</span> post_recv(hBags *b, Stamp *s);           <b class="conum">(1)</b>
-<span class="predefined-type">int</span> post_send(<span class="directive">const</span> hBags *b, Stamp *s);     <b class="conum">(2)</b>
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#0a8;font-weight:bold">int</span> post_recv(hBags *b, Stamp *s);           <b class="conum">(1)</b>
+<span style="color:#0a8;font-weight:bold">int</span> post_send(<span style="color:#088;font-weight:bold">const</span> hBags *b, Stamp *s);     <b class="conum">(2)</b>
 
-<span class="predefined-type">int</span> wait_recv(Stamp *s, <span class="comment">/**/</span> hBags *b);      <b class="conum">(3)</b>
-<span class="predefined-type">int</span> wait_send(Stamp *s);                     <b class="conum">(4)</b></code></pre>
+<span style="color:#0a8;font-weight:bold">int</span> wait_recv(Stamp *s, <span style="color:#777">/**/</span> hBags *b);      <b class="conum">(3)</b>
+<span style="color:#0a8;font-weight:bold">int</span> wait_send(Stamp *s);                     <b class="conum">(4)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
