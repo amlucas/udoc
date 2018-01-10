@@ -21,6 +21,7 @@
 <li><a href="#_map">Map</a></li>
 </ul>
 </li>
+<li><a href="#_interface">interface</a></li>
 <li><a href="#_algorithm">algorithm</a></li>
 </ul>
 </div>
@@ -28,6 +29,9 @@
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
+<div class="paragraph">
+<p>Helpers to find which particles are in a given cell.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -86,9 +90,6 @@ cell and <code>ss</code> (starts) is the prefix sum of <code>cc</code>.</p>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_clist">Clist</h3>
-<div class="paragraph">
-<p>Helpers to find which particles are in which cells.</p>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#080;font-weight:bold">struct</span> Clist {
@@ -118,11 +119,11 @@ cell and <code>ss</code> (starts) is the prefix sum of <code>cc</code>.</p>
 <div class="sect2">
 <h3 id="_map">Map</h3>
 <div class="paragraph">
-<p>Helper to build the cell lists</p>
+<p>Helper to build the cell lists (hidden from client)</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#080;font-weight:bold">struct</span> Map {
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#080;font-weight:bold">struct</span> ClistMap {
     <span style="color:#0a8;font-weight:bold">int</span> nA;              <span style="color:#777">/* number of source arrays to build the cell lists, e.g remote+bulk -&gt; 2 */</span>
     uchar4 *ee[MAXA];    <span style="color:#777">/* cell entries */</span>
     uint *ii;            <span style="color:#777">/* codes containing: indices of data to fetch and array id from which to fetch */</span>
@@ -164,6 +165,60 @@ array id and the particle id inside this array</p>
 <p><code>scan</code> scan workspace, see <a href="algo/scan.html">scan</a></p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>The ids can be accessed from</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">const</span> uint* clist_get_ids(<span style="color:#088;font-weight:bold">const</span> ClistMap *m);</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_interface">interface</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>allocate/deallocate</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> clist_ini(<span style="color:#0a8;font-weight:bold">int</span> LX, <span style="color:#0a8;font-weight:bold">int</span> LY, <span style="color:#0a8;font-weight:bold">int</span> LZ, <span style="color:#777">/**/</span> Clist *c);
+<span style="color:#088;font-weight:bold">void</span> clist_fin(<span style="color:#777">/**/</span> Clist *c);
+
+<span style="color:#088;font-weight:bold">void</span> clist_ini_map(<span style="color:#0a8;font-weight:bold">int</span> maxp, <span style="color:#0a8;font-weight:bold">int</span> nA, <span style="color:#088;font-weight:bold">const</span> Clist *c, <span style="color:#777">/**/</span> ClistMap **m);
+<span style="color:#088;font-weight:bold">void</span> clist_fin_map(ClistMap *m);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>build interface:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> clist_ini_counts(Clist *c);
+<span style="color:#088;font-weight:bold">void</span> clist_subindex(<span style="color:#0a8;font-weight:bold">bool</span> project, <span style="color:#0a8;font-weight:bold">int</span> aid, <span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> PartList lp, <span style="color:#777">/**/</span> Clist *c, ClistMap *m);
+<span style="color:#088;font-weight:bold">void</span> clist_build_map(<span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> nn[], <span style="color:#777">/**/</span> Clist *c, ClistMap *m);
+
+<span style="color:#777">/* special for fluid distribution */</span>
+<span style="color:#088;font-weight:bold">void</span> clist_subindex_local(<span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> PartList lp, <span style="color:#777">/**/</span> Clist *c, ClistMap *m);
+<span style="color:#088;font-weight:bold">void</span> clist_subindex_remote(<span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> PartList lp, <span style="color:#777">/**/</span> Clist *c, ClistMap *m);
+
+<span style="color:#088;font-weight:bold">void</span> clist_gather_pp(<span style="color:#088;font-weight:bold">const</span> Particle *pplo, <span style="color:#088;font-weight:bold">const</span> Particle *ppre, <span style="color:#088;font-weight:bold">const</span> ClistMap *m, <span style="color:#0a8;font-weight:bold">long</span> nout, <span style="color:#777">/**/</span> Particle *ppout);
+<span style="color:#088;font-weight:bold">void</span> clist_gather_ii(<span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> *iilo, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> *iire, <span style="color:#088;font-weight:bold">const</span> ClistMap *m, <span style="color:#0a8;font-weight:bold">long</span> nout, <span style="color:#777">/**/</span> <span style="color:#0a8;font-weight:bold">int</span> *iiout);
+
+<span style="color:#777">/* quick cell build for single array */</span>
+<span style="color:#088;font-weight:bold">void</span> clist_build(<span style="color:#0a8;font-weight:bold">int</span> nlo, <span style="color:#0a8;font-weight:bold">int</span> nout, <span style="color:#088;font-weight:bold">const</span> Particle *pplo, <span style="color:#777">/**/</span> Particle *ppout, Clist *c, ClistMap *m);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Device interface: code/decode map ids</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">static</span> __device__ uint clist_encode_id(<span style="color:#0a8;font-weight:bold">int</span> s, <span style="color:#0a8;font-weight:bold">int</span> pid)
+<span style="color:#088;font-weight:bold">static</span> __device__ <span style="color:#088;font-weight:bold">void</span> clist_decode_id(uint c, <span style="color:#777">/**/</span> <span style="color:#0a8;font-weight:bold">int</span> *s, <span style="color:#0a8;font-weight:bold">int</span> *pid)</code></pre>
 </div>
 </div>
 </div>
