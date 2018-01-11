@@ -164,18 +164,18 @@ contains the three generic data structures:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#080;font-weight:bold">struct</span> Pack {
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#080;font-weight:bold">struct</span> DFluPack {
     DMap map;
     dBags dpp, dii, dcc;
     hBags hpp, hii, hcc;
     <span style="color:#0a8;font-weight:bold">int</span> nhalo; <span style="color:#777">/* number of sent particles */</span>
 };
 
-<span style="color:#080;font-weight:bold">struct</span> Comm {
-    Stamp pp, ii, cc;
+<span style="color:#080;font-weight:bold">struct</span> DFluComm {
+    comm::Comm pp, ii, cc;
 };
 
-<span style="color:#080;font-weight:bold">struct</span> Unpack {
+<span style="color:#080;font-weight:bold">struct</span> DFluUnpack {
     hBags hpp, hii, hcc;
     Particle *ppre;
     <span style="color:#0a8;font-weight:bold">int</span> *iire, *ccre;
@@ -193,32 +193,32 @@ The <code>xxre</code> variables in <code>Unpack</code> are buffer for remote qua
 <h3 id="_interface_2">interface</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> ini(<span style="color:#0a8;font-weight:bold">int</span> maxdensity, Pack *p);
-<span style="color:#088;font-weight:bold">void</span> ini(MPI_Comm comm, <span style="color:#777">/**/</span> Comm *c);
-<span style="color:#088;font-weight:bold">void</span> ini(<span style="color:#0a8;font-weight:bold">int</span> maxdensity, Unpack *u);
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> dflu_pack_ini(<span style="color:#0a8;font-weight:bold">int</span> maxdensity, DFluPack *p);
+<span style="color:#088;font-weight:bold">void</span> dflu_comm_ini(MPI_Comm comm, <span style="color:#777">/**/</span> DFluComm *c);
+<span style="color:#088;font-weight:bold">void</span> dflu_unpack_ini(<span style="color:#0a8;font-weight:bold">int</span> maxdensity, DFluUnpack *u);
 
-<span style="color:#088;font-weight:bold">void</span> fin(Pack *p);
-<span style="color:#088;font-weight:bold">void</span> fin(Comm *c);
-<span style="color:#088;font-weight:bold">void</span> fin(Unpack *u);
+<span style="color:#088;font-weight:bold">void</span> dflu_pack_fin(DFluPack *p);
+<span style="color:#088;font-weight:bold">void</span> dflu_comm_fin(DFluComm *c);
+<span style="color:#088;font-weight:bold">void</span> dflu_unpack_fin(DFluUnpack *u);
 
 <span style="color:#777">/* map */</span>
-<span style="color:#088;font-weight:bold">void</span> build_map(<span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> PartList lp, Pack *p);
+<span style="color:#088;font-weight:bold">void</span> dflu_build_map(<span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> PartList lp, DFluPack *p);
 
 <span style="color:#088;font-weight:bold">using</span> <span style="color:#080;font-weight:bold">namespace</span> ::flu;
 
 <span style="color:#777">/* pack */</span>
-<span style="color:#088;font-weight:bold">void</span> pack(<span style="color:#088;font-weight:bold">const</span> Quants *q, <span style="color:#777">/**/</span> Pack *p);
+<span style="color:#088;font-weight:bold">void</span> dflu_pack(<span style="color:#088;font-weight:bold">const</span> Quants *q, <span style="color:#777">/**/</span> DFluPack *p);
 
-<span style="color:#088;font-weight:bold">void</span> download(Pack *p);
+<span style="color:#088;font-weight:bold">void</span> dflu_download(DFluPack *p);
 
 <span style="color:#777">/* communication */</span>
-<span style="color:#088;font-weight:bold">void</span> post_recv(Comm *c, Unpack *u);
-<span style="color:#088;font-weight:bold">void</span> post_send(Pack *p, Comm   *c);
-<span style="color:#088;font-weight:bold">void</span> wait_recv(Comm *c, Unpack *u);
-<span style="color:#088;font-weight:bold">void</span> wait_send(Comm *c);
+<span style="color:#088;font-weight:bold">void</span> dflu_post_recv(DFluComm *c, DFluUnpack *u);
+<span style="color:#088;font-weight:bold">void</span> dflu_post_send(DFluPack *p, DFluComm   *c);
+<span style="color:#088;font-weight:bold">void</span> dflu_wait_recv(DFluComm *c, DFluUnpack *u);
+<span style="color:#088;font-weight:bold">void</span> dflu_wait_send(DFluComm *c);
 
 <span style="color:#777">/* unpack */</span>
-<span style="color:#088;font-weight:bold">void</span> unpack(<span style="color:#777">/**/</span> Unpack *u);</code></pre>
+<span style="color:#088;font-weight:bold">void</span> dflu_unpack(<span style="color:#777">/**/</span> DFluUnpack *u);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -246,9 +246,9 @@ It is done in two phases:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#777">/* cell lists */</span>
-<span style="color:#088;font-weight:bold">void</span> bulk(PartList lp, <span style="color:#777">/**/</span> Quants *q);
-<span style="color:#088;font-weight:bold">void</span> halo(<span style="color:#088;font-weight:bold">const</span> Unpack *u, <span style="color:#777">/**/</span> Quants *q);
-<span style="color:#088;font-weight:bold">void</span> gather(<span style="color:#0a8;font-weight:bold">int</span> ndead, <span style="color:#088;font-weight:bold">const</span> Pack *p, <span style="color:#088;font-weight:bold">const</span> Unpack *u, <span style="color:#777">/**/</span> Quants *q);</code></pre>
+<span style="color:#088;font-weight:bold">void</span> dflu_bulk(PartList lp, <span style="color:#777">/**/</span> Quants *q);
+<span style="color:#088;font-weight:bold">void</span> dflu_halo(<span style="color:#088;font-weight:bold">const</span> DFluUnpack *u, <span style="color:#777">/**/</span> Quants *q);
+<span style="color:#088;font-weight:bold">void</span> dflu_gather(<span style="color:#0a8;font-weight:bold">int</span> ndead, <span style="color:#088;font-weight:bold">const</span> DFluPack *p, <span style="color:#088;font-weight:bold">const</span> DFluUnpack *u, <span style="color:#777">/**/</span> Quants *q);</code></pre>
 </div>
 </div>
 </div>
@@ -269,7 +269,7 @@ contains the three generic data structures:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#080;font-weight:bold">struct</span> Pack {
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#080;font-weight:bold">struct</span> DRbcPack {
     DMap map;
     float3 *minext, *maxext;
     dBags dpp;
@@ -280,14 +280,12 @@ contains the three generic data structures:</p>
     hBags hii;
 };
 
-<span style="color:#080;font-weight:bold">struct</span> Comm {
-    Stamp pp;
-
+<span style="color:#080;font-weight:bold">struct</span> DRbcComm {
     <span style="color:#777">/* optional: ids */</span>
-    Stamp ii;
+    comm::Comm pp, ii;
 };
 
-<span style="color:#080;font-weight:bold">struct</span> Unpack {
+<span style="color:#080;font-weight:bold">struct</span> DRbcUnpack {
     hBags hpp;
 
     <span style="color:#777">/* optional: ids */</span>
@@ -304,27 +302,27 @@ each RBC. Other variables have the same naming conventions than <code>distr::flu
 <h3 id="_interface_3">interface</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> ini(<span style="color:#0a8;font-weight:bold">int</span> maxc, <span style="color:#0a8;font-weight:bold">int</span> nv, Pack *p);
-<span style="color:#088;font-weight:bold">void</span> ini(MPI_Comm comm, <span style="color:#777">/**/</span> Comm *c);
-<span style="color:#088;font-weight:bold">void</span> ini(<span style="color:#0a8;font-weight:bold">int</span> maxc, <span style="color:#0a8;font-weight:bold">int</span> nv, Unpack *u);
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> drbc_pack_ini(<span style="color:#0a8;font-weight:bold">int</span> maxc, <span style="color:#0a8;font-weight:bold">int</span> nv, DRbcPack *p);
+<span style="color:#088;font-weight:bold">void</span> drbc_comm_ini(MPI_Comm comm, <span style="color:#777">/**/</span> DRbcComm *c);
+<span style="color:#088;font-weight:bold">void</span> drbc_unpack_ini(<span style="color:#0a8;font-weight:bold">int</span> maxc, <span style="color:#0a8;font-weight:bold">int</span> nv, DRbcUnpack *u);
 
-<span style="color:#088;font-weight:bold">void</span> fin(Pack *p);
-<span style="color:#088;font-weight:bold">void</span> fin(Comm *c);
-<span style="color:#088;font-weight:bold">void</span> fin(Unpack *u);
+<span style="color:#088;font-weight:bold">void</span> drbc_pack_fin(DRbcPack *p);
+<span style="color:#088;font-weight:bold">void</span> drbc_comm_fin(DRbcComm *c);
+<span style="color:#088;font-weight:bold">void</span> drbc_unpack_fin(DRbcUnpack *u);
 
 <span style="color:#088;font-weight:bold">using</span> <span style="color:#080;font-weight:bold">namespace</span> ::rbc;
 
-<span style="color:#088;font-weight:bold">void</span> build_map(<span style="color:#0a8;font-weight:bold">int</span> nc, <span style="color:#0a8;font-weight:bold">int</span> nv, <span style="color:#088;font-weight:bold">const</span> Particle *pp, Pack *p);
-<span style="color:#088;font-weight:bold">void</span> pack(<span style="color:#088;font-weight:bold">const</span> rbc::Quants *q, <span style="color:#777">/**/</span> Pack *p);
-<span style="color:#088;font-weight:bold">void</span> download(Pack *p);
+<span style="color:#088;font-weight:bold">void</span> drbc_build_map(<span style="color:#0a8;font-weight:bold">int</span> nc, <span style="color:#0a8;font-weight:bold">int</span> nv, <span style="color:#088;font-weight:bold">const</span> Particle *pp, DRbcPack *p);
+<span style="color:#088;font-weight:bold">void</span> drbc_pack(<span style="color:#088;font-weight:bold">const</span> rbc::Quants *q, <span style="color:#777">/**/</span> DRbcPack *p);
+<span style="color:#088;font-weight:bold">void</span> drbc_download(DRbcPack *p);
 
-<span style="color:#088;font-weight:bold">void</span> post_recv(Comm *c, Unpack *u);
-<span style="color:#088;font-weight:bold">void</span> post_send(Pack *p, Comm *c);
-<span style="color:#088;font-weight:bold">void</span> wait_recv(Comm *c, Unpack *u);
-<span style="color:#088;font-weight:bold">void</span> wait_send(Comm *c);
+<span style="color:#088;font-weight:bold">void</span> drbc_post_recv(DRbcComm *c, DRbcUnpack *u);
+<span style="color:#088;font-weight:bold">void</span> drbc_post_send(DRbcPack *p, DRbcComm *c);
+<span style="color:#088;font-weight:bold">void</span> drbc_wait_recv(DRbcComm *c, DRbcUnpack *u);
+<span style="color:#088;font-weight:bold">void</span> drbc_wait_send(DRbcComm *c);
 
-<span style="color:#088;font-weight:bold">void</span> unpack_bulk(<span style="color:#088;font-weight:bold">const</span> Pack *p, <span style="color:#777">/**/</span> rbc::Quants *q);
-<span style="color:#088;font-weight:bold">void</span> unpack_halo(<span style="color:#088;font-weight:bold">const</span> Unpack *u, <span style="color:#777">/**/</span> rbc::Quants *q);</code></pre>
+<span style="color:#088;font-weight:bold">void</span> drbc_unpack_bulk(<span style="color:#088;font-weight:bold">const</span> DRbcPack *p, <span style="color:#777">/**/</span> rbc::Quants *q);
+<span style="color:#088;font-weight:bold">void</span> drbc_unpack_halo(<span style="color:#088;font-weight:bold">const</span> DRbcUnpack *u, <span style="color:#777">/**/</span> rbc::Quants *q);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -353,17 +351,17 @@ structures fits again in the general workflow:</p>
  ss:  &quot;Solid&quot; structures
 */</span>
 
-<span style="color:#080;font-weight:bold">struct</span> Pack {
+<span style="color:#080;font-weight:bold">struct</span> DRigPack {
     DMap map;
     dBags dipp, dss;
     hBags hipp, hss;
 };
 
-<span style="color:#080;font-weight:bold">struct</span> Comm {
-    Stamp ipp, ss;
+<span style="color:#080;font-weight:bold">struct</span> DRigComm {
+    comm::Comm ipp, ss;
 };
 
-<span style="color:#080;font-weight:bold">struct</span> Unpack {
+<span style="color:#080;font-weight:bold">struct</span> DRigUnpack {
     hBags hipp, hss;
 };</code></pre>
 </div>
@@ -373,26 +371,26 @@ structures fits again in the general workflow:</p>
 <h3 id="_interface_4">interface</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> ini(<span style="color:#0a8;font-weight:bold">int</span> maxns, <span style="color:#0a8;font-weight:bold">int</span> nv, Pack *p);
-<span style="color:#088;font-weight:bold">void</span> ini(MPI_Comm comm, <span style="color:#777">/**/</span> Comm *c);
-<span style="color:#088;font-weight:bold">void</span> ini(<span style="color:#0a8;font-weight:bold">int</span> maxns, <span style="color:#0a8;font-weight:bold">int</span> nv, Unpack *u);
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> drig_pack_ini(<span style="color:#0a8;font-weight:bold">int</span> maxns, <span style="color:#0a8;font-weight:bold">int</span> nv, DRigPack *p);
+<span style="color:#088;font-weight:bold">void</span> drig_comm_ini(MPI_Comm comm, <span style="color:#777">/**/</span> DRigComm *c);
+<span style="color:#088;font-weight:bold">void</span> drig_unpack_ini(<span style="color:#0a8;font-weight:bold">int</span> maxns, <span style="color:#0a8;font-weight:bold">int</span> nv, DRigUnpack *u);
 
-<span style="color:#088;font-weight:bold">void</span> fin(Pack *p);
-<span style="color:#088;font-weight:bold">void</span> fin(Comm *c);
-<span style="color:#088;font-weight:bold">void</span> fin(Unpack *u);
+<span style="color:#088;font-weight:bold">void</span> drig_pack_fin(DRigPack *p);
+<span style="color:#088;font-weight:bold">void</span> drig_comm_fin(DRigComm *c);
+<span style="color:#088;font-weight:bold">void</span> drig_unpack_fin(DRigUnpack *u);
 
-<span style="color:#088;font-weight:bold">void</span> build_map(<span style="color:#0a8;font-weight:bold">int</span> ns, <span style="color:#088;font-weight:bold">const</span> Solid *ss, <span style="color:#777">/**/</span> Pack *p);
-<span style="color:#088;font-weight:bold">void</span> pack(<span style="color:#0a8;font-weight:bold">int</span> ns, <span style="color:#0a8;font-weight:bold">int</span> nv, <span style="color:#088;font-weight:bold">const</span> Solid *ss, <span style="color:#088;font-weight:bold">const</span> Particle *ipp, <span style="color:#777">/**/</span> Pack *p);
-<span style="color:#088;font-weight:bold">void</span> download(Pack *p);
+<span style="color:#088;font-weight:bold">void</span> drig_build_map(<span style="color:#0a8;font-weight:bold">int</span> ns, <span style="color:#088;font-weight:bold">const</span> Solid *ss, <span style="color:#777">/**/</span> DRigPack *p);
+<span style="color:#088;font-weight:bold">void</span> drig_pack(<span style="color:#0a8;font-weight:bold">int</span> ns, <span style="color:#0a8;font-weight:bold">int</span> nv, <span style="color:#088;font-weight:bold">const</span> Solid *ss, <span style="color:#088;font-weight:bold">const</span> Particle *ipp, <span style="color:#777">/**/</span> DRigPack *p);
+<span style="color:#088;font-weight:bold">void</span> drig_download(DRigPack *p);
 
-<span style="color:#088;font-weight:bold">void</span> post_recv(Comm *c, Unpack *u);
-<span style="color:#088;font-weight:bold">void</span> post_send(Pack *p, Comm *c);
-<span style="color:#088;font-weight:bold">void</span> wait_recv(Comm *c, Unpack *u);
-<span style="color:#088;font-weight:bold">void</span> wait_send(Comm *c);
+<span style="color:#088;font-weight:bold">void</span> drig_post_recv(DRigComm *c, DRigUnpack *u);
+<span style="color:#088;font-weight:bold">void</span> drig_post_send(DRigPack *p, DRigComm *c);
+<span style="color:#088;font-weight:bold">void</span> drig_wait_recv(DRigComm *c, DRigUnpack *u);
+<span style="color:#088;font-weight:bold">void</span> drig_wait_send(DRigComm *c);
 
 <span style="color:#088;font-weight:bold">using</span> <span style="color:#080;font-weight:bold">namespace</span> ::rig;
-<span style="color:#088;font-weight:bold">void</span> unpack_bulk(<span style="color:#088;font-weight:bold">const</span> Pack *p, <span style="color:#777">/**/</span> rig::Quants *q);
-<span style="color:#088;font-weight:bold">void</span> unpack_halo(<span style="color:#088;font-weight:bold">const</span> Unpack *u, <span style="color:#777">/**/</span> rig::Quants *q);</code></pre>
+<span style="color:#088;font-weight:bold">void</span> drig_unpack_bulk(<span style="color:#088;font-weight:bold">const</span> DRigPack *p, <span style="color:#777">/**/</span> rig::Quants *q);
+<span style="color:#088;font-weight:bold">void</span> drig_unpack_halo(<span style="color:#088;font-weight:bold">const</span> DRigUnpack *u, <span style="color:#777">/**/</span> rig::Quants *q);</code></pre>
 </div>
 </div>
 <div class="paragraph">
