@@ -69,7 +69,7 @@
 </div>
 </div>
 <div class="paragraph">
-<p><code>Stamp</code>: contains the communication related variables:</p>
+<p><code>Comm</code>: contains the communication related variables:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -113,11 +113,9 @@ This is used in the funcion <code>ini</code> and <code>fin</code>. allocation mo
 <h3 id="_memory_management">memory management</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#777">/* bags alloc */</span>
-<span style="color:#0a8;font-weight:bold">int</span> bags_ini(AllocMod fmod, AllocMod bmod, size_t bsize, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> capacity[NBAGS], <span style="color:#777">/**/</span> hBags *hb, dBags *db);
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#0a8;font-weight:bold">int</span> bags_ini(AllocMod fmod, AllocMod bmod, size_t bsize, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> capacity[NBAGS], <span style="color:#777">/**/</span> hBags *hb, dBags *db);
 <span style="color:#0a8;font-weight:bold">int</span> bags_fin(AllocMod fmod, AllocMod bmod, <span style="color:#777">/**/</span> hBags *hb, dBags *db);
 
-<span style="color:#777">/* stamp alloc */</span>
 <span style="color:#0a8;font-weight:bold">int</span> comm_ini(MPI_Comm cart, <span style="color:#777">/**/</span> Comm *c);
 <span style="color:#0a8;font-weight:bold">int</span> comm_fin(<span style="color:#777">/**/</span> Comm *c);</code></pre>
 </div>
@@ -138,7 +136,7 @@ This is used in the funcion <code>ini</code> and <code>fin</code>. allocation mo
 </div>
 </li>
 <li>
-<p><strong>stamp alloc</strong>: initialize <code>Stamp</code> structure</p>
+<p><strong>comm alloc</strong>: initialize <code>Comm</code> structure</p>
 </li>
 </ul>
 </div>
@@ -158,7 +156,7 @@ It needs 3 entities:</p>
 <p>sender bags</p>
 </li>
 <li>
-<p>a <code>Stamp</code> for communicating through MPI</p>
+<p>a <code>Comm</code> for communicating through MPI</p>
 </li>
 </ul>
 </div>

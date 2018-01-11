@@ -38,6 +38,7 @@
 <li><a href="#_interface_4">interface</a></li>
 </ul>
 </li>
+<li><a href="#_common">common</a></li>
 </ul>
 </div>
 </div>
@@ -160,7 +161,7 @@ arrays is implemented as:</p>
 <h3 id="_data_structures">data structures</h3>
 <div class="paragraph">
 <p>Solvent distribution follow the common workflow described above and
-contains the three generic data structures:</p>
+contains the three <em>hidden</em> generic data structures:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -172,7 +173,7 @@ contains the three generic data structures:</p>
 };
 
 <span style="color:#080;font-weight:bold">struct</span> DFluComm {
-    comm::Comm pp, ii, cc;
+    Comm pp, ii, cc;
 };
 
 <span style="color:#080;font-weight:bold">struct</span> DFluUnpack {
@@ -193,9 +194,9 @@ The <code>xxre</code> variables in <code>Unpack</code> are buffer for remote qua
 <h3 id="_interface_2">interface</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> dflu_pack_ini(<span style="color:#0a8;font-weight:bold">int</span> maxdensity, DFluPack *p);
-<span style="color:#088;font-weight:bold">void</span> dflu_comm_ini(MPI_Comm comm, <span style="color:#777">/**/</span> DFluComm *c);
-<span style="color:#088;font-weight:bold">void</span> dflu_unpack_ini(<span style="color:#0a8;font-weight:bold">int</span> maxdensity, DFluUnpack *u);
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> dflu_pack_ini(<span style="color:#0a8;font-weight:bold">int</span> maxdensity, DFluPack **p);
+<span style="color:#088;font-weight:bold">void</span> dflu_comm_ini(MPI_Comm comm, <span style="color:#777">/**/</span> DFluComm **c);
+<span style="color:#088;font-weight:bold">void</span> dflu_unpack_ini(<span style="color:#0a8;font-weight:bold">int</span> maxdensity, DFluUnpack **u);
 
 <span style="color:#088;font-weight:bold">void</span> dflu_pack_fin(DFluPack *p);
 <span style="color:#088;font-weight:bold">void</span> dflu_comm_fin(DFluComm *c);
@@ -204,7 +205,7 @@ The <code>xxre</code> variables in <code>Unpack</code> are buffer for remote qua
 <span style="color:#777">/* map */</span>
 <span style="color:#088;font-weight:bold">void</span> dflu_build_map(<span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> PartList lp, DFluPack *p);
 
-<span style="color:#088;font-weight:bold">using</span> <span style="color:#080;font-weight:bold">namespace</span> ::flu;
+<span style="color:#088;font-weight:bold">using</span> <span style="color:#080;font-weight:bold">namespace</span> flu;
 
 <span style="color:#777">/* pack */</span>
 <span style="color:#088;font-weight:bold">void</span> dflu_pack(<span style="color:#088;font-weight:bold">const</span> Quants *q, <span style="color:#777">/**/</span> DFluPack *p);
@@ -265,7 +266,7 @@ mass of their bounding box (see <a href="algo/minmax.html">minmax</a>).</p>
 <h3 id="_data_structures_2">data structures</h3>
 <div class="paragraph">
 <p>RBC distribution follows the common workflow described above and
-contains the three generic data structures:</p>
+contains the three <em>hidden</em> generic data structures:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -282,7 +283,7 @@ contains the three generic data structures:</p>
 
 <span style="color:#080;font-weight:bold">struct</span> DRbcComm {
     <span style="color:#777">/* optional: ids */</span>
-    comm::Comm pp, ii;
+    Comm pp, ii;
 };
 
 <span style="color:#080;font-weight:bold">struct</span> DRbcUnpack {
@@ -302,9 +303,9 @@ each RBC. Other variables have the same naming conventions than <code>distr::flu
 <h3 id="_interface_3">interface</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> drbc_pack_ini(<span style="color:#0a8;font-weight:bold">int</span> maxc, <span style="color:#0a8;font-weight:bold">int</span> nv, DRbcPack *p);
-<span style="color:#088;font-weight:bold">void</span> drbc_comm_ini(MPI_Comm comm, <span style="color:#777">/**/</span> DRbcComm *c);
-<span style="color:#088;font-weight:bold">void</span> drbc_unpack_ini(<span style="color:#0a8;font-weight:bold">int</span> maxc, <span style="color:#0a8;font-weight:bold">int</span> nv, DRbcUnpack *u);
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> drbc_pack_ini(<span style="color:#0a8;font-weight:bold">int</span> maxc, <span style="color:#0a8;font-weight:bold">int</span> nv, DRbcPack **p);
+<span style="color:#088;font-weight:bold">void</span> drbc_comm_ini(MPI_Comm comm, <span style="color:#777">/**/</span> DRbcComm **c);
+<span style="color:#088;font-weight:bold">void</span> drbc_unpack_ini(<span style="color:#0a8;font-weight:bold">int</span> maxc, <span style="color:#0a8;font-weight:bold">int</span> nv, DRbcUnpack **u);
 
 <span style="color:#088;font-weight:bold">void</span> drbc_pack_fin(DRbcPack *p);
 <span style="color:#088;font-weight:bold">void</span> drbc_comm_fin(DRbcComm *c);
@@ -341,8 +342,8 @@ mass.</p>
 <div class="sect2">
 <h3 id="_data_structures_3">data structures</h3>
 <div class="paragraph">
-<p>Rigid bodies distribution is very similar to the above. The data
-structures fits again in the general workflow:</p>
+<p>Rigid bodies distribution is very similar to the above. The <em>hidden</em> data
+structures fit again in the general workflow:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -358,7 +359,7 @@ structures fits again in the general workflow:</p>
 };
 
 <span style="color:#080;font-weight:bold">struct</span> DRigComm {
-    comm::Comm ipp, ss;
+    Comm ipp, ss;
 };
 
 <span style="color:#080;font-weight:bold">struct</span> DRigUnpack {
@@ -371,9 +372,9 @@ structures fits again in the general workflow:</p>
 <h3 id="_interface_4">interface</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> drig_pack_ini(<span style="color:#0a8;font-weight:bold">int</span> maxns, <span style="color:#0a8;font-weight:bold">int</span> nv, DRigPack *p);
-<span style="color:#088;font-weight:bold">void</span> drig_comm_ini(MPI_Comm comm, <span style="color:#777">/**/</span> DRigComm *c);
-<span style="color:#088;font-weight:bold">void</span> drig_unpack_ini(<span style="color:#0a8;font-weight:bold">int</span> maxns, <span style="color:#0a8;font-weight:bold">int</span> nv, DRigUnpack *u);
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> drig_pack_ini(<span style="color:#0a8;font-weight:bold">int</span> maxns, <span style="color:#0a8;font-weight:bold">int</span> nv, DRigPack **p);
+<span style="color:#088;font-weight:bold">void</span> drig_comm_ini(MPI_Comm comm, <span style="color:#777">/**/</span> DRigComm **c);
+<span style="color:#088;font-weight:bold">void</span> drig_unpack_ini(<span style="color:#0a8;font-weight:bold">int</span> maxns, <span style="color:#0a8;font-weight:bold">int</span> nv, DRigUnpack **u);
 
 <span style="color:#088;font-weight:bold">void</span> drig_pack_fin(DRigPack *p);
 <span style="color:#088;font-weight:bold">void</span> drig_comm_fin(DRigComm *c);
@@ -396,6 +397,34 @@ structures fits again in the general workflow:</p>
 <div class="paragraph">
 <p>Note that <code>unpack_bulk</code> can be done before unpacking halo quantities.</p>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_common">common</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>helpers: common kernels</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> dcommon_pack_pp_packets(<span style="color:#0a8;font-weight:bold">int</span> nc, <span style="color:#0a8;font-weight:bold">int</span> nv, <span style="color:#088;font-weight:bold">const</span> Particle *pp, DMap m, <span style="color:#777">/**/</span> Sarray&lt;Particle*, <span style="color:#00D">27</span>&gt; buf); <b class="conum">(1)</b>
+<span style="color:#088;font-weight:bold">void</span> dcommon_shift_one_frag(<span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> fid, <span style="color:#777">/**/</span> Particle *pp); <b class="conum">(2)</b>
+<span style="color:#088;font-weight:bold">void</span> dcommon_shift_halo(<span style="color:#0a8;font-weight:bold">int</span> nhalo, <span style="color:#088;font-weight:bold">const</span> Sarray&lt;<span style="color:#0a8;font-weight:bold">int</span>, <span style="color:#00D">27</span>&gt; starts, <span style="color:#777">/**/</span> Particle *pp); <b class="conum">(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>pack <code>nc</code>  packets of <code>nv</code> particles into 27 buffers <code>buf</code> according to map</p>
+</li>
+<li>
+<p>shift particles in the fragment direction</p>
+</li>
+<li>
+<p>shift all particles according to the fragment direction</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
