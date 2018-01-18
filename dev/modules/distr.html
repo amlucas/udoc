@@ -173,7 +173,7 @@ contains the three <em>hidden</em> generic data structures:</p>
 };
 
 <span style="color:#080;font-weight:bold">struct</span> DFluComm {
-    Comm pp, ii, cc;
+    Comm *pp, *ii, *cc;
 };
 
 <span style="color:#080;font-weight:bold">struct</span> DFluUnpack {
@@ -205,12 +205,9 @@ The <code>xxre</code> variables in <code>Unpack</code> are buffer for remote qua
 <span style="color:#777">/* map */</span>
 <span style="color:#088;font-weight:bold">void</span> dflu_build_map(<span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> PartList lp, DFluPack *p);
 
-<span style="color:#088;font-weight:bold">using</span> <span style="color:#080;font-weight:bold">namespace</span> flu;
-
 <span style="color:#777">/* pack */</span>
-<span style="color:#088;font-weight:bold">void</span> dflu_pack(<span style="color:#088;font-weight:bold">const</span> Quants *q, <span style="color:#777">/**/</span> DFluPack *p);
-
-<span style="color:#088;font-weight:bold">void</span> dflu_download(DFluPack *p);
+<span style="color:#088;font-weight:bold">void</span> dflu_pack(<span style="color:#088;font-weight:bold">const</span> FluQuants *q, <span style="color:#777">/**/</span> DFluPack *p);
+<span style="color:#088;font-weight:bold">void</span> dflu_download(DFluPack *p, <span style="color:#777">/**/</span> DFluStatus *s);
 
 <span style="color:#777">/* communication */</span>
 <span style="color:#088;font-weight:bold">void</span> dflu_post_recv(DFluComm *c, DFluUnpack *u);
@@ -247,9 +244,9 @@ It is done in two phases:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#777">/* cell lists */</span>
-<span style="color:#088;font-weight:bold">void</span> dflu_bulk(PartList lp, <span style="color:#777">/**/</span> Quants *q);
-<span style="color:#088;font-weight:bold">void</span> dflu_halo(<span style="color:#088;font-weight:bold">const</span> DFluUnpack *u, <span style="color:#777">/**/</span> Quants *q);
-<span style="color:#088;font-weight:bold">void</span> dflu_gather(<span style="color:#0a8;font-weight:bold">int</span> ndead, <span style="color:#088;font-weight:bold">const</span> DFluPack *p, <span style="color:#088;font-weight:bold">const</span> DFluUnpack *u, <span style="color:#777">/**/</span> Quants *q);</code></pre>
+<span style="color:#088;font-weight:bold">void</span> dflu_bulk(PartList lp, <span style="color:#777">/**/</span> FluQuants *q);
+<span style="color:#088;font-weight:bold">void</span> dflu_halo(<span style="color:#088;font-weight:bold">const</span> DFluUnpack *u, <span style="color:#777">/**/</span> FluQuants *q);
+<span style="color:#088;font-weight:bold">void</span> dflu_gather(<span style="color:#0a8;font-weight:bold">int</span> ndead, <span style="color:#088;font-weight:bold">const</span> DFluPack *p, <span style="color:#088;font-weight:bold">const</span> DFluUnpack *u, <span style="color:#777">/**/</span> FluQuants *q);</code></pre>
 </div>
 </div>
 </div>
@@ -283,7 +280,7 @@ contains the three <em>hidden</em> generic data structures:</p>
 
 <span style="color:#080;font-weight:bold">struct</span> DRbcComm {
     <span style="color:#777">/* optional: ids */</span>
-    Comm pp, ii;
+    Comm *pp, *ii;
 };
 
 <span style="color:#080;font-weight:bold">struct</span> DRbcUnpack {
@@ -311,10 +308,8 @@ each RBC. Other variables have the same naming conventions than <code>distr::flu
 <span style="color:#088;font-weight:bold">void</span> drbc_comm_fin(DRbcComm *c);
 <span style="color:#088;font-weight:bold">void</span> drbc_unpack_fin(DRbcUnpack *u);
 
-<span style="color:#088;font-weight:bold">using</span> <span style="color:#080;font-weight:bold">namespace</span> ::rbc;
-
 <span style="color:#088;font-weight:bold">void</span> drbc_build_map(<span style="color:#0a8;font-weight:bold">int</span> nc, <span style="color:#0a8;font-weight:bold">int</span> nv, <span style="color:#088;font-weight:bold">const</span> Particle *pp, DRbcPack *p);
-<span style="color:#088;font-weight:bold">void</span> drbc_pack(<span style="color:#088;font-weight:bold">const</span> rbc::Quants *q, <span style="color:#777">/**/</span> DRbcPack *p);
+<span style="color:#088;font-weight:bold">void</span> drbc_pack(<span style="color:#088;font-weight:bold">const</span> RbcQuants *q, <span style="color:#777">/**/</span> DRbcPack *p);
 <span style="color:#088;font-weight:bold">void</span> drbc_download(DRbcPack *p);
 
 <span style="color:#088;font-weight:bold">void</span> drbc_post_recv(DRbcComm *c, DRbcUnpack *u);
@@ -322,8 +317,8 @@ each RBC. Other variables have the same naming conventions than <code>distr::flu
 <span style="color:#088;font-weight:bold">void</span> drbc_wait_recv(DRbcComm *c, DRbcUnpack *u);
 <span style="color:#088;font-weight:bold">void</span> drbc_wait_send(DRbcComm *c);
 
-<span style="color:#088;font-weight:bold">void</span> drbc_unpack_bulk(<span style="color:#088;font-weight:bold">const</span> DRbcPack *p, <span style="color:#777">/**/</span> rbc::Quants *q);
-<span style="color:#088;font-weight:bold">void</span> drbc_unpack_halo(<span style="color:#088;font-weight:bold">const</span> DRbcUnpack *u, <span style="color:#777">/**/</span> rbc::Quants *q);</code></pre>
+<span style="color:#088;font-weight:bold">void</span> drbc_unpack_bulk(<span style="color:#088;font-weight:bold">const</span> DRbcPack *p, <span style="color:#777">/**/</span> RbcQuants *q);
+<span style="color:#088;font-weight:bold">void</span> drbc_unpack_halo(<span style="color:#088;font-weight:bold">const</span> DRbcUnpack *u, <span style="color:#777">/**/</span> RbcQuants *q);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -359,7 +354,7 @@ structures fit again in the general workflow:</p>
 };
 
 <span style="color:#080;font-weight:bold">struct</span> DRigComm {
-    Comm ipp, ss;
+    Comm *ipp, *ss;
 };
 
 <span style="color:#080;font-weight:bold">struct</span> DRigUnpack {
@@ -389,7 +384,7 @@ structures fit again in the general workflow:</p>
 <span style="color:#088;font-weight:bold">void</span> drig_wait_recv(DRigComm *c, DRigUnpack *u);
 <span style="color:#088;font-weight:bold">void</span> drig_wait_send(DRigComm *c);
 
-<span style="color:#088;font-weight:bold">using</span> <span style="color:#080;font-weight:bold">namespace</span> ::rig;
+<span style="color:#088;font-weight:bold">using</span> <span style="color:#080;font-weight:bold">namespace</span> rig;
 <span style="color:#088;font-weight:bold">void</span> drig_unpack_bulk(<span style="color:#088;font-weight:bold">const</span> DRigPack *p, <span style="color:#777">/**/</span> rig::Quants *q);
 <span style="color:#088;font-weight:bold">void</span> drig_unpack_halo(<span style="color:#088;font-weight:bold">const</span> DRigUnpack *u, <span style="color:#777">/**/</span> rig::Quants *q);</code></pre>
 </div>

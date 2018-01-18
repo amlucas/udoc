@@ -127,7 +127,7 @@ cell and <code>ss</code> (starts) is the prefix sum of <code>cc</code>.</p>
     <span style="color:#0a8;font-weight:bold">int</span> nA;              <span style="color:#777">/* number of source arrays to build the cell lists, e.g remote+bulk -&gt; 2 */</span>
     uchar4 *ee[MAXA];    <span style="color:#777">/* cell entries */</span>
     uint *ii;            <span style="color:#777">/* codes containing: indices of data to fetch and array id from which to fetch */</span>
-    scan::Work scan;     <span style="color:#777">/* scan workspace */</span>
+    ScanWork *scan;      <span style="color:#777">/* scan workspace */</span>
     <span style="color:#0a8;font-weight:bold">long</span> maxp;           <span style="color:#777">/* maximum number of particles per input vector */</span>
 };</code></pre>
 </div>
