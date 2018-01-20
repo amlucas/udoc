@@ -31,7 +31,22 @@
 <div class="sect1">
 <h2 id="_mpi">mpi</h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p>To get the flags</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>mpicxx -show</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>pkg-config --libs mpich</pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -43,7 +58,39 @@
 <div class="sect1">
 <h2 id="_hdf5">hdf5</h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p>To get flags</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>h5c++ -show</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>pkg-config hdf5-mpich --libs</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To build from source</p>
+</div>
+<div class="paragraph">
+<p><a href="https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8.17/src/hdf5-1.8.17.tar.gz" class="bare">https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8.17/src/hdf5-1.8.17.tar.gz</a></p>
+</div>
+<div class="paragraph">
+<p>Configuration options</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>      --prefix=$HOME/prefix/hdf5
+	  --enable-parallel
+	  CXX=/usr/lib64/mpich/bin/mpic++
+	  CC=/usr/lib64/mpich/bin/mpicc</pre>
+</div>
+</div>
 </div>
 </div>
 </div>
