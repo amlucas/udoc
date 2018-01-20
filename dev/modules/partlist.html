@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<title>partlist</title>
+<link rel="stylesheet" href="/udoc/css/main.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>partlist</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_data_structure">data structure</a></li>
+<li><a href="#_interface">interface</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Part list: a structure to handle a list of dead or alive particles
+Purpose: kill particles during redistribution or cell lists build</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_data_structure">data structure</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#080;font-weight:bold">struct</span> PartList {
+    <span style="color:#088;font-weight:bold">const</span> Particle *pp;   <span style="color:#777">/* particles array          */</span>
+    <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> *deathlist; <span style="color:#777">/* what pp is dead or alive */</span>
+};</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_interface">interface</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>contains only device interface:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">static</span> __device__ <span style="color:#0a8;font-weight:bold">bool</span> is_dead(<span style="color:#0a8;font-weight:bold">int</span> i, <span style="color:#088;font-weight:bold">const</span> PartList lp) {
+    <span style="color:#080;font-weight:bold">if</span> (lp.deathlist)
+        <span style="color:#080;font-weight:bold">return</span> lp.deathlist[i] == DEAD;
+    <span style="color:#080;font-weight:bold">return</span> <span style="color:#069">false</span>;
+}
+
+<span style="color:#088;font-weight:bold">static</span> __device__ <span style="color:#0a8;font-weight:bold">bool</span> is_alive(<span style="color:#0a8;font-weight:bold">int</span> i, <span style="color:#088;font-weight:bold">const</span> PartList lp) {
+    <span style="color:#080;font-weight:bold">return</span> !is_dead(i, lp);
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

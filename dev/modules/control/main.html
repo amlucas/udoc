@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<title>Control</title>
+<link rel="stylesheet" href="/udoc/css/main.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>Control</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_velocity_controller">Velocity controller</a>
+<ul class="sectlevel2">
+<li><a href="#_interface">interface</a></li>
+<li><a href="#_configuration">configuration</a></li>
+</ul>
+</li>
+<li><a href="#_inflow">Inflow</a>
+<ul class="sectlevel2">
+<li><a href="#_interface_2">interface</a></li>
+<li><a href="#_configuration_2">configuration</a></li>
+</ul>
+</li>
+<li><a href="#_outflow">Outflow</a>
+<ul class="sectlevel2">
+<li><a href="#_interface_3">interface</a></li>
+<li><a href="#_configuration_3">configuration</a></li>
+</ul>
+</li>
+<li><a href="#_density_controller">Density controller</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>velocity controller</p>
+</li>
+<li>
+<p>open boundary conditions</p>
+</li>
+<li>
+<p>density controller</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_velocity_controller">Velocity controller</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>control velocity by modifying the imposed hydrostatic force</p>
+</div>
+<div class="sect2">
+<h3 id="_interface">interface</h3>
+<div class="paragraph">
+<p>allocate, deallocate:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> vcont_ini(MPI_Comm comm, int3 L, float3 vtarget, <span style="color:#0a8;font-weight:bold">float</span> factor, <span style="color:#777">/**/</span> PidVCont **c);
+<span style="color:#088;font-weight:bold">void</span> vcont_fin(<span style="color:#777">/**/</span> PidVCont *cont);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>initialize the transformation structure (to be done only once):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> vcon_set_cart(<span style="color:#777">/**/</span> PidVCont *cont);
+<span style="color:#088;font-weight:bold">void</span> vcon_set_radial(<span style="color:#777">/**/</span> PidVCont *cont);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>the transformation is the way of averaging the velocity:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>cartesian transformation keeps the velocity as it is before averaging.</p>
+</li>
+<li>
+<p>radial transformation returns the velocity in polar coordinates
+scaled by the radial position. the <code>z</code> component corresponds to
+cartesian transformation</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Control operations:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span>   vcont_sample(Coords coords, <span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> Particle *pp, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> *starts, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> *counts, <span style="color:#777">/**/</span> PidVCont *c); <b class="conum">(1)</b>
+float3 vcont_adjustF(<span style="color:#777">/**/</span> PidVCont *c); <b class="conum">(2)</b>
+<span style="color:#088;font-weight:bold">void</span>   vcont_log(<span style="color:#088;font-weight:bold">const</span> PidVCont *c);    <b class="conum">(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>get average velocity according to transformation and store it</p>
+</li>
+<li>
+<p>reduce sampled quantities and update the controller. return the force</p>
+</li>
+<li>
+<p>logging informations; dumped into the file <code>vcon.txt</code></p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_configuration">configuration</h3>
+<div class="paragraph">
+<p>syntax:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cfg">vcon = {
+     active = true;
+     type   = &quot;cart&quot;;          # can be also &quot;rad&quot;
+     U      = [1.0, 1.0, 0.0]; # target velocity in transformed space
+     log_freq    = 500;
+     adjust_freq = 500;
+     sample_freq = 1;
+};</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_inflow">Inflow</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Mass rate inflow</p>
+</div>
+<div class="sect2">
+<h3 id="_interface_2">interface</h3>
+<div class="paragraph">
+<p>allocate, deallocate:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> inflow_ini(int2 nc, Inflow **i);
+<span style="color:#088;font-weight:bold">void</span> inflow_fin(Inflow *i);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>initialize the inflow structure (to be done only once):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> inflow_ini_velocity(Inflow *i);
+
+<span style="color:#088;font-weight:bold">void</span> inflow_ini_params_plate(Coords c, float3 o, <span style="color:#0a8;font-weight:bold">int</span> dir, <span style="color:#0a8;font-weight:bold">float</span> L1, <span style="color:#0a8;font-weight:bold">float</span> L2,
+                      float3 u, <span style="color:#0a8;font-weight:bold">bool</span> upoiseuille, <span style="color:#0a8;font-weight:bold">bool</span> vpoiseuille,
+                      <span style="color:#777">/**/</span> Inflow *i);
+<span style="color:#088;font-weight:bold">void</span> inflow_ini_params_circle(Coords c, float3 o, <span style="color:#0a8;font-weight:bold">float</span> R, <span style="color:#0a8;font-weight:bold">float</span> H, <span style="color:#0a8;font-weight:bold">float</span> u, <span style="color:#0a8;font-weight:bold">bool</span> poiseuille,
+                       <span style="color:#777">/**/</span> Inflow *i);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>depending on the type of inflow, call the appropriate
+<code>ini_params_xxx</code>.
+<code>ini_velocity</code> must be called after initializing the parameters.
+it is used to setup the inlet velocity from parameters.</p>
+</div>
+<div class="paragraph">
+<p>initialize from config parameters:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> inflow_ini_params_conf(Coords coords, <span style="color:#088;font-weight:bold">const</span> Config *cfg, <span style="color:#777">/**/</span> Inflow *i);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>create particles (at every time step):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> inflow_create_pp(Inflow *i, <span style="color:#0a8;font-weight:bold">int</span> *n, Particle *pp); <b class="conum">(1)</b>
+<span style="color:#088;font-weight:bold">void</span> inflow_create_pp_cc(<span style="color:#0a8;font-weight:bold">int</span> newcolor, Inflow *i, <span style="color:#0a8;font-weight:bold">int</span> *n, Particle *pp, <span style="color:#0a8;font-weight:bold">int</span> *cc); <b class="conum">(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>add particles to the array <code>pp</code> and increase <code>n</code> accordingly</p>
+</li>
+<li>
+<p>same as above, with colors <code>cc</code> set to <code>color</code></p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_configuration_2">configuration</h3>
+<div class="sect3">
+<h4 id="_plate">plate</h4>
+<div class="paragraph">
+<p>syntax for a <code>8.0 x 16.0</code> plate perpendicular to the x axis passing by
+the point <code>(1, 2, 3)</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cfg">inflow = {
+    active      = true;
+    type        = &quot;plate&quot;;
+    L1          = 1.0;
+    L2          = 16.0;
+    direction   = 0;                # [0,1,2] = [X,Y,Z]
+    origin      = [1.0, 2.0, 3.0];
+    upoiseuille = false;            # true for parabolic profile along L1
+    vpoiseuille = false;            # true for parabolic profile along L2
+    u           = [10.0, 0.0, 0.0];
+};</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_circle">circle</h4>
+<div class="paragraph">
+<p>syntax for cylinder:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cfg">inflow = {
+    active = true;
+    type   = &quot;circle&quot;;
+    R      = 1.0;              # radius
+    H      = 16.0;             # hight of the cylinder
+    U      = 1.0;              # maximum velocity
+    center = [8.0, 8.0, 8.0];
+    poiseuille = false;        # parabolic profile along H if true
+};</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_outflow">Outflow</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Delete particles satisfying a predicate</p>
+</div>
+<div class="sect2">
+<h3 id="_interface_3">interface</h3>
+<div class="paragraph">
+<p>allocate, deallocate:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> ini(<span style="color:#0a8;font-weight:bold">int</span> maxp, <span style="color:#777">/**/</span> Outflow **o);
+<span style="color:#088;font-weight:bold">void</span> fin(<span style="color:#777">/**/</span> Outflow *o);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>initialize the outflow structure (to be done only once):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> ini_params_circle(Coords coords, float3 c, <span style="color:#0a8;font-weight:bold">float</span> R, Outflow *o);
+<span style="color:#088;font-weight:bold">void</span> ini_params_plate(Coords c, <span style="color:#0a8;font-weight:bold">int</span> dir, <span style="color:#0a8;font-weight:bold">float</span> r0, Outflow *o);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>depending on the geometry of outflow, call the appropriate
+<code>ini_params_xxx</code>.</p>
+</div>
+<div class="paragraph">
+<p>filter and mark particles (at every time step):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> filter_particles(<span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> Particle *pp, <span style="color:#777">/**/</span> Outflow *o); <b class="conum">(1)</b>
+
+<span style="color:#088;font-weight:bold">void</span> download_ndead(Outflow *o);                                   <b class="conum">(2)</b>
+
+<span style="color:#0a8;font-weight:bold">int</span>* get_deathlist(Outflow *o);                                    <b class="conum">(3)</b>
+<span style="color:#0a8;font-weight:bold">int</span>  get_ndead(Outflow *o);                                        <b class="conum">(4)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>store dying particles infos inside Outflow struct</p>
+</li>
+<li>
+<p>copy from device to host number of dead particles</p>
+</li>
+<li>
+<p>return the list of dead marks (dead=1, alive=0)</p>
+</li>
+<li>
+<p>return the number of dead particles</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_configuration_3">configuration</h3>
+<div class="sect3">
+<h4 id="_plate_2">plate</h4>
+<div class="paragraph">
+<p>will delete particles crossing a plate along the positive direction.
+syntax for the plate <code>y=4</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cfg">outflow = {
+    active     = true;
+    type       = &quot;plate&quot;;
+    direction  = 1;      # [0,1,2] = [X,Y,Z]
+    position   = 4.0;    # position along &quot;direction&quot;
+};</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_circle_2">circle</h4>
+<div class="paragraph">
+<p>delete particles going out of the cylinder.
+syntax for a cylinder of radius 8 centered at <code>(8, 8, 8)</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cfg">outflow = {
+    active = true;
+    type   = &quot;circle&quot;;
+    R      = 8.0;
+    center = [8.0, 8.0, 8.0];
+};</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_density_controller">Density controller</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+</div>
+</body>
+</html>
