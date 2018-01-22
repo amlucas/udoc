@@ -5,17 +5,17 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.6.1">
-<title>buildg</title>
+<title>compilation</title>
 <link rel="stylesheet" href="/udoc/css/main.css">
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>buildg</h1>
+<h1>compilation</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_arch_linux">Arch Linux</a></li>
 <li><a href="#_after_adding_files">after adding files</a></li>
+<li><a href="#_update_gh_pages">update gh-pages</a></li>
 </ul>
 </div>
 </div>
@@ -51,25 +51,6 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_arch_linux">Arch Linux</h2>
-<div class="sectionbody">
-<div class="literalblock">
-<div class="content">
-<pre>u.make MPI_VARIANT=ompi-cxx HDF5_CXXFLAGS= HDF5_LIBS=-lhdf5 NVCC_LIBS=-L/opt/cuda/lib64</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>or</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>MAKEFLAGS="MPI_VARIANT=ompi-cxx HDF5_CXXFLAGS= HDF5_LIBS=-lhdf5 NVCC_LIBS=-L/opt/cuda/lib64" \
-				u.test test/compile</pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="_after_adding_files">after adding files</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -78,6 +59,16 @@
 <div class="literalblock">
 <div class="content">
 <pre>../tools/deps</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_update_gh_pages">update gh-pages</h2>
+<div class="sectionbody">
+<div class="literalblock">
+<div class="content">
+<pre>git push origin `git subtree split --prefix doc master`:gh-pages --force</pre>
 </div>
 </div>
 </div>

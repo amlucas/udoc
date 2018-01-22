@@ -80,14 +80,40 @@ specific time. It is passed to device kernels.</p>
 <p>Host code is responsible for initialisation of <code>Wvel</code> and convert
 <code>Wvel</code> to a view at a given timestep.</p>
 </div>
+<div class="paragraph">
+<p>alloc, free structure:</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="c++"><span style="color:#088;font-weight:bold">void</span> ini(WvelCste p, Wvel *vw);
-<span style="color:#088;font-weight:bold">void</span> ini(WvelShear p, Wvel *vw);
-<span style="color:#088;font-weight:bold">void</span> ini(WvelShearSin p, Wvel *vw);
-<span style="color:#088;font-weight:bold">void</span> ini(WvelHS p, Wvel *vw);
-
-<span style="color:#088;font-weight:bold">void</span> step2params(<span style="color:#0a8;font-weight:bold">long</span> it, <span style="color:#088;font-weight:bold">const</span> Wvel *wv, <span style="color:#777">/**/</span> Wvel_v *view);</code></pre>
+<pre class="CodeRay highlight"><code data-lang="c++"><span style="color:#088;font-weight:bold">void</span> wvel_ini(Wvel **wv);
+<span style="color:#088;font-weight:bold">void</span> wvel_fin(Wvel *wv);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Set velocity type from parameters:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++"><span style="color:#088;font-weight:bold">void</span> wvel_set_cste(float3 u, Wvel *vw);
+<span style="color:#088;font-weight:bold">void</span> wvel_set_shear(<span style="color:#0a8;font-weight:bold">float</span> gdot, <span style="color:#0a8;font-weight:bold">int</span> vdir, <span style="color:#0a8;font-weight:bold">int</span> gdir, <span style="color:#0a8;font-weight:bold">int</span> half, Wvel *vw);
+<span style="color:#088;font-weight:bold">void</span> wvel_set_shear_sin(<span style="color:#0a8;font-weight:bold">float</span> gdot, <span style="color:#0a8;font-weight:bold">int</span> vdir, <span style="color:#0a8;font-weight:bold">int</span> gdir, <span style="color:#0a8;font-weight:bold">int</span> half, <span style="color:#0a8;font-weight:bold">float</span> w, <span style="color:#0a8;font-weight:bold">int</span> log_freq, Wvel *vw);
+<span style="color:#088;font-weight:bold">void</span> wvel_set_hs(<span style="color:#0a8;font-weight:bold">float</span> u, <span style="color:#0a8;font-weight:bold">float</span> h, Wvel *vw);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Set velocity type from configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++"><span style="color:#088;font-weight:bold">void</span> wvel_set_conf(<span style="color:#088;font-weight:bold">const</span> Config *cfg, Wvel *vw);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Get <em>view</em> structure:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++"><span style="color:#088;font-weight:bold">void</span> wvel_get_view(<span style="color:#0a8;font-weight:bold">long</span> it, <span style="color:#088;font-weight:bold">const</span> Wvel *wv, <span style="color:#777">/**/</span> Wvel_v *view);</code></pre>
 </div>
 </div>
 </div>
@@ -95,25 +121,13 @@ specific time. It is passed to device kernels.</p>
 <h3 id="_device">Device</h3>
 <div class="paragraph">
 <p>Device code contains the functions describing the field.
-Also contains bouncer function: gives bounce back velocity from
-position and velocity.</p>
+Also contains bouncer function: gives bounced-back velocity from
+position and velocity of particle.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="c++"><span style="color:#088;font-weight:bold">static</span> __device__ <span style="color:#088;font-weight:bold">void</span> wvel(Wvel_v wv, Coords c, float3 r, <span style="color:#777">/**/</span> float3 *v) {
-    <span style="color:#0a8;font-weight:bold">int</span> type;
-    wvel_fun wvel_funs[] = {&amp;wvel_cste, &amp;wvel_shear, &amp;wvel_hs};
-    type = wv.type;
-    wvel_funs[type](wv.p, c, r, <span style="color:#777">/**/</span> v);
-}
-
-<span style="color:#088;font-weight:bold">static</span> __device__ <span style="color:#088;font-weight:bold">void</span> bounce_vel(Wvel_v wv, Coords c, float3 rw, <span style="color:#777">/* io */</span> float3* v) {
-    float3 vw;
-    wvel(wv, c, rw, <span style="color:#777">/**/</span> &amp;vw);
-    v-&gt;x = <span style="color:#00D">2</span> * vw.x - v-&gt;x;
-    v-&gt;y = <span style="color:#00D">2</span> * vw.y - v-&gt;y;
-    v-&gt;z = <span style="color:#00D">2</span> * vw.z - v-&gt;z;
-}</code></pre>
+<pre class="CodeRay highlight"><code data-lang="c++"><span style="color:#088;font-weight:bold">static</span> __device__ <span style="color:#088;font-weight:bold">void</span> wvel(Wvel_v wv, Coords c, float3 r, <span style="color:#777">/**/</span> float3 *v)
+<span style="color:#088;font-weight:bold">static</span> __device__ <span style="color:#088;font-weight:bold">void</span> bounce_vel(Wvel_v wv, Coords c, float3 rw, <span style="color:#777">/* io */</span> float3* v)</code></pre>
 </div>
 </div>
 </div>

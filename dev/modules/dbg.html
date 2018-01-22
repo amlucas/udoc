@@ -116,7 +116,8 @@ valid if</p>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="c++"><span style="color:#088;font-weight:bold">void</span> dbg_enable(<span style="color:#0a8;font-weight:bold">int</span> kind, Dbg *dbg);
 <span style="color:#088;font-weight:bold">void</span> dbg_disable(<span style="color:#0a8;font-weight:bold">int</span> kind, Dbg *dbg);
-<span style="color:#088;font-weight:bold">void</span> dbg_set_verbose(<span style="color:#0a8;font-weight:bold">bool</span>, Dbg *dbg);</code></pre>
+<span style="color:#088;font-weight:bold">void</span> dbg_set_verbose(<span style="color:#0a8;font-weight:bold">bool</span>, Dbg *dbg);
+<span style="color:#088;font-weight:bold">void</span> dbg_set_dump(<span style="color:#0a8;font-weight:bold">bool</span>, Dbg *dbg);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -132,12 +133,12 @@ valid if</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="c++"><span style="color:#088;font-weight:bold">void</span> dbg_check_pos(<span style="color:#088;font-weight:bold">const</span> Dbg *dbg, <span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> Particle *pp);
-<span style="color:#088;font-weight:bold">void</span> dbg_check_pos_soft(<span style="color:#088;font-weight:bold">const</span> Dbg *dbg, <span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> Particle *pp);
-<span style="color:#088;font-weight:bold">void</span> dbg_check_vel(<span style="color:#088;font-weight:bold">const</span> Dbg *dbg, <span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> Particle *pp);
-<span style="color:#088;font-weight:bold">void</span> dbg_check_forces(<span style="color:#088;font-weight:bold">const</span> Dbg *dbg, <span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> Force *ff);
-<span style="color:#088;font-weight:bold">void</span> dbg_check_colors(<span style="color:#088;font-weight:bold">const</span> Dbg *dbg, <span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> *cc);
-<span style="color:#088;font-weight:bold">void</span> dbg_check_clist(<span style="color:#088;font-weight:bold">const</span> Dbg *dbg, int3 L, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> *starts, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> *counts, <span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> Particle *pp);</code></pre>
+<pre class="CodeRay highlight"><code data-lang="c++"><span style="color:#088;font-weight:bold">void</span> dbg_check_pos(Coords c, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">char</span> *base, <span style="color:#088;font-weight:bold">const</span> Dbg *dbg, <span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> Particle *pp);
+<span style="color:#088;font-weight:bold">void</span> dbg_check_pos_soft(Coords c, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">char</span> *base, <span style="color:#088;font-weight:bold">const</span> Dbg *dbg, <span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> Particle *pp);
+<span style="color:#088;font-weight:bold">void</span> dbg_check_vel(Coords c, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">char</span> *base, <span style="color:#088;font-weight:bold">const</span> Dbg *dbg, <span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> Particle *pp);
+<span style="color:#088;font-weight:bold">void</span> dbg_check_forces(Coords c, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">char</span> *base, <span style="color:#088;font-weight:bold">const</span> Dbg *dbg, <span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> Particle *pp, <span style="color:#088;font-weight:bold">const</span> Force *ff);
+<span style="color:#088;font-weight:bold">void</span> dbg_check_colors(Coords c, <span style="color:#088;font-weight:bold">const</span> Dbg *dbg, <span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> *cc);
+<span style="color:#088;font-weight:bold">void</span> dbg_check_clist(Coords c, <span style="color:#088;font-weight:bold">const</span> Dbg *dbg, int3 L, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> *starts, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> *counts, <span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> Particle *pp);</code></pre>
 </div>
 </div>
 </div>
