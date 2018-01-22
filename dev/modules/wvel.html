@@ -22,6 +22,14 @@
 <li><a href="#_device">Device</a></li>
 </ul>
 </li>
+<li><a href="#_configuration">Configuration</a>
+<ul class="sectlevel2">
+<li><a href="#_constant">constant</a></li>
+<li><a href="#_shear">shear</a></li>
+<li><a href="#_sinusoidal_shear">sinusoidal shear</a></li>
+<li><a href="#_hele_shaw">Hele Shaw</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -133,6 +141,95 @@ position and velocity of particle.</p>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_configuration">Configuration</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_constant">constant</h3>
+<div class="paragraph">
+<p>constant velocity \(u = (1, 0, 0)\):</p>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cfg">wvel {
+    type = &quot;constant&quot;;
+    u    = [1.0, 0.0, 0.0];
+};</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_shear">shear</h3>
+<div class="paragraph">
+<p>shear velocity \(u = (3 y, 0, 0)\):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cfg">wvel {
+    type = &quot;shear&quot;;
+    gdot = 3.0;
+    vdir = 0;
+    gdir = 1;
+    half = 0;
+};</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sinusoidal_shear">sinusoidal shear</h3>
+<div class="paragraph">
+<p>shear velocity \(u(t) = (3 y \sin(5 t), 0, 0)\):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cfg">wvel {
+    type = &quot;shear sin&quot;;
+    gdot = 3.0;
+    vdir = 0;
+    gdir = 1;
+    half = 0;
+    w = 5.0;
+    log_freq = 1000;
+};</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>in this case, the value \(3 * \sin(5 t)\) is printed every 1000 iterations.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_hele_shaw">Hele Shaw</h3>
+<div class="paragraph">
+<p>velocity \(u_r = \frac u r \left(1 - \frac {4 z^2}{h^2}\right)\):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cfg">wvel {
+    type = &quot;hele shaw&quot;;
+    u = 1.0;
+    h = 8.0;
+};</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.6.0/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
 </body>
 </html>
