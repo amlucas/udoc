@@ -14,6 +14,7 @@
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
+<li><a href="#_modules">modules</a></li>
 <li><a href="#_naming">naming</a>
 <ul class="sectlevel2">
 <li><a href="#_variables">variables</a></li>
@@ -26,6 +27,19 @@
 </div>
 </div>
 <div id="content">
+<div class="sect1">
+<h2 id="_modules">modules</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>uDeviceX</em> consists of modules.
+Modules are as independant as possible.
+They consist of a folder with one or more compilation units, and an
+interface.
+Whenever it is possible, the structures are hidden from the client of
+the module.</p>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="_naming">naming</h2>
 <div class="sectionbody">
@@ -62,7 +76,7 @@ r[Z] = rz;</pre>
 <div class="ulist">
 <ul>
 <li>
-<p>a function name is descriptive on its own or inside its namespace</p>
+<p>a function name is descriptive on its own or inside a module.</p>
 </li>
 <li>
 <p>arguments are ordered as follow:</p>
@@ -100,6 +114,12 @@ r[Z] = rz;</pre>
 <span style="color:#088;font-weight:bold">void</span> forward_euler(<span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> Force *ff, <span style="color:#777">/* io */</span> Particle *pp);</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Function names part of a module interface start with the module name.
+Functions private to a module do not need to contain the module name
+if the context make it clear. Use the <code>static</code> qualifier for functions
+with compilation-unit scope.</p>
+</div>
 </div>
 </div>
 </div>
@@ -119,7 +139,7 @@ r[Z] = rz;</pre>
 <div class="ulist">
 <ul>
 <li>
-<p>it has its own object <code>A/imp.cu</code> or <code>A/imp.cpp</code></p>
+<p>it has its own object <code>A/imp.cu</code> or <code>A/imp.cpp</code>(<code>.cpp</code> prefered if possible)</p>
 </li>
 <li>
 <p>interface <code>A/imp.h</code></p>
@@ -128,7 +148,10 @@ r[Z] = rz;</pre>
 <p>implementation can be done in separate files inside <code>A/imp/</code> directory</p>
 </li>
 <li>
-<p>cuda code should be inside <code>A/dev.h</code> or, if multiple files, <code>A/dev/</code> directory</p>
+<p>internal cuda (private to module) code are inside <code>A/dev/</code> directory</p>
+</li>
+<li>
+<p>cuda interface inside <code>A/dev.h</code> (for client use)</p>
 </li>
 </ul>
 </div>
