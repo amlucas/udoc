@@ -134,8 +134,8 @@ position and velocity of particle.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="c++"><span style="color:#088;font-weight:bold">static</span> __device__ <span style="color:#088;font-weight:bold">void</span> wvel(Wvel_v wv, Coords c, float3 r, <span style="color:#777">/**/</span> float3 *v)
-<span style="color:#088;font-weight:bold">static</span> __device__ <span style="color:#088;font-weight:bold">void</span> bounce_vel(Wvel_v wv, Coords c, float3 rw, <span style="color:#777">/* io */</span> float3* v)</code></pre>
+<pre class="CodeRay highlight"><code data-lang="c++"><span style="color:#088;font-weight:bold">static</span> __device__ <span style="color:#088;font-weight:bold">void</span> wvel(Wvel_v wv, Coords_v c, float3 r, <span style="color:#777">/**/</span> float3 *v)
+<span style="color:#088;font-weight:bold">static</span> __device__ <span style="color:#088;font-weight:bold">void</span> bounce_vel(Wvel_v wv, Coords_v c, float3 rw, <span style="color:#777">/* io */</span> float3* v)</code></pre>
 </div>
 </div>
 </div>

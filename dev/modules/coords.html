@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<title>coords</title>
+<link rel="stylesheet" href="/udoc/css/main.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>coords</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_data_structures">data structures</a></li>
+<li><a href="#_host_interface">Host interface</a>
+<ul class="sectlevel2">
+<li><a href="#_memory_management">Memory management</a></li>
+<li><a href="#_getters">Getters</a></li>
+<li><a href="#_coordinate_transforms">Coordinate transforms</a></li>
+<li><a href="#_helpers">helpers</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Coordinate transforms utility.
+Consider three coordinate systems:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>Global</em>: Relative to the lower corner of the full domain of size
+\((G_x, G_y, G_z)\)</p>
+</li>
+<li>
+<p><em>Local</em>: Relative to the center of the subdomain of size
+\((L_x, L_y, L_z)\)</p>
+</li>
+<li>
+<p><em>Center</em>: Relative to the center of the full domain: \((C_x,
+C_y, C_z) = (G_x/2, G_y/2, G_z/2)\)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_data_structures">data structures</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>All the needed information is stored in the hidden structure <code>Coords</code>.
+A <em>view</em> structure <code>Coords_v</code> is public to device code:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#080;font-weight:bold">struct</span> Coords_v {
+    <span style="color:#0a8;font-weight:bold">int</span> xc, yc, zc; <span style="color:#777">/* rank coordinates */</span>
+    <span style="color:#0a8;font-weight:bold">int</span> xd, yd, zd; <span style="color:#777">/* rank sizes       */</span>
+};</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_host_interface">Host interface</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_memory_management">Memory management</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> coords_ini(MPI_Comm cart, Coords **c); <b class="conum">(1)</b>
+<span style="color:#088;font-weight:bold">void</span> coords_fin(Coords *c);                 <b class="conum">(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>allocate and set the data according to the cartesian communicator</p>
+</li>
+<li>
+<p>deallocate the structure</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_getters">Getters</h3>
+<div class="paragraph">
+<p>Obtain a view structure from <code>Coords</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> coords_get_view(<span style="color:#088;font-weight:bold">const</span> Coords *c, Coords_v *v);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Get \((G_x, G_y, G_z)\):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#0a8;font-weight:bold">int</span> xdomain(<span style="color:#088;font-weight:bold">const</span> Coords *c);
+<span style="color:#0a8;font-weight:bold">int</span> ydomain(<span style="color:#088;font-weight:bold">const</span> Coords *c);
+<span style="color:#0a8;font-weight:bold">int</span> zdomain(<span style="color:#088;font-weight:bold">const</span> Coords *c);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Get \((L_x, L_y, L_z)\):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#0a8;font-weight:bold">int</span> xs(<span style="color:#088;font-weight:bold">const</span> Coords*);
+<span style="color:#0a8;font-weight:bold">int</span> ys(<span style="color:#088;font-weight:bold">const</span> Coords*);
+<span style="color:#0a8;font-weight:bold">int</span> zs(<span style="color:#088;font-weight:bold">const</span> Coords*);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Get (from <em>local</em> coordinates) \((-L_x/2, -L_y/2, -L_z/2)\) and
+\((L_x/2, L_y/2, L_z/2)\) in <em>global</em> coordinates:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#0a8;font-weight:bold">int</span> xlo(<span style="color:#088;font-weight:bold">const</span> Coords*);
+<span style="color:#0a8;font-weight:bold">int</span> ylo(<span style="color:#088;font-weight:bold">const</span> Coords*);
+<span style="color:#0a8;font-weight:bold">int</span> zlo(<span style="color:#088;font-weight:bold">const</span> Coords*);
+
+<span style="color:#0a8;font-weight:bold">int</span> xhi(<span style="color:#088;font-weight:bold">const</span> Coords*);
+<span style="color:#0a8;font-weight:bold">int</span> yhi(<span style="color:#088;font-weight:bold">const</span> Coords*);
+<span style="color:#0a8;font-weight:bold">int</span> zhi(<span style="color:#088;font-weight:bold">const</span> Coords*);</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_coordinate_transforms">Coordinate transforms</h3>
+<div class="paragraph">
+<p>From <em>local</em> coordinates to <em>center</em> coordinates:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#0a8;font-weight:bold">float</span> xl2xc(<span style="color:#088;font-weight:bold">const</span> Coords *c, <span style="color:#0a8;font-weight:bold">float</span> xl);
+<span style="color:#0a8;font-weight:bold">float</span> yl2yc(<span style="color:#088;font-weight:bold">const</span> Coords *c, <span style="color:#0a8;font-weight:bold">float</span> yl);
+<span style="color:#0a8;font-weight:bold">float</span> zl2zc(<span style="color:#088;font-weight:bold">const</span> Coords *c, <span style="color:#0a8;font-weight:bold">float</span> zl);
+<span style="color:#088;font-weight:bold">void</span> local2center(<span style="color:#088;font-weight:bold">const</span> Coords *c, float3 rl, <span style="color:#777">/**/</span> float3 *rc);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>From <em>center</em> coordinates to <em>local</em> coordinates:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#0a8;font-weight:bold">float</span> xc2xl(<span style="color:#088;font-weight:bold">const</span> Coords *c, <span style="color:#0a8;font-weight:bold">float</span> xc);
+<span style="color:#0a8;font-weight:bold">float</span> yc2yl(<span style="color:#088;font-weight:bold">const</span> Coords *c, <span style="color:#0a8;font-weight:bold">float</span> yc);
+<span style="color:#0a8;font-weight:bold">float</span> zc2zl(<span style="color:#088;font-weight:bold">const</span> Coords *c, <span style="color:#0a8;font-weight:bold">float</span> zc);
+<span style="color:#088;font-weight:bold">void</span> center2local(<span style="color:#088;font-weight:bold">const</span> Coords *c, float3 rc, <span style="color:#777">/**/</span> float3 *rl);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>From <em>local</em> coordinates to <em>global</em> coordinates:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#0a8;font-weight:bold">float</span> xl2xg(<span style="color:#088;font-weight:bold">const</span> Coords *c, <span style="color:#0a8;font-weight:bold">float</span> xl);
+<span style="color:#0a8;font-weight:bold">float</span> yl2yg(<span style="color:#088;font-weight:bold">const</span> Coords *c, <span style="color:#0a8;font-weight:bold">float</span> yl);
+<span style="color:#0a8;font-weight:bold">float</span> zl2zg(<span style="color:#088;font-weight:bold">const</span> Coords *c, <span style="color:#0a8;font-weight:bold">float</span> zl);
+<span style="color:#088;font-weight:bold">void</span> local2global(<span style="color:#088;font-weight:bold">const</span> Coords *c, float3 rl, <span style="color:#777">/**/</span> float3 *rg);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>From <em>global</em> coordinates to <em>local</em> coordinates:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#0a8;font-weight:bold">float</span> xg2xl(<span style="color:#088;font-weight:bold">const</span> Coords *c, <span style="color:#0a8;font-weight:bold">float</span> xg);
+<span style="color:#0a8;font-weight:bold">float</span> yg2yl(<span style="color:#088;font-weight:bold">const</span> Coords *c, <span style="color:#0a8;font-weight:bold">float</span> yg);
+<span style="color:#0a8;font-weight:bold">float</span> zg2zl(<span style="color:#088;font-weight:bold">const</span> Coords *c, <span style="color:#0a8;font-weight:bold">float</span> zg);
+<span style="color:#088;font-weight:bold">void</span> global2local(<span style="color:#088;font-weight:bold">const</span> Coords *c, float3 rg, <span style="color:#777">/**/</span> float3 *rl);</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_helpers">helpers</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#777">/* rank predicates */</span>
+<span style="color:#0a8;font-weight:bold">bool</span> is_end(<span style="color:#088;font-weight:bold">const</span> Coords *c, <span style="color:#0a8;font-weight:bold">int</span> dir);
+
+<span style="color:#777">/* a string unique for a rank */</span>
+<span style="color:#088;font-weight:bold">void</span> coord_stamp(<span style="color:#088;font-weight:bold">const</span> Coords *c, <span style="color:#777">/**/</span> <span style="color:#0a8;font-weight:bold">char</span> *s);
+
+<span style="color:#777">/* number of subdomains */</span>
+<span style="color:#0a8;font-weight:bold">int</span> coords_size(<span style="color:#088;font-weight:bold">const</span> Coords *c);</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.6.0/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+</body>
+</html>

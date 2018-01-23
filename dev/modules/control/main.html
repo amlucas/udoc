@@ -100,7 +100,7 @@ cartesian transformation</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span>   vcont_sample(Coords coords, <span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> Particle *pp, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> *starts, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> *counts, <span style="color:#777">/**/</span> PidVCont *c); <b class="conum">(1)</b>
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span>   vcont_sample(<span style="color:#088;font-weight:bold">const</span> Coords *coords, <span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> Particle *pp, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> *starts, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> *counts, <span style="color:#777">/**/</span> PidVCont *c); <b class="conum">(1)</b>
 float3 vcont_adjustF(<span style="color:#777">/**/</span> PidVCont *c); <b class="conum">(2)</b>
 <span style="color:#088;font-weight:bold">void</span>   vcont_log(<span style="color:#088;font-weight:bold">const</span> PidVCont *c);    <b class="conum">(3)</b></code></pre>
 </div>
@@ -163,11 +163,11 @@ float3 vcont_adjustF(<span style="color:#777">/**/</span> PidVCont *c); <b class
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> inflow_ini_velocity(Inflow *i);
 
-<span style="color:#088;font-weight:bold">void</span> inflow_ini_params_plate(Coords c, float3 o, <span style="color:#0a8;font-weight:bold">int</span> dir, <span style="color:#0a8;font-weight:bold">float</span> L1, <span style="color:#0a8;font-weight:bold">float</span> L2,
-                      float3 u, <span style="color:#0a8;font-weight:bold">bool</span> upoiseuille, <span style="color:#0a8;font-weight:bold">bool</span> vpoiseuille,
-                      <span style="color:#777">/**/</span> Inflow *i);
-<span style="color:#088;font-weight:bold">void</span> inflow_ini_params_circle(Coords c, float3 o, <span style="color:#0a8;font-weight:bold">float</span> R, <span style="color:#0a8;font-weight:bold">float</span> H, <span style="color:#0a8;font-weight:bold">float</span> u, <span style="color:#0a8;font-weight:bold">bool</span> poiseuille,
-                       <span style="color:#777">/**/</span> Inflow *i);</code></pre>
+<span style="color:#088;font-weight:bold">void</span> inflow_ini_params_plate(<span style="color:#088;font-weight:bold">const</span> Coords *c, float3 o, <span style="color:#0a8;font-weight:bold">int</span> dir, <span style="color:#0a8;font-weight:bold">float</span> L1, <span style="color:#0a8;font-weight:bold">float</span> L2,
+                             float3 u, <span style="color:#0a8;font-weight:bold">bool</span> upoiseuille, <span style="color:#0a8;font-weight:bold">bool</span> vpoiseuille,
+                             <span style="color:#777">/**/</span> Inflow *i);
+<span style="color:#088;font-weight:bold">void</span> inflow_ini_params_circle(<span style="color:#088;font-weight:bold">const</span> Coords *c, float3 o, <span style="color:#0a8;font-weight:bold">float</span> R, <span style="color:#0a8;font-weight:bold">float</span> H, <span style="color:#0a8;font-weight:bold">float</span> u, <span style="color:#0a8;font-weight:bold">bool</span> poiseuille,
+                              <span style="color:#777">/**/</span> Inflow *i);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -181,7 +181,7 @@ it is used to setup the inlet velocity from parameters.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> inflow_ini_params_conf(Coords coords, <span style="color:#088;font-weight:bold">const</span> Config *cfg, <span style="color:#777">/**/</span> Inflow *i);</code></pre>
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> inflow_ini_params_conf(<span style="color:#088;font-weight:bold">const</span> Coords *coords, <span style="color:#088;font-weight:bold">const</span> Config *cfg, <span style="color:#777">/**/</span> Inflow *i);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -272,8 +272,8 @@ the point <code>(1, 2, 3)</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> ini_params_circle(Coords coords, float3 c, <span style="color:#0a8;font-weight:bold">float</span> R, Outflow *o);
-<span style="color:#088;font-weight:bold">void</span> ini_params_plate(Coords c, <span style="color:#0a8;font-weight:bold">int</span> dir, <span style="color:#0a8;font-weight:bold">float</span> r0, Outflow *o);</code></pre>
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> ini_params_circle(<span style="color:#088;font-weight:bold">const</span> Coords *coords, float3 c, <span style="color:#0a8;font-weight:bold">float</span> R, Outflow *o);
+<span style="color:#088;font-weight:bold">void</span> ini_params_plate(<span style="color:#088;font-weight:bold">const</span> Coords *c, <span style="color:#0a8;font-weight:bold">int</span> dir, <span style="color:#0a8;font-weight:bold">float</span> r0, Outflow *o);</code></pre>
 </div>
 </div>
 <div class="paragraph">
