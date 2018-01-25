@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<title>fsi</title>
+<link rel="stylesheet" href="/udoc/css/main.css">
+<link rel="stylesheet" href="./pygments-emacs.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>fsi</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_interface">interface</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>flow-structure interactions between solvent and objects (rigid objects, rbc membranes)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_interface">interface</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>allocate/deallocate</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">fsi_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">rank</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Fsi</span> <span class="tok-o">**</span><span class="tok-n">fsi</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">fsi_fin</span><span class="tok-p">(</span><span class="tok-n">Fsi</span> <span class="tok-o">*</span><span class="tok-n">fsi</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>computing forces:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">fsi_bind_solvent</span><span class="tok-p">(</span><span class="tok-n">Cloud</span> <span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-n">Force</span> <span class="tok-o">*</span><span class="tok-n">ff</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">starts</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Fsi</span> <span class="tok-o">*</span><span class="tok-n">fsi</span><span class="tok-p">);</span> <b class="conum">(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">fsi_bulk</span><span class="tok-p">(</span><span class="tok-n">Fsi</span> <span class="tok-o">*</span><span class="tok-n">fsi</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nw</span><span class="tok-p">,</span> <span class="tok-n">PaWrap</span> <span class="tok-o">*</span><span class="tok-n">pw</span><span class="tok-p">,</span> <span class="tok-n">FoWrap</span> <span class="tok-o">*</span><span class="tok-n">fw</span><span class="tok-p">);</span>                      <b class="conum">(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">fsi_halo</span><span class="tok-p">(</span><span class="tok-n">Fsi</span> <span class="tok-o">*</span><span class="tok-n">fsi</span><span class="tok-p">,</span> <span class="tok-n">Pap26</span> <span class="tok-n">PP</span><span class="tok-p">,</span> <span class="tok-n">Fop26</span> <span class="tok-n">FF</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">counts</span><span class="tok-p">[</span><span class="tok-mi">26</span><span class="tok-p">]);</span>                  <b class="conum">(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>store solvent interactions inside hidden structure <code>Fsi</code></p>
+</li>
+<li>
+<p>compute the interactions between local objects and local solvent</p>
+</li>
+<li>
+<p>compute the interactions between remote objects and local solvent</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<title>scan</title>
+<link rel="stylesheet" href="/udoc/css/main.css">
+<link rel="stylesheet" href="./pygments-emacs.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>scan</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_interface">interface</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>exclusive prefix sum implementation for integer data</p>
+</div>
+<div class="paragraph">
+<p>input is of size <code>n</code>, output is of size <code>n + 1</code> as in the following
+example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>input:  4 5 1  2  3  -
+output: 0 4 9 10 12 15</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_interface">interface</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">scan_apply</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">input</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">size</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">output</span><span class="tok-p">,</span> <span class="tok-cm">/*w*/</span> <span class="tok-n">ScanWork</span> <span class="tok-o">*</span><span class="tok-n">w</span><span class="tok-p">);</span> <b class="conum">(1)</b>
+
+<span class="tok-kt">void</span> <span class="tok-nf">scan_work_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">size</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">ScanWork</span> <span class="tok-o">**</span><span class="tok-n">w</span><span class="tok-p">);</span>                                  <b class="conum">(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">scan_work_fin</span><span class="tok-p">(</span><span class="tok-cm">/**/</span> <span class="tok-n">ScanWork</span> <span class="tok-o">*</span><span class="tok-n">w</span><span class="tok-p">);</span>                                             <b class="conum">(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>perform scan operation on <code>input</code> of size <code>size</code></p>
+</li>
+<li>
+<p>allocate workspace for performing scan of size <code>size</code></p>
+</li>
+<li>
+<p>free workspace</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<title>generic [d]evice API</title>
+<link rel="stylesheet" href="/udoc/css/main.css">
+<link rel="stylesheet" href="./pygments-emacs.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>generic [d]evice API</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_interface">interface</a></li>
+<li><a href="#_configuration">configuration</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The goal is to make cuda API and kernel functions generic. Meaning
+they can be replaced by CPU calls.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_interface">interface</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Wrappers for cuda functions:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">namespace</span> <span class="tok-n">d</span> <span class="tok-p">{</span>  <span class="tok-cm">/* a wrapper for device API */</span>
+<span class="tok-k">typedef</span> <span class="tok-kt">int</span> <span class="tok-n">Stream_t</span><span class="tok-p">;</span> <span class="tok-cm">/* TODO: streams are not supported */</span>
+<span class="tok-k">enum</span> <span class="tok-p">{</span><span class="tok-n">MemcpyHostToHost</span><span class="tok-p">,</span> <span class="tok-n">MemcpyHostToDevice</span><span class="tok-p">,</span> <span class="tok-n">MemcpyDeviceToHost</span><span class="tok-p">,</span> <span class="tok-n">MemcpyDeviceToDevice</span><span class="tok-p">,</span> <span class="tok-n">MemcpyDefault</span><span class="tok-p">};</span>
+
+<span class="tok-kt">int</span> <span class="tok-nf">ini</span><span class="tok-p">();</span>
+<span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-nf">emsg</span><span class="tok-p">();</span> <span class="tok-cm">/* last error message */</span>
+<span class="tok-kt">int</span> <span class="tok-nf">alloc_pinned</span><span class="tok-p">(</span><span class="tok-kt">void</span> <span class="tok-o">**</span><span class="tok-n">pHost</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span> <span class="tok-n">size</span><span class="tok-p">);</span>
+
+<span class="tok-kt">int</span> <span class="tok-nf">Malloc</span><span class="tok-p">(</span><span class="tok-kt">void</span> <span class="tok-o">**</span><span class="tok-n">p</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span><span class="tok-p">);</span>
+<span class="tok-kt">int</span> <span class="tok-nf">MemcpyToSymbol</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">void</span> <span class="tok-o">*</span><span class="tok-n">symbol</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">void</span> <span class="tok-o">*</span><span class="tok-n">src</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span> <span class="tok-n">count</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span> <span class="tok-n">offset</span><span class="tok-o">=</span><span class="tok-mi">0</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">kind</span><span class="tok-o">=</span><span class="tok-n">MemcpyHostToDevice</span><span class="tok-p">);</span>
+<span class="tok-kt">int</span> <span class="tok-nf">MemcpyFromSymbol</span><span class="tok-p">(</span><span class="tok-kt">void</span> <span class="tok-o">*</span><span class="tok-n">dst</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">void</span> <span class="tok-o">*</span><span class="tok-n">symbol</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span> <span class="tok-n">count</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span> <span class="tok-n">offset</span><span class="tok-o">=</span><span class="tok-mi">0</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">kind</span><span class="tok-o">=</span><span class="tok-n">MemcpyDeviceToHost</span><span class="tok-p">);</span>
+<span class="tok-kt">int</span> <span class="tok-nf">HostGetDevicePointer</span><span class="tok-p">(</span><span class="tok-kt">void</span> <span class="tok-o">**</span><span class="tok-n">pDevice</span><span class="tok-p">,</span> <span class="tok-kt">void</span> <span class="tok-o">*</span><span class="tok-n">pHost</span><span class="tok-p">,</span> <span class="tok-kt">unsigned</span> <span class="tok-kt">int</span> <span class="tok-n">flags</span><span class="tok-p">);</span>
+<span class="tok-kt">int</span> <span class="tok-nf">Memcpy</span> <span class="tok-p">(</span><span class="tok-kt">void</span> <span class="tok-o">*</span><span class="tok-n">dst</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">void</span> <span class="tok-o">*</span><span class="tok-n">src</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span> <span class="tok-n">count</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">kind</span><span class="tok-p">);</span>
+<span class="tok-kt">int</span> <span class="tok-nf">MemsetAsync</span> <span class="tok-p">(</span><span class="tok-kt">void</span> <span class="tok-o">*</span><span class="tok-n">devPtr</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">value</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span> <span class="tok-n">count</span><span class="tok-p">,</span> <span class="tok-n">Stream_t</span> <span class="tok-n">stream</span><span class="tok-o">=</span><span class="tok-mi">0</span><span class="tok-p">);</span>
+<span class="tok-kt">int</span> <span class="tok-nf">Memset</span> <span class="tok-p">(</span><span class="tok-kt">void</span> <span class="tok-o">*</span><span class="tok-n">devPtr</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">value</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span> <span class="tok-n">count</span><span class="tok-p">);</span>
+<span class="tok-kt">int</span> <span class="tok-nf">MemcpyAsync</span> <span class="tok-p">(</span><span class="tok-kt">void</span> <span class="tok-o">*</span> <span class="tok-n">dst</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">void</span> <span class="tok-o">*</span> <span class="tok-n">src</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span> <span class="tok-n">count</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">kind</span><span class="tok-p">,</span> <span class="tok-n">Stream_t</span> <span class="tok-n">stream</span> <span class="tok-o">=</span> <span class="tok-mi">0</span><span class="tok-p">);</span>
+<span class="tok-kt">int</span> <span class="tok-nf">Free</span> <span class="tok-p">(</span><span class="tok-kt">void</span> <span class="tok-o">*</span><span class="tok-n">devPtr</span><span class="tok-p">);</span>
+<span class="tok-kt">int</span> <span class="tok-nf">FreeHost</span> <span class="tok-p">(</span><span class="tok-kt">void</span> <span class="tok-o">*</span><span class="tok-n">hstPtr</span><span class="tok-p">);</span>
+<span class="tok-kt">int</span> <span class="tok-nf">DeviceSynchronize</span> <span class="tok-p">(</span><span class="tok-kt">void</span><span class="tok-p">);</span>
+<span class="tok-kt">int</span> <span class="tok-nf">PeekAtLastError</span><span class="tok-p">(</span><span class="tok-kt">void</span><span class="tok-p">);</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>generic files of the interface
+* <code>d/api.h</code> API calls
+* <code>d/q.h</code> function and variable type qualifiers
+* <code>d/ker.h</code></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuration">configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Generic device can by implemented by <code>cuda</code> and by <code>cpu</code>
+* <code>d/cuda</code>
+* <code>d/cpu</code></p>
+</div>
+<div class="paragraph">
+<p>if <code>DEV_CUDA</code> defined it is <code>cuda</code>, if <code>DEV_CPU</code> is defined it is
+<code>cpu</code>. For <code>cpu</code> <code>KL_CPU</code> should be also defined.</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
