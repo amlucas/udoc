@@ -7,7 +7,7 @@
 <meta name="generator" content="Asciidoctor 1.5.6.1">
 <title>body forces</title>
 <link rel="stylesheet" href="/udoc/css/main.css">
-<link rel="stylesheet" href="./pygments-emacs.css">
+<link rel="stylesheet" href="./pygments-colorful.css">
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
@@ -194,6 +194,16 @@ a specific time. It is passed to device kernels.</p>
 </div>
 <div class="sect2">
 <h3 id="_4_roller_mill">4 roller mill</h3>
+<div class="listingblock">
+<div class="content">
+<pre>    f.x =  2*sin(x)*cos(y) * a;
+    f.y = -2*cos(x)*sin(y) * a;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>while <code>x</code> and <code>y</code> are coordinates relative to the domain center and
+normalized to have <code>x = Pi</code> and <code>x = -Pi</code> at the domain edges.</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">bforce {</span>
