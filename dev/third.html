@@ -14,9 +14,9 @@
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_cuda_sdk">cuda sdk</a></li>
-<li><a href="#_mpi">mpi</a></li>
-<li><a href="#_libconf">libconf</a>
+<li><a href="#_cuda_compiler">cuda compiler</a></li>
+<li><a href="#_mpi_library">MPI library</a></li>
+<li><a href="#_libconfig">libconfig</a>
 <ul class="sectlevel2">
 <li><a href="#_from_source">from source</a></li>
 <li><a href="#_from_git">from git</a></li>
@@ -30,18 +30,20 @@
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_cuda_sdk">cuda sdk</h2>
+<h2 id="_cuda_compiler">cuda compiler</h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p>link:http://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc</p>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_mpi">mpi</h2>
+<h2 id="_mpi_library">MPI library</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>To get the flags</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
 <pre>mpicxx -show</pre>
 </div>
@@ -49,7 +51,7 @@
 <div class="paragraph">
 <p>or</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
 <pre>pkg-config --libs mpich</pre>
 </div>
@@ -57,8 +59,14 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_libconf">libconf</h2>
+<h2 id="_libconfig">libconfig</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>a library for processing structured configuration files</p>
+</div>
+<div class="paragraph">
+<p>link:http://hyperrealm.com/libconfig/libconfig.html</p>
+</div>
 <div class="sect2">
 <h3 id="_from_source">from source</h3>
 <div class="listingblock">
@@ -111,19 +119,25 @@ make install</code></pre>
 <h2 id="_hdf5">hdf5</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<p>a data model, library, and file format for storing and managing data</p>
+</div>
+<div class="paragraph">
+<p><a href="https://support.hdfgroup.org/HDF5" class="bare">https://support.hdfgroup.org/HDF5</a></p>
+</div>
+<div class="paragraph">
 <p>To get flags</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>h5c++ -show</pre>
+<pre class="CodeRay highlight"><code data-lang="sh">h5c++ -show</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>or</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>pkg-config hdf5-mpich --libs</pre>
+<pre class="CodeRay highlight"><code data-lang="sh">pkg-config hdf5-mpich --libs</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -135,12 +149,12 @@ make install</code></pre>
 <div class="paragraph">
 <p>Configuration options</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>      --prefix=$HOME/prefix/hdf5
-	  --enable-parallel
-	  CXX=/usr/lib64/mpich/bin/mpic++
-	  CC=/usr/lib64/mpich/bin/mpicc</pre>
+<pre class="CodeRay highlight"><code data-lang="sh">      --prefix=$HOME/prefix/hdf5
+          --enable-parallel
+          CXX=/usr/lib64/mpich/bin/mpic++
+          CC=/usr/lib64/mpich/bin/mpicc</code></pre>
 </div>
 </div>
 </div>

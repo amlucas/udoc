@@ -16,7 +16,7 @@
 <ul class="sectlevel1">
 <li><a href="#_developer">Developer</a>
 <ul class="sectlevel2">
-<li><a href="#_buildg">buildg</a>
+<li><a href="#_build">build</a>
 <ul class="sectlevel3">
 <li><a href="#_arch_linux">Arch Linux</a></li>
 <li><a href="#_after_adding_files">after adding files</a></li>
@@ -297,9 +297,9 @@
 </li>
 <li><a href="#_third_party_dependencies">Third party dependencies</a>
 <ul class="sectlevel3">
-<li><a href="#_cuda_sdk">cuda sdk</a></li>
-<li><a href="#_mpi">mpi</a></li>
-<li><a href="#_libconf">libconf</a>
+<li><a href="#_cuda_compiler">cuda compiler</a></li>
+<li><a href="#_mpi_library">MPI library</a></li>
+<li><a href="#_libconfig">libconfig</a>
 <ul class="sectlevel4">
 <li><a href="#_from_source">from source</a></li>
 <li><a href="#_from_git">from git</a></li>
@@ -362,7 +362,7 @@
 <ul class="sectlevel3">
 <li><a href="#_intro_2">Intro</a></li>
 <li><a href="#_compile_3">Compile</a></li>
-<li><a href="#_build">Build</a></li>
+<li><a href="#_build_2">Build</a></li>
 <li><a href="#_run_2">Run</a></li>
 <li><a href="#_source">Source</a></li>
 <li><a href="#_test">Test</a></li>
@@ -389,7 +389,7 @@
 <h2 id="_developer">Developer</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_buildg">buildg</h3>
+<h3 id="_build">build</h3>
 <div class="paragraph">
 <p>Shows full compilation and linking commands</p>
 </div>
@@ -3294,15 +3294,17 @@ position and velocity of particle.</p>
 <div class="sect2">
 <h3 id="_third_party_dependencies">Third party dependencies</h3>
 <div class="sect3">
-<h4 id="_cuda_sdk">cuda sdk</h4>
-
+<h4 id="_cuda_compiler">cuda compiler</h4>
+<div class="paragraph">
+<p>link:http://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc</p>
+</div>
 </div>
 <div class="sect3">
-<h4 id="_mpi">mpi</h4>
+<h4 id="_mpi_library">MPI library</h4>
 <div class="paragraph">
 <p>To get the flags</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
 <pre>mpicxx -show</pre>
 </div>
@@ -3310,14 +3312,20 @@ position and velocity of particle.</p>
 <div class="paragraph">
 <p>or</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
 <pre>pkg-config --libs mpich</pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_libconf">libconf</h4>
+<h4 id="_libconfig">libconfig</h4>
+<div class="paragraph">
+<p>a library for processing structured configuration files</p>
+</div>
+<div class="paragraph">
+<p>link:http://hyperrealm.com/libconfig/libconfig.html</p>
+</div>
 <div class="sect4">
 <h5 id="_from_source">from source</h5>
 <div class="listingblock">
@@ -3368,19 +3376,25 @@ make install</code></pre>
 <div class="sect3">
 <h4 id="_hdf5">hdf5</h4>
 <div class="paragraph">
+<p>a data model, library, and file format for storing and managing data</p>
+</div>
+<div class="paragraph">
+<p><a href="https://support.hdfgroup.org/HDF5" class="bare">https://support.hdfgroup.org/HDF5</a></p>
+</div>
+<div class="paragraph">
 <p>To get flags</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>h5c++ -show</pre>
+<pre class="CodeRay highlight"><code data-lang="sh">h5c++ -show</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>or</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>pkg-config hdf5-mpich --libs</pre>
+<pre class="CodeRay highlight"><code data-lang="sh">pkg-config hdf5-mpich --libs</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3392,12 +3406,12 @@ make install</code></pre>
 <div class="paragraph">
 <p>Configuration options</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
-<pre>      --prefix=$HOME/prefix/hdf5
-	  --enable-parallel
-	  CXX=/usr/lib64/mpich/bin/mpic++
-	  CC=/usr/lib64/mpich/bin/mpicc</pre>
+<pre class="CodeRay highlight"><code data-lang="sh">      --prefix=$HOME/prefix/hdf5
+          --enable-parallel
+          CXX=/usr/lib64/mpich/bin/mpic++
+          CC=/usr/lib64/mpich/bin/mpicc</code></pre>
 </div>
 </div>
 </div>
@@ -3767,7 +3781,7 @@ echo run | u.conf $s u/pair $s/conf/test.h</pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_build">Build</h4>
+<h4 id="_build_2">Build</h4>
 <div class="listingblock">
 <div class="content">
 <pre>u.make -j</pre>
