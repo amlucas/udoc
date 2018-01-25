@@ -37,13 +37,6 @@
 </li>
 <li><a href="#_emacs_setting">emacs setting</a></li>
 <li><a href="#_gource_commands">gource commands</a></li>
-<li><a href="#_developper_documentaion">developper documentaion</a>
-<ul class="sectlevel3">
-<li><a href="#_style_and_conventions">style and conventions</a></li>
-<li><a href="#_source_code_modules">source code modules</a></li>
-<li><a href="#_useful_links">Useful links</a></li>
-</ul>
-</li>
 <li><a href="#_minmax">minmax</a>
 <ul class="sectlevel3">
 <li><a href="#_example">example</a></li>
@@ -97,11 +90,17 @@
 <li><a href="#_flux">flux</a></li>
 </ul>
 </li>
+<li><a href="#_purpose_2">purpose</a></li>
+<li><a href="#_modules_3">modules</a>
+<ul class="sectlevel4">
+<li><a href="#_flux_2">flux</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#_comm">comm</a>
 <ul class="sectlevel3">
-<li><a href="#_purpose_2">purpose</a></li>
+<li><a href="#_purpose_3">purpose</a></li>
 <li><a href="#_data_structures_3">data structures</a></li>
 <li><a href="#_allocation_mod">allocation mod</a></li>
 <li><a href="#_interface_6">interface</a>
@@ -112,28 +111,50 @@
 </li>
 </ul>
 </li>
-<li><a href="#_contact_forces">contact forces</a></li>
-<li><a href="#_control">Control</a>
+<li><a href="#_contact_forces">contact forces</a>
 <ul class="sectlevel3">
-<li><a href="#_velocity_controller">Velocity controller</a>
+<li><a href="#_density_controller">Density controller</a></li>
+<li><a href="#_inflow">Inflow</a>
 <ul class="sectlevel4">
 <li><a href="#_interface_7">interface</a></li>
 <li><a href="#_configuration_2">configuration</a></li>
 </ul>
 </li>
-<li><a href="#_inflow">Inflow</a>
+</ul>
+</li>
+<li><a href="#_control">Control</a>
+<ul class="sectlevel3">
+<li><a href="#_velocity_controller">Velocity controller</a>
 <ul class="sectlevel4">
 <li><a href="#_interface_8">interface</a></li>
 <li><a href="#_configuration_3">configuration</a></li>
 </ul>
 </li>
-<li><a href="#_outflow">Outflow</a>
+<li><a href="#_inflow_2">Inflow</a>
 <ul class="sectlevel4">
 <li><a href="#_interface_9">interface</a></li>
 <li><a href="#_configuration_4">configuration</a></li>
 </ul>
 </li>
-<li><a href="#_density_controller">Density controller</a></li>
+<li><a href="#_outflow">Outflow</a>
+<ul class="sectlevel4">
+<li><a href="#_interface_10">interface</a></li>
+<li><a href="#_configuration_5">configuration</a></li>
+</ul>
+</li>
+<li><a href="#_density_controller_2">Density controller</a></li>
+<li><a href="#_outflow_2">Outflow</a>
+<ul class="sectlevel4">
+<li><a href="#_interface_11">interface</a></li>
+<li><a href="#_configuration_6">configuration</a></li>
+</ul>
+</li>
+<li><a href="#_velocity_controller_2">Velocity controller</a>
+<ul class="sectlevel4">
+<li><a href="#_interface_12">interface</a></li>
+<li><a href="#_configuration_7">configuration</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#_coords">coords</a>
@@ -151,14 +172,14 @@
 </li>
 <li><a href="#_generic_d_evice_api">generic [d]evice API</a>
 <ul class="sectlevel3">
-<li><a href="#_interface_10">interface</a></li>
-<li><a href="#_configuration_5">configuration</a></li>
+<li><a href="#_interface_13">interface</a></li>
+<li><a href="#_configuration_8">configuration</a></li>
 </ul>
 </li>
 <li><a href="#_debug">debug</a>
 <ul class="sectlevel3">
-<li><a href="#_interface_11">interface</a></li>
-<li><a href="#_configuration_6">configuration</a></li>
+<li><a href="#_interface_14">interface</a></li>
+<li><a href="#_configuration_9">configuration</a></li>
 </ul>
 </li>
 <li><a href="#_distr">distr</a>
@@ -166,25 +187,25 @@
 <li><a href="#_map_2">map</a>
 <ul class="sectlevel4">
 <li><a href="#_data_structure">data structure</a></li>
-<li><a href="#_interface_12">interface</a></li>
+<li><a href="#_interface_15">interface</a></li>
 </ul>
 </li>
 <li><a href="#_flu">flu</a>
 <ul class="sectlevel4">
 <li><a href="#_data_structures_5">data structures</a></li>
-<li><a href="#_interface_13">interface</a></li>
+<li><a href="#_interface_16">interface</a></li>
 </ul>
 </li>
 <li><a href="#_rbc">rbc</a>
 <ul class="sectlevel4">
 <li><a href="#_data_structures_6">data structures</a></li>
-<li><a href="#_interface_14">interface</a></li>
+<li><a href="#_interface_17">interface</a></li>
 </ul>
 </li>
 <li><a href="#_rig">rig</a>
 <ul class="sectlevel4">
 <li><a href="#_data_structures_7">data structures</a></li>
-<li><a href="#_interface_15">interface</a></li>
+<li><a href="#_interface_18">interface</a></li>
 </ul>
 </li>
 <li><a href="#_common">common</a></li>
@@ -192,7 +213,7 @@
 </li>
 <li><a href="#_fluforces">fluforces</a>
 <ul class="sectlevel3">
-<li><a href="#_interface_16">interface</a></li>
+<li><a href="#_interface_19">interface</a></li>
 <li><a href="#_data_structures_8">data structures</a></li>
 <li><a href="#_submodules">submodules</a>
 <ul class="sectlevel4">
@@ -204,39 +225,54 @@
 </li>
 <li><a href="#_fsi">fsi</a>
 <ul class="sectlevel3">
-<li><a href="#_interface_17">interface</a></li>
+<li><a href="#_interface_20">interface</a></li>
+<li><a href="#_linal">linal</a>
+<ul class="sectlevel4">
+<li><a href="#_interface_21">interface</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#_math">Math</a>
 <ul class="sectlevel3">
-<li><a href="#_linal">linal</a>
+<li><a href="#_linal_2">linal</a>
 <ul class="sectlevel4">
-<li><a href="#_interface_18">interface</a></li>
+<li><a href="#_interface_22">interface</a></li>
 </ul>
 </li>
 <li><a href="#_host_random_number_generation">Host random number generation</a>
 <ul class="sectlevel4">
-<li><a href="#_interface_19">interface</a></li>
+<li><a href="#_interface_23">interface</a></li>
 </ul>
 </li>
 <li><a href="#_linar_coordinate_transformation_for_3d_vector">linar coordinate transformation for 3D vector</a>
 <ul class="sectlevel4">
-<li><a href="#_interface_20">interface</a></li>
+<li><a href="#_interface_24">interface</a></li>
+</ul>
+</li>
+<li><a href="#_host_random_number_generation_2">Host random number generation</a>
+<ul class="sectlevel4">
+<li><a href="#_interface_25">interface</a></li>
+</ul>
+</li>
+<li><a href="#_linar_coordinate_transformation_for_3d_vector_2">linar coordinate transformation for 3D vector</a>
+<ul class="sectlevel4">
+<li><a href="#_interface_26">interface</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li><a href="#_parser">parser</a>
 <ul class="sectlevel3">
-<li><a href="#_purpose_3">purpose</a></li>
+<li><a href="#_purpose_4">purpose</a></li>
 <li><a href="#_data_structure_2">data structure</a></li>
-<li><a href="#_interface_21">interface</a></li>
+<li><a href="#_interface_27">interface</a></li>
 </ul>
 </li>
 <li><a href="#_partlist">partlist</a>
 <ul class="sectlevel3">
 <li><a href="#_data_structure_3">data structure</a></li>
-<li><a href="#_interface_22">interface</a></li>
+<li><a href="#_interface_28">interface</a></li>
 </ul>
 </li>
 <li><a href="#_rbc_membrane_forces">RBC membrane forces</a></li>
@@ -249,43 +285,60 @@
 <li><a href="#_random_force">random force</a></li>
 <li><a href="#_signed_distance_function_sdf">signed distance function (sdf)</a>
 <ul class="sectlevel3">
-<li><a href="#_purpose_4">purpose</a></li>
+<li><a href="#_purpose_5">purpose</a></li>
 <li><a href="#_implementation">implementation</a></li>
 <li><a href="#_components_2">components</a></li>
+<li><a href="#cc">cc</a>
+<ul class="sectlevel4">
+<li><a href="#_usage">Usage</a></li>
+</ul>
+</li>
+<li><a href="#error">error</a>
+<ul class="sectlevel4">
+<li><a href="#_usage_2">Usage</a></li>
+<li><a href="#_interface_29">Interface</a></li>
+</ul>
+</li>
+<li><a href="#_kernel_launch_macros">kernel launch macros</a></li>
 </ul>
 </li>
 <li><a href="#_utils">Utils</a>
 <ul class="sectlevel3">
 <li><a href="#error">error</a>
 <ul class="sectlevel4">
-<li><a href="#_usage">Usage</a></li>
-<li><a href="#_interface_23">Interface</a></li>
+<li><a href="#_usage_3">Usage</a></li>
+<li><a href="#_interface_30">Interface</a></li>
 </ul>
 </li>
 <li><a href="#cc">cc</a>
 <ul class="sectlevel4">
-<li><a href="#_usage_2">Usage</a></li>
+<li><a href="#_usage_4">Usage</a></li>
 </ul>
 </li>
 <li><a href="#_mc">mc</a>
 <ul class="sectlevel4">
-<li><a href="#_usage_3">Usage</a></li>
+<li><a href="#_usage_5">Usage</a></li>
 </ul>
 </li>
-<li><a href="#_kernel_launch_macros">kernel launch macros</a></li>
+<li><a href="#_kernel_launch_macros_2">kernel launch macros</a></li>
+<li><a href="#_mc_2">mc</a>
+<ul class="sectlevel4">
+<li><a href="#_usage_6">Usage</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#_wvel">wvel</a>
 <ul class="sectlevel3">
-<li><a href="#_purpose_5">purpose</a></li>
+<li><a href="#_purpose_6">purpose</a></li>
 <li><a href="#_data_structures_9">data structures</a></li>
-<li><a href="#_interface_24">interface</a>
+<li><a href="#_interface_31">interface</a>
 <ul class="sectlevel4">
 <li><a href="#_host">Host</a></li>
 <li><a href="#_device">Device</a></li>
 </ul>
 </li>
-<li><a href="#_configuration_7">Configuration</a>
+<li><a href="#_configuration_10">Configuration</a>
 <ul class="sectlevel4">
 <li><a href="#_constant_2">constant</a></li>
 <li><a href="#_shear_2">shear</a></li>
@@ -321,18 +374,14 @@
 </li>
 </ul>
 </li>
-<li><a href="#_user">User</a>
-<ul class="sectlevel2">
-<li><a href="#_user_documentation">user documentation</a></li>
-</ul>
-</li>
+<li><a href="#_user">User</a></li>
 <li><a href="#_units">Units</a>
 <ul class="sectlevel2">
 <li><a href="#_comm_unit">comm unit</a></li>
 <li><a href="#_error_unit">error unit</a>
 <ul class="sectlevel3">
 <li><a href="#_compile">compile</a></li>
-<li><a href="#_usage_4">usage</a></li>
+<li><a href="#_usage_7">usage</a></li>
 </ul>
 </li>
 <li><a href="#_hw_unit">hw unit</a></li>
@@ -341,14 +390,6 @@
 <ul class="sectlevel3">
 <li><a href="#_compile_2">compile</a></li>
 <li><a href="#_run">run</a></li>
-</ul>
-</li>
-<li><a href="#_units_2">units</a>
-<ul class="sectlevel3">
-<li><a href="#_build_and_run">Build and run</a></li>
-<li><a href="#_update_make_file_fragments">Update make file fragments</a></li>
-<li><a href="#_create_a_new_unit">Create a new unit</a></li>
-<li><a href="#_list_of_units">list of units</a></li>
 </ul>
 </li>
 <li><a href="#_mesh_bb_unit">mesh bb unit</a>
@@ -623,6 +664,9 @@ namespaces</p>
 <div class="sect2">
 <h3 id="_gource_commands">gource commands</h3>
 <div class="paragraph">
+<p>Display git history of uDeviceX as animated tree.</p>
+</div>
+<div class="paragraph">
 <p>Dump</p>
 </div>
 <div class="listingblock">
@@ -633,12 +677,12 @@ gource -s 0.1 --file-filter 'test_data/' \
               --file-filter 'tcdf/' \
               --file-filter 'cmd/'  \
               --highlight-users   \
-              --highlight-colour #FFFFFF \
+              --highlight-colour FFFFFF \
               --date-format '%d %b %Y' -o $o</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Convert</p>
+<p>Convert to mp4</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -650,101 +694,6 @@ ffmpeg -y -r 60 -f image2pipe -vcodec ppm -i $i -vcodec libx264 \
 </div>
 <div class="paragraph">
 <p>See <a href="http://gource.io" class="bare">http://gource.io</a></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_developper_documentaion">developper documentaion</h3>
-<div class="paragraph">
-<p>uDeviceX developper documentation</p>
-</div>
-<div class="sect3">
-<h4 id="_style_and_conventions">style and conventions</h4>
-<div class="paragraph">
-<p>A list of coding conventions can be found <a href="conventions.html">here</a>.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_source_code_modules">source code modules</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>prefix sum: <a href="modules/algo/scan.html">scan</a></p>
-</li>
-<li>
-<p>body forces: <a href="modules/bforce.html">bforce</a></p>
-</li>
-<li>
-<p>cell lists: <a href="modules/clist.html">clist</a></p>
-</li>
-<li>
-<p>contact interactions: <a href="modules/cnt.html">cnt</a></p>
-</li>
-<li>
-<p>controlers, open bc: <a href="modules/control/main.html">control</a></p>
-</li>
-<li>
-<p><a href="modules/coords.html">coords</a></p>
-</li>
-<li>
-<p>debug configuration: <a href="modules/dbg.html">dbg</a></p>
-</li>
-<li>
-<p>flow structure interactions: <a href="modules/fsi.html">fsi</a></p>
-</li>
-<li>
-<p>generic communicator: <a href="modules/comm.html">comm</a></p>
-</li>
-<li>
-<p>generic device API: <a href="modules/d.html">d</a></p>
-</li>
-<li>
-<p>math helpers: <a href="modules/math/main.html">math</a></p>
-</li>
-<li>
-<p><a href="modules/algo/minmax.html">minmax</a></p>
-</li>
-<li>
-<p>multi solvent: <a href="modules/color/main.html">color</a></p>
-</li>
-<li>
-<p><a href="modules/partlist.html">partlist</a></p>
-</li>
-<li>
-<p><a href="modules/parser.html">parser</a></p>
-</li>
-<li>
-<p>red blood cell: <a href="modules/rbc/main.html">rbc</a></p>
-</li>
-<li>
-<p>redistribution: <a href="modules/distr.html">distr</a></p>
-</li>
-<li>
-<p>solvent interactions: <a href="modules/fluforces.html">fluforces</a></p>
-</li>
-<li>
-<p>uDevice utilities: <a href="modules/utils/main.html">utils</a></p>
-</li>
-<li>
-<p>wall velocity: <a href="modules/wvel.html">wvel</a></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_useful_links">Useful links</h4>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="third.html">Third party dependencies</a></p>
-</li>
-<li>
-<p><a href="build.html">how to compile uDeviceX ?</a></p>
-</li>
-<li>
-<p><a href="gource.html">gource</a></p>
-</li>
-</ul>
-</div>
 </div>
 </div>
 <div class="sect2">
@@ -1313,6 +1262,51 @@ positive direction x, y or z</p>
 </div>
 </div>
 </div>
+<div class="sect3">
+<h4 id="_purpose_2">purpose</h4>
+<div class="paragraph">
+<p>Each particle of the solvent has an assigned color when the
+<code>multi_solvent</code> flag is enabled.
+It is helpful for modeling different solvent with different
+viscosities, surface tensions etc.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_modules_3">modules</h4>
+<div class="paragraph">
+<p>Some utility modules are implemeted in <code>/src/color</code>.</p>
+</div>
+<div class="sect4">
+<h5 id="_flux_2">flux</h5>
+<div class="paragraph">
+<p>recolor particles crossing the face of the periodic domain in the
+positive direction x, y or z</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#080;font-weight:bold">namespace</span> recolor {
+<span style="color:#088;font-weight:bold">void</span> linear_flux(<span style="color:#088;font-weight:bold">const</span> Coords *coords, <span style="color:#0a8;font-weight:bold">int</span> dir, <span style="color:#0a8;font-weight:bold">int</span> color, <span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> Particle *pp, <span style="color:#0a8;font-weight:bold">int</span> *cc);
+} <span style="color:#777">// recolor</span></code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>dir</code> is the direction x, y or z</p>
+</li>
+<li>
+<p><code>color</code> is the new color</p>
+</li>
+<li>
+<p><code>pp</code> are input particles of size <code>n</code></p>
+</li>
+<li>
+<p><code>cc</code> are output colors (stay the same if does not cross the face)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_comm">comm</h3>
@@ -1320,7 +1314,7 @@ positive direction x, y or z</p>
 <p>generic communicator with "halo".</p>
 </div>
 <div class="sect3">
-<h4 id="_purpose_2">purpose</h4>
+<h4 id="_purpose_3">purpose</h4>
 <div class="paragraph">
 <p>Communicate data with the neighboring ranks</p>
 </div>
@@ -1463,104 +1457,9 @@ It needs 3 entities:</p>
 <div class="paragraph">
 <p>computs interactions between objects.</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_control">Control</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>velocity controller</p>
-</li>
-<li>
-<p>open boundary conditions</p>
-</li>
-<li>
-<p>density controller</p>
-</li>
-</ul>
-</div>
 <div class="sect3">
-<h4 id="_velocity_controller">Velocity controller</h4>
-<div class="paragraph">
-<p>control velocity by modifying the imposed hydrostatic force</p>
-</div>
-<div class="sect4">
-<h5 id="_interface_7">interface</h5>
-<div class="paragraph">
-<p>allocate, deallocate:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> vcont_ini(MPI_Comm comm, int3 L, float3 vtarget, <span style="color:#0a8;font-weight:bold">float</span> factor, <span style="color:#777">/**/</span> PidVCont **c);
-<span style="color:#088;font-weight:bold">void</span> vcont_fin(<span style="color:#777">/**/</span> PidVCont *cont);</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>initialize the transformation structure (to be done only once):</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> vcon_set_cart(<span style="color:#777">/**/</span> PidVCont *cont);
-<span style="color:#088;font-weight:bold">void</span> vcon_set_radial(<span style="color:#777">/**/</span> PidVCont *cont);</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>the transformation is the way of averaging the velocity:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>cartesian transformation keeps the velocity as it is before averaging.</p>
-</li>
-<li>
-<p>radial transformation returns the velocity in polar coordinates
-scaled by the radial position. the <code>z</code> component corresponds to
-cartesian transformation</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Control operations:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span>   vcont_sample(<span style="color:#088;font-weight:bold">const</span> Coords *coords, <span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> Particle *pp, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> *starts, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> *counts, <span style="color:#777">/**/</span> PidVCont *c); <b class="conum">(1)</b>
-float3 vcont_adjustF(<span style="color:#777">/**/</span> PidVCont *c); <b class="conum">(2)</b>
-<span style="color:#088;font-weight:bold">void</span>   vcont_log(<span style="color:#088;font-weight:bold">const</span> PidVCont *c);    <b class="conum">(3)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<ol>
-<li>
-<p>get average velocity according to transformation and store it</p>
-</li>
-<li>
-<p>reduce sampled quantities and update the controller. return the force</p>
-</li>
-<li>
-<p>logging informations; dumped into the file <code>vcon.txt</code></p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_configuration_2">configuration</h5>
-<div class="paragraph">
-<p>syntax:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="cfg">vcon = {
-     active = true;
-     type   = &quot;cart&quot;;          # can be also &quot;rad&quot;
-     U      = [1.0, 1.0, 0.0]; # target velocity in transformed space
-     log_freq    = 500;
-     adjust_freq = 500;
-     sample_freq = 1;
-};</code></pre>
-</div>
-</div>
-</div>
+<h4 id="_density_controller">Density controller</h4>
+
 </div>
 <div class="sect3">
 <h4 id="_inflow">Inflow</h4>
@@ -1568,7 +1467,7 @@ float3 vcont_adjustF(<span style="color:#777">/**/</span> PidVCont *c); <b class
 <p>Mass rate inflow</p>
 </div>
 <div class="sect4">
-<h5 id="_interface_8">interface</h5>
+<h5 id="_interface_7">interface</h5>
 <div class="paragraph">
 <p>allocate, deallocate:</p>
 </div>
@@ -1627,7 +1526,7 @@ it is used to setup the inlet velocity from parameters.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_configuration_3">configuration</h5>
+<h5 id="_configuration_2">configuration</h5>
 <div class="sect5">
 <h6 id="_plate">plate</h6>
 <div class="paragraph">
@@ -1671,13 +1570,221 @@ the point <code>(1, 2, 3)</code>:</p>
 </div>
 </div>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_control">Control</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>velocity controller</p>
+</li>
+<li>
+<p>open boundary conditions</p>
+</li>
+<li>
+<p>density controller</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="_velocity_controller">Velocity controller</h4>
+<div class="paragraph">
+<p>control velocity by modifying the imposed hydrostatic force</p>
+</div>
+<div class="sect4">
+<h5 id="_interface_8">interface</h5>
+<div class="paragraph">
+<p>allocate, deallocate:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> vcont_ini(MPI_Comm comm, int3 L, float3 vtarget, <span style="color:#0a8;font-weight:bold">float</span> factor, <span style="color:#777">/**/</span> PidVCont **c);
+<span style="color:#088;font-weight:bold">void</span> vcont_fin(<span style="color:#777">/**/</span> PidVCont *cont);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>initialize the transformation structure (to be done only once):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> vcon_set_cart(<span style="color:#777">/**/</span> PidVCont *cont);
+<span style="color:#088;font-weight:bold">void</span> vcon_set_radial(<span style="color:#777">/**/</span> PidVCont *cont);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>the transformation is the way of averaging the velocity:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>cartesian transformation keeps the velocity as it is before averaging.</p>
+</li>
+<li>
+<p>radial transformation returns the velocity in polar coordinates
+scaled by the radial position. the <code>z</code> component corresponds to
+cartesian transformation</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Control operations:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span>   vcont_sample(<span style="color:#088;font-weight:bold">const</span> Coords *coords, <span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> Particle *pp, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> *starts, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> *counts, <span style="color:#777">/**/</span> PidVCont *c); <b class="conum">(1)</b>
+float3 vcont_adjustF(<span style="color:#777">/**/</span> PidVCont *c); <b class="conum">(2)</b>
+<span style="color:#088;font-weight:bold">void</span>   vcont_log(<span style="color:#088;font-weight:bold">const</span> PidVCont *c);    <b class="conum">(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>get average velocity according to transformation and store it</p>
+</li>
+<li>
+<p>reduce sampled quantities and update the controller. return the force</p>
+</li>
+<li>
+<p>logging informations; dumped into the file <code>vcon.txt</code></p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_configuration_3">configuration</h5>
+<div class="paragraph">
+<p>syntax:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cfg">vcon = {
+     active = true;
+     type   = &quot;cart&quot;;          # can be also &quot;rad&quot;
+     U      = [1.0, 1.0, 0.0]; # target velocity in transformed space
+     log_freq    = 500;
+     adjust_freq = 500;
+     sample_freq = 1;
+};</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_inflow_2">Inflow</h4>
+<div class="paragraph">
+<p>Mass rate inflow</p>
+</div>
+<div class="sect4">
+<h5 id="_interface_9">interface</h5>
+<div class="paragraph">
+<p>allocate, deallocate:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> inflow_ini(int2 nc, Inflow **i);
+<span style="color:#088;font-weight:bold">void</span> inflow_fin(Inflow *i);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>initialize the inflow structure (to be done only once):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> inflow_ini_velocity(Inflow *i);
+
+<span style="color:#088;font-weight:bold">void</span> inflow_ini_params_plate(<span style="color:#088;font-weight:bold">const</span> Coords *c, float3 o, <span style="color:#0a8;font-weight:bold">int</span> dir, <span style="color:#0a8;font-weight:bold">float</span> L1, <span style="color:#0a8;font-weight:bold">float</span> L2,
+                             float3 u, <span style="color:#0a8;font-weight:bold">bool</span> upoiseuille, <span style="color:#0a8;font-weight:bold">bool</span> vpoiseuille,
+                             <span style="color:#777">/**/</span> Inflow *i);
+<span style="color:#088;font-weight:bold">void</span> inflow_ini_params_circle(<span style="color:#088;font-weight:bold">const</span> Coords *c, float3 o, <span style="color:#0a8;font-weight:bold">float</span> R, <span style="color:#0a8;font-weight:bold">float</span> H, <span style="color:#0a8;font-weight:bold">float</span> u, <span style="color:#0a8;font-weight:bold">bool</span> poiseuille,
+                              <span style="color:#777">/**/</span> Inflow *i);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>depending on the type of inflow, call the appropriate
+<code>ini_params_xxx</code>.
+<code>ini_velocity</code> must be called after initializing the parameters.
+it is used to setup the inlet velocity from parameters.</p>
+</div>
+<div class="paragraph">
+<p>initialize from config parameters:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> inflow_ini_params_conf(<span style="color:#088;font-weight:bold">const</span> Coords *coords, <span style="color:#088;font-weight:bold">const</span> Config *cfg, <span style="color:#777">/**/</span> Inflow *i);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>create particles (at every time step):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> inflow_create_pp(Inflow *i, <span style="color:#0a8;font-weight:bold">int</span> *n, Particle *pp); <b class="conum">(1)</b>
+<span style="color:#088;font-weight:bold">void</span> inflow_create_pp_cc(<span style="color:#0a8;font-weight:bold">int</span> newcolor, Inflow *i, <span style="color:#0a8;font-weight:bold">int</span> *n, Particle *pp, <span style="color:#0a8;font-weight:bold">int</span> *cc); <b class="conum">(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>add particles to the array <code>pp</code> and increase <code>n</code> accordingly</p>
+</li>
+<li>
+<p>same as above, with colors <code>cc</code> set to <code>color</code></p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_configuration_4">configuration</h5>
+<div class="sect5">
+<h6 id="_plate_2">plate</h6>
+<div class="paragraph">
+<p>syntax for a <code>8.0 x 16.0</code> plate perpendicular to the x axis passing by
+the point <code>(1, 2, 3)</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cfg">inflow = {
+    active      = true;
+    type        = &quot;plate&quot;;
+    L1          = 1.0;
+    L2          = 16.0;
+    direction   = 0;                # [0,1,2] = [X,Y,Z]
+    origin      = [1.0, 2.0, 3.0];
+    upoiseuille = false;            # true for parabolic profile along L1
+    vpoiseuille = false;            # true for parabolic profile along L2
+    u           = [10.0, 0.0, 0.0];
+};</code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_circle_2">circle</h6>
+<div class="paragraph">
+<p>syntax for cylinder:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cfg">inflow = {
+    active = true;
+    type   = &quot;circle&quot;;
+    R      = 1.0;              # radius
+    H      = 16.0;             # hight of the cylinder
+    U      = 1.0;              # maximum velocity
+    center = [8.0, 8.0, 8.0];
+    poiseuille = false;        # parabolic profile along H if true
+};</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="_outflow">Outflow</h4>
 <div class="paragraph">
 <p>Delete particles satisfying a predicate</p>
 </div>
 <div class="sect4">
-<h5 id="_interface_9">interface</h5>
+<h5 id="_interface_10">interface</h5>
 <div class="paragraph">
 <p>allocate, deallocate:</p>
 </div>
@@ -1731,9 +1838,9 @@ the point <code>(1, 2, 3)</code>:</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_configuration_4">configuration</h5>
+<h5 id="_configuration_5">configuration</h5>
 <div class="sect5">
-<h6 id="_plate_2">plate</h6>
+<h6 id="_plate_3">plate</h6>
 <div class="paragraph">
 <p>will delete particles crossing a plate along the positive direction.
 syntax for the plate <code>y=4</code>:</p>
@@ -1750,7 +1857,7 @@ syntax for the plate <code>y=4</code>:</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_circle_2">circle</h6>
+<h6 id="_circle_3">circle</h6>
 <div class="paragraph">
 <p>delete particles going out of the cylinder.
 syntax for a cylinder of radius 8 centered at <code>(8, 8, 8)</code>:</p>
@@ -1769,8 +1876,188 @@ syntax for a cylinder of radius 8 centered at <code>(8, 8, 8)</code>:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_density_controller">Density controller</h4>
+<h4 id="_density_controller_2">Density controller</h4>
 
+</div>
+<div class="sect3">
+<h4 id="_outflow_2">Outflow</h4>
+<div class="paragraph">
+<p>Delete particles satisfying a predicate</p>
+</div>
+<div class="sect4">
+<h5 id="_interface_11">interface</h5>
+<div class="paragraph">
+<p>allocate, deallocate:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> ini(<span style="color:#0a8;font-weight:bold">int</span> maxp, <span style="color:#777">/**/</span> Outflow **o);
+<span style="color:#088;font-weight:bold">void</span> fin(<span style="color:#777">/**/</span> Outflow *o);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>initialize the outflow structure (to be done only once):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> ini_params_circle(<span style="color:#088;font-weight:bold">const</span> Coords *coords, float3 c, <span style="color:#0a8;font-weight:bold">float</span> R, Outflow *o);
+<span style="color:#088;font-weight:bold">void</span> ini_params_plate(<span style="color:#088;font-weight:bold">const</span> Coords *c, <span style="color:#0a8;font-weight:bold">int</span> dir, <span style="color:#0a8;font-weight:bold">float</span> r0, Outflow *o);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>depending on the geometry of outflow, call the appropriate
+<code>ini_params_xxx</code>.</p>
+</div>
+<div class="paragraph">
+<p>filter and mark particles (at every time step):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> filter_particles(<span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> Particle *pp, <span style="color:#777">/**/</span> Outflow *o); <b class="conum">(1)</b>
+
+<span style="color:#088;font-weight:bold">void</span> download_ndead(Outflow *o);                                   <b class="conum">(2)</b>
+
+<span style="color:#0a8;font-weight:bold">int</span>* get_deathlist(Outflow *o);                                    <b class="conum">(3)</b>
+<span style="color:#0a8;font-weight:bold">int</span>  get_ndead(Outflow *o);                                        <b class="conum">(4)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>store dying particles infos inside Outflow struct</p>
+</li>
+<li>
+<p>copy from device to host number of dead particles</p>
+</li>
+<li>
+<p>return the list of dead marks (dead=1, alive=0)</p>
+</li>
+<li>
+<p>return the number of dead particles</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_configuration_6">configuration</h5>
+<div class="sect5">
+<h6 id="_plate_4">plate</h6>
+<div class="paragraph">
+<p>will delete particles crossing a plate along the positive direction.
+syntax for the plate <code>y=4</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cfg">outflow = {
+    active     = true;
+    type       = &quot;plate&quot;;
+    direction  = 1;      # [0,1,2] = [X,Y,Z]
+    position   = 4.0;    # position along &quot;direction&quot;
+};</code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_circle_4">circle</h6>
+<div class="paragraph">
+<p>delete particles going out of the cylinder.
+syntax for a cylinder of radius 8 centered at <code>(8, 8, 8)</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cfg">outflow = {
+    active = true;
+    type   = &quot;circle&quot;;
+    R      = 8.0;
+    center = [8.0, 8.0, 8.0];
+};</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_velocity_controller_2">Velocity controller</h4>
+<div class="paragraph">
+<p>control velocity by modifying the imposed hydrostatic force</p>
+</div>
+<div class="sect4">
+<h5 id="_interface_12">interface</h5>
+<div class="paragraph">
+<p>allocate, deallocate:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> vcont_ini(MPI_Comm comm, int3 L, float3 vtarget, <span style="color:#0a8;font-weight:bold">float</span> factor, <span style="color:#777">/**/</span> PidVCont **c);
+<span style="color:#088;font-weight:bold">void</span> vcont_fin(<span style="color:#777">/**/</span> PidVCont *cont);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>initialize the transformation structure (to be done only once):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> vcon_set_cart(<span style="color:#777">/**/</span> PidVCont *cont);
+<span style="color:#088;font-weight:bold">void</span> vcon_set_radial(<span style="color:#777">/**/</span> PidVCont *cont);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>the transformation is the way of averaging the velocity:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>cartesian transformation keeps the velocity as it is before averaging.</p>
+</li>
+<li>
+<p>radial transformation returns the velocity in polar coordinates
+scaled by the radial position. the <code>z</code> component corresponds to
+cartesian transformation</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Control operations:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span>   vcont_sample(<span style="color:#088;font-weight:bold">const</span> Coords *coords, <span style="color:#0a8;font-weight:bold">int</span> n, <span style="color:#088;font-weight:bold">const</span> Particle *pp, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> *starts, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> *counts, <span style="color:#777">/**/</span> PidVCont *c); <b class="conum">(1)</b>
+float3 vcont_adjustF(<span style="color:#777">/**/</span> PidVCont *c); <b class="conum">(2)</b>
+<span style="color:#088;font-weight:bold">void</span>   vcont_log(<span style="color:#088;font-weight:bold">const</span> PidVCont *c);    <b class="conum">(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>get average velocity according to transformation and store it</p>
+</li>
+<li>
+<p>reduce sampled quantities and update the controller. return the force</p>
+</li>
+<li>
+<p>logging informations; dumped into the file <code>vcon.txt</code></p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_configuration_7">configuration</h5>
+<div class="paragraph">
+<p>syntax:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cfg">vcon = {
+     active = true;
+     type   = &quot;cart&quot;;          # can be also &quot;rad&quot;
+     U      = [1.0, 1.0, 0.0]; # target velocity in transformed space
+     log_freq    = 500;
+     adjust_freq = 500;
+     sample_freq = 1;
+};</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -1958,7 +2245,7 @@ A <em>view</em> structure <code>Coords_v</code> is public to device code:</p>
 they can be replaced by CPU calls.</p>
 </div>
 <div class="sect3">
-<h4 id="_interface_10">interface</h4>
+<h4 id="_interface_13">interface</h4>
 <div class="paragraph">
 <p>Wrappers for cuda functions:</p>
 </div>
@@ -1995,7 +2282,7 @@ they can be replaced by CPU calls.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_configuration_5">configuration</h4>
+<h4 id="_configuration_8">configuration</h4>
 <div class="paragraph">
 <p>Generic device can by implemented by <code>cuda</code> and by <code>cpu</code>
 * <code>d/cuda</code>
@@ -2083,7 +2370,7 @@ valid if</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_interface_11">interface</h4>
+<h4 id="_interface_14">interface</h4>
 <div class="paragraph">
 <p>allocate/deallocate the structure:</p>
 </div>
@@ -2127,7 +2414,7 @@ valid if</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_configuration_6">configuration</h4>
+<h4 id="_configuration_9">configuration</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="cfg">dbg = {
@@ -2204,7 +2491,7 @@ arrays is implemented as:</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_interface_12">interface</h5>
+<h5 id="_interface_15">interface</h5>
 <div class="paragraph">
 <p>Host interface:</p>
 </div>
@@ -2286,7 +2573,7 @@ The <code>xxre</code> variables in <code>Unpack</code> are buffer for remote qua
 </div>
 </div>
 <div class="sect4">
-<h5 id="_interface_13">interface</h5>
+<h5 id="_interface_16">interface</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> dflu_pack_ini(<span style="color:#0a8;font-weight:bold">int</span> maxdensity, DFluPack **p);
@@ -2390,7 +2677,7 @@ each RBC. Other variables have the same naming conventions than <code>distr::flu
 </div>
 </div>
 <div class="sect4">
-<h5 id="_interface_14">interface</h5>
+<h5 id="_interface_17">interface</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> drbc_pack_ini(<span style="color:#0a8;font-weight:bold">int</span> maxc, <span style="color:#0a8;font-weight:bold">int</span> nv, DRbcPack **p);
@@ -2455,7 +2742,7 @@ structures fit again in the general workflow:</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_interface_15">interface</h5>
+<h5 id="_interface_18">interface</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> drig_pack_ini(<span style="color:#0a8;font-weight:bold">int</span> maxns, <span style="color:#0a8;font-weight:bold">int</span> nv, DRigPack **p);
@@ -2517,7 +2804,7 @@ structures fit again in the general workflow:</p>
 <p>solvent forces</p>
 </div>
 <div class="sect3">
-<h4 id="_interface_16">interface</h4>
+<h4 id="_interface_19">interface</h4>
 <div class="paragraph">
 <p>TODO</p>
 </div>
@@ -2576,7 +2863,7 @@ cell counts (see <a href="clist.html">clist</a>) and particles array</p>
 <p>flow-structure interactions between solvent and objects (rigid objects, rbc membranes)</p>
 </div>
 <div class="sect3">
-<h4 id="_interface_17">interface</h4>
+<h4 id="_interface_20">interface</h4>
 <div class="paragraph">
 <p>allocate/deallocate</p>
 </div>
@@ -2610,6 +2897,40 @@ cell counts (see <a href="clist.html">clist</a>) and particles array</p>
 </ol>
 </div>
 </div>
+<div class="sect3">
+<h4 id="_linal">linal</h4>
+<div class="paragraph">
+<p>Linear algebra helpers on host</p>
+</div>
+<div class="sect4">
+<h5 id="_interface_21">interface</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#777">/* invert symmetric matrix m0[6] */</span>
+<span style="color:#088;font-weight:bold">void</span> linal_inv3x3(<span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">float</span> *m0, <span style="color:#777">/**/</span> <span style="color:#0a8;font-weight:bold">float</span> *minv0); <b class="conum">(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>inverse symmetric 3 by 3 matrix; fails and returns an error for
+singular matrices with determinant smaller than epsilon (hardcoded
+to <code>1e-8</code>).</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>structure of the matrix is <code>xx, xy, yy, yz, zz</code>, where</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>     ( xx xy xz)
+A =  ( xy yy yz)
+     ( xz yz zz)</pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_math">Math</h3>
@@ -2617,12 +2938,12 @@ cell counts (see <a href="clist.html">clist</a>) and particles array</p>
 <p>Helpers for math operations and random number generation</p>
 </div>
 <div class="sect3">
-<h4 id="_linal">linal</h4>
+<h4 id="_linal_2">linal</h4>
 <div class="paragraph">
 <p>Linear algebra helpers on host</p>
 </div>
 <div class="sect4">
-<h5 id="_interface_18">interface</h5>
+<h5 id="_interface_22">interface</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#777">/* invert symmetric matrix m0[6] */</span>
@@ -2656,7 +2977,7 @@ A =  ( xy yy yz)
 <p>Generate uniform random numbers on host in floating point precision</p>
 </div>
 <div class="sect4">
-<h5 id="_interface_19">interface</h5>
+<h5 id="_interface_23">interface</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#080;font-weight:bold">struct</span> RNDunif;                                             <b class="conum">(1)</b>
@@ -2699,7 +3020,7 @@ A =  ( xy yy yz)
 <p>Coefficient <code>s</code> and <code>o</code> are defined implicitly by API calls.</p>
 </div>
 <div class="sect4">
-<h5 id="_interface_20">interface</h5>
+<h5 id="_interface_24">interface</h5>
 <div class="sect5">
 <h6 id="_allocate_deallocate">Allocate/Deallocate</h6>
 <div class="listingblock">
@@ -2763,11 +3084,124 @@ A =  ( xy yy yz)
 </div>
 </div>
 </div>
+<div class="sect3">
+<h4 id="_host_random_number_generation_2">Host random number generation</h4>
+<div class="paragraph">
+<p>Generate uniform random numbers on host in floating point precision</p>
+</div>
+<div class="sect4">
+<h5 id="_interface_25">interface</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#080;font-weight:bold">struct</span> RNDunif;                                             <b class="conum">(1)</b>
+<span style="color:#088;font-weight:bold">void</span> rnd_ini(<span style="color:#0a8;font-weight:bold">int</span> x, <span style="color:#0a8;font-weight:bold">int</span> y, <span style="color:#0a8;font-weight:bold">int</span> z, <span style="color:#0a8;font-weight:bold">int</span> c, <span style="color:#777">/**/</span> RNDunif **r); <b class="conum">(2)</b>
+<span style="color:#088;font-weight:bold">void</span> rnd_fin(RNDunif *r);                                   <b class="conum">(3)</b>
+<span style="color:#0a8;font-weight:bold">float</span> rnd_get(RNDunif *r);                                  <b class="conum">(4)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>hidden structure containing state of the rng</p>
+</li>
+<li>
+<p>allocate and initialize the rng (<code>x</code>, <code>y</code>, <code>z</code> and <code>c</code> are states of the rng)</p>
+</li>
+<li>
+<p>deallocate rng states</p>
+</li>
+<li>
+<p>generate a random number in single precision; modify the state</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_linar_coordinate_transformation_for_3d_vector_2">linar coordinate transformation for 3D vector</h4>
+<div class="paragraph">
+<p>Transform vector <code>a[3]</code> to <code>b[3]</code> using</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    b[X] = s[X]*a[X] + o[X]
+    b[Y] = s[Y]*a[Y] + o[Y]
+    b[Z] = s[Z]*a[Z] + o[Z]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Coefficient <code>s</code> and <code>o</code> are defined implicitly by API calls.</p>
+</div>
+<div class="sect4">
+<h5 id="_interface_26">interface</h5>
+<div class="sect5">
+<h6 id="_allocate_deallocate_2">Allocate/Deallocate</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> tform_ini(Tform**);
+<span style="color:#088;font-weight:bold">void</span> tform_fin(Tform*);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Set parameters of the transformation</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> tform_vector(<span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">float</span> a0[<span style="color:#00D">3</span>], <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">float</span> a1[<span style="color:#00D">3</span>],   <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">float</span> b0[<span style="color:#00D">3</span>], <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">float</span> b1[<span style="color:#00D">3</span>], <span style="color:#777">/**/</span> Tform*); <b class="conum">(1)</b>
+<span style="color:#088;font-weight:bold">void</span> tform_chain(Tform*, Tform*, <span style="color:#777">/**/</span> Tform*); <b class="conum">(2)</b>
+<span style="color:#088;font-weight:bold">void</span> tform_grid2grid(<span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">float</span> f_lo[<span style="color:#00D">3</span>], <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">float</span> f_hi[<span style="color:#00D">3</span>], <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> f_n[<span style="color:#00D">3</span>],
+                     <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">float</span> t_lo[<span style="color:#00D">3</span>], <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">float</span> t_hi[<span style="color:#00D">3</span>], <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> t_n[<span style="color:#00D">3</span>], <span style="color:#777">/**/</span>
+                     Tform*);
+<span style="color:#088;font-weight:bold">void</span> tform_to_grid(<span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">float</span> a0[<span style="color:#00D">3</span>], <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">float</span> b0[<span style="color:#00D">3</span>], <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> n[<span style="color:#00D">3</span>], <span style="color:#777">/**/</span> Tform*);
+<span style="color:#088;font-weight:bold">void</span> tform_from_grid(<span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">float</span> a0[<span style="color:#00D">3</span>], <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">float</span> b0[<span style="color:#00D">3</span>], <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">int</span> n[<span style="color:#00D">3</span>], <span style="color:#777">/**/</span> Tform*);</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>transfrom which convert vectors <code>a0</code> to <code>a1</code> and <code>b0</code> to <code>b1</code></p>
+</li>
+<li>
+<p>transform is a chain of two transforms</p>
+</li>
+</ol>
+</div>
+<div class="sect6">
+<h7 id="_convert_vector_2">Convert vector</h7>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> tform_convert(Tform*, <span style="color:#088;font-weight:bold">const</span> <span style="color:#0a8;font-weight:bold">float</span> a0[<span style="color:#00D">3</span>], <span style="color:#777">/**/</span> <span style="color:#0a8;font-weight:bold">float</span> a1[<span style="color:#00D">3</span>]);</code></pre>
+</div>
+</div>
+</div>
+<div class="sect6">
+<h7 id="_convert_to_view_2">convert to view</h7>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> tform_to_view(Tform*, <span style="color:#777">/**/</span> Tform_v*);</code></pre>
+</div>
+</div>
+</div>
+<div class="sect6">
+<h7 id="_log_2">log</h7>
+<div class="paragraph">
+<p>Log or dump the state of 'Tform'</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span style="color:#088;font-weight:bold">void</span> tform_log(Tform*);
+<span style="color:#088;font-weight:bold">void</span> tform_dump(Tform*, FILE*);</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_parser">parser</h3>
 <div class="sect3">
-<h4 id="_purpose_3">purpose</h4>
+<h4 id="_purpose_4">purpose</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2823,7 +3257,7 @@ priority etc.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_interface_21">interface</h4>
+<h4 id="_interface_27">interface</h4>
 <div class="paragraph">
 <p>Allocate and free the structure:</p>
 </div>
@@ -2896,7 +3330,7 @@ Purpose: kill particles during redistribution or cell lists build</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_interface_22">interface</h4>
+<h4 id="_interface_28">interface</h4>
 <div class="paragraph">
 <p>contains only device interface:</p>
 </div>
@@ -2993,7 +3427,7 @@ f0  = sqrtf(2*g*T/dt)*rnd</pre>
 <div class="sect2">
 <h3 id="_signed_distance_function_sdf">signed distance function (sdf)</h3>
 <div class="sect3">
-<h4 id="_purpose_4">purpose</h4>
+<h4 id="_purpose_5">purpose</h4>
 <div class="paragraph">
 <p>Signed distance function is interpolated from a uniform grid.</p>
 </div>
@@ -3019,16 +3453,34 @@ deleted</p>
 </ul>
 </div>
 </div>
+<div class="sect3">
+<h4 id="cc">cc</h4>
+<div class="paragraph">
+<p>[C]uda [C]heck.</p>
 </div>
-<div class="sect2">
-<h3 id="_utils">Utils</h3>
+<div class="paragraph">
+<p>Error handling for cuda API calls.</p>
+</div>
+<div class="sect4">
+<h5 id="_usage">Usage</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp">CC(my_cuda_api_call());</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>CC</code> uses internally <code>UdxError</code> in case of failure. This allows to
+dump a backtrace (see <a href="#error">error</a>).</p>
+</div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="error">error</h4>
 <div class="paragraph">
 <p>Custom error handling with context.</p>
 </div>
 <div class="sect4">
-<h5 id="_usage">Usage</h5>
+<h5 id="_usage_2">Usage</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -3050,51 +3502,9 @@ one of the subfunctions.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_interface_23">Interface</h5>
+<h5 id="_interface_29">Interface</h5>
 <div class="paragraph">
 <p>TODO</p>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="cc">cc</h4>
-<div class="paragraph">
-<p>[C]uda [C]heck.</p>
-</div>
-<div class="paragraph">
-<p>Error handling for cuda API calls.</p>
-</div>
-<div class="sect4">
-<h5 id="_usage_2">Usage</h5>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp">CC(my_cuda_api_call());</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>CC</code> uses internally <code>UdxError</code> in case of failure. This allows to
-dump a backtrace (see <a href="#error">error</a>).</p>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_mc">mc</h4>
-<div class="paragraph">
-<p>[M]PI [C]heck.</p>
-</div>
-<div class="paragraph">
-<p>Error handling for MPI API calls.</p>
-</div>
-<div class="sect4">
-<h5 id="_usage_3">Usage</h5>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp">MC(my_mpi_api_call());</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>MC</code> uses internally <code>UdxError</code> in case of failure. This allows to
-dump a backtrace (see <a href="#error">error</a>).</p>
 </div>
 </div>
 </div>
@@ -3121,12 +3531,133 @@ KL(fun, (i+<span style="color:#00D">1</span>, j, k), (a, b)) -&gt; fun&lt;&lt;&l
 </div>
 </div>
 <div class="sect2">
+<h3 id="_utils">Utils</h3>
+<div class="sect3">
+<h4 id="error">error</h4>
+<div class="paragraph">
+<p>Custom error handling with context.</p>
+</div>
+<div class="sect4">
+<h5 id="_usage_3">Usage</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>an error can be raised by the use of one of the following macros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>signal_error_extra(fmt, &#8230;&#8203;)</code> will raise an error with extra
+information formatted by the caller in a prinf format fashion</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>use macro <code>UC</code> on any function which might contain an error signal in
+one of the subfunctions.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_interface_30">Interface</h5>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="cc">cc</h4>
+<div class="paragraph">
+<p>[C]uda [C]heck.</p>
+</div>
+<div class="paragraph">
+<p>Error handling for cuda API calls.</p>
+</div>
+<div class="sect4">
+<h5 id="_usage_4">Usage</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp">CC(my_cuda_api_call());</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>CC</code> uses internally <code>UdxError</code> in case of failure. This allows to
+dump a backtrace (see <a href="#error">error</a>).</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_mc">mc</h4>
+<div class="paragraph">
+<p>[M]PI [C]heck.</p>
+</div>
+<div class="paragraph">
+<p>Error handling for MPI API calls.</p>
+</div>
+<div class="sect4">
+<h5 id="_usage_5">Usage</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp">MC(my_mpi_api_call());</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>MC</code> uses internally <code>UdxError</code> in case of failure. This allows to
+dump a backtrace (see <a href="#error">error</a>).</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_kernel_launch_macros_2">kernel launch macros</h4>
+<div class="paragraph">
+<p>[K]ernel [L]aunch.</p>
+</div>
+<div class="paragraph">
+<p>a macro for cuds kernel launches</p>
+</div>
+<div class="paragraph">
+<p>All but <code>unsafe</code> skip kernels with zero thread number.</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp">KL(fun, (i+<span style="color:#00D">1</span>, j, k), ())     -&gt; fun&lt;&lt;&lt;i+<span style="color:#00D">1</span>, j, k&gt;&gt;&gt;()
+KL(fun, (i+<span style="color:#00D">1</span>, j, k), (a, b)) -&gt; fun&lt;&lt;&lt;i+<span style="color:#00D">1</span>, j, k&gt;&gt;&gt;(a, b)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_mc_2">mc</h4>
+<div class="paragraph">
+<p>[M]PI [C]heck.</p>
+</div>
+<div class="paragraph">
+<p>Error handling for MPI API calls.</p>
+</div>
+<div class="sect4">
+<h5 id="_usage_6">Usage</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp">MC(my_mpi_api_call());</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>MC</code> uses internally <code>UdxError</code> in case of failure. This allows to
+dump a backtrace (see <a href="#error">error</a>).</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_wvel">wvel</h3>
 <div class="paragraph">
 <p>wall velocity field</p>
 </div>
 <div class="sect3">
-<h4 id="_purpose_5">purpose</h4>
+<h4 id="_purpose_6">purpose</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -3157,7 +3688,7 @@ specific time. It is passed to device kernels.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_interface_24">interface</h4>
+<h4 id="_interface_31">interface</h4>
 <div class="paragraph">
 <p>Interface is splitted between host and device</p>
 </div>
@@ -3220,7 +3751,7 @@ position and velocity of particle.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_configuration_7">Configuration</h4>
+<h4 id="_configuration_10">Configuration</h4>
 <div class="sect4">
 <h5 id="_constant_2">constant</h5>
 <div class="paragraph">
@@ -3487,12 +4018,7 @@ cmd: srun -n 1 -u valgrind --option ./udx 1 1 1</pre>
 <div class="sect1">
 <h2 id="_user">User</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_user_documentation">user documentation</h3>
-<div class="paragraph">
-<p>TODO</p>
-</div>
-</div>
+
 </div>
 </div>
 <div class="sect1">
@@ -3522,7 +4048,7 @@ u.make -j</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_usage_4">usage</h4>
+<h4 id="_usage_7">usage</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="sh">ERR_KIND=&lt;kind&gt; ./udx</code></pre>
@@ -3602,131 +4128,6 @@ ans =
   -0.285714   0.376623   0.038961
    0.142857   0.038961  -0.064935</pre>
 </div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_units_2">units</h3>
-<div class="paragraph">
-<p>uDeviceX consists of units. They are implemented in link::/src/u/[/src/u/].</p>
-</div>
-<div class="sect3">
-<h4 id="_build_and_run">Build and run</h4>
-<div class="paragraph">
-<p>Compile unit <code>A</code>: from <code>/src</code> directory</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="shell">u.conf0 ./u/A
-u.make -j</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_update_make_file_fragments">Update make file fragments</h4>
-<div class="paragraph">
-<p>From <code>/src</code></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="shell">u.u u/A</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>updates <code>hw/make/*.mk</code> files</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_create_a_new_unit">Create a new unit</h4>
-<div class="paragraph">
-<p>From <code>/src</code></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="shell">mkdir -p hw/make</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Add two file: <code>hw/make/i</code> and <code>hw/make/e</code>. The files are used by <code>u.u</code>
-to create a list of unit source files. <code>i</code> is a script which returns a
-list of [i]ncluded files. <code>e</code> returns a list of [e]xcluded files. The
-<code>i</code> list "minus" <code>e</code> list is used as a source. <code>e</code> file is
-optional. In other words <code>e</code> "black lists" files returned by <code>i</code>.</p>
-</div>
-<div class="paragraph">
-<p>For <code>i</code> and <code>e</code> the variable <code>$U</code> is set to <code>u/hw/hst</code>.</p>
-</div>
-<div class="paragraph">
-<p>Run</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="shell">u.u u/hw/hst</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Add <code>u/hw/hst/make/dep.mk u/hw/hst/make/obj.mk u/hw/hstmake/dir.mk
-u/hw/hst/make/rule.mk</code> to git.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_list_of_units">list of units</h4>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="comm.html">comm</a></p>
-</li>
-<li>
-<p><a href="error.html">error</a></p>
-</li>
-<li>
-<p>hello world</p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="hw/hst.html">host</a></p>
-</li>
-<li>
-<p><a href="hw/dev.html">cuda</a></p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><a href="meshbb.html">meshbb</a></p>
-</li>
-<li>
-<p><a href="mpi.html">mpi</a></p>
-</li>
-<li>
-<p><a href="pair.html">pair</a></p>
-</li>
-<li>
-<p>red blood cell units</p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="rbc/force.html">force</a></p>
-</li>
-<li>
-<p><a href="rbc/main.html">main</a></p>
-</li>
-<li>
-<p><a href="rbc/rnd.html">rnd</a></p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><a href="sdf.html">sdf</a></p>
-</li>
-<li>
-<p><a href="scan.html">scan</a></p>
-</li>
-<li>
-<p><a href="x.html">x</a></p>
-</li>
-</ul>
 </div>
 </div>
 </div>
