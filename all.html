@@ -315,12 +315,12 @@
 <li><a href="#_purpose_5">purpose</a></li>
 <li><a href="#_implementation">implementation</a></li>
 <li><a href="#_components_2">components</a></li>
-<li><a href="#cc">cc</a>
+<li><a href="#_cc">cc</a>
 <ul class="sectlevel4">
 <li><a href="#_usage">Usage</a></li>
 </ul>
 </li>
-<li><a href="#error">error</a>
+<li><a href="#_error">error</a>
 <ul class="sectlevel4">
 <li><a href="#_usage_2">Usage</a></li>
 <li><a href="#_interface_29">Interface</a></li>
@@ -331,13 +331,13 @@
 </li>
 <li><a href="#_utils">Utils</a>
 <ul class="sectlevel3">
-<li><a href="#error">error</a>
+<li><a href="#_error_2">error</a>
 <ul class="sectlevel4">
 <li><a href="#_usage_3">Usage</a></li>
 <li><a href="#_interface_30">Interface</a></li>
 </ul>
 </li>
-<li><a href="#cc">cc</a>
+<li><a href="#_cc_2">cc</a>
 <ul class="sectlevel4">
 <li><a href="#_usage_4">Usage</a></li>
 </ul>
@@ -3027,6 +3027,19 @@ memory and invalidated pointers returned by <code>txt_read_get_pp</code> or
 <span class="tok-k">const</span> <span class="tok-n">Force</span><span class="tok-o">*</span>    <span class="tok-nf">txt_read_get_ff</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">TxtRead</span> <span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Text format is a as follow:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>x y z vx vy vz [fx fy fz]
+...
+x y z vx vy vz [fx fy fz]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>where every row corresponds to a particle.</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="_text_2">Text</h4>
@@ -3055,6 +3068,19 @@ memory and invalidated pointers returned by <code>txt_read_get_pp</code> or
 <span class="tok-k">const</span> <span class="tok-n">Particle</span><span class="tok-o">*</span> <span class="tok-nf">txt_read_get_pp</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">TxtRead</span> <span class="tok-o">*</span><span class="tok-p">);</span>
 <span class="tok-k">const</span> <span class="tok-n">Force</span><span class="tok-o">*</span>    <span class="tok-nf">txt_read_get_ff</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">TxtRead</span> <span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Text format is a as follow:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>x y z vx vy vz [fx fy fz]
+...
+x y z vx vy vz [fx fy fz]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>where every row corresponds to a particle.</p>
 </div>
 </div>
 <div class="sect3">
@@ -3368,9 +3394,12 @@ A =  ( xy yy yz)
 <p>wrapper for the <code>libconfig</code> library</p>
 </li>
 <li>
-<p>holds configurations from 3 sources:</p>
+<p>holds configurations from 4 sources:</p>
 <div class="ulist">
 <ul>
+<li>
+<p>set by program (priority 4)</p>
+</li>
 <li>
 <p>arguments (priority 3)</p>
 </li>
@@ -3619,7 +3648,7 @@ deleted</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="cc">cc</h4>
+<h4 id="_cc">cc</h4>
 <div class="paragraph">
 <p>[C]uda [C]heck.</p>
 </div>
@@ -3635,12 +3664,12 @@ deleted</p>
 </div>
 <div class="paragraph">
 <p><code>CC</code> uses internally <code>UdxError</code> in case of failure. This allows to
-dump a backtrace (see <a href="#error">error</a>).</p>
+dump a backtrace (see <a href="#error">[error]</a>).</p>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="error">error</h4>
+<h4 id="_error">error</h4>
 <div class="paragraph">
 <p>Custom error handling with context.</p>
 </div>
@@ -3698,7 +3727,7 @@ one of the subfunctions.</p>
 <div class="sect2">
 <h3 id="_utils">Utils</h3>
 <div class="sect3">
-<h4 id="error">error</h4>
+<h4 id="_error_2">error</h4>
 <div class="paragraph">
 <p>Custom error handling with context.</p>
 </div>
@@ -3732,7 +3761,7 @@ one of the subfunctions.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="cc">cc</h4>
+<h4 id="_cc_2">cc</h4>
 <div class="paragraph">
 <p>[C]uda [C]heck.</p>
 </div>
@@ -3748,7 +3777,7 @@ one of the subfunctions.</p>
 </div>
 <div class="paragraph">
 <p><code>CC</code> uses internally <code>UdxError</code> in case of failure. This allows to
-dump a backtrace (see <a href="#error">error</a>).</p>
+dump a backtrace (see <a href="#error">[error]</a>).</p>
 </div>
 </div>
 </div>
@@ -3769,7 +3798,7 @@ dump a backtrace (see <a href="#error">error</a>).</p>
 </div>
 <div class="paragraph">
 <p><code>MC</code> uses internally <code>UdxError</code> in case of failure. This allows to
-dump a backtrace (see <a href="#error">error</a>).</p>
+dump a backtrace (see <a href="#error">[error]</a>).</p>
 </div>
 </div>
 </div>
@@ -3811,7 +3840,7 @@ dump a backtrace (see <a href="#error">error</a>).</p>
 </div>
 <div class="paragraph">
 <p><code>MC</code> uses internally <code>UdxError</code> in case of failure. This allows to
-dump a backtrace (see <a href="#error">error</a>).</p>
+dump a backtrace (see <a href="#error">[error]</a>).</p>
 </div>
 </div>
 </div>
