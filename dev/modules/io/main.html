@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<title>IO</title>
+<link rel="stylesheet" href="/udoc/css/main.css">
+<link rel="stylesheet" href="./pygments-colorful.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>IO</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_text">Text</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_text">Text</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Write one row per particle in a text file <code>path</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">txt_write_pp</span><span class="tok-p">(</span><span class="tok-kt">long</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">path</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">txt_write_pp_ff</span><span class="tok-p">(</span><span class="tok-kt">long</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Force</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">path</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Read particles to a structure <code>TxtRead</code>. The <code>TxtRead</code> API returns the
+number of particles and pointers to the data. <code>txt_read_fin</code> frees the
+memory and invalidated pointers returned by <code>txt_read_get_pp</code> or
+<code>txt_read_get_pp_ff</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">txt_read_pp</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">path</span><span class="tok-p">,</span> <span class="tok-n">TxtRead</span> <span class="tok-o">**</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">txt_read_pp_ff</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">path</span><span class="tok-p">,</span> <span class="tok-n">TxtRead</span> <span class="tok-o">**</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">txt_read_fin</span><span class="tok-p">(</span><span class="tok-n">TxtRead</span><span class="tok-o">*</span><span class="tok-p">);</span>
+
+<span class="tok-kt">int</span> <span class="tok-nf">txt_read_get_n</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">TxtRead</span> <span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-k">const</span> <span class="tok-n">Particle</span><span class="tok-o">*</span> <span class="tok-nf">txt_read_get_pp</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">TxtRead</span> <span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-k">const</span> <span class="tok-n">Force</span><span class="tok-o">*</span>    <span class="tok-nf">txt_read_get_ff</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">TxtRead</span> <span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Text format is a as follow</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>x y z vx vy vz fx fy fz
+...
+x y z vx vy vz fx fy fz</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

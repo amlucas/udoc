@@ -247,6 +247,12 @@
 <li><a href="#_fsi">fsi</a>
 <ul class="sectlevel3">
 <li><a href="#_interface_20">interface</a></li>
+</ul>
+</li>
+<li><a href="#_io">IO</a>
+<ul class="sectlevel3">
+<li><a href="#_text">Text</a></li>
+<li><a href="#_text_2">Text</a></li>
 <li><a href="#_linal">linal</a>
 <ul class="sectlevel4">
 <li><a href="#_interface_21">interface</a></li>
@@ -451,7 +457,7 @@
 <div class="sectionbody">
 <div class="imageblock">
 <div class="content">
-<img src="include/pach.jpeg" alt="pach">
+<img src="include/pach.png" alt="pach">
 </div>
 </div>
 </div>
@@ -2990,6 +2996,67 @@ v y          03 04 05          12 13 xx          xx xx xx
 </ol>
 </div>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_io">IO</h3>
+<div class="sect3">
+<h4 id="_text">Text</h4>
+<div class="paragraph">
+<p>Write one row per particle in a text file <code>path</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">txt_write_pp</span><span class="tok-p">(</span><span class="tok-kt">long</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">path</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">txt_write_pp_ff</span><span class="tok-p">(</span><span class="tok-kt">long</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Force</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">path</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Read particles to a structure <code>TxtRead</code>. The <code>TxtRead</code> API returns the
+number of particles and pointers to the data. <code>txt_read_fin</code> frees the
+memory and invalidated pointers returned by <code>txt_read_get_pp</code> or
+<code>txt_read_get_pp_ff</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">txt_read_pp</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">path</span><span class="tok-p">,</span> <span class="tok-n">TxtRead</span> <span class="tok-o">**</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">txt_read_pp_ff</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">path</span><span class="tok-p">,</span> <span class="tok-n">TxtRead</span> <span class="tok-o">**</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">txt_read_fin</span><span class="tok-p">(</span><span class="tok-n">TxtRead</span><span class="tok-o">*</span><span class="tok-p">);</span>
+
+<span class="tok-kt">int</span> <span class="tok-nf">txt_read_get_n</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">TxtRead</span> <span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-k">const</span> <span class="tok-n">Particle</span><span class="tok-o">*</span> <span class="tok-nf">txt_read_get_pp</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">TxtRead</span> <span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-k">const</span> <span class="tok-n">Force</span><span class="tok-o">*</span>    <span class="tok-nf">txt_read_get_ff</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">TxtRead</span> <span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_text_2">Text</h4>
+<div class="paragraph">
+<p>Write one row per particle in a text file <code>path</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">txt_write_pp</span><span class="tok-p">(</span><span class="tok-kt">long</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">path</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">txt_write_pp_ff</span><span class="tok-p">(</span><span class="tok-kt">long</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Force</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">path</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Read particles to a structure <code>TxtRead</code>. The <code>TxtRead</code> API returns the
+number of particles and pointers to the data. <code>txt_read_fin</code> frees the
+memory and invalidated pointers returned by <code>txt_read_get_pp</code> or
+<code>txt_read_get_pp_ff</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">txt_read_pp</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">path</span><span class="tok-p">,</span> <span class="tok-n">TxtRead</span> <span class="tok-o">**</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">txt_read_pp_ff</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">path</span><span class="tok-p">,</span> <span class="tok-n">TxtRead</span> <span class="tok-o">**</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">txt_read_fin</span><span class="tok-p">(</span><span class="tok-n">TxtRead</span><span class="tok-o">*</span><span class="tok-p">);</span>
+
+<span class="tok-kt">int</span> <span class="tok-nf">txt_read_get_n</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">TxtRead</span> <span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-k">const</span> <span class="tok-n">Particle</span><span class="tok-o">*</span> <span class="tok-nf">txt_read_get_pp</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">TxtRead</span> <span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-k">const</span> <span class="tok-n">Force</span><span class="tok-o">*</span>    <span class="tok-nf">txt_read_get_ff</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">TxtRead</span> <span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="_linal">linal</h4>
 <div class="paragraph">
@@ -4373,8 +4440,12 @@ u.make -j</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="sh"><span></span>cp  src/data/sdf/cyl1/cyl.dat sdf.dat</code></pre>
+<pre class="pygments highlight"><code data-lang="sh"><span></span>u.cp.sdf cyl1/cyl sdf.dat</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p><code>cyl1/cyl</code> along <code>z</code> and center at the domain center and radius
+<code>lx/4</code>.</p>
 </div>
 <div class="paragraph">
 <p>Pass coordinates as arguments</p>
@@ -4390,7 +4461,7 @@ u.run ./udx $x $y $z</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>1.45547</pre>
+<pre>0 0 2.5 1.45547</pre>
 </div>
 </div>
 </div>

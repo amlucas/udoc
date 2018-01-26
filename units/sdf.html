@@ -47,8 +47,12 @@ u.make -j</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="sh"><span></span>cp  src/data/sdf/cyl1/cyl.dat sdf.dat</code></pre>
+<pre class="pygments highlight"><code data-lang="sh"><span></span>u.cp.sdf cyl1/cyl sdf.dat</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p><code>cyl1/cyl</code> along <code>z</code> and center at the domain center and radius
+<code>lx/4</code>.</p>
 </div>
 <div class="paragraph">
 <p>Pass coordinates as arguments</p>
@@ -64,7 +68,7 @@ u.run ./udx $x $y $z</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>1.45547</pre>
+<pre>0 0 2.5 1.45547</pre>
 </div>
 </div>
 </div>
