@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<title>debug</title>
+<link rel="stylesheet" href="/udoc/css/main.css">
+<link rel="stylesheet" href="./pygments-colorful.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>debug</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_interface">interface</a></li>
+<li><a href="#_configuration">configuration</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Helper to check the particle positions, velocities, forces and
+cell-lists from device arrays</p>
+</div>
+<div class="paragraph">
+<p>The hidden structure <code>Dbg</code> holds the debugging configuration.
+Configuration is encoded using the following enum values:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-k">enum</span> <span class="tok-p">{</span>
+    <span class="tok-n">DBG_POS</span><span class="tok-p">,</span>      <b class="conum">(1)</b>
+    <span class="tok-n">DBG_POS_SOFT</span><span class="tok-p">,</span> <b class="conum">(2)</b>
+    <span class="tok-n">DBG_VEL</span><span class="tok-p">,</span>      <b class="conum">(3)</b>
+    <span class="tok-n">DBG_FORCES</span><span class="tok-p">,</span>   <b class="conum">(4)</b>
+    <span class="tok-n">DBG_COLORS</span><span class="tok-p">,</span>   <b class="conum">(5)</b>
+    <span class="tok-n">DBG_CLIST</span><span class="tok-p">,</span>    <b class="conum">(6)</b>
+    <span class="tok-n">DBG_NKIND_</span>
+<span class="tok-p">};</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>positions are inside subdomain</p>
+</li>
+<li>
+<p>positions are inside subdomain plus a margin</p>
+</li>
+<li>
+<p>velocities</p>
+</li>
+<li>
+<p>forces</p>
+</li>
+<li>
+<p>colors</p>
+</li>
+<li>
+<p>cell lists</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Consider subdomain of dimensions \((L_x, Ly, Lz)\).
+A position \((r_x, r_y, r_z)\) is valid if</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[-\frac{L_\alpha - M} {2}  \leq r_\alpha &lt; \frac{L_\alpha + M} 2,\]
+</div>
+</div>
+<div class="paragraph">
+<p>where \(M\) is the margin. It is \(M = 0\) for <code>DBG_POS</code> and
+\(M = 3\) for <code>DBG_POS_SOFT</code>.</p>
+</div>
+<div class="paragraph">
+<p>For a given timestep \(dt\), the velocity \((v_x, v_y, v_z)\) is
+valid if</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[2 |v_\alpha| dt \leq L_\alpha.\]
+</div>
+</div>
+<div class="paragraph">
+<p>The force \((f_x, f_y, f_z)\) is valid if</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[2 |f_\alpha| dt^2 \leq L_\alpha.\]
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_interface">interface</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>allocate/deallocate the structure:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">dbg_ini</span><span class="tok-p">(</span><span class="tok-n">Dbg</span><span class="tok-o">**</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">dbg_fin</span><span class="tok-p">(</span><span class="tok-n">Dbg</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>set debugging modes and verbosity:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">dbg_enable</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">kind</span><span class="tok-p">,</span> <span class="tok-n">Dbg</span> <span class="tok-o">*</span><span class="tok-n">dbg</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">dbg_disable</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">kind</span><span class="tok-p">,</span> <span class="tok-n">Dbg</span> <span class="tok-o">*</span><span class="tok-n">dbg</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">dbg_set_verbose</span><span class="tok-p">(</span><span class="tok-kt">bool</span><span class="tok-p">,</span> <span class="tok-n">Dbg</span> <span class="tok-o">*</span><span class="tok-n">dbg</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">dbg_set_dump</span><span class="tok-p">(</span><span class="tok-kt">bool</span><span class="tok-p">,</span> <span class="tok-n">Dbg</span> <span class="tok-o">*</span><span class="tok-n">dbg</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>initialize from configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">dbg_set_conf</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">Dbg</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>interface:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">dbg_check_pos</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">base</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Dbg</span> <span class="tok-o">*</span><span class="tok-n">dbg</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">dbg_check_pos_soft</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">base</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Dbg</span> <span class="tok-o">*</span><span class="tok-n">dbg</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">dbg_check_vel</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">base</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Dbg</span> <span class="tok-o">*</span><span class="tok-n">dbg</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">dbg_check_forces</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">base</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Dbg</span> <span class="tok-o">*</span><span class="tok-n">dbg</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Force</span> <span class="tok-o">*</span><span class="tok-n">ff</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">dbg_check_colors</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Dbg</span> <span class="tok-o">*</span><span class="tok-n">dbg</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">cc</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">dbg_check_clist</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Dbg</span> <span class="tok-o">*</span><span class="tok-n">dbg</span><span class="tok-p">,</span> <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">starts</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">counts</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuration">configuration</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">dbg</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
+<span class="tok-s">    verbose  = true;</span>
+<span class="tok-s">    pos      = false;</span>
+<span class="tok-s">    pos_soft = false;</span>
+<span class="tok-s">    vel      = false;</span>
+<span class="tok-s">    forces   = false;</span>
+<span class="tok-s">    colors   = false;</span>
+<span class="tok-s">    clist    = false;</span>
+<span class="tok-na">};</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.6.0/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+</body>
+</html>

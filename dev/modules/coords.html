@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<title>coords</title>
+<link rel="stylesheet" href="/udoc/css/main.css">
+<link rel="stylesheet" href="./pygments-colorful.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>coords</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_data_structures">data structures</a></li>
+<li><a href="#_host_interface">Host interface</a>
+<ul class="sectlevel2">
+<li><a href="#_memory_management">Memory management</a></li>
+<li><a href="#_getters">Getters</a></li>
+<li><a href="#_coordinate_transforms">Coordinate transforms</a></li>
+<li><a href="#_helpers">helpers</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Coordinate transforms utility.</p>
+</div>
+<div class="paragraph">
+<p>In <em>uDeviceX</em>, the simulation domain is decomposed into a grid of
+subdomains of equal sizes.
+Computations are performed in <em>local</em> coordinates and all objects are
+relative to these coordinates.
+Operations, such as initialisation of the data, io, etc., need
+<em>global</em> coordinates informations.</p>
+</div>
+<div class="paragraph">
+<p>For convenience, we consider the three coordinate systems:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>Global</em>: Relative to the lower corner of the full domain of size
+\((G_x, G_y, G_z)\)</p>
+</li>
+<li>
+<p><em>Local</em>: Relative to the center of the subdomain of size
+\((L_x, L_y, L_z)\)</p>
+</li>
+<li>
+<p><em>Center</em>: Relative to the center of the full domain: \((C_x,
+C_y, C_z) = (G_x/2, G_y/2, G_z/2)\)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_data_structures">data structures</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>All the needed information is stored in the hidden structure <code>Coords</code>.
+A <em>view</em> structure <code>Coords_v</code> is public to device code:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">struct</span> <span class="tok-n">Coords_v</span> <span class="tok-p">{</span>
+    <span class="tok-kt">int</span> <span class="tok-n">xc</span><span class="tok-p">,</span> <span class="tok-n">yc</span><span class="tok-p">,</span> <span class="tok-n">zc</span><span class="tok-p">;</span> <span class="tok-cm">/* rank coordinates */</span>
+    <span class="tok-kt">int</span> <span class="tok-n">xd</span><span class="tok-p">,</span> <span class="tok-n">yd</span><span class="tok-p">,</span> <span class="tok-n">zd</span><span class="tok-p">;</span> <span class="tok-cm">/* rank sizes       */</span>
+<span class="tok-p">};</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_host_interface">Host interface</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_memory_management">Memory management</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">coords_ini</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span> <span class="tok-n">cart</span><span class="tok-p">,</span> <span class="tok-n">Coords</span> <span class="tok-o">**</span><span class="tok-n">c</span><span class="tok-p">);</span> <b class="conum">(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">coords_fin</span><span class="tok-p">(</span><span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>                 <b class="conum">(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>allocate and set the data according to the cartesian communicator</p>
+</li>
+<li>
+<p>deallocate the structure</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_getters">Getters</h3>
+<div class="paragraph">
+<p>Obtain a view structure from <code>Coords</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">coords_get_view</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-n">Coords_v</span> <span class="tok-o">*</span><span class="tok-n">v</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Get \((G_x, G_y, G_z)\):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">int</span> <span class="tok-nf">xdomain</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>
+<span class="tok-kt">int</span> <span class="tok-nf">ydomain</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>
+<span class="tok-kt">int</span> <span class="tok-nf">zdomain</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Get \((L_x, L_y, L_z)\):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">int</span> <span class="tok-nf">xs</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-kt">int</span> <span class="tok-nf">ys</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-kt">int</span> <span class="tok-nf">zs</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Get (from <em>local</em> coordinates) \((-L_x/2, -L_y/2, -L_z/2)\) and
+\((L_x/2, L_y/2, L_z/2)\) in <em>global</em> coordinates:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">int</span> <span class="tok-nf">xlo</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-kt">int</span> <span class="tok-nf">ylo</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-kt">int</span> <span class="tok-nf">zlo</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">);</span>
+
+<span class="tok-kt">int</span> <span class="tok-nf">xhi</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-kt">int</span> <span class="tok-nf">yhi</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-kt">int</span> <span class="tok-nf">zhi</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_coordinate_transforms">Coordinate transforms</h3>
+<div class="paragraph">
+<p>From <em>local</em> coordinates to <em>center</em> coordinates:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">float</span> <span class="tok-nf">xl2xc</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">xl</span><span class="tok-p">);</span>
+<span class="tok-kt">float</span> <span class="tok-nf">yl2yc</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">yl</span><span class="tok-p">);</span>
+<span class="tok-kt">float</span> <span class="tok-nf">zl2zc</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">zl</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">local2center</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-n">float3</span> <span class="tok-n">rl</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">float3</span> <span class="tok-o">*</span><span class="tok-n">rc</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>From <em>center</em> coordinates to <em>local</em> coordinates:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">float</span> <span class="tok-nf">xc2xl</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">xc</span><span class="tok-p">);</span>
+<span class="tok-kt">float</span> <span class="tok-nf">yc2yl</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">yc</span><span class="tok-p">);</span>
+<span class="tok-kt">float</span> <span class="tok-nf">zc2zl</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">zc</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">center2local</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-n">float3</span> <span class="tok-n">rc</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">float3</span> <span class="tok-o">*</span><span class="tok-n">rl</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>From <em>local</em> coordinates to <em>global</em> coordinates:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">float</span> <span class="tok-nf">xl2xg</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">xl</span><span class="tok-p">);</span>
+<span class="tok-kt">float</span> <span class="tok-nf">yl2yg</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">yl</span><span class="tok-p">);</span>
+<span class="tok-kt">float</span> <span class="tok-nf">zl2zg</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">zl</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">local2global</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-n">float3</span> <span class="tok-n">rl</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">float3</span> <span class="tok-o">*</span><span class="tok-n">rg</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>From <em>global</em> coordinates to <em>local</em> coordinates:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">float</span> <span class="tok-nf">xg2xl</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">xg</span><span class="tok-p">);</span>
+<span class="tok-kt">float</span> <span class="tok-nf">yg2yl</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">yg</span><span class="tok-p">);</span>
+<span class="tok-kt">float</span> <span class="tok-nf">zg2zl</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">zg</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">global2local</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-n">float3</span> <span class="tok-n">rg</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">float3</span> <span class="tok-o">*</span><span class="tok-n">rl</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_helpers">helpers</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-cm">/* rank predicates */</span>
+<span class="tok-kt">bool</span> <span class="tok-nf">is_end</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">dir</span><span class="tok-p">);</span>
+
+<span class="tok-cm">/* a string unique for a rank */</span>
+<span class="tok-kt">void</span> <span class="tok-nf">coord_stamp</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">s</span><span class="tok-p">);</span>
+
+<span class="tok-cm">/* number of subdomains */</span>
+<span class="tok-kt">int</span> <span class="tok-nf">coords_size</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.6.0/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+</body>
+</html>

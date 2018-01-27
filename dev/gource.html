@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<title>gource commands</title>
+<link rel="stylesheet" href="/udoc/css/main.css">
+<link rel="stylesheet" href="./pygments-colorful.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>gource commands</h1>
+</div>
+<div id="content">
+<div class="paragraph">
+<p>Display git history of uDeviceX as animated tree.</p>
+</div>
+<div class="paragraph">
+<p>Dump</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="shell"><span></span><span class="tok-nv">o</span><span class="tok-o">=</span>g.ppm
+gource -s <span class="tok-m">0</span>.1 --file-filter <span class="tok-s1">&#39;test_data/&#39;</span> <span class="tok-se">\</span>
+	      --file-filter <span class="tok-s1">&#39;poc/&#39;</span>  <span class="tok-se">\</span>
+	      --file-filter <span class="tok-s1">&#39;tcdf/&#39;</span> <span class="tok-se">\</span>
+	      --file-filter <span class="tok-s1">&#39;cmd/&#39;</span>  <span class="tok-se">\</span>
+	      --highlight-users   <span class="tok-se">\</span>
+	      --highlight-colour FFFFFF <span class="tok-se">\</span>
+	      --date-format <span class="tok-s1">&#39;%d %b %Y&#39;</span> -o <span class="tok-nv">$o</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Convert to mp4</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="shell"><span></span><span class="tok-nv">i</span><span class="tok-o">=</span>g.ppm
+<span class="tok-nv">o</span><span class="tok-o">=</span>g.mp4
+ffmpeg -y -r <span class="tok-m">60</span> -f image2pipe -vcodec ppm -i <span class="tok-nv">$i</span> -vcodec libx264 <span class="tok-se">\</span>
+    -preset ultrafast -pix_fmt yuv420p -crf <span class="tok-m">1</span> -threads <span class="tok-m">0</span> -bf <span class="tok-m">0</span> <span class="tok-nv">$o</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="shell"><span></span>$ ffmpeg -version
+ffmpeg version <span class="tok-m">2</span>.8.11-0ubuntu0.16.04.1 Copyright <span class="tok-o">(</span>c<span class="tok-o">)</span> <span class="tok-m">2000</span>-2017 the FFmpeg developers</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>See <a href="http://gource.io" class="bare">http://gource.io</a></p>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<title>parser</title>
+<link rel="stylesheet" href="/udoc/css/main.css">
+<link rel="stylesheet" href="./pygments-colorful.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>parser</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_purpose">purpose</a></li>
+<li><a href="#_data_structure">data structure</a></li>
+<li><a href="#_interface">interface</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_purpose">purpose</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>wrapper for the <code>libconfig</code> library</p>
+</li>
+<li>
+<p>holds configurations from 4 sources:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>set by program (priority 4)</p>
+</li>
+<li>
+<p>arguments (priority 3)</p>
+</li>
+<li>
+<p>configuration file (priority 2)</p>
+</li>
+<li>
+<p>default parameters (priority 1)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>When retrieving a value, the source with higher priority is used.
+If not found in a source, the value is retrieved from the next highest
+priority.
+If no source contains the parmeter, an error is raised.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_data_structure">data structure</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-k">enum</span> <span class="tok-p">{</span>
+    <span class="tok-n">EXE</span><span class="tok-p">,</span> <span class="tok-cm">/* from program         */</span>
+    <span class="tok-n">ARG</span><span class="tok-p">,</span> <span class="tok-cm">/* from arguments       */</span>
+    <span class="tok-n">OPT</span><span class="tok-p">,</span> <span class="tok-cm">/* from additional file */</span>
+    <span class="tok-n">DEF</span><span class="tok-p">,</span> <span class="tok-cm">/* from default file    */</span>
+    <span class="tok-n">NCFG</span>
+<span class="tok-p">};</span>
+
+<span class="tok-k">struct</span> <span class="tok-n">Config</span> <span class="tok-p">{</span>
+    <span class="tok-n">config_t</span> <span class="tok-n">c</span><span class="tok-p">[</span><span class="tok-n">NCFG</span><span class="tok-p">];</span>
+<span class="tok-p">};</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Consists of an array of <code>config_t</code> descriptors, ordered by priority.
+Indices correspond to the <code>enum</code> keys.
+The first key has the highest priority, second key has second highest
+priority etc.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_interface">interface</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Allocate and free the structure:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">conf_ini</span><span class="tok-p">(</span><span class="tok-cm">/**/</span> <span class="tok-n">Config</span> <span class="tok-o">**</span><span class="tok-n">c</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">conf_fin</span><span class="tok-p">(</span><span class="tok-cm">/**/</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Read data from the default, optional and command line config:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">conf_read</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">argc</span><span class="tok-p">,</span> <span class="tok-kt">char</span> <span class="tok-o">**</span><span class="tok-n">argv</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">cfg</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Lookup variables from the configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">conf_lookup_int</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">desc</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">a</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">conf_lookup_float</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">desc</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-o">*</span><span class="tok-n">a</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">conf_lookup_bool</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">desc</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">a</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">conf_lookup_string</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">desc</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">**</span><span class="tok-n">a</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">conf_lookup_vint</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">desc</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">a</span><span class="tok-p">[]);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">conf_lookup_vfloat</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">desc</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">a</span><span class="tok-p">[]);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">conf_lookup_float3</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">desc</span><span class="tok-p">,</span> <span class="tok-n">float3</span> <span class="tok-o">*</span><span class="tok-n">a</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that the program raises an error if the argument is not found.</p>
+</div>
+<div class="paragraph">
+<p>Lookup variables from the configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">bool</span> <span class="tok-nf">conf_opt_int</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">desc</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">a</span><span class="tok-p">);</span>
+<span class="tok-kt">bool</span> <span class="tok-nf">conf_opt_float</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">desc</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-o">*</span><span class="tok-n">a</span><span class="tok-p">);</span>
+<span class="tok-kt">bool</span> <span class="tok-nf">conf_opt_bool</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">desc</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">a</span><span class="tok-p">);</span>
+<span class="tok-kt">bool</span> <span class="tok-nf">conf_opt_string</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">desc</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">**</span><span class="tok-n">a</span><span class="tok-p">);</span>
+<span class="tok-kt">bool</span> <span class="tok-nf">conf_opt_vint</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">desc</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">a</span><span class="tok-p">[]);</span>
+<span class="tok-kt">bool</span> <span class="tok-nf">conf_opt_vfloat</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">desc</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">a</span><span class="tok-p">[]);</span>
+<span class="tok-kt">bool</span> <span class="tok-nf">conf_opt_float3</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">desc</span><span class="tok-p">,</span> <span class="tok-n">float3</span> <span class="tok-o">*</span><span class="tok-n">a</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The program does not raise error if the variable is not found.
+The return value is <code>true</code> if the variable has been found and <code>false</code> otherwise.</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
