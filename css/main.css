@@ -1,26 +1,11 @@
-code,pre {
-    font-family:monospace;
-    font-size:1em
-}
-
-pre {
-    white-space:pre-wrap
-}
-
 *,:before,:after {
     box-sizing:border-box
 }
 
 body {
-    font-size:100%;
     padding:0;
     margin:0;
-    font-weight:400;
-    font-style:normal;
-    line-height:1;
     position:relative;
-    cursor:auto;
-    tab-size:4
 }
 
 img {
@@ -35,23 +20,13 @@ div,ul,ol,li,h1,h2,h3,#toctitle,h4,h5,h6,pre,p {
 }
 
 p {
-    font-family:inherit;
-    font-weight:400;
-    font-size:1em;
-    line-height:1.6;
     margin-bottom:1.25em;
-    text-rendering:optimizeLegibility
 }
 
-h1,h2,h3,#toctitle,h4,h5,h6 {
-    font-family:sans-serif;
-    font-weight:300;
-    font-style:normal;
+h1,h2,h3,h4,h5,h6,#toctitle {
+    font-style: bold;
     color:#ba3925;
-    text-rendering:optimizeLegibility;
-    margin-top:1em;
     margin-bottom:.5em;
-    line-height:1.0125em
 }
 
 h1 {
@@ -78,19 +53,9 @@ h6 {
     font-size:.75em
 }
 
-h3,#toctitle {
-    font-size:1.375em
-}
-
 em {
     font-style:italic;
     line-height:inherit
-}
-
-code {
-    font-family:monospace;
-    font-weight:400;
-    color:rgba(0,0,0,.9)
 }
 
 ul,ol {
@@ -108,14 +73,7 @@ ul li ul {
     font-size:1em
 }
 
-h1,h2,h3,#toctitle,h4,h5,h6 {
-    line-height:1.2;
-    word-spacing:-.05em
-}
-
 pre,pre>code {
-    line-height:1.45;
-    color:rgba(0,0,0,.9);
     font-family:monospace;
     font-weight:400;
     text-rendering:optimizeSpeed
@@ -124,7 +82,6 @@ pre,pre>code {
 #header,#content {
     width:100%;
     max-width:62.5em;
-    *zoom:1;
     position:relative;
     padding-left:.9375em;
     padding-right:.9375em;
@@ -140,27 +97,12 @@ pre,pre>code {
     clear:both
 }
 
-#content {
-    margin-top:1.25em
-}
-
-#content:before {
-    content:none
-}
-
-#header>h1:first-child {
-    color:rgba(0,0,0,.85);
-    margin-top:2.25rem;
-    margin-bottom:0
-}
-
 #header .details {
     border-bottom:1px solid #ddddd8;
     line-height:1.45;
     padding-top:.25em;
     padding-bottom:.25em;
     padding-left:.25em;
-    color:rgba(0,0,0,.6);
     display:flex;
     flex-flow:row wrap
 }
@@ -292,13 +234,4 @@ ol>li p,ul>li p,.ulist .ulist {
 
 .listingblock+.colist {
     margin-top:-.5em
-}
-
-h1,h2,p {
-    letter-spacing:-.01em
-}
-
-p {
-    font-size:1.0625rem;
-    margin-bottom:1.25rem
 }
