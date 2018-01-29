@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<title>scheme/restrain</title>
+<link rel="stylesheet" href="/udoc/css/main.css">
+<link rel="stylesheet" href="./pygments-colorful.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>scheme/restrain</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_interface">interface</a></li>
+<li><a href="#_configuration">configuration</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Restrain the movement of drop or rbc membrane by shifting center of
+mass velocity.</p>
+</div>
+<div class="paragraph">
+<p>Consider a subset of particles \(P\) with indices \(I \subset \{i\}_{i = 1}^{n}\).
+The <code>Restrain</code> module  shifts the center of mass velocity of \(P\) such that</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\sum\limits_{i \in I} \mathbf{v}_i = 0.\]
+</div>
+</div>
+<div class="paragraph">
+<p>The subset \(I\) depends on the colors of the solvent in case of a
+single drop.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_interface">interface</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>allocate and free host structure:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">scheme_restrain_ini</span><span class="tok-p">(</span><span class="tok-n">Restrain</span><span class="tok-o">**</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">scheme_restrain_fin</span><span class="tok-p">(</span><span class="tok-n">Restrain</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Set parameters:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">scheme_restrain_set_red</span><span class="tok-p">(</span><span class="tok-n">Restrain</span><span class="tok-o">*</span><span class="tok-p">);</span> <b class="conum">(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">scheme_restrain_set_rbc</span><span class="tok-p">(</span><span class="tok-n">Restrain</span><span class="tok-o">*</span><span class="tok-p">);</span> <b class="conum">(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">scheme_restrain_set_none</span><span class="tok-p">(</span><span class="tok-n">Restrain</span><span class="tok-o">*</span><span class="tok-p">);</span> <b class="conum">(3)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">scheme_restrain_set_freq</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">freq</span><span class="tok-p">,</span> <span class="tok-n">Restrain</span><span class="tok-o">*</span><span class="tok-p">);</span> <b class="conum">(4)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>Set to restrain the "red" solvent only</p>
+</li>
+<li>
+<p>Set to restrain the rbc membrane only</p>
+</li>
+<li>
+<p>Set for no restrain</p>
+</li>
+<li>
+<p>Set the diagnosis frequency (0 for no diagnosis)</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Set parameters from configuration file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">scheme_restrain_set_conf</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">Restrain</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Apply restrain (note: this calls collective mpi operation):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">scheme_restrain_apply</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span> <span class="tok-n">comm</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">cc</span><span class="tok-p">,</span> <span class="tok-kt">long</span> <span class="tok-n">it</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Restrain</span> <span class="tok-o">*</span><span class="tok-n">r</span><span class="tok-p">,</span> <span class="tok-n">SchemeQQ</span> <span class="tok-n">qq</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuration">configuration</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">restrain</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
+<span class="tok-s">    kind = [&quot;none&quot;, &quot;red&quot;, &quot;rbc&quot;]</span>
+<span class="tok-s">    freq = 1000;</span>
+<span class="tok-na">}</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.6.0/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+</body>
+</html>

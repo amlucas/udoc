@@ -297,6 +297,7 @@
 <li><a href="#_scheme_move">scheme/move</a>
 <ul class="sectlevel3">
 <li><a href="#_interface_27">interface</a></li>
+<li><a href="#_configuration_10">configuration</a></li>
 </ul>
 </li>
 <li><a href="#_parser">parser</a>
@@ -320,6 +321,12 @@
 </ul>
 </li>
 <li><a href="#_random_force">random force</a></li>
+<li><a href="#_scheme_restrain">scheme/restrain</a>
+<ul class="sectlevel3">
+<li><a href="#_interface_30">interface</a></li>
+<li><a href="#_configuration_11">configuration</a></li>
+</ul>
+</li>
 <li><a href="#_signed_distance_function_sdf">signed distance function (sdf)</a>
 <ul class="sectlevel3">
 <li><a href="#_purpose_5">purpose</a></li>
@@ -333,7 +340,7 @@
 <li><a href="#_error">error</a>
 <ul class="sectlevel4">
 <li><a href="#_usage_2">Usage</a></li>
-<li><a href="#_interface_30">Interface</a></li>
+<li><a href="#_interface_31">Interface</a></li>
 </ul>
 </li>
 <li><a href="#_kernel_launch_macros">kernel launch macros</a></li>
@@ -344,7 +351,7 @@
 <li><a href="#_error_2">error</a>
 <ul class="sectlevel4">
 <li><a href="#_usage_3">Usage</a></li>
-<li><a href="#_interface_31">Interface</a></li>
+<li><a href="#_interface_32">Interface</a></li>
 </ul>
 </li>
 <li><a href="#_cc_2">cc</a>
@@ -369,13 +376,13 @@
 <ul class="sectlevel3">
 <li><a href="#_purpose_6">purpose</a></li>
 <li><a href="#_data_structures_9">data structures</a></li>
-<li><a href="#_interface_32">interface</a>
+<li><a href="#_interface_33">interface</a>
 <ul class="sectlevel4">
 <li><a href="#_host">Host</a></li>
 <li><a href="#_device">Device</a></li>
 </ul>
 </li>
-<li><a href="#_configuration_10">Configuration</a>
+<li><a href="#_configuration_12">Configuration</a>
 <ul class="sectlevel4">
 <li><a href="#_constant_2">constant</a></li>
 <li><a href="#_shear_2">shear</a></li>
@@ -3482,6 +3489,17 @@ A =  ( xy yy yz)
 </ol>
 </div>
 </div>
+<div class="sect3">
+<h4 id="_configuration_10">configuration</h4>
+<div class="paragraph">
+<p>Set parameters:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">TODO: NOT YET IMPLEMENTED</span></code></pre>
+</div>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_parser">parser</h3>
@@ -3718,6 +3736,92 @@ f0  = sqrtf(2*g*T/dt)*rnd</pre>
 </div>
 </div>
 <div class="sect2">
+<h3 id="_scheme_restrain">scheme/restrain</h3>
+<div class="paragraph">
+<p>Restrain the movement of drop or rbc membrane by shifting center of
+mass velocity.</p>
+</div>
+<div class="paragraph">
+<p>Consider a subset of particles \(P\) with indices \(I \subset \{i\}_{i = 1}^{n}\).
+The <code>Restrain</code> module  shifts the center of mass velocity of \(P\) such that</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\sum\limits_{i \in I} \mathbf{v}_i = 0.\]
+</div>
+</div>
+<div class="paragraph">
+<p>The subset \(I\) depends on the colors of the solvent in case of a
+single drop.</p>
+</div>
+<div class="sect3">
+<h4 id="_interface_30">interface</h4>
+<div class="paragraph">
+<p>allocate and free host structure:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">scheme_restrain_ini</span><span class="tok-p">(</span><span class="tok-n">Restrain</span><span class="tok-o">**</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">scheme_restrain_fin</span><span class="tok-p">(</span><span class="tok-n">Restrain</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Set parameters:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">scheme_restrain_set_red</span><span class="tok-p">(</span><span class="tok-n">Restrain</span><span class="tok-o">*</span><span class="tok-p">);</span> <b class="conum">(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">scheme_restrain_set_rbc</span><span class="tok-p">(</span><span class="tok-n">Restrain</span><span class="tok-o">*</span><span class="tok-p">);</span> <b class="conum">(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">scheme_restrain_set_none</span><span class="tok-p">(</span><span class="tok-n">Restrain</span><span class="tok-o">*</span><span class="tok-p">);</span> <b class="conum">(3)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">scheme_restrain_set_freq</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">freq</span><span class="tok-p">,</span> <span class="tok-n">Restrain</span><span class="tok-o">*</span><span class="tok-p">);</span> <b class="conum">(4)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>Set to restrain the "red" solvent only</p>
+</li>
+<li>
+<p>Set to restrain the rbc membrane only</p>
+</li>
+<li>
+<p>Set for no restrain</p>
+</li>
+<li>
+<p>Set the diagnosis frequency (0 for no diagnosis)</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Set parameters from configuration file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">scheme_restrain_set_conf</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">Restrain</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Apply restrain (note: this calls collective mpi operation):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">scheme_restrain_apply</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span> <span class="tok-n">comm</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">cc</span><span class="tok-p">,</span> <span class="tok-kt">long</span> <span class="tok-n">it</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Restrain</span> <span class="tok-o">*</span><span class="tok-n">r</span><span class="tok-p">,</span> <span class="tok-n">SchemeQQ</span> <span class="tok-n">qq</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_configuration_11">configuration</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">restrain</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
+<span class="tok-s">    kind = [&quot;none&quot;, &quot;red&quot;, &quot;rbc&quot;]</span>
+<span class="tok-s">    freq = 1000;</span>
+<span class="tok-na">}</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_signed_distance_function_sdf">signed distance function (sdf)</h3>
 <div class="sect3">
 <h4 id="_purpose_5">purpose</h4>
@@ -3795,7 +3899,7 @@ one of the subfunctions.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_interface_30">Interface</h5>
+<h5 id="_interface_31">Interface</h5>
 <div class="paragraph">
 <p>TODO</p>
 </div>
@@ -3853,7 +3957,7 @@ one of the subfunctions.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_interface_31">Interface</h5>
+<h5 id="_interface_32">Interface</h5>
 <div class="paragraph">
 <p>TODO</p>
 </div>
@@ -3981,7 +4085,7 @@ specific time. It is passed to device kernels.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_interface_32">interface</h4>
+<h4 id="_interface_33">interface</h4>
 <div class="paragraph">
 <p>Interface is splitted between host and device</p>
 </div>
@@ -4044,7 +4148,7 @@ position and velocity of particle.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_configuration_10">Configuration</h4>
+<h4 id="_configuration_12">Configuration</h4>
 <div class="sect4">
 <h5 id="_constant_2">constant</h5>
 <div class="paragraph">
