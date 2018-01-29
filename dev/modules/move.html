@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<title>scheme/move</title>
+<link rel="stylesheet" href="/udoc/css/main.css">
+<link rel="stylesheet" href="./pygments-colorful.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>scheme/move</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_interface">interface</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Time scheme update</p>
+</div>
+<div class="paragraph">
+<p>Currently implemented:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Forward Euler</p>
+</li>
+<li>
+<p>Velocity-Verlet</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_interface">interface</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>allocate and free host parameters:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">scheme_move_params_ini</span><span class="tok-p">(</span><span class="tok-n">MoveParams</span> <span class="tok-o">**</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">scheme_move_params_fin</span><span class="tok-p">(</span><span class="tok-n">MoveParams</span> <span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Set time scheme parameters:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">scheme_move_params_set_timestep</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">dt0</span><span class="tok-p">,</span> <span class="tok-n">MoveParams</span> <span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Set parameters from configuration file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">scheme_move_params_conf</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-n">MoveParams</span> <span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Convert host structure to a view, usable by kernels:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-n">MoveParams_v</span> <span class="tok-nf">scheme_move_params_get_view</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">MoveParams</span> <span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Main interface:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">scheme_move_apply</span><span class="tok-p">(</span><span class="tok-n">MoveParams</span><span class="tok-o">*</span> <span class="tok-n">moveparams</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">mass</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Force</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">);</span> <b class="conum">(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">scheme_move_clear_vel</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">);</span> <b class="conum">(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>apply one step of the time scheme to the particles</p>
+</li>
+<li>
+<p>set velocity of particles to 0</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -294,17 +294,22 @@
 </li>
 </ul>
 </li>
+<li><a href="#_scheme_move">scheme/move</a>
+<ul class="sectlevel3">
+<li><a href="#_interface_27">interface</a></li>
+</ul>
+</li>
 <li><a href="#_parser">parser</a>
 <ul class="sectlevel3">
 <li><a href="#_purpose_4">purpose</a></li>
 <li><a href="#_data_structure_2">data structure</a></li>
-<li><a href="#_interface_27">interface</a></li>
+<li><a href="#_interface_28">interface</a></li>
 </ul>
 </li>
 <li><a href="#_partlist">partlist</a>
 <ul class="sectlevel3">
 <li><a href="#_data_structure_3">data structure</a></li>
-<li><a href="#_interface_28">interface</a></li>
+<li><a href="#_interface_29">interface</a></li>
 </ul>
 </li>
 <li><a href="#_rbc_membrane_forces">RBC membrane forces</a></li>
@@ -328,7 +333,7 @@
 <li><a href="#_error">error</a>
 <ul class="sectlevel4">
 <li><a href="#_usage_2">Usage</a></li>
-<li><a href="#_interface_29">Interface</a></li>
+<li><a href="#_interface_30">Interface</a></li>
 </ul>
 </li>
 <li><a href="#_kernel_launch_macros">kernel launch macros</a></li>
@@ -339,7 +344,7 @@
 <li><a href="#_error_2">error</a>
 <ul class="sectlevel4">
 <li><a href="#_usage_3">Usage</a></li>
-<li><a href="#_interface_30">Interface</a></li>
+<li><a href="#_interface_31">Interface</a></li>
 </ul>
 </li>
 <li><a href="#_cc_2">cc</a>
@@ -364,7 +369,7 @@
 <ul class="sectlevel3">
 <li><a href="#_purpose_6">purpose</a></li>
 <li><a href="#_data_structures_9">data structures</a></li>
-<li><a href="#_interface_31">interface</a>
+<li><a href="#_interface_32">interface</a>
 <ul class="sectlevel4">
 <li><a href="#_host">Host</a></li>
 <li><a href="#_device">Device</a></li>
@@ -3405,6 +3410,80 @@ A =  ( xy yy yz)
 </div>
 </div>
 <div class="sect2">
+<h3 id="_scheme_move">scheme/move</h3>
+<div class="paragraph">
+<p>Time scheme update</p>
+</div>
+<div class="paragraph">
+<p>Currently implemented:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Forward Euler</p>
+</li>
+<li>
+<p>Velocity-Verlet</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="_interface_27">interface</h4>
+<div class="paragraph">
+<p>allocate and free host parameters:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">scheme_move_params_ini</span><span class="tok-p">(</span><span class="tok-n">MoveParams</span> <span class="tok-o">**</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">scheme_move_params_fin</span><span class="tok-p">(</span><span class="tok-n">MoveParams</span> <span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Set time scheme parameters:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">scheme_move_params_set_timestep</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">dt0</span><span class="tok-p">,</span> <span class="tok-n">MoveParams</span> <span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Set parameters from configuration file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">scheme_move_params_conf</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-n">MoveParams</span> <span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Convert host structure to a view, usable by kernels:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-n">MoveParams_v</span> <span class="tok-nf">scheme_move_params_get_view</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">MoveParams</span> <span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Main interface:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">scheme_move_apply</span><span class="tok-p">(</span><span class="tok-n">MoveParams</span><span class="tok-o">*</span> <span class="tok-n">moveparams</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">mass</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Force</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">);</span> <b class="conum">(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">scheme_move_clear_vel</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">);</span> <b class="conum">(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>apply one step of the time scheme to the particles</p>
+</li>
+<li>
+<p>set velocity of particles to 0</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_parser">parser</h3>
 <div class="sect3">
 <h4 id="_purpose_4">purpose</h4>
@@ -3466,7 +3545,7 @@ priority etc.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_interface_27">interface</h4>
+<h4 id="_interface_28">interface</h4>
 <div class="paragraph">
 <p>Allocate and free the structure:</p>
 </div>
@@ -3539,7 +3618,7 @@ Purpose: kill particles during redistribution or cell lists build</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_interface_28">interface</h4>
+<h4 id="_interface_29">interface</h4>
 <div class="paragraph">
 <p>contains only device interface:</p>
 </div>
@@ -3716,7 +3795,7 @@ one of the subfunctions.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_interface_29">Interface</h5>
+<h5 id="_interface_30">Interface</h5>
 <div class="paragraph">
 <p>TODO</p>
 </div>
@@ -3774,7 +3853,7 @@ one of the subfunctions.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_interface_30">Interface</h5>
+<h5 id="_interface_31">Interface</h5>
 <div class="paragraph">
 <p>TODO</p>
 </div>
@@ -3902,7 +3981,7 @@ specific time. It is passed to device kernels.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_interface_31">interface</h4>
+<h4 id="_interface_32">interface</h4>
 <div class="paragraph">
 <p>Interface is splitted between host and device</p>
 </div>
