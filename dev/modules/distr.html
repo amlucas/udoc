@@ -132,7 +132,7 @@ arrays is implemented as:</p>
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-cm">/* exclusive scan */</span>
 <span class="tok-k">template</span> <span class="tok-o">&lt;</span><span class="tok-kt">int</span> <span class="tok-n">NCOUNTS</span><span class="tok-o">&gt;</span>
 <span class="tok-k">static</span> <span class="tok-n">__global__</span> <span class="tok-kt">void</span> <span class="tok-n">dmap_scan</span><span class="tok-p">(</span><span class="tok-cm">/**/</span> <span class="tok-n">DMap</span> <span class="tok-n">m</span><span class="tok-p">)</span>              <b class="conum">(1)</b>
-<span class="tok-k">static</span> <span class="tok-n">__device__</span> <span class="tok-kt">int</span> <span class="tok-n">dmap_get_fid</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">r</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">])</span>       <b class="conum">(2)</b>
+<span class="tok-k">static</span> <span class="tok-n">__device__</span> <span class="tok-kt">int</span> <span class="tok-n">dmap_get_fid</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">r</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">])</span>       <b class="conum">(2)</b>
 <span class="tok-k">static</span> <span class="tok-n">__device__</span> <span class="tok-kt">void</span> <span class="tok-n">dmap_add</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">pid</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">fid</span><span class="tok-p">,</span> <span class="tok-n">DMap</span> <span class="tok-n">m</span><span class="tok-p">)</span>  <b class="conum">(3)</b></code></pre>
 </div>
 </div>
@@ -171,6 +171,7 @@ contains the three <em>hidden</em> generic data structures:</p>
     <span class="tok-n">dBags</span> <span class="tok-n">dpp</span><span class="tok-p">,</span> <span class="tok-n">dii</span><span class="tok-p">,</span> <span class="tok-n">dcc</span><span class="tok-p">;</span>
     <span class="tok-n">hBags</span> <span class="tok-n">hpp</span><span class="tok-p">,</span> <span class="tok-n">hii</span><span class="tok-p">,</span> <span class="tok-n">hcc</span><span class="tok-p">;</span>
     <span class="tok-kt">int</span> <span class="tok-n">nhalo</span><span class="tok-p">;</span> <span class="tok-cm">/* number of sent particles */</span>
+    <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">;</span> <span class="tok-cm">/* subdomain size */</span>
 <span class="tok-p">};</span>
 
 <span class="tok-k">struct</span> <span class="tok-n">DFluComm</span> <span class="tok-p">{</span>
@@ -182,6 +183,7 @@ contains the three <em>hidden</em> generic data structures:</p>
     <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">ppre</span><span class="tok-p">;</span>
     <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">iire</span><span class="tok-p">,</span> <span class="tok-o">*</span><span class="tok-n">ccre</span><span class="tok-p">;</span>
     <span class="tok-kt">int</span> <span class="tok-n">nhalo</span><span class="tok-p">;</span> <span class="tok-cm">/* number of received particles */</span>
+    <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">;</span> <span class="tok-cm">/* subdomain size */</span>
 <span class="tok-p">};</span></code></pre>
 </div>
 </div>
@@ -195,9 +197,9 @@ The <code>xxre</code> variables in <code>Unpack</code> are buffer for remote qua
 <h3 id="_interface_2">interface</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">dflu_pack_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">maxdensity</span><span class="tok-p">,</span> <span class="tok-n">DFluPack</span> <span class="tok-o">**</span><span class="tok-n">p</span><span class="tok-p">);</span>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">dflu_pack_ini</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxdensity</span><span class="tok-p">,</span> <span class="tok-n">DFluPack</span> <span class="tok-o">**</span><span class="tok-n">p</span><span class="tok-p">);</span>
 <span class="tok-kt">void</span> <span class="tok-nf">dflu_comm_ini</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span> <span class="tok-n">comm</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">DFluComm</span> <span class="tok-o">**</span><span class="tok-n">c</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">dflu_unpack_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">maxdensity</span><span class="tok-p">,</span> <span class="tok-n">DFluUnpack</span> <span class="tok-o">**</span><span class="tok-n">u</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">dflu_unpack_ini</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxdensity</span><span class="tok-p">,</span> <span class="tok-n">DFluUnpack</span> <span class="tok-o">**</span><span class="tok-n">u</span><span class="tok-p">);</span>
 
 <span class="tok-kt">void</span> <span class="tok-nf">dflu_pack_fin</span><span class="tok-p">(</span><span class="tok-n">DFluPack</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>
 <span class="tok-kt">void</span> <span class="tok-nf">dflu_comm_fin</span><span class="tok-p">(</span><span class="tok-n">DFluComm</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>
@@ -277,6 +279,8 @@ contains the three <em>hidden</em> generic data structures:</p>
     <span class="tok-cm">/* optional: ids */</span>
     <span class="tok-n">DMap</span> <span class="tok-n">hmap</span><span class="tok-p">;</span>
     <span class="tok-n">hBags</span> <span class="tok-n">hii</span><span class="tok-p">;</span>
+
+    <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">;</span> <span class="tok-cm">/* subdomain size */</span>
 <span class="tok-p">};</span>
 
 <span class="tok-k">struct</span> <span class="tok-n">DRbcComm</span> <span class="tok-p">{</span>
@@ -289,6 +293,8 @@ contains the three <em>hidden</em> generic data structures:</p>
 
     <span class="tok-cm">/* optional: ids */</span>
     <span class="tok-n">hBags</span> <span class="tok-n">hii</span><span class="tok-p">;</span>
+
+    <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">;</span> <span class="tok-cm">/* subdomain size */</span>
 <span class="tok-p">};</span></code></pre>
 </div>
 </div>
@@ -301,9 +307,9 @@ each RBC. Other variables have the same naming conventions than <code>distr::flu
 <h3 id="_interface_3">interface</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">drbc_pack_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">maxc</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-n">DRbcPack</span> <span class="tok-o">**</span><span class="tok-n">p</span><span class="tok-p">);</span>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">drbc_pack_ini</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxc</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-n">DRbcPack</span> <span class="tok-o">**</span><span class="tok-n">p</span><span class="tok-p">);</span>
 <span class="tok-kt">void</span> <span class="tok-nf">drbc_comm_ini</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span> <span class="tok-n">comm</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">DRbcComm</span> <span class="tok-o">**</span><span class="tok-n">c</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">drbc_unpack_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">maxc</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-n">DRbcUnpack</span> <span class="tok-o">**</span><span class="tok-n">u</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">drbc_unpack_ini</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxc</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-n">DRbcUnpack</span> <span class="tok-o">**</span><span class="tok-n">u</span><span class="tok-p">);</span>
 
 <span class="tok-kt">void</span> <span class="tok-nf">drbc_pack_fin</span><span class="tok-p">(</span><span class="tok-n">DRbcPack</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>
 <span class="tok-kt">void</span> <span class="tok-nf">drbc_comm_fin</span><span class="tok-p">(</span><span class="tok-n">DRbcComm</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>
@@ -352,6 +358,7 @@ structures fit again in the general workflow:</p>
     <span class="tok-n">DMap</span> <span class="tok-n">map</span><span class="tok-p">;</span>
     <span class="tok-n">dBags</span> <span class="tok-n">dipp</span><span class="tok-p">,</span> <span class="tok-n">dss</span><span class="tok-p">;</span>
     <span class="tok-n">hBags</span> <span class="tok-n">hipp</span><span class="tok-p">,</span> <span class="tok-n">hss</span><span class="tok-p">;</span>
+    <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">;</span>  <span class="tok-cm">/* subdomain size */</span>
 <span class="tok-p">};</span>
 
 <span class="tok-k">struct</span> <span class="tok-n">DRigComm</span> <span class="tok-p">{</span>
@@ -360,6 +367,7 @@ structures fit again in the general workflow:</p>
 
 <span class="tok-k">struct</span> <span class="tok-n">DRigUnpack</span> <span class="tok-p">{</span>
     <span class="tok-n">hBags</span> <span class="tok-n">hipp</span><span class="tok-p">,</span> <span class="tok-n">hss</span><span class="tok-p">;</span>
+    <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">;</span>  <span class="tok-cm">/* subdomain size */</span>
 <span class="tok-p">};</span></code></pre>
 </div>
 </div>
@@ -368,9 +376,9 @@ structures fit again in the general workflow:</p>
 <h3 id="_interface_4">interface</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">drig_pack_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">maxns</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-n">DRigPack</span> <span class="tok-o">**</span><span class="tok-n">p</span><span class="tok-p">);</span>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">drig_pack_ini</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxns</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-n">DRigPack</span> <span class="tok-o">**</span><span class="tok-n">p</span><span class="tok-p">);</span>
 <span class="tok-kt">void</span> <span class="tok-nf">drig_comm_ini</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span> <span class="tok-n">comm</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">DRigComm</span> <span class="tok-o">**</span><span class="tok-n">c</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">drig_unpack_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">maxns</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-n">DRigUnpack</span> <span class="tok-o">**</span><span class="tok-n">u</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">drig_unpack_ini</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxns</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-n">DRigUnpack</span> <span class="tok-o">**</span><span class="tok-n">u</span><span class="tok-p">);</span>
 
 <span class="tok-kt">void</span> <span class="tok-nf">drig_pack_fin</span><span class="tok-p">(</span><span class="tok-n">DRigPack</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>
 <span class="tok-kt">void</span> <span class="tok-nf">drig_comm_fin</span><span class="tok-p">(</span><span class="tok-n">DRigComm</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>
@@ -404,8 +412,8 @@ structures fit again in the general workflow:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">dcommon_pack_pp_packets</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">nc</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-n">DMap</span> <span class="tok-n">m</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Sarray</span><span class="tok-o">&lt;</span><span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-mi">27</span><span class="tok-o">&gt;</span> <span class="tok-n">buf</span><span class="tok-p">);</span> <b class="conum">(1)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">dcommon_shift_one_frag</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">fid</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">);</span> <b class="conum">(2)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">dcommon_shift_halo</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">nhalo</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Sarray</span><span class="tok-o">&lt;</span><span class="tok-kt">int</span><span class="tok-p">,</span> <span class="tok-mi">27</span><span class="tok-o">&gt;</span> <span class="tok-n">starts</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">);</span> <b class="conum">(3)</b></code></pre>
+<span class="tok-kt">void</span> <span class="tok-nf">dcommon_shift_one_frag</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">fid</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">);</span> <b class="conum">(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">dcommon_shift_halo</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nhalo</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Sarray</span><span class="tok-o">&lt;</span><span class="tok-kt">int</span><span class="tok-p">,</span> <span class="tok-mi">27</span><span class="tok-o">&gt;</span> <span class="tok-n">starts</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">);</span> <b class="conum">(3)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
