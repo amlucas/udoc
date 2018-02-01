@@ -24,6 +24,7 @@
 <li><a href="#_helpers">helpers</a></li>
 </ul>
 </li>
+<li><a href="#_configuration">Configuration</a></li>
 </ul>
 </div>
 </div>
@@ -100,6 +101,14 @@ A <em>view</em> structure <code>Coords_v</code> is public to device code:</p>
 <p>deallocate the structure</p>
 </li>
 </ol>
+</div>
+<div class="paragraph">
+<p>The resources can also be allocated using configuration informations:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">coords_ini_conf</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span> <span class="tok-n">cart</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">cfg</span><span class="tok-p">,</span> <span class="tok-n">Coords</span> <span class="tok-o">**</span><span class="tok-n">c</span><span class="tok-p">);</span></code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -209,6 +218,21 @@ A <em>view</em> structure <code>Coords_v</code> is public to device code:</p>
 <span class="tok-cm">/* number of subdomains */</span>
 <span class="tok-kt">int</span> <span class="tok-nf">coords_size</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span></code></pre>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuration">Configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Set subdomain sizes:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">glb</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
+<span class="tok-s">    L = [16, 12, 24]</span>
+<span class="tok-na">}</span></code></pre>
 </div>
 </div>
 </div>
