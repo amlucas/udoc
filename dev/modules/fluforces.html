@@ -15,12 +15,12 @@
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_interface">interface</a></li>
-<li><a href="#_data_structures">data structures</a></li>
-<li><a href="#_submodules">submodules</a>
+<li><a href="#_interface">1. interface</a></li>
+<li><a href="#_data_structures">2. data structures</a></li>
+<li><a href="#_submodules">3. submodules</a>
 <ul class="sectlevel2">
-<li><a href="#_bulk">bulk</a></li>
-<li><a href="#_fluforces_halo">fluforces: halo</a></li>
+<li><a href="#_bulk">3.1. bulk</a></li>
+<li><a href="#_fluforces_halo">3.2. fluforces: halo</a></li>
 </ul>
 </li>
 </ul>
@@ -35,7 +35,7 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_interface">interface</h2>
+<h2 id="_interface">1. interface</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>TODO</p>
@@ -43,7 +43,7 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_data_structures">data structures</h2>
+<h2 id="_data_structures">2. data structures</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>TODO</p>
@@ -51,10 +51,10 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_submodules">submodules</h2>
+<h2 id="_submodules">3. submodules</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_bulk">bulk</h3>
+<h3 id="_bulk">3.1. bulk</h3>
 <div class="paragraph">
 <p>compute local interactions of solvent particles, given cell starts,
 cell counts (see <a href="clist.html">clist</a>) and particles array</p>
@@ -108,12 +108,12 @@ v y          03 04 05          12 13 xx          xx xx xx
 </div>
 </div>
 <div class="sect2">
-<h3 id="_fluforces_halo">fluforces: halo</h3>
+<h3 id="_fluforces_halo">3.2. fluforces: halo</h3>
 <div class="paragraph">
 <p>solvent forces with remote particles (fragments)</p>
 </div>
 <div class="sect3">
-<h4 id="_internals">Internals</h4>
+<h4 id="_internals">3.2.1. Internals</h4>
 <div class="paragraph">
 <p>main kernel is <code>dev::forces</code> and performs all interactions:</p>
 </div>

@@ -15,20 +15,20 @@
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_purpose">purpose</a></li>
-<li><a href="#_data_structures">data structures</a></li>
-<li><a href="#_interface">interface</a>
+<li><a href="#_purpose">1. purpose</a></li>
+<li><a href="#_data_structures">2. data structures</a></li>
+<li><a href="#_interface">3. interface</a>
 <ul class="sectlevel2">
-<li><a href="#_host">Host</a></li>
-<li><a href="#_device">Device</a></li>
+<li><a href="#_host">3.1. Host</a></li>
+<li><a href="#_device">3.2. Device</a></li>
 </ul>
 </li>
-<li><a href="#_configuration">Configuration</a>
+<li><a href="#_configuration">4. Configuration</a>
 <ul class="sectlevel2">
-<li><a href="#_constant">constant</a></li>
-<li><a href="#_shear">shear</a></li>
-<li><a href="#_sinusoidal_shear">sinusoidal shear</a></li>
-<li><a href="#_hele_shaw">Hele Shaw</a></li>
+<li><a href="#_constant">4.1. constant</a></li>
+<li><a href="#_shear">4.2. shear</a></li>
+<li><a href="#_sinusoidal_shear">4.3. sinusoidal shear</a></li>
+<li><a href="#_hele_shaw">4.4. Hele Shaw</a></li>
 </ul>
 </li>
 </ul>
@@ -43,7 +43,7 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_purpose">purpose</h2>
+<h2 id="_purpose">1. purpose</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
@@ -58,7 +58,7 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_data_structures">data structures</h2>
+<h2 id="_data_structures">2. data structures</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>data structures are separated into 2 kinds of data structures:</p>
@@ -78,13 +78,13 @@ specific time. It is passed to device kernels.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_interface">interface</h2>
+<h2 id="_interface">3. interface</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Interface is splitted between host and device</p>
 </div>
 <div class="sect2">
-<h3 id="_host">Host</h3>
+<h3 id="_host">3.1. Host</h3>
 <div class="paragraph">
 <p>Host code is responsible for initialisation of <code>Wvel</code> and convert
 <code>Wvel</code> to a view at a given timestep.</p>
@@ -106,7 +106,8 @@ specific time. It is passed to device kernels.</p>
 <pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">wvel_set_cste</span><span class="tok-p">(</span><span class="tok-n">float3</span> <span class="tok-n">u</span><span class="tok-p">,</span> <span class="tok-n">Wvel</span> <span class="tok-o">*</span><span class="tok-n">vw</span><span class="tok-p">);</span>
 <span class="tok-kt">void</span> <span class="tok-nf">wvel_set_shear</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">gdot</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">vdir</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">gdir</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">half</span><span class="tok-p">,</span> <span class="tok-n">Wvel</span> <span class="tok-o">*</span><span class="tok-n">vw</span><span class="tok-p">);</span>
 <span class="tok-kt">void</span> <span class="tok-nf">wvel_set_shear_sin</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">gdot</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">vdir</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">gdir</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">half</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">w</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">log_freq</span><span class="tok-p">,</span> <span class="tok-n">Wvel</span> <span class="tok-o">*</span><span class="tok-n">vw</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">wvel_set_hs</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">u</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">h</span><span class="tok-p">,</span> <span class="tok-n">Wvel</span> <span class="tok-o">*</span><span class="tok-n">vw</span><span class="tok-p">);</span></code></pre>
+<span class="tok-kt">void</span> <span class="tok-nf">wvel_set_hs</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">u</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">h</span><span class="tok-p">,</span> <span class="tok-n">Wvel</span> <span class="tok-o">*</span><span class="tok-n">vw</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">wvel_set_timestep</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">dt0</span><span class="tok-p">,</span> <span class="tok-n">Wvel</span> <span class="tok-o">*</span><span class="tok-n">vw</span><span class="tok-p">);</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -127,7 +128,7 @@ specific time. It is passed to device kernels.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_device">Device</h3>
+<h3 id="_device">3.2. Device</h3>
 <div class="paragraph">
 <p>Device code contains the functions describing the field.
 Also contains bouncer function: gives bounced-back velocity from
@@ -143,10 +144,10 @@ position and velocity of particle.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_configuration">Configuration</h2>
+<h2 id="_configuration">4. Configuration</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_constant">constant</h3>
+<h3 id="_constant">4.1. constant</h3>
 <div class="paragraph">
 <p>constant velocity \(u = (1, 0, 0)\):</p>
 </div>
@@ -160,7 +161,7 @@ position and velocity of particle.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_shear">shear</h3>
+<h3 id="_shear">4.2. shear</h3>
 <div class="paragraph">
 <p>shear velocity \(u = (3 y, 0, 0)\):</p>
 </div>
@@ -177,7 +178,7 @@ position and velocity of particle.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_sinusoidal_shear">sinusoidal shear</h3>
+<h3 id="_sinusoidal_shear">4.3. sinusoidal shear</h3>
 <div class="paragraph">
 <p>shear velocity \(u(t) = (3 y \sin(5 t), 0, 0)\):</p>
 </div>
@@ -199,7 +200,7 @@ position and velocity of particle.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_hele_shaw">Hele Shaw</h3>
+<h3 id="_hele_shaw">4.4. Hele Shaw</h3>
 <div class="paragraph">
 <p>velocity \(u_r = \frac u r \left(1 - \frac {4 z^2}{h^2}\right)\):</p>
 </div>

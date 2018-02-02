@@ -15,16 +15,16 @@
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_data_structures">data structures</a></li>
-<li><a href="#_interface">interface</a></li>
-<li><a href="#_configuration">configuration</a>
+<li><a href="#_data_structures">1. data structures</a></li>
+<li><a href="#_interface">2. interface</a></li>
+<li><a href="#_configuration">3. configuration</a>
 <ul class="sectlevel2">
-<li><a href="#_none">none</a></li>
-<li><a href="#_constant">constant</a></li>
-<li><a href="#_double_poiseuille">double poiseuille</a></li>
-<li><a href="#_shear">shear</a></li>
-<li><a href="#_4_roller_mill">4 roller mill</a></li>
-<li><a href="#_radial">radial</a></li>
+<li><a href="#_none">3.1. none</a></li>
+<li><a href="#_constant">3.2. constant</a></li>
+<li><a href="#_double_poiseuille">3.3. double poiseuille</a></li>
+<li><a href="#_shear">3.4. shear</a></li>
+<li><a href="#_4_roller_mill">3.5. 4 roller mill</a></li>
+<li><a href="#_radial">3.6. radial</a></li>
 </ul>
 </li>
 </ul>
@@ -39,7 +39,7 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_data_structures">data structures</h2>
+<h2 id="_data_structures">1. data structures</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Defined by two structures:</p>
@@ -59,7 +59,7 @@ a specific time. It is passed to device kernels.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_interface">interface</h2>
+<h2 id="_interface">2. interface</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>allocate/deallocate the structure:</p>
@@ -135,10 +135,10 @@ a specific time. It is passed to device kernels.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_configuration">configuration</h2>
+<h2 id="_configuration">3. configuration</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_none">none</h3>
+<h3 id="_none">3.1. none</h3>
 <div class="paragraph">
 <p>no body force (default value)</p>
 </div>
@@ -151,7 +151,7 @@ a specific time. It is passed to device kernels.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_constant">constant</h3>
+<h3 id="_constant">3.2. constant</h3>
 <div class="paragraph">
 <p>constant force</p>
 </div>
@@ -165,7 +165,7 @@ a specific time. It is passed to device kernels.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_double_poiseuille">double poiseuille</h3>
+<h3 id="_double_poiseuille">3.3. double poiseuille</h3>
 <div class="paragraph">
 <p><code>fx = y &gt; yc ? a : -a</code></p>
 </div>
@@ -179,7 +179,7 @@ a specific time. It is passed to device kernels.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_shear">shear</h3>
+<h3 id="_shear">3.4. shear</h3>
 <div class="paragraph">
 <p><code>fx = a * (y - yc)</code></p>
 </div>
@@ -193,7 +193,7 @@ a specific time. It is passed to device kernels.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_4_roller_mill">4 roller mill</h3>
+<h3 id="_4_roller_mill">3.5. 4 roller mill</h3>
 <div class="listingblock">
 <div class="content">
 <pre>    f.x =  2*sin(x)*cos(y) * a;
@@ -214,7 +214,7 @@ normalized to have <code>x = Pi</code> and <code>x = -Pi</code> at the domain ed
 </div>
 </div>
 <div class="sect2">
-<h3 id="_radial">radial</h3>
+<h3 id="_radial">3.6. radial</h3>
 <div class="paragraph">
 <p><code>fr = a * er / r</code>, where <code>fr</code> is radial force, <code>er</code> is unit radial
 vector at position <code>r</code> and <code>r</code> is radial position.</p>

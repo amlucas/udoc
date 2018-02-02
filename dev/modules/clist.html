@@ -15,15 +15,15 @@
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_example">example</a></li>
-<li><a href="#_data_structures">data structures</a>
+<li><a href="#_example">1. example</a></li>
+<li><a href="#_data_structures">2. data structures</a>
 <ul class="sectlevel2">
-<li><a href="#_clist">Clist</a></li>
-<li><a href="#_map">Map</a></li>
+<li><a href="#_clist">2.1. Clist</a></li>
+<li><a href="#_map">2.2. Map</a></li>
 </ul>
 </li>
-<li><a href="#_interface">interface</a></li>
-<li><a href="#_algorithm">algorithm</a></li>
+<li><a href="#_interface">3. interface</a></li>
+<li><a href="#_algorithm">4. algorithm</a></li>
 </ul>
 </div>
 </div>
@@ -46,7 +46,7 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_example">example</h2>
+<h2 id="_example">1. example</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>consider a 1D example of particles with positions in domain <code>[0, 4)</code></p>
@@ -87,10 +87,10 @@ cell and <code>ss</code> (starts) is the prefix sum of <code>cc</code>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_data_structures">data structures</h2>
+<h2 id="_data_structures">2. data structures</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_clist">Clist</h3>
+<h3 id="_clist">2.1. Clist</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">struct</span> <span class="tok-n">Clist</span> <span class="tok-p">{</span>
@@ -118,7 +118,7 @@ cell and <code>ss</code> (starts) is the prefix sum of <code>cc</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_map">Map</h3>
+<h3 id="_map">2.2. Map</h3>
 <div class="paragraph">
 <p>Helper to build the cell lists (hidden from client)</p>
 </div>
@@ -179,7 +179,7 @@ array id and the particle id inside this array</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_interface">interface</h2>
+<h2 id="_interface">3. interface</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>allocate/deallocate</p>
@@ -225,7 +225,7 @@ array id and the particle id inside this array</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_algorithm">algorithm</h2>
+<h2 id="_algorithm">4. algorithm</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The cell build process is linear in number of particles <code>np</code> and <code>n log(n)</code>

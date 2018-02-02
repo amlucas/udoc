@@ -15,17 +15,17 @@
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#intro">intro</a></li>
-<li><a href="#mem">MEM</a></li>
-<li><a href="#val">VAL</a></li>
-<li><a href="#prof">PROF</a></li>
-<li><a href="#tim">TIM</a></li>
+<li><a href="#intro">1. intro</a></li>
+<li><a href="#mem">2. MEM</a></li>
+<li><a href="#val">3. VAL</a></li>
+<li><a href="#prof">4. PROF</a></li>
+<li><a href="#tim">5. TIM</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="intro">intro</h2>
+<h2 id="intro">1. intro</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><code>u.run</code> respects several environment variables to modify the way <code>udx</code>
@@ -34,7 +34,7 @@ is run</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="mem">MEM</h2>
+<h2 id="mem">2. MEM</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>if <code>MEM</code> is set <code>udx</code> is ran with <code>cuda-memcheck</code> and <code>MEM</code> is used as a
@@ -53,7 +53,7 @@ MEM='--tool initcheck'                    u.test test/*</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="val">VAL</h2>
+<h2 id="val">3. VAL</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>if <code>VAL</code> is set <code>udx</code> is ran with valgrind and <code>VAL</code> is used as a list
@@ -79,7 +79,7 @@ cmd: srun -n 1 -u valgrind --option ./udx 1 1 1</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="prof">PROF</h2>
+<h2 id="prof">4. PROF</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>if <code>PROF</code> is set is ran with <code>nvprof</code></p>
@@ -90,7 +90,7 @@ cmd: srun -n 1 -u valgrind --option ./udx 1 1 1</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="tim">TIM</h2>
+<h2 id="tim">5. TIM</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>if <code>TIM</code> is set is ran with <code>time</code></p>

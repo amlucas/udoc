@@ -15,31 +15,31 @@
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_map">map</a>
+<li><a href="#_map">1. map</a>
 <ul class="sectlevel2">
-<li><a href="#_data_structure">data structure</a></li>
-<li><a href="#_interface">interface</a></li>
+<li><a href="#_data_structure">1.1. data structure</a></li>
+<li><a href="#_interface">1.2. interface</a></li>
 </ul>
 </li>
-<li><a href="#_flu">flu</a>
+<li><a href="#_flu">2. flu</a>
 <ul class="sectlevel2">
-<li><a href="#_data_structures">data structures</a></li>
-<li><a href="#_interface_2">interface</a></li>
+<li><a href="#_data_structures">2.1. data structures</a></li>
+<li><a href="#_interface_2">2.2. interface</a></li>
 </ul>
 </li>
-<li><a href="#_rbc">rbc</a>
+<li><a href="#_rbc">3. rbc</a>
 <ul class="sectlevel2">
-<li><a href="#_data_structures_2">data structures</a></li>
-<li><a href="#_interface_3">interface</a></li>
+<li><a href="#_data_structures_2">3.1. data structures</a></li>
+<li><a href="#_interface_3">3.2. interface</a></li>
 </ul>
 </li>
-<li><a href="#_rig">rig</a>
+<li><a href="#_rig">4. rig</a>
 <ul class="sectlevel2">
-<li><a href="#_data_structures_3">data structures</a></li>
-<li><a href="#_interface_4">interface</a></li>
+<li><a href="#_data_structures_3">4.1. data structures</a></li>
+<li><a href="#_interface_4">4.2. interface</a></li>
 </ul>
 </li>
-<li><a href="#_common">common</a></li>
+<li><a href="#_common">5. common</a></li>
 </ul>
 </div>
 </div>
@@ -80,13 +80,13 @@ the subdomain.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_map">map</h2>
+<h2 id="_map">1. map</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Helper for packing data to send buffers. This is common to all quantities.</p>
 </div>
 <div class="sect2">
-<h3 id="_data_structure">data structure</h3>
+<h3 id="_data_structure">1.1. data structure</h3>
 <div class="paragraph">
 <p>The structure to map local data from an array to packed data in 27
 arrays is implemented as:</p>
@@ -108,7 +108,7 @@ arrays is implemented as:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_interface">interface</h3>
+<h3 id="_interface">1.2. interface</h3>
 <div class="paragraph">
 <p>Host interface:</p>
 </div>
@@ -153,13 +153,13 @@ arrays is implemented as:</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_flu">flu</h2>
+<h2 id="_flu">2. flu</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Redistribute solvent particles accross nodes.</p>
 </div>
 <div class="sect2">
-<h3 id="_data_structures">data structures</h3>
+<h3 id="_data_structures">2.1. data structures</h3>
 <div class="paragraph">
 <p>Solvent distribution follow the common workflow described above and
 contains the three <em>hidden</em> generic data structures:</p>
@@ -194,7 +194,7 @@ The <code>xxre</code> variables in <code>Unpack</code> are buffer for remote qua
 </div>
 </div>
 <div class="sect2">
-<h3 id="_interface_2">interface</h3>
+<h3 id="_interface_2">2.2. interface</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">dflu_pack_ini</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxdensity</span><span class="tok-p">,</span> <span class="tok-n">DFluPack</span> <span class="tok-o">**</span><span class="tok-n">p</span><span class="tok-p">);</span>
@@ -256,14 +256,14 @@ It is done in two phases:</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_rbc">rbc</h2>
+<h2 id="_rbc">3. rbc</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Redistribute red blood cells accross nodes according to the center of
 mass of their bounding box (see <a href="algo/minmax.html">minmax</a>).</p>
 </div>
 <div class="sect2">
-<h3 id="_data_structures_2">data structures</h3>
+<h3 id="_data_structures_2">3.1. data structures</h3>
 <div class="paragraph">
 <p>RBC distribution follows the common workflow described above and
 contains the three <em>hidden</em> generic data structures:</p>
@@ -304,7 +304,7 @@ each RBC. Other variables have the same naming conventions than <code>distr::flu
 </div>
 </div>
 <div class="sect2">
-<h3 id="_interface_3">interface</h3>
+<h3 id="_interface_3">3.2. interface</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">drbc_pack_ini</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxc</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-n">DRbcPack</span> <span class="tok-o">**</span><span class="tok-n">p</span><span class="tok-p">);</span>
@@ -335,14 +335,14 @@ each RBC. Other variables have the same naming conventions than <code>distr::flu
 </div>
 </div>
 <div class="sect1">
-<h2 id="_rig">rig</h2>
+<h2 id="_rig">4. rig</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Redistribute rigid objects accross nodes according to their center of
 mass.</p>
 </div>
 <div class="sect2">
-<h3 id="_data_structures_3">data structures</h3>
+<h3 id="_data_structures_3">4.1. data structures</h3>
 <div class="paragraph">
 <p>Rigid bodies distribution is very similar to the above. The <em>hidden</em> data
 structures fit again in the general workflow:</p>
@@ -373,7 +373,7 @@ structures fit again in the general workflow:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_interface_4">interface</h3>
+<h3 id="_interface_4">4.2. interface</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">drig_pack_ini</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxns</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-n">DRigPack</span> <span class="tok-o">**</span><span class="tok-n">p</span><span class="tok-p">);</span>
@@ -404,7 +404,7 @@ structures fit again in the general workflow:</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_common">common</h2>
+<h2 id="_common">5. common</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>helpers: common kernels</p>

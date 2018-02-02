@@ -15,19 +15,19 @@
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_linal">linal</a>
+<li><a href="#_linal">1. linal</a>
 <ul class="sectlevel2">
-<li><a href="#_interface">interface</a></li>
+<li><a href="#_interface">1.1. interface</a></li>
 </ul>
 </li>
-<li><a href="#_host_random_number_generation">Host random number generation</a>
+<li><a href="#_host_random_number_generation">2. Host random number generation</a>
 <ul class="sectlevel2">
-<li><a href="#_interface_2">interface</a></li>
+<li><a href="#_interface_2">2.1. interface</a></li>
 </ul>
 </li>
-<li><a href="#_linar_coordinate_transformation_for_3d_vector">linar coordinate transformation for 3D vector</a>
+<li><a href="#_linar_coordinate_transformation_for_3d_vector">3. linar coordinate transformation for 3D vector</a>
 <ul class="sectlevel2">
-<li><a href="#_interface_3">interface</a></li>
+<li><a href="#_interface_3">3.1. interface</a></li>
 </ul>
 </li>
 </ul>
@@ -42,13 +42,13 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_linal">linal</h2>
+<h2 id="_linal">1. linal</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Linear algebra helpers on host</p>
 </div>
 <div class="sect2">
-<h3 id="_interface">interface</h3>
+<h3 id="_interface">1.1. interface</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-cm">/* invert symmetric matrix m0[6] */</span>
@@ -78,13 +78,13 @@ A =  ( xy yy yz)
 </div>
 </div>
 <div class="sect1">
-<h2 id="_host_random_number_generation">Host random number generation</h2>
+<h2 id="_host_random_number_generation">2. Host random number generation</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Generate uniform random numbers on host in floating point precision</p>
 </div>
 <div class="sect2">
-<h3 id="_interface_2">interface</h3>
+<h3 id="_interface_2">2.1. interface</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">struct</span> <span class="tok-n">RNDunif</span><span class="tok-p">;</span>                                             <b class="conum">(1)</b>
@@ -113,7 +113,7 @@ A =  ( xy yy yz)
 </div>
 </div>
 <div class="sect1">
-<h2 id="_linar_coordinate_transformation_for_3d_vector">linar coordinate transformation for 3D vector</h2>
+<h2 id="_linar_coordinate_transformation_for_3d_vector">3. linar coordinate transformation for 3D vector</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Transform vector <code>a[3]</code> to <code>b[3]</code> using</p>
@@ -129,9 +129,9 @@ A =  ( xy yy yz)
 <p>Coefficient <code>s</code> and <code>o</code> are defined implicitly by API calls.</p>
 </div>
 <div class="sect2">
-<h3 id="_interface_3">interface</h3>
+<h3 id="_interface_3">3.1. interface</h3>
 <div class="sect3">
-<h4 id="_allocate_deallocate">Allocate/Deallocate</h4>
+<h4 id="_allocate_deallocate">3.1.1. Allocate/Deallocate</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">tform_ini</span><span class="tok-p">(</span><span class="tok-n">Tform</span><span class="tok-o">**</span><span class="tok-p">);</span>
