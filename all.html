@@ -56,22 +56,24 @@
 <li><a href="#_debug">1.17. debug</a></li>
 <li><a href="#_distr">1.18. distr</a></li>
 <li><a href="#_fluforces">1.19. fluforces</a></li>
-<li><a href="#_fsi">1.20. fsi</a></li>
-<li><a href="#_io">1.21. IO</a></li>
-<li><a href="#_math">1.22. Math</a></li>
-<li><a href="#_scheme_move">1.23. scheme/move</a></li>
-<li><a href="#_parser">1.24. parser</a></li>
-<li><a href="#_partlist">1.25. partlist</a></li>
-<li><a href="#_forces">1.26. Forces</a></li>
-<li><a href="#_red_blood_cell">1.27. Red blood cell</a></li>
-<li><a href="#_random_force">1.28. random force</a></li>
-<li><a href="#_stretch_rbc">1.29. stretch RBC</a></li>
-<li><a href="#_scheme_restrain">1.30. scheme/restrain</a></li>
-<li><a href="#_signed_distance_function_sdf">1.31. signed distance function (sdf)</a></li>
-<li><a href="#_utils">1.32. Utils</a></li>
-<li><a href="#_wvel">1.33. wvel</a></li>
-<li><a href="#_third_party_dependencies">1.34. Third party dependencies</a></li>
-<li><a href="#wrappers">1.35. wrappers</a></li>
+<li><a href="#_frag">1.20. frag</a></li>
+<li><a href="#_fsi">1.21. fsi</a></li>
+<li><a href="#_io">1.22. IO</a></li>
+<li><a href="#_math">1.23. Math</a></li>
+<li><a href="#_scheme_move">1.24. scheme/move</a></li>
+<li><a href="#_parser">1.25. parser</a></li>
+<li><a href="#_partlist">1.26. partlist</a></li>
+<li><a href="#_forces">1.27. Forces</a></li>
+<li><a href="#_red_blood_cell">1.28. Red blood cell</a></li>
+<li><a href="#_random_force">1.29. random force</a></li>
+<li><a href="#_shape_rbc">1.30. shape RBC</a></li>
+<li><a href="#_stretch_rbc">1.31. stretch RBC</a></li>
+<li><a href="#_scheme_restrain">1.32. scheme/restrain</a></li>
+<li><a href="#_signed_distance_function_sdf">1.33. signed distance function (sdf)</a></li>
+<li><a href="#_utils">1.34. Utils</a></li>
+<li><a href="#_wvel">1.35. wvel</a></li>
+<li><a href="#_third_party_dependencies">1.36. Third party dependencies</a></li>
+<li><a href="#wrappers">1.37. wrappers</a></li>
 </ul>
 </li>
 <li><a href="#_user">2. User</a></li>
@@ -2320,12 +2322,124 @@ v y          03 04 05          12 13 xx          xx xx xx
 </div>
 </div>
 <div class="sect2">
-<h3 id="_fsi">1.20. fsi</h3>
+<h3 id="_frag">1.20. frag</h3>
+<div class="paragraph">
+<p>Fragment functions on host and device</p>
+</div>
+<div class="sect3">
+<h4 id="_purpose_3">1.20.1. purpose</h4>
+<div class="paragraph">
+<p>A _fragment designates one of the 27 directions \((dx, dy, dz)\),
+where \(dx, dy, dz \in \{-1, 0, 1\}\).</p>
+</div>
+<div class="paragraph">
+<p>The fragment \((0, 0, 0)\) is called <em>bulk</em> and has the id <code>frag_bulk</code>.</p>
+</div>
+<div class="paragraph">
+<p>The purpose of this module is to encode and decode the <em>fragments</em>
+from <em>fragment ids</em> to <em>directions</em>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_interface_17">1.20.2. interface</h4>
+<div class="paragraph">
+<p>The major part of the functions are available to both device and host,
+within the namespaces <code>fragdev</code> and <code>fraghst</code>, respectively.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">int</span> <span class="tok-nf">i2dx</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">i</span><span class="tok-p">);</span>                 <b class="conum">(1)</b>
+<span class="tok-kt">int</span> <span class="tok-nf">i2dy</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">i</span><span class="tok-p">);</span>                 <b class="conum">(2)</b>
+<span class="tok-kt">int</span> <span class="tok-nf">i2dz</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">i</span><span class="tok-p">);</span>                 <b class="conum">(3)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">i2d3</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">int</span> <span class="tok-n">d</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">]);</span> <b class="conum">(4)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>get \(dx\) from fragment id</p>
+</li>
+<li>
+<p>get \(dy\) from fragment id</p>
+</li>
+<li>
+<p>get \(dz\) from fragment id</p>
+</li>
+<li>
+<p>get \((dx, dy, dz)\) from fragment id</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">int</span> <span class="tok-nf">d2i</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">x</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">y</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">z</span><span class="tok-p">);</span> <b class="conum">(1)</b>
+<span class="tok-kt">int</span> <span class="tok-nf">d32i</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">d</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">]);</span>     <b class="conum">(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>get fragment id from \((dx, dy, dz)\)</p>
+</li>
+<li>
+<p>idem with array as input</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">int</span> <span class="tok-nf">ncell</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">i</span><span class="tok-p">);</span> <b class="conum">(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>given sub-domain sizes <code>L</code>, returns number of neighboring cells to
+fragment with id <code>i</code></p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">int</span> <span class="tok-nf">antid2i</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">x</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">y</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">z</span><span class="tok-p">);</span> <b class="conum">(1)</b>
+<span class="tok-kt">int</span> <span class="tok-nf">anti</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">i</span><span class="tok-p">);</span>                  <b class="conum">(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>given \((dx, dy, dz)\), return the id of the <em>anti</em> fragment (i.e. with direction \((-dx, -dy, -dz)\))</p>
+</li>
+<li>
+<p>given a fragment id, returns the id of the <em>anti</em> fragment</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Only on host:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">estimates</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nfrags</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">maxd</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">cap</span><span class="tok-p">);</span> <b class="conum">(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>given a maximum number density <code>maxp</code>, return an estimate of the
+number of particles in each fragment layer.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_fsi">1.21. fsi</h3>
 <div class="paragraph">
 <p>flow-structure interactions between solvent and objects (rigid objects, rbc membranes)</p>
 </div>
 <div class="sect3">
-<h4 id="_interface_17">1.20.1. interface</h4>
+<h4 id="_interface_18">1.21.1. interface</h4>
 <div class="paragraph">
 <p>allocate/deallocate</p>
 </div>
@@ -2361,9 +2475,9 @@ v y          03 04 05          12 13 xx          xx xx xx
 </div>
 </div>
 <div class="sect2">
-<h3 id="_io">1.21. IO</h3>
+<h3 id="_io">1.22. IO</h3>
 <div class="sect3">
-<h4 id="_text">1.21.1. Text</h4>
+<h4 id="_text">1.22.1. Text</h4>
 <div class="paragraph">
 <p>Write one row per particle in a text file <code>path</code>.</p>
 </div>
@@ -2406,17 +2520,17 @@ x y z vx vy vz [fx fy fz]</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_math">1.22. Math</h3>
+<h3 id="_math">1.23. Math</h3>
 <div class="paragraph">
 <p>Helpers for math operations and random number generation</p>
 </div>
 <div class="sect3">
-<h4 id="_linal">1.22.1. linal</h4>
+<h4 id="_linal">1.23.1. linal</h4>
 <div class="paragraph">
 <p>Linear algebra helpers on host</p>
 </div>
 <div class="sect4">
-<h5 id="_interface_18">interface</h5>
+<h5 id="_interface_19">interface</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-cm">/* invert symmetric matrix m0[6] */</span>
@@ -2445,12 +2559,12 @@ A =  ( xy yy yz)
 </div>
 </div>
 <div class="sect3">
-<h4 id="_host_random_number_generation">1.22.2. Host random number generation</h4>
+<h4 id="_host_random_number_generation">1.23.2. Host random number generation</h4>
 <div class="paragraph">
 <p>Generate uniform random numbers on host in floating point precision</p>
 </div>
 <div class="sect4">
-<h5 id="_interface_19">interface</h5>
+<h5 id="_interface_20">interface</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">struct</span> <span class="tok-n">RNDunif</span><span class="tok-p">;</span>                                             <b class="conum">(1)</b>
@@ -2478,7 +2592,7 @@ A =  ( xy yy yz)
 </div>
 </div>
 <div class="sect3">
-<h4 id="_linar_coordinate_transformation_for_3d_vector">1.22.3. linar coordinate transformation for 3D vector</h4>
+<h4 id="_linar_coordinate_transformation_for_3d_vector">1.23.3. linar coordinate transformation for 3D vector</h4>
 <div class="paragraph">
 <p>Transform vector <code>a[3]</code> to <code>b[3]</code> using</p>
 </div>
@@ -2493,7 +2607,7 @@ A =  ( xy yy yz)
 <p>Coefficient <code>s</code> and <code>o</code> are defined implicitly by API calls.</p>
 </div>
 <div class="sect4">
-<h5 id="_interface_20">interface</h5>
+<h5 id="_interface_21">interface</h5>
 <div class="sect5">
 <h6 id="_allocate_deallocate">Allocate/Deallocate</h6>
 <div class="listingblock">
@@ -2559,7 +2673,7 @@ A =  ( xy yy yz)
 </div>
 </div>
 <div class="sect2">
-<h3 id="_scheme_move">1.23. scheme/move</h3>
+<h3 id="_scheme_move">1.24. scheme/move</h3>
 <div class="paragraph">
 <p>Time scheme update</p>
 </div>
@@ -2577,7 +2691,7 @@ A =  ( xy yy yz)
 </ul>
 </div>
 <div class="sect3">
-<h4 id="_interface_21">1.23.1. interface</h4>
+<h4 id="_interface_22">1.24.1. interface</h4>
 <div class="paragraph">
 <p>allocate and free host parameters:</p>
 </div>
@@ -2632,7 +2746,7 @@ A =  ( xy yy yz)
 </div>
 </div>
 <div class="sect3">
-<h4 id="_configuration_8">1.23.2. configuration</h4>
+<h4 id="_configuration_8">1.24.2. configuration</h4>
 <div class="paragraph">
 <p>Set parameters:</p>
 </div>
@@ -2644,9 +2758,9 @@ A =  ( xy yy yz)
 </div>
 </div>
 <div class="sect2">
-<h3 id="_parser">1.24. parser</h3>
+<h3 id="_parser">1.25. parser</h3>
 <div class="sect3">
-<h4 id="_purpose_3">1.24.1. purpose</h4>
+<h4 id="_purpose_4">1.25.1. purpose</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2681,7 +2795,7 @@ If no source contains the parmeter, an error is raised.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_data_structure_2">1.24.2. data structure</h4>
+<h4 id="_data_structure_2">1.25.2. data structure</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-k">enum</span> <span class="tok-p">{</span>
@@ -2705,7 +2819,7 @@ priority etc.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_interface_22">1.24.3. interface</h4>
+<h4 id="_interface_23">1.25.3. interface</h4>
 <div class="paragraph">
 <p>Allocate and free the structure:</p>
 </div>
@@ -2763,13 +2877,13 @@ The return value is <code>true</code> if the variable has been found and <code>f
 </div>
 </div>
 <div class="sect2">
-<h3 id="_partlist">1.25. partlist</h3>
+<h3 id="_partlist">1.26. partlist</h3>
 <div class="paragraph">
 <p>Part list: a structure to handle a list of dead or alive particles
 Purpose: kill particles during redistribution or cell lists build</p>
 </div>
 <div class="sect3">
-<h4 id="_data_structure_3">1.25.1. data structure</h4>
+<h4 id="_data_structure_3">1.26.1. data structure</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">struct</span> <span class="tok-n">PartList</span> <span class="tok-p">{</span>
@@ -2780,7 +2894,7 @@ Purpose: kill particles during redistribution or cell lists build</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_interface_23">1.25.2. interface</h4>
+<h4 id="_interface_24">1.26.2. interface</h4>
 <div class="paragraph">
 <p>contains only device interface:</p>
 </div>
@@ -2800,7 +2914,7 @@ Purpose: kill particles during redistribution or cell lists build</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_forces">1.26. Forces</h3>
+<h3 id="_forces">1.27. Forces</h3>
 <div class="stemblock">
 <div class="content">
 \[E^{spring} \propto \left( x - x_0 \right)^2 + E^{nonlin} \\
@@ -2813,12 +2927,12 @@ E_{bnd} \propto \left(\theta - \theta_0 \right)^2\]
 </div>
 </div>
 <div class="sect2">
-<h3 id="_red_blood_cell">1.27. Red blood cell</h3>
+<h3 id="_red_blood_cell">1.28. Red blood cell</h3>
 <div class="paragraph">
 <p>Red blood cell. <a href="type.h">src/rbc/type.h</a> defines <code>struct rbc::Quants</code></p>
 </div>
 <div class="sect3">
-<h4 id="_components">1.27.1. components</h4>
+<h4 id="_components">1.28.1. components</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2860,14 +2974,14 @@ a file <code>rbc.stretch</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cell_templates">1.27.2. cell templates</h4>
+<h4 id="_cell_templates">1.28.2. cell templates</h4>
 <div class="paragraph">
 <p>See <code>src/data/cells</code></p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_random_force">1.28. random force</h3>
+<h3 id="_random_force">1.29. random force</h3>
 <div class="paragraph">
 <p>Activate by <code>RBC_RND</code> in <code>conf.h</code>. If environment variable <code>RBC_RNC</code>
 is set it is used as seed. Magnitude of the force is</p>
@@ -2880,7 +2994,26 @@ f0  = sqrtf(2*g*T/dt)*rnd</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_stretch_rbc">1.29. stretch RBC</h3>
+<h3 id="_shape_rbc">1.30. shape RBC</h3>
+<div class="paragraph">
+<p>Compute membrane quantities on host.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rbc_shape_ini</span><span class="tok-p">(</span><span class="tok-n">Adj</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-o">*</span><span class="tok-n">rr</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">RbcShape</span><span class="tok-o">**</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">rbc_shape_fin</span><span class="tok-p">(</span><span class="tok-cm">/**/</span> <span class="tok-n">RbcShape</span><span class="tok-o">*</span><span class="tok-p">);</span>
+
+<span class="tok-kt">void</span> <span class="tok-nf">rbc_shape_edg</span> <span class="tok-p">(</span><span class="tok-n">RbcShape</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">float</span><span class="tok-o">**</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">rbc_shape_area</span><span class="tok-p">(</span><span class="tok-n">RbcShape</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">float</span><span class="tok-o">**</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">rbc_shape_anti</span><span class="tok-p">(</span><span class="tok-n">RbcShape</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">int</span><span class="tok-o">**</span><span class="tok-p">);</span>
+
+<span class="tok-kt">void</span> <span class="tok-nf">rbc_shape_total_area</span><span class="tok-p">(</span><span class="tok-n">RbcShape</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">float</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">rbc_shape_total_volume</span><span class="tok-p">(</span><span class="tok-n">RbcShape</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">float</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_stretch_rbc">1.31. stretch RBC</h3>
 <div class="paragraph">
 <p>Apply force to every vertex of an every cell constant force. Force is
 configured from a file <code>path</code>. The format of the file:</p>
@@ -2905,7 +3038,7 @@ fx_nv fy_nv fz_nv</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_scheme_restrain">1.30. scheme/restrain</h3>
+<h3 id="_scheme_restrain">1.32. scheme/restrain</h3>
 <div class="paragraph">
 <p>Restrain the movement of drop or rbc membrane by shifting center of
 mass velocity.</p>
@@ -2924,7 +3057,7 @@ The <code>Restrain</code> module  shifts the center of mass velocity of \(P\) su
 single drop.</p>
 </div>
 <div class="sect3">
-<h4 id="_interface_24">1.30.1. interface</h4>
+<h4 id="_interface_25">1.32.1. interface</h4>
 <div class="paragraph">
 <p>allocate and free host structure:</p>
 </div>
@@ -2979,7 +3112,7 @@ single drop.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_configuration_9">1.30.2. configuration</h4>
+<h4 id="_configuration_9">1.32.2. configuration</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">restrain</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
@@ -2991,19 +3124,19 @@ single drop.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_signed_distance_function_sdf">1.31. signed distance function (sdf)</h3>
+<h3 id="_signed_distance_function_sdf">1.33. signed distance function (sdf)</h3>
 <div class="sect3">
-<h4 id="_purpose_4">1.31.1. purpose</h4>
+<h4 id="_purpose_5">1.33.1. purpose</h4>
 <div class="paragraph">
 <p>Signed distance function is interpolated from a uniform grid.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_implementation">1.31.2. implementation</h4>
+<h4 id="_implementation">1.33.2. implementation</h4>
 
 </div>
 <div class="sect3">
-<h4 id="_components_2">1.31.3. components</h4>
+<h4 id="_components_2">1.33.3. components</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -3021,9 +3154,9 @@ deleted</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_utils">1.32. Utils</h3>
+<h3 id="_utils">1.34. Utils</h3>
 <div class="sect3">
-<h4 id="_error">1.32.1. error</h4>
+<h4 id="_error">1.34.1. error</h4>
 <div class="paragraph">
 <p>Custom error handling with context.</p>
 </div>
@@ -3050,14 +3183,14 @@ one of the subfunctions.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_interface_25">Interface</h5>
+<h5 id="_interface_26">Interface</h5>
 <div class="paragraph">
 <p>TODO</p>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cc">1.32.2. cc</h4>
+<h4 id="_cc">1.34.2. cc</h4>
 <div class="paragraph">
 <p>[C]uda [C]heck.</p>
 </div>
@@ -3078,7 +3211,7 @@ dump a backtrace (see <a href="#error">[error]</a>).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_mc">1.32.3. mc</h4>
+<h4 id="_mc">1.34.3. mc</h4>
 <div class="paragraph">
 <p>[M]PI [C]heck.</p>
 </div>
@@ -3099,7 +3232,7 @@ dump a backtrace (see <a href="#error">[error]</a>).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_kernel_launch_macros">1.32.4. kernel launch macros</h4>
+<h4 id="_kernel_launch_macros">1.34.4. kernel launch macros</h4>
 <div class="paragraph">
 <p>[K]ernel [L]aunch.</p>
 </div>
@@ -3121,12 +3254,12 @@ dump a backtrace (see <a href="#error">[error]</a>).</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_wvel">1.33. wvel</h3>
+<h3 id="_wvel">1.35. wvel</h3>
 <div class="paragraph">
 <p>wall velocity field</p>
 </div>
 <div class="sect3">
-<h4 id="_purpose_5">1.33.1. purpose</h4>
+<h4 id="_purpose_6">1.35.1. purpose</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -3139,7 +3272,7 @@ dump a backtrace (see <a href="#error">[error]</a>).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_data_structures_9">1.33.2. data structures</h4>
+<h4 id="_data_structures_9">1.35.2. data structures</h4>
 <div class="paragraph">
 <p>data structures are separated into 2 kinds of data structures:</p>
 </div>
@@ -3157,7 +3290,7 @@ specific time. It is passed to device kernels.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_interface_26">1.33.3. interface</h4>
+<h4 id="_interface_27">1.35.3. interface</h4>
 <div class="paragraph">
 <p>Interface is splitted between host and device</p>
 </div>
@@ -3221,7 +3354,7 @@ position and velocity of particle.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_configuration_10">1.33.4. Configuration</h4>
+<h4 id="_configuration_10">1.35.4. Configuration</h4>
 <div class="sect4">
 <h5 id="_constant_2">constant</h5>
 <div class="paragraph">
@@ -3293,15 +3426,15 @@ position and velocity of particle.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_third_party_dependencies">1.34. Third party dependencies</h3>
+<h3 id="_third_party_dependencies">1.36. Third party dependencies</h3>
 <div class="sect3">
-<h4 id="_cuda_compiler">1.34.1. cuda compiler</h4>
+<h4 id="_cuda_compiler">1.36.1. cuda compiler</h4>
 <div class="paragraph">
 <p><a href="http://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc" class="bare">http://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc</a></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_mpi_library">1.34.2. MPI library</h4>
+<h4 id="_mpi_library">1.36.2. MPI library</h4>
 <div class="paragraph">
 <p>To get the flags</p>
 </div>
@@ -3320,7 +3453,7 @@ position and velocity of particle.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_libconfig">1.34.3. libconfig</h4>
+<h4 id="_libconfig">1.36.3. libconfig</h4>
 <div class="paragraph">
 <p>a library for processing structured configuration files</p>
 </div>
@@ -3375,7 +3508,7 @@ make install</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_hdf5">1.34.4. hdf5</h4>
+<h4 id="_hdf5">1.36.4. hdf5</h4>
 <div class="paragraph">
 <p>a data model, library, and file format for storing and managing data</p>
 </div>
@@ -3418,16 +3551,16 @@ make install</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="wrappers">1.35. wrappers</h3>
+<h3 id="wrappers">1.37. wrappers</h3>
 <div class="sect3">
-<h4 id="intro">1.35.1. intro</h4>
+<h4 id="intro">1.37.1. intro</h4>
 <div class="paragraph">
 <p><code>u.run</code> respects several environment variables to modify the way <code>udx</code>
 is run</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="mem">1.35.2. MEM</h4>
+<h4 id="mem">1.37.2. MEM</h4>
 <div class="paragraph">
 <p>if <code>MEM</code> is set <code>udx</code> is ran with <code>cuda-memcheck</code> and <code>MEM</code> is used as a
 list of parameters</p>
@@ -3444,7 +3577,7 @@ MEM='--tool initcheck'                    u.test test/*</pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="val">1.35.3. VAL</h4>
+<h4 id="val">1.37.3. VAL</h4>
 <div class="paragraph">
 <p>if <code>VAL</code> is set <code>udx</code> is ran with valgrind and <code>VAL</code> is used as a list
 of parameters.</p>
@@ -3468,7 +3601,7 @@ cmd: srun -n 1 -u valgrind --option ./udx 1 1 1</pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="prof">1.35.4. PROF</h4>
+<h4 id="prof">1.37.4. PROF</h4>
 <div class="paragraph">
 <p>if <code>PROF</code> is set is ran with <code>nvprof</code></p>
 </div>
@@ -3477,7 +3610,7 @@ cmd: srun -n 1 -u valgrind --option ./udx 1 1 1</pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="tim">1.35.5. TIM</h4>
+<h4 id="tim">1.37.5. TIM</h4>
 <div class="paragraph">
 <p>if <code>TIM</code> is set is ran with <code>time</code></p>
 </div>
