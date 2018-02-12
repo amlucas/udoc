@@ -5,41 +5,25 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.6.1">
-<title>Time control</title>
+<title>Time</title>
 <link rel="stylesheet" href="/udoc/css/main.css">
 <link rel="stylesheet" href="./pygments-colorful.css">
 </head>
 <body class="article">
 <div id="header">
-<h1>Time control</h1>
+<h1>Time</h1>
 </div>
 <div id="content">
 <div class="paragraph">
-<p>Controls time step, output, restart dumps, wall creation step.</p>
+<p>Keeps current simulation time.</p>
 </div>
 <div class="paragraph">
-<p>Configuration:
-tstart, tene, twall : in physical units
-[rbc/flu]_dump_interval, restart_interval : in physical units
-dt0: initial timestep</p>
+<p><code>time_next(Time*, float dt)</code> is called every time step and updates the state of Time*.</p>
 </div>
 <div class="paragraph">
-<p>API:
-  <code>ini()/fin()</code>
-  <code>nxt(Force*)</code>      : called after every step</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>`[rbc/flu]_dump()` : true/false : dump?
-`restart()`        : true/false : restart?
-`wall()`           : create a wall?</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>`dt()`             : a new timestep
-`t()`              : returns a current physical time</pre>
-</div>
+<p><code>time_cross(Time*, float interval)</code> true if <code>n*interval</code> is in between
+current and previus timestep. In other wards did simulation "just
+crossed" <code>n*interval</code>.</p>
 </div>
 </div>
 </body>

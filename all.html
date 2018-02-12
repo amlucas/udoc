@@ -71,7 +71,7 @@
 <li><a href="#_stretch_rbc">1.32. stretch RBC</a></li>
 <li><a href="#_scheme_restrain">1.33. scheme/restrain</a></li>
 <li><a href="#_signed_distance_function_sdf">1.34. signed distance function (sdf)</a></li>
-<li><a href="#_time_control">1.35. Time control</a></li>
+<li><a href="#_time">1.35. Time</a></li>
 <li><a href="#_utils">1.36. Utils</a></li>
 <li><a href="#_wvel">1.37. wvel</a></li>
 <li><a href="#_third_party_dependencies">1.38. Third party dependencies</a></li>
@@ -2860,9 +2860,21 @@ potential. It is given by</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">pair_set_lj</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">sigma</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">eps</span><span class="tok-p">,</span> <span class="tok-n">PairParams</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">pair_set_dpd</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">ncol</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">a</span><span class="tok-p">[],</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">g</span><span class="tok-p">[],</span> <span class="tok-n">PairParams</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span></code></pre>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">pair_set_dpd</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">ncol</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">a</span><span class="tok-p">[],</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">g</span><span class="tok-p">[],</span> <span class="tok-n">PairParams</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span> <b class="conum">(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">pair_set_lj</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">sigma</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">eps</span><span class="tok-p">,</span> <span class="tok-n">PairParams</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span> <b class="conum">(2)</b></code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>set the DPD parameters. <code>ncol</code> is the number of colors. This is
+mandatory for any view</p>
+</li>
+<li>
+<p>set the Lennard-Jones parameters \(\sigma\) and
+\(\epsilon\). This may be called only when the LJ parameters are needed.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p>set parameters from configuration file:</p>
@@ -2938,11 +2950,60 @@ particle <code>b</code> has the same color as particle <code>a</code>.</p>
 <div class="sect3">
 <h4 id="_configuration_9">1.25.5. Configuration</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>parameters are configured through 3 namespaces: <code>flu</code>, <code>fsi</code> and
+<code>cnt</code>.</p>
+</div>
+<div class="paragraph">
+<p>example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">TODO</span></code></pre>
+<pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">flu</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
+<span class="tok-s">    dpd = true</span>
+<span class="tok-s">    a = [10.0, 80.0, 10.0]</span>
+<span class="tok-s">    g = [1.0, 8.0, 15.0]</span>
+<span class="tok-s">    lj = false</span>
+<span class="tok-na">}</span>
+
+<span class="tok-na">fsi</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
+<span class="tok-s">    dpd = true</span>
+<span class="tok-s">    a = [10.0, 80.0, 10.0]</span>
+<span class="tok-s">    g = [1.0, 8.0, 15.0]</span>
+<span class="tok-s">    lj = false</span>
+<span class="tok-na">}</span>
+
+<span class="tok-na">cnt</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
+<span class="tok-s">    dpd = true</span>
+<span class="tok-s">    a = [0.0]</span>
+<span class="tok-s">    g = [16.0]</span>
+<span class="tok-s">    lj = true</span>
+<span class="tok-s">    ljs = 0.3</span>
+<span class="tok-s">    lje = 0.44</span>
+<span class="tok-na">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The DPD parameters can be different when many colors are set.
+User provides parameters in an array following the packed symmetric
+matrix convention. For example the interaction table for 3 colors</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{bmatrix}
+    x_{11} &amp; x_{12} &amp; x_{13} \\
+    x_{12} &amp; x_{22} &amp; x_{23} \\
+    x_{13} &amp; x_{23} &amp; x_{33}
+\end{bmatrix}\]
+</div>
+</div>
+<div class="paragraph">
+<p>becomes</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{bmatrix}
+    x_{11} &amp; x_{12} &amp; x_{13} &amp; x_{22} &amp; x_{23} &amp; x_{33}
+\end{bmatrix}.\]
 </div>
 </div>
 </div>
@@ -3346,33 +3407,17 @@ deleted</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_time_control">1.35. Time control</h3>
+<h3 id="_time">1.35. Time</h3>
 <div class="paragraph">
-<p>Controls time step, output, restart dumps, wall creation step.</p>
-</div>
-<div class="paragraph">
-<p>Configuration:
-tstart, tene, twall : in physical units
-[rbc/flu]_dump_interval, restart_interval : in physical units
-dt0: initial timestep</p>
+<p>Keeps current simulation time.</p>
 </div>
 <div class="paragraph">
-<p>API:
-  <code>ini()/fin()</code>
-  <code>nxt(Force*)</code>      : called after every step</p>
+<p><code>time_next(Time*, float dt)</code> is called every time step and updates the state of Time*.</p>
 </div>
-<div class="literalblock">
-<div class="content">
-<pre>`[rbc/flu]_dump()` : true/false : dump?
-`restart()`        : true/false : restart?
-`wall()`           : create a wall?</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>`dt()`             : a new timestep
-`t()`              : returns a current physical time</pre>
-</div>
+<div class="paragraph">
+<p><code>time_cross(Time*, float interval)</code> true if <code>n*interval</code> is in between
+current and previus timestep. In other wards did simulation "just
+crossed" <code>n*interval</code>.</p>
 </div>
 </div>
 <div class="sect2">
