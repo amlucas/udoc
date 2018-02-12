@@ -72,7 +72,9 @@ If no source contains the parmeter, an error is raised.</p>
     <span class="tok-n">NCFG</span>
 <span class="tok-p">};</span>
 
+<span class="tok-k">enum</span> <span class="tok-p">{</span><span class="tok-n">INI</span> <span class="tok-o">=</span> <span class="tok-mi">123</span><span class="tok-p">};</span> <span class="tok-cm">/* status */</span>
 <span class="tok-k">struct</span> <span class="tok-n">Config</span> <span class="tok-p">{</span>
+    <span class="tok-kt">int</span> <span class="tok-n">status</span><span class="tok-p">;</span>
     <span class="tok-n">config_t</span> <span class="tok-n">c</span><span class="tok-p">[</span><span class="tok-n">NCFG</span><span class="tok-p">];</span>
 <span class="tok-p">};</span></code></pre>
 </div>

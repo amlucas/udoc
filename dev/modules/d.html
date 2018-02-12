@@ -41,7 +41,6 @@ they can be replaced by CPU calls.</p>
 <span class="tok-k">typedef</span> <span class="tok-kt">int</span> <span class="tok-n">Stream_t</span><span class="tok-p">;</span> <span class="tok-cm">/* TODO: streams are not supported */</span>
 <span class="tok-k">enum</span> <span class="tok-p">{</span><span class="tok-n">MemcpyHostToHost</span><span class="tok-p">,</span> <span class="tok-n">MemcpyHostToDevice</span><span class="tok-p">,</span> <span class="tok-n">MemcpyDeviceToHost</span><span class="tok-p">,</span> <span class="tok-n">MemcpyDeviceToDevice</span><span class="tok-p">,</span> <span class="tok-n">MemcpyDefault</span><span class="tok-p">};</span>
 
-<span class="tok-kt">int</span> <span class="tok-nf">ini</span><span class="tok-p">();</span>
 <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-nf">emsg</span><span class="tok-p">();</span> <span class="tok-cm">/* last error message */</span>
 <span class="tok-kt">int</span> <span class="tok-nf">alloc_pinned</span><span class="tok-p">(</span><span class="tok-kt">void</span> <span class="tok-o">**</span><span class="tok-n">pHost</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span> <span class="tok-n">size</span><span class="tok-p">);</span>
 

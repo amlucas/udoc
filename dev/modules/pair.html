@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<title>pair</title>
+<link rel="stylesheet" href="/udoc/css/main.css">
+<link rel="stylesheet" href="./pygments-colorful.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>pair</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_dpd_interactions">1. dpd interactions</a></li>
+<li><a href="#_repulsive_lj">2. repulsive LJ</a></li>
+<li><a href="#_host_interface">3. Host interface</a></li>
+<li><a href="#_configuration">4. Configuration</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>pairwise forces.
+manages the parameters for dpd and repulsive Lennard-Jones parameters.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dpd_interactions">1. dpd interactions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>DPD particles interact via the following force:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\mathbf{F}_{ij} = \left( F_{ij}^C + F_{ij}^R + F_{ij}^D \right) \mathbf{e}_{ij}\]
+</div>
+</div>
+<div class="paragraph">
+<p>where</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[F_{ij}^C = \alpha \max \left( 1 - \frac{r_{ij}} {r_c}, 0 \right)\]
+</div>
+</div>
+<div class="stemblock">
+<div class="content">
+\[F_{ij}^R = \sigma w(r_{ij}) W_{ij}\]
+</div>
+</div>
+<div class="stemblock">
+<div class="content">
+\[F_{ij}^D = -\gamma w(r_{ij})^2 \mathbf{v}_{ij} \cdot \mathbf{r}_{ij}\]
+</div>
+</div>
+<div class="paragraph">
+<p>with</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\mathbf{r}_{ij} = \mathbf{r}_i - \mathbf{r}_j, \\
+r_{ij} = | \mathbf{r}_{ij} |, \\
+\mathbf{v}_{ij} = \mathbf{v}_i - \mathbf{v}_j.\]
+</div>
+</div>
+<div class="paragraph">
+<p>The viscous kernel is given by</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[w(r) = r^{\frac{1}{2^s}},\]
+</div>
+</div>
+<div class="paragraph">
+<p>where \(s\) is the <code>S_LEVEL</code> compile time option set to <code>2</code> by default.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_repulsive_lj">2. repulsive LJ</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Repulsive forces for contact are implemented using the repulsive LJ
+potential. It is given by</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\mathbf{F}_{ij} = F_{ij}^{rLJ} \mathbf{e}_{ij}\]
+</div>
+</div>
+<div class="paragraph">
+<p>where</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[F_{ij}^{rLJ} = \max \left( 0, F^{LJ}(r_{ij})\right)\]
+</div>
+</div>
+<div class="stemblock">
+<div class="content">
+\[F^{LJ}(r) = 24 \epsilon \frac{1}{r} \left( 2 \left[\frac \sigma r
+\right]^12 - \left[\frac \sigma r \right]^6 \right)\]
+</div>
+</div>
+<div class="paragraph">
+<p>for numerical reasons, the magnitude is limited to \(10^4\).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_host_interface">3. Host interface</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>allocate, deallocate the structure:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">pair_ini</span><span class="tok-p">(</span><span class="tok-n">PairParams</span> <span class="tok-o">**</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">pair_fin</span><span class="tok-p">(</span><span class="tok-n">PairParams</span> <span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>set parameters:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">pair_set_lj</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">sigma</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">eps</span><span class="tok-p">,</span> <span class="tok-n">PairParams</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">pair_set_dpd</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">ncol</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">a</span><span class="tok-p">[],</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">g</span><span class="tok-p">[],</span> <span class="tok-n">PairParams</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>set parameters from configuration file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">pair_set_conf</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">name_space</span><span class="tok-p">,</span> <span class="tok-n">PairParams</span> <span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>the argument <code>name_space</code> denotes the namespace where to look for the
+parameters (see below).</p>
+</div>
+<div class="paragraph">
+<p>Compute the \(\sigma\) parameter for a given temperature and timestep:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">pair_ini</span><span class="tok-p">(</span><span class="tok-n">PairParams</span> <span class="tok-o">**</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">pair_fin</span><span class="tok-p">(</span><span class="tok-n">PairParams</span> <span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Get the different views:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">pair_get_view_dpd</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">PairParams</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">PairDPD</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">pair_get_view_dpd_color</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">PairParams</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">PairDPDC</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">pair_get_view_dpd_mirrored</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">PairParams</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">PairDPDCM</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">pair_get_view_dpd_lj</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">PairParams</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">PairDPDLJ</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuration">4. Configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>TODO</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">TODO</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.6.0/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+</body>
+</html>
