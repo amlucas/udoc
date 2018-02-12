@@ -132,13 +132,11 @@
 </div>
 </div>
 <div class="paragraph">
-<p>Summarize time used to compile</p>
+<p>Hide compilation messages</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>10.09 flu/imp.cu
-10.16 restrain/imp.cu
-...</pre>
+<pre class="pygments highlight"><code data-lang="sh"><span></span>u.make <span class="tok-nv">LOG</span><span class="tok-o">=</span>@</code></pre>
 </div>
 </div>
 <div class="sect3">
@@ -3050,7 +3048,7 @@ If no source contains the parmeter, an error is raised.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-k">enum</span> <span class="tok-p">{</span>
-    <span class="tok-n">EXE</span><span class="tok-p">,</span> <span class="tok-cm">/* from program         */</span>
+    <span class="tok-n">EXE</span><span class="tok-p">,</span> <span class="tok-cm">/* from program setters */</span>
     <span class="tok-n">ARG</span><span class="tok-p">,</span> <span class="tok-cm">/* from arguments       */</span>
     <span class="tok-n">OPT</span><span class="tok-p">,</span> <span class="tok-cm">/* from additional file */</span>
     <span class="tok-n">DEF</span><span class="tok-p">,</span> <span class="tok-cm">/* from default file    */</span>
@@ -3106,7 +3104,8 @@ priority etc.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Note that the program raises an error if the argument is not found.</p>
+<p>Note that the program raises an error if the argument is not found or
+if an error occured (e.g. wrong type).</p>
 </div>
 <div class="paragraph">
 <p>Lookup variables from the configuration:</p>
@@ -3125,7 +3124,57 @@ priority etc.</p>
 </div>
 <div class="paragraph">
 <p>The program does not raise error if the variable is not found.
-The return value is <code>true</code> if the variable has been found and <code>false</code> otherwise.</p>
+The return value is <code>true</code> if the variable has been found and <code>false</code>
+otherwise.</p>
+</div>
+<div class="paragraph">
+<p>The client may overwrite variables in the config object:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">conf_set_int</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">desc</span><span class="tok-p">[],</span> <span class="tok-kt">int</span> <span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">conf_set_vint</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">desc</span><span class="tok-p">[],</span> <span class="tok-kt">int</span> <span class="tok-n">nelem</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">a</span><span class="tok-p">[],</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">cfg</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">conf_set_int3</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">desc</span><span class="tok-p">[],</span> <span class="tok-n">int3</span> <span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">cfg</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">conf_set_float</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">desc</span><span class="tok-p">[],</span> <span class="tok-kt">float</span> <span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">cfg</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">conf_set_vfloat</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">desc</span><span class="tok-p">[],</span> <span class="tok-kt">int</span> <span class="tok-n">nelem</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">a</span><span class="tok-p">[],</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">cfg</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">conf_set_float3</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">desc</span><span class="tok-p">[],</span> <span class="tok-n">float3</span> <span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">cfg</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">conf_set_bool</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">desc</span><span class="tok-p">[],</span> <span class="tok-kt">int</span> <span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">cfg</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">conf_set_string</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">desc</span><span class="tok-p">[],</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">cfg</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>desc</code> is an array containing the names of the nested groups.
+<code>n</code> is the nesting level of the description (minimum is 1). It is the
+same as the size of <code>desc</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">desc</span><span class="tok-p">[]</span> <span class="tok-o">=</span> <span class="tok-p">{</span><span class="tok-s">&quot;main&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;sub&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;a&quot;</span><span class="tok-p">};</span>
+<span class="tok-kt">int</span> <span class="tok-n">n</span> <span class="tok-o">=</span> <span class="tok-mi">3</span><span class="tok-p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>will correspond to</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-n">main</span> <span class="tok-o">=</span> <span class="tok-p">{</span>
+    <span class="tok-n">sub</span> <span class="tok-o">=</span> <span class="tok-p">{</span>
+        <span class="tok-n">a</span> <span class="tok-o">=</span> <span class="tok-p">...</span>
+    <span class="tok-p">}</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The written fields may be dumped in a stream using</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">conf_write_exe</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">cfg</span><span class="tok-p">,</span> <span class="tok-kt">FILE</span> <span class="tok-o">*</span><span class="tok-n">stream</span><span class="tok-p">);</span></code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -3418,6 +3467,18 @@ deleted</p>
 <p><code>time_cross(Time*, float interval)</code> true if <code>n*interval</code> is in between
 current and previus timestep. In other wards did simulation "just
 crossed" <code>n*interval</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">time_ini</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">start</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Time</span><span class="tok-o">**</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">time_fin</span><span class="tok-p">(</span><span class="tok-n">Time</span><span class="tok-o">*</span><span class="tok-p">);</span>
+
+<span class="tok-kt">void</span> <span class="tok-nf">time_next</span><span class="tok-p">(</span><span class="tok-n">Time</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">);</span>
+<span class="tok-kt">int</span>  <span class="tok-nf">time_cross</span><span class="tok-p">(</span><span class="tok-n">Time</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">interval</span><span class="tok-p">);</span>
+<span class="tok-kt">float</span> <span class="tok-nf">time_current</span> <span class="tok-p">(</span><span class="tok-n">Time</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-kt">float</span> <span class="tok-nf">time_dt</span> <span class="tok-p">(</span><span class="tok-n">Time</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-kt">float</span> <span class="tok-nf">time_dt0</span><span class="tok-p">(</span><span class="tok-n">Time</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
