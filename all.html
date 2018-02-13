@@ -70,12 +70,14 @@
 <li><a href="#_shape_rbc">1.31. shape RBC</a></li>
 <li><a href="#_stretch_rbc">1.32. stretch RBC</a></li>
 <li><a href="#_scheme_restrain">1.33. scheme/restrain</a></li>
-<li><a href="#_signed_distance_function_sdf">1.34. signed distance function (sdf)</a></li>
-<li><a href="#_time">1.35. Time</a></li>
-<li><a href="#_utils">1.36. Utils</a></li>
-<li><a href="#_wvel">1.37. wvel</a></li>
-<li><a href="#_third_party_dependencies">1.38. Third party dependencies</a></li>
-<li><a href="#wrappers">1.39. wrappers</a></li>
+<li><a href="#_rigid">1.34. Rigid</a></li>
+<li><a href="#_signed_distance_function_sdf">1.35. signed distance function (sdf)</a></li>
+<li><a href="#_time">1.36. Time</a></li>
+<li><a href="#_time_step">1.37. Time step</a></li>
+<li><a href="#_utils">1.38. Utils</a></li>
+<li><a href="#_wvel">1.39. wvel</a></li>
+<li><a href="#_third_party_dependencies">1.40. Third party dependencies</a></li>
+<li><a href="#wrappers">1.41. wrappers</a></li>
 </ul>
 </li>
 <li><a href="#_user">2. User</a></li>
@@ -474,8 +476,8 @@ output: 0 4 9 10 12 15</pre>
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">scan_apply</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">input</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">size</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">output</span><span class="tok-p">,</span> <span class="tok-cm">/*w*/</span> <span class="tok-n">Scan</span> <span class="tok-o">*</span><span class="tok-n">w</span><span class="tok-p">);</span> <b class="conum">(1)</b>
 
-<span class="tok-kt">void</span> <span class="tok-nf">scan_work_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">size</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Scan</span> <span class="tok-o">**</span><span class="tok-n">w</span><span class="tok-p">);</span>                                  <b class="conum">(2)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">scan_work_fin</span><span class="tok-p">(</span><span class="tok-cm">/**/</span> <span class="tok-n">Scan</span> <span class="tok-o">*</span><span class="tok-n">w</span><span class="tok-p">);</span>                                             <b class="conum">(3)</b></code></pre>
+<span class="tok-kt">void</span> <span class="tok-nf">scan_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">size</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Scan</span> <span class="tok-o">**</span><span class="tok-n">w</span><span class="tok-p">);</span>                                  <b class="conum">(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">scan_fin</span><span class="tok-p">(</span><span class="tok-cm">/**/</span> <span class="tok-n">Scan</span> <span class="tok-o">*</span><span class="tok-n">w</span><span class="tok-p">);</span>                                             <b class="conum">(3)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -1653,21 +1655,12 @@ A <em>view</em> structure <code>Coords_v</code> is public to device code:</p>
 <p>The goal is to make cuda API and kernel functions generic. Meaning
 they can be replaced by CPU calls.</p>
 </div>
-<div class="sect3">
-<h4 id="_interface_10">1.16.1. interface</h4>
 <div class="paragraph">
-<p>Wrappers for cuda functions:</p>
+<p>There are two groups: functions which "mirror" cuda API:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">namespace</span> <span class="tok-n">d</span> <span class="tok-p">{</span>  <span class="tok-cm">/* a wrapper for device API */</span>
-<span class="tok-k">typedef</span> <span class="tok-kt">int</span> <span class="tok-n">Stream_t</span><span class="tok-p">;</span> <span class="tok-cm">/* TODO: streams are not supported */</span>
-<span class="tok-k">enum</span> <span class="tok-p">{</span><span class="tok-n">MemcpyHostToHost</span><span class="tok-p">,</span> <span class="tok-n">MemcpyHostToDevice</span><span class="tok-p">,</span> <span class="tok-n">MemcpyDeviceToHost</span><span class="tok-p">,</span> <span class="tok-n">MemcpyDeviceToDevice</span><span class="tok-p">,</span> <span class="tok-n">MemcpyDefault</span><span class="tok-p">};</span>
-
-<span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-nf">emsg</span><span class="tok-p">();</span> <span class="tok-cm">/* last error message */</span>
-<span class="tok-kt">int</span> <span class="tok-nf">alloc_pinned</span><span class="tok-p">(</span><span class="tok-kt">void</span> <span class="tok-o">**</span><span class="tok-n">pHost</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span> <span class="tok-n">size</span><span class="tok-p">);</span>
-
-<span class="tok-kt">int</span> <span class="tok-nf">Malloc</span><span class="tok-p">(</span><span class="tok-kt">void</span> <span class="tok-o">**</span><span class="tok-n">p</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span><span class="tok-p">);</span>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">int</span> <span class="tok-nf">Malloc</span><span class="tok-p">(</span><span class="tok-kt">void</span> <span class="tok-o">**</span><span class="tok-n">p</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span><span class="tok-p">);</span>
 <span class="tok-kt">int</span> <span class="tok-nf">MemcpyToSymbol</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">void</span> <span class="tok-o">*</span><span class="tok-n">symbol</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">void</span> <span class="tok-o">*</span><span class="tok-n">src</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span> <span class="tok-n">count</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span> <span class="tok-n">offset</span><span class="tok-o">=</span><span class="tok-mi">0</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">kind</span><span class="tok-o">=</span><span class="tok-n">MemcpyHostToDevice</span><span class="tok-p">);</span>
 <span class="tok-kt">int</span> <span class="tok-nf">MemcpyFromSymbol</span><span class="tok-p">(</span><span class="tok-kt">void</span> <span class="tok-o">*</span><span class="tok-n">dst</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">void</span> <span class="tok-o">*</span><span class="tok-n">symbol</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span> <span class="tok-n">count</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span> <span class="tok-n">offset</span><span class="tok-o">=</span><span class="tok-mi">0</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">kind</span><span class="tok-o">=</span><span class="tok-n">MemcpyDeviceToHost</span><span class="tok-p">);</span>
 <span class="tok-kt">int</span> <span class="tok-nf">HostGetDevicePointer</span><span class="tok-p">(</span><span class="tok-kt">void</span> <span class="tok-o">**</span><span class="tok-n">pDevice</span><span class="tok-p">,</span> <span class="tok-kt">void</span> <span class="tok-o">*</span><span class="tok-n">pHost</span><span class="tok-p">,</span> <span class="tok-kt">unsigned</span> <span class="tok-kt">int</span> <span class="tok-n">flags</span><span class="tok-p">);</span>
@@ -1678,28 +1671,28 @@ they can be replaced by CPU calls.</p>
 <span class="tok-kt">int</span> <span class="tok-nf">Free</span> <span class="tok-p">(</span><span class="tok-kt">void</span> <span class="tok-o">*</span><span class="tok-n">devPtr</span><span class="tok-p">);</span>
 <span class="tok-kt">int</span> <span class="tok-nf">FreeHost</span> <span class="tok-p">(</span><span class="tok-kt">void</span> <span class="tok-o">*</span><span class="tok-n">hstPtr</span><span class="tok-p">);</span>
 <span class="tok-kt">int</span> <span class="tok-nf">DeviceSynchronize</span> <span class="tok-p">(</span><span class="tok-kt">void</span><span class="tok-p">);</span>
-<span class="tok-kt">int</span> <span class="tok-nf">PeekAtLastError</span><span class="tok-p">(</span><span class="tok-kt">void</span><span class="tok-p">);</span>
-<span class="tok-p">}</span></code></pre>
+<span class="tok-kt">int</span> <span class="tok-nf">PeekAtLastError</span><span class="tok-p">(</span><span class="tok-kt">void</span><span class="tok-p">);</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>generic files of the interface
-* <code>d/api.h</code> API calls
-* <code>d/q.h</code> function and variable type qualifiers
-* <code>d/ker.h</code></p>
+<p>functions unique for uDeviceX:</p>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-nf">emsg</span><span class="tok-p">();</span>
+<span class="tok-kt">int</span> <span class="tok-nf">alloc_pinned</span><span class="tok-p">(</span><span class="tok-kt">void</span> <span class="tok-o">**</span><span class="tok-n">pHost</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span> <span class="tok-n">size</span><span class="tok-p">);</span>
+<span class="tok-kt">int</span> <span class="tok-nf">is_device_pointer</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">void</span> <span class="tok-o">*</span><span class="tok-n">ptr</span><span class="tok-p">);</span></code></pre>
 </div>
-<div class="sect3">
-<h4 id="_configuration_6">1.16.2. configuration</h4>
-<div class="paragraph">
-<p>Generic device can by implemented by <code>cuda</code> and by <code>cpu</code>
-* <code>d/cuda</code>
-* <code>d/cpu</code></p>
 </div>
 <div class="paragraph">
-<p>if <code>DEV_CUDA</code> defined it is <code>cuda</code>, if <code>DEV_CPU</code> is defined it is
-<code>cpu</code>. For <code>cpu</code> <code>KL_CPU</code> should be also defined.</p>
+<p>files of the interface
+- <code>d/api.h</code> API calls
+- <code>d/q.h</code> function and variable type qualifiers
+- <code>d/ker.h</code></p>
 </div>
+<div class="paragraph">
+<p>if <code>DEV_CUDA</code> is defined interfaces is implimented by cuda, if
+<code>DEV_CPU</code> is defined it is implimented by host calls.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1778,7 +1771,7 @@ valid if</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_interface_11">1.17.1. interface</h4>
+<h4 id="_interface_10">1.17.1. interface</h4>
 <div class="paragraph">
 <p>allocate/deallocate the structure:</p>
 </div>
@@ -1822,7 +1815,7 @@ valid if</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_configuration_7">1.17.2. configuration</h4>
+<h4 id="_configuration_6">1.17.2. configuration</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">dbg</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
@@ -1899,7 +1892,7 @@ arrays is implemented as:</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_interface_12">interface</h5>
+<h5 id="_interface_11">interface</h5>
 <div class="paragraph">
 <p>Host interface:</p>
 </div>
@@ -1983,7 +1976,7 @@ The <code>xxre</code> variables in <code>Unpack</code> are buffer for remote qua
 </div>
 </div>
 <div class="sect4">
-<h5 id="_interface_13">interface</h5>
+<h5 id="_interface_12">interface</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">dflu_pack_ini</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxdensity</span><span class="tok-p">,</span> <span class="tok-n">DFluPack</span> <span class="tok-o">**</span><span class="tok-n">p</span><span class="tok-p">);</span>
@@ -2091,7 +2084,7 @@ each RBC. Other variables have the same naming conventions than <code>distr::flu
 </div>
 </div>
 <div class="sect4">
-<h5 id="_interface_14">interface</h5>
+<h5 id="_interface_13">interface</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">drbc_pack_ini</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxc</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-n">DRbcPack</span> <span class="tok-o">**</span><span class="tok-n">p</span><span class="tok-p">);</span>
@@ -2158,7 +2151,7 @@ structures fit again in the general workflow:</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_interface_15">interface</h5>
+<h5 id="_interface_14">interface</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">drig_pack_ini</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxns</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-n">DRigPack</span> <span class="tok-o">**</span><span class="tok-n">p</span><span class="tok-p">);</span>
@@ -2220,7 +2213,7 @@ structures fit again in the general workflow:</p>
 <p>solvent forces</p>
 </div>
 <div class="sect3">
-<h4 id="_interface_16">1.19.1. interface</h4>
+<h4 id="_interface_15">1.19.1. interface</h4>
 <div class="paragraph">
 <p>TODO</p>
 </div>
@@ -2340,7 +2333,7 @@ between <em>fragment ids</em> (numbered from 0 to 26) and <em>directions</em>.</
 </div>
 </div>
 <div class="sect3">
-<h4 id="_interface_17">1.20.2. interface</h4>
+<h4 id="_interface_16">1.20.2. interface</h4>
 <div class="paragraph">
 <p>The major part of the functions are available to both device and host,
 within the namespaces <code>fragdev</code> and <code>fraghst</code>, respectively.</p>
@@ -2438,7 +2431,7 @@ number of particles in each fragment layer.</p>
 <p>flow-structure interactions between solvent and objects (rigid objects, rbc membranes)</p>
 </div>
 <div class="sect3">
-<h4 id="_interface_18">1.21.1. interface</h4>
+<h4 id="_interface_17">1.21.1. interface</h4>
 <div class="paragraph">
 <p>allocate/deallocate</p>
 </div>
@@ -2530,7 +2523,7 @@ x y z vx vy vz [fx fy fz]</pre>
 <p>Linear algebra helpers on host</p>
 </div>
 <div class="sect4">
-<h5 id="_interface_19">interface</h5>
+<h5 id="_interface_18">interface</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-cm">/* invert symmetric matrix m0[6] */</span>
@@ -2564,7 +2557,7 @@ A =  ( xy yy yz)
 <p>Generate uniform random numbers on host in floating point precision</p>
 </div>
 <div class="sect4">
-<h5 id="_interface_20">interface</h5>
+<h5 id="_interface_19">interface</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">struct</span> <span class="tok-n">RNDunif</span><span class="tok-p">;</span>                                             <b class="conum">(1)</b>
@@ -2607,7 +2600,7 @@ A =  ( xy yy yz)
 <p>Coefficient <code>s</code> and <code>o</code> are defined implicitly by API calls.</p>
 </div>
 <div class="sect4">
-<h5 id="_interface_21">interface</h5>
+<h5 id="_interface_20">interface</h5>
 <div class="sect5">
 <h6 id="_allocate_deallocate">Allocate/Deallocate</h6>
 <div class="listingblock">
@@ -2691,7 +2684,7 @@ A =  ( xy yy yz)
 </ul>
 </div>
 <div class="sect3">
-<h4 id="_interface_22">1.24.1. interface</h4>
+<h4 id="_interface_21">1.24.1. interface</h4>
 <div class="paragraph">
 <p>allocate and free host parameters:</p>
 </div>
@@ -2746,7 +2739,7 @@ A =  ( xy yy yz)
 </div>
 </div>
 <div class="sect3">
-<h4 id="_configuration_8">1.24.2. configuration</h4>
+<h4 id="_configuration_7">1.24.2. configuration</h4>
 <div class="paragraph">
 <p>Set parameters:</p>
 </div>
@@ -2946,7 +2939,7 @@ particle <code>b</code> has the same color as particle <code>a</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_configuration_9">1.25.5. Configuration</h4>
+<h4 id="_configuration_8">1.25.5. Configuration</h4>
 <div class="paragraph">
 <p>parameters are configured through 3 namespaces: <code>flu</code>, <code>fsi</code> and
 <code>cnt</code>.</p>
@@ -3070,7 +3063,7 @@ priority etc.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_interface_23">1.26.3. interface</h4>
+<h4 id="_interface_22">1.26.3. interface</h4>
 <div class="paragraph">
 <p>Allocate and free the structure:</p>
 </div>
@@ -3196,7 +3189,7 @@ Purpose: kill particles during redistribution or cell lists build</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_interface_24">1.27.2. interface</h4>
+<h4 id="_interface_23">1.27.2. interface</h4>
 <div class="paragraph">
 <p>contains only device interface:</p>
 </div>
@@ -3359,7 +3352,7 @@ The <code>Restrain</code> module  shifts the center of mass velocity of \(P\) su
 single drop.</p>
 </div>
 <div class="sect3">
-<h4 id="_interface_25">1.33.1. interface</h4>
+<h4 id="_interface_24">1.33.1. interface</h4>
 <div class="paragraph">
 <p>allocate and free host structure:</p>
 </div>
@@ -3414,7 +3407,7 @@ single drop.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_configuration_10">1.33.2. configuration</h4>
+<h4 id="_configuration_9">1.33.2. configuration</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">restrain</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
@@ -3426,19 +3419,112 @@ single drop.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_signed_distance_function_sdf">1.34. signed distance function (sdf)</h3>
+<h3 id="_rigid">1.34. Rigid</h3>
+<div class="paragraph">
+<p>Rigid objects consist of frozen particles moving in a rigid fashion.
+Interactions with other objects are modeled via pairwise interactions
+with the frozen particles.</p>
+</div>
+<div class="paragraph">
+<p>Rigid objects also contain a surface representation on which other
+particles may bounce back.</p>
+</div>
 <div class="sect3">
-<h4 id="_purpose_5">1.34.1. purpose</h4>
+<h4 id="_quantities">1.34.1. Quantities</h4>
+<div class="paragraph">
+<p><code>RigidQuants</code> structure contains particles of rigid objects as well as
+mesh particles.
+<code>Solid</code> structures contain center of mass, orientation, angular and
+linear velocity of the rigid object.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-k">struct</span> <span class="tok-n">RigQuants</span> <span class="tok-p">{</span>
+    <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-n">ns</span><span class="tok-p">,</span> <span class="tok-n">nps</span><span class="tok-p">;</span>              <span class="tok-cm">/* number of particles (total), solid, particle per solid        */</span>
+    <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp_hst</span><span class="tok-p">,</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">;</span>       <span class="tok-cm">/* particles on hst and device                                   */</span>
+    <span class="tok-n">Solid</span>    <span class="tok-o">*</span><span class="tok-n">ss_hst</span><span class="tok-p">,</span> <span class="tok-o">*</span><span class="tok-n">ss</span><span class="tok-p">;</span>       <span class="tok-cm">/* rigid strutures                                               */</span>
+    <span class="tok-kt">float</span>   <span class="tok-o">*</span><span class="tok-n">rr0_hst</span><span class="tok-p">,</span> <span class="tok-o">*</span><span class="tok-n">rr0</span><span class="tok-p">;</span>      <span class="tok-cm">/* frozen particle templates                                     */</span>
+
+    <span class="tok-cm">/* mesh related quantities */</span>
+    <span class="tok-kt">int</span> <span class="tok-n">nt</span><span class="tok-p">,</span> <span class="tok-n">nv</span><span class="tok-p">;</span>                   <span class="tok-cm">/* number of [t]riangles and [v]ertices                          */</span>
+    <span class="tok-n">int4</span> <span class="tok-o">*</span><span class="tok-n">htt</span><span class="tok-p">,</span> <span class="tok-o">*</span><span class="tok-n">dtt</span><span class="tok-p">;</span>              <span class="tok-cm">/* triangle indices of [h]ost and [d]evice                       */</span>
+    <span class="tok-kt">float</span> <span class="tok-o">*</span><span class="tok-n">hvv</span><span class="tok-p">,</span> <span class="tok-o">*</span><span class="tok-n">dvv</span><span class="tok-p">;</span>             <span class="tok-cm">/* vertices of [h]ost and [d]evice (template)                    */</span>
+    <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">i_pp_hst</span><span class="tok-p">,</span> <span class="tok-o">*</span><span class="tok-n">i_pp</span><span class="tok-p">;</span>    <span class="tok-cm">/* particles representing all meshes of all solids of that node  */</span>
+
+    <span class="tok-n">Solid</span> <span class="tok-o">*</span><span class="tok-n">ss_dmp</span><span class="tok-p">,</span> <span class="tok-o">*</span><span class="tok-n">ss_dmp_bb</span><span class="tok-p">;</span>
+
+    <span class="tok-kt">int</span> <span class="tok-n">maxp</span><span class="tok-p">;</span> <span class="tok-cm">/* maximum particle number */</span>
+<span class="tok-p">};</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_interface_25">1.34.2. Interface</h4>
+<div class="paragraph">
+<p>allocate and deallocate the quantities:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rig_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">maxp</span><span class="tok-p">,</span> <span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">rig_fin</span><span class="tok-p">(</span><span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>maxp</code> is the maximum particle number per node.</p>
+</div>
+<div class="paragraph">
+<p>generate the quantities from solvent particles or from restart files:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rig_gen_quants</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">coords</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">RigPinInfo</span> <span class="tok-o">*</span><span class="tok-n">pi</span><span class="tok-p">,</span> <span class="tok-n">MPI_Comm</span> <span class="tok-n">comm</span><span class="tok-p">,</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">opp</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">on</span><span class="tok-p">,</span> <span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">rig_strt_quants</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">coords</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">id</span><span class="tok-p">,</span> <span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Rigid objects are numbered and need a unique id for dump.
+This is initialised using</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rig_set_ids</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span> <span class="tok-n">comm</span><span class="tok-p">,</span> <span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Restart files are dumped using the following functions:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rig_strt_dump_templ</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">coords</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span>         <b class="conum">(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">rig_strt_dump</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">coords</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">id</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span> <b class="conum">(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>to be called only once: dump the frozen particle in local referential (common to every rigid objects)</p>
+</li>
+<li>
+<p>dump <code>Solid</code> structures, describing position, orientation and velocity of the rigid objects</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_signed_distance_function_sdf">1.35. signed distance function (sdf)</h3>
+<div class="sect3">
+<h4 id="_purpose_5">1.35.1. purpose</h4>
 <div class="paragraph">
 <p>Signed distance function is interpolated from a uniform grid.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_implementation">1.34.2. implementation</h4>
+<h4 id="_implementation">1.35.2. implementation</h4>
 
 </div>
 <div class="sect3">
-<h4 id="_components_2">1.34.3. components</h4>
+<h4 id="_components_2">1.35.3. components</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -3456,7 +3542,7 @@ deleted</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_time">1.35. Time</h3>
+<h3 id="_time">1.36. Time</h3>
 <div class="paragraph">
 <p>Keeps current simulation time.</p>
 </div>
@@ -3482,9 +3568,37 @@ crossed" <code>n*interval</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_utils">1.36. Utils</h3>
+<h3 id="_time_step">1.37. Time step</h3>
+<div class="paragraph">
+<p>Return time step based on the current state of the simulation. If
+<code>type=const</code> always return the same timestep. If <code>type=disp</code> return
+timestep based on the maximum accelaration. <code>TimeStepAccel</code> is
+constructed using <code>time_step_accel_push</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>float time_step_dt(TimeStep*, MPI_Comm, TimeStepAccel*);</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">time_step_accel_ini</span><span class="tok-p">(</span><span class="tok-cm">/**/</span> <span class="tok-n">TimeStepAccel</span><span class="tok-o">**</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">time_step_accel_fin</span><span class="tok-p">(</span><span class="tok-n">TimeStepAccel</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">time_step_accel_push</span><span class="tok-p">(</span><span class="tok-n">TimeStepAccel</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">m</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-n">Force</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">time_step_ini</span><span class="tok-p">(</span><span class="tok-n">Config</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">TimeStep</span><span class="tok-o">**</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">time_step_fin</span><span class="tok-p">(</span><span class="tok-n">TimeStep</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-kt">float</span> <span class="tok-nf">time_step_dt</span><span class="tok-p">(</span><span class="tok-n">TimeStep</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-n">TimeStepAccel</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-kt">float</span> <span class="tok-nf">time_step_dt0</span><span class="tok-p">(</span><span class="tok-n">TimeStep</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">time_step_log</span><span class="tok-p">(</span><span class="tok-n">TimeStep</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_utils">1.38. Utils</h3>
 <div class="sect3">
-<h4 id="_error">1.36.1. error</h4>
+<h4 id="_error">1.38.1. error</h4>
 <div class="paragraph">
 <p>Custom error handling with context.</p>
 </div>
@@ -3518,7 +3632,7 @@ one of the subfunctions.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cc">1.36.2. cc</h4>
+<h4 id="_cc">1.38.2. cc</h4>
 <div class="paragraph">
 <p>[C]uda [C]heck.</p>
 </div>
@@ -3539,7 +3653,7 @@ dump a backtrace (see <a href="#error">[error]</a>).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_mc">1.36.3. mc</h4>
+<h4 id="_mc">1.38.3. mc</h4>
 <div class="paragraph">
 <p>[M]PI [C]heck.</p>
 </div>
@@ -3560,7 +3674,7 @@ dump a backtrace (see <a href="#error">[error]</a>).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_kernel_launch_macros">1.36.4. kernel launch macros</h4>
+<h4 id="_kernel_launch_macros">1.38.4. kernel launch macros</h4>
 <div class="paragraph">
 <p>[K]ernel [L]aunch.</p>
 </div>
@@ -3582,12 +3696,12 @@ dump a backtrace (see <a href="#error">[error]</a>).</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_wvel">1.37. wvel</h3>
+<h3 id="_wvel">1.39. wvel</h3>
 <div class="paragraph">
 <p>wall velocity field</p>
 </div>
 <div class="sect3">
-<h4 id="_purpose_6">1.37.1. purpose</h4>
+<h4 id="_purpose_6">1.39.1. purpose</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -3600,7 +3714,7 @@ dump a backtrace (see <a href="#error">[error]</a>).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_data_structures_9">1.37.2. data structures</h4>
+<h4 id="_data_structures_9">1.39.2. data structures</h4>
 <div class="paragraph">
 <p>data structures are separated into 2 kinds of data structures:</p>
 </div>
@@ -3618,7 +3732,7 @@ specific time. It is passed to device kernels.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_interface_27">1.37.3. interface</h4>
+<h4 id="_interface_27">1.39.3. interface</h4>
 <div class="paragraph">
 <p>Interface is splitted between host and device</p>
 </div>
@@ -3682,7 +3796,7 @@ position and velocity of particle.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_configuration_11">1.37.4. Configuration</h4>
+<h4 id="_configuration_10">1.39.4. Configuration</h4>
 <div class="sect4">
 <h5 id="_constant_2">constant</h5>
 <div class="paragraph">
@@ -3754,15 +3868,15 @@ position and velocity of particle.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_third_party_dependencies">1.38. Third party dependencies</h3>
+<h3 id="_third_party_dependencies">1.40. Third party dependencies</h3>
 <div class="sect3">
-<h4 id="_cuda_compiler">1.38.1. cuda compiler</h4>
+<h4 id="_cuda_compiler">1.40.1. cuda compiler</h4>
 <div class="paragraph">
 <p><a href="http://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc" class="bare">http://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc</a></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_mpi_library">1.38.2. MPI library</h4>
+<h4 id="_mpi_library">1.40.2. MPI library</h4>
 <div class="paragraph">
 <p>To get the flags</p>
 </div>
@@ -3781,7 +3895,7 @@ position and velocity of particle.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_libconfig">1.38.3. libconfig</h4>
+<h4 id="_libconfig">1.40.3. libconfig</h4>
 <div class="paragraph">
 <p>a library for processing structured configuration files</p>
 </div>
@@ -3836,7 +3950,7 @@ make install</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_hdf5">1.38.4. hdf5</h4>
+<h4 id="_hdf5">1.40.4. hdf5</h4>
 <div class="paragraph">
 <p>a data model, library, and file format for storing and managing data</p>
 </div>
@@ -3879,16 +3993,16 @@ make install</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="wrappers">1.39. wrappers</h3>
+<h3 id="wrappers">1.41. wrappers</h3>
 <div class="sect3">
-<h4 id="intro">1.39.1. intro</h4>
+<h4 id="intro">1.41.1. intro</h4>
 <div class="paragraph">
 <p><code>u.run</code> respects several environment variables to modify the way <code>udx</code>
 is run</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="mem">1.39.2. MEM</h4>
+<h4 id="mem">1.41.2. MEM</h4>
 <div class="paragraph">
 <p>if <code>MEM</code> is set <code>udx</code> is ran with <code>cuda-memcheck</code> and <code>MEM</code> is used as a
 list of parameters</p>
@@ -3905,7 +4019,7 @@ MEM='--tool initcheck'                    u.test test/*</pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="val">1.39.3. VAL</h4>
+<h4 id="val">1.41.3. VAL</h4>
 <div class="paragraph">
 <p>if <code>VAL</code> is set <code>udx</code> is ran with valgrind and <code>VAL</code> is used as a list
 of parameters.</p>
@@ -3929,7 +4043,7 @@ cmd: srun -n 1 -u valgrind --option ./udx 1 1 1</pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="prof">1.39.4. PROF</h4>
+<h4 id="prof">1.41.4. PROF</h4>
 <div class="paragraph">
 <p>if <code>PROF</code> is set is ran with <code>nvprof</code></p>
 </div>
@@ -3938,7 +4052,7 @@ cmd: srun -n 1 -u valgrind --option ./udx 1 1 1</pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="tim">1.39.5. TIM</h4>
+<h4 id="tim">1.41.5. TIM</h4>
 <div class="paragraph">
 <p>if <code>TIM</code> is set is ran with <code>time</code></p>
 </div>

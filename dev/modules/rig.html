@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<title>Rigid</title>
+<link rel="stylesheet" href="/udoc/css/main.css">
+<link rel="stylesheet" href="./pygments-colorful.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>Rigid</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_quantities">1. Quantities</a></li>
+<li><a href="#_interface">2. Interface</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Rigid objects consist of frozen particles moving in a rigid fashion.
+Interactions with other objects are modeled via pairwise interactions
+with the frozen particles.</p>
+</div>
+<div class="paragraph">
+<p>Rigid objects also contain a surface representation on which other
+particles may bounce back.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_quantities">1. Quantities</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>RigidQuants</code> structure contains particles of rigid objects as well as
+mesh particles.
+<code>Solid</code> structures contain center of mass, orientation, angular and
+linear velocity of the rigid object.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-k">struct</span> <span class="tok-n">RigQuants</span> <span class="tok-p">{</span>
+    <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-n">ns</span><span class="tok-p">,</span> <span class="tok-n">nps</span><span class="tok-p">;</span>              <span class="tok-cm">/* number of particles (total), solid, particle per solid        */</span>
+    <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp_hst</span><span class="tok-p">,</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">;</span>       <span class="tok-cm">/* particles on hst and device                                   */</span>
+    <span class="tok-n">Solid</span>    <span class="tok-o">*</span><span class="tok-n">ss_hst</span><span class="tok-p">,</span> <span class="tok-o">*</span><span class="tok-n">ss</span><span class="tok-p">;</span>       <span class="tok-cm">/* rigid strutures                                               */</span>
+    <span class="tok-kt">float</span>   <span class="tok-o">*</span><span class="tok-n">rr0_hst</span><span class="tok-p">,</span> <span class="tok-o">*</span><span class="tok-n">rr0</span><span class="tok-p">;</span>      <span class="tok-cm">/* frozen particle templates                                     */</span>
+
+    <span class="tok-cm">/* mesh related quantities */</span>
+    <span class="tok-kt">int</span> <span class="tok-n">nt</span><span class="tok-p">,</span> <span class="tok-n">nv</span><span class="tok-p">;</span>                   <span class="tok-cm">/* number of [t]riangles and [v]ertices                          */</span>
+    <span class="tok-n">int4</span> <span class="tok-o">*</span><span class="tok-n">htt</span><span class="tok-p">,</span> <span class="tok-o">*</span><span class="tok-n">dtt</span><span class="tok-p">;</span>              <span class="tok-cm">/* triangle indices of [h]ost and [d]evice                       */</span>
+    <span class="tok-kt">float</span> <span class="tok-o">*</span><span class="tok-n">hvv</span><span class="tok-p">,</span> <span class="tok-o">*</span><span class="tok-n">dvv</span><span class="tok-p">;</span>             <span class="tok-cm">/* vertices of [h]ost and [d]evice (template)                    */</span>
+    <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">i_pp_hst</span><span class="tok-p">,</span> <span class="tok-o">*</span><span class="tok-n">i_pp</span><span class="tok-p">;</span>    <span class="tok-cm">/* particles representing all meshes of all solids of that node  */</span>
+
+    <span class="tok-n">Solid</span> <span class="tok-o">*</span><span class="tok-n">ss_dmp</span><span class="tok-p">,</span> <span class="tok-o">*</span><span class="tok-n">ss_dmp_bb</span><span class="tok-p">;</span>
+
+    <span class="tok-kt">int</span> <span class="tok-n">maxp</span><span class="tok-p">;</span> <span class="tok-cm">/* maximum particle number */</span>
+<span class="tok-p">};</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_interface">2. Interface</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>allocate and deallocate the quantities:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rig_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">maxp</span><span class="tok-p">,</span> <span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">rig_fin</span><span class="tok-p">(</span><span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>maxp</code> is the maximum particle number per node.</p>
+</div>
+<div class="paragraph">
+<p>generate the quantities from solvent particles or from restart files:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rig_gen_quants</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">coords</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">RigPinInfo</span> <span class="tok-o">*</span><span class="tok-n">pi</span><span class="tok-p">,</span> <span class="tok-n">MPI_Comm</span> <span class="tok-n">comm</span><span class="tok-p">,</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">opp</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">on</span><span class="tok-p">,</span> <span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">rig_strt_quants</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">coords</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">id</span><span class="tok-p">,</span> <span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Rigid objects are numbered and need a unique id for dump.
+This is initialised using</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rig_set_ids</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span> <span class="tok-n">comm</span><span class="tok-p">,</span> <span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Restart files are dumped using the following functions:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rig_strt_dump_templ</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">coords</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span>         <b class="conum">(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">rig_strt_dump</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">coords</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">id</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span> <b class="conum">(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>to be called only once: dump the frozen particle in local referential (common to every rigid objects)</p>
+</li>
+<li>
+<p>dump <code>Solid</code> structures, describing position, orientation and velocity of the rigid objects</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
