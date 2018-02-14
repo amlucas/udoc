@@ -62,22 +62,23 @@
 <li><a href="#_math">1.23. Math</a></li>
 <li><a href="#_scheme_move">1.24. scheme/move</a></li>
 <li><a href="#_pair">1.25. pair</a></li>
-<li><a href="#_parser">1.26. parser</a></li>
-<li><a href="#_partlist">1.27. partlist</a></li>
-<li><a href="#_forces">1.28. Forces</a></li>
-<li><a href="#_red_blood_cell">1.29. Red blood cell</a></li>
-<li><a href="#_random_force">1.30. random force</a></li>
-<li><a href="#_shape_rbc">1.31. shape RBC</a></li>
-<li><a href="#_stretch_rbc">1.32. stretch RBC</a></li>
-<li><a href="#_scheme_restrain">1.33. scheme/restrain</a></li>
-<li><a href="#_rigid">1.34. Rigid</a></li>
-<li><a href="#_signed_distance_function_sdf">1.35. signed distance function (sdf)</a></li>
-<li><a href="#_time">1.36. Time</a></li>
-<li><a href="#_time_step">1.37. Time step</a></li>
-<li><a href="#_utils">1.38. Utils</a></li>
-<li><a href="#_wvel">1.39. wvel</a></li>
-<li><a href="#_third_party_dependencies">1.40. Third party dependencies</a></li>
-<li><a href="#wrappers">1.41. wrappers</a></li>
+<li><a href="#_parray">1.26. parray</a></li>
+<li><a href="#_parser">1.27. parser</a></li>
+<li><a href="#_partlist">1.28. partlist</a></li>
+<li><a href="#_forces">1.29. Forces</a></li>
+<li><a href="#_red_blood_cell">1.30. Red blood cell</a></li>
+<li><a href="#_random_force">1.31. random force</a></li>
+<li><a href="#_shape_rbc">1.32. shape RBC</a></li>
+<li><a href="#_stretch_rbc">1.33. stretch RBC</a></li>
+<li><a href="#_scheme_restrain">1.34. scheme/restrain</a></li>
+<li><a href="#_rigid">1.35. Rigid</a></li>
+<li><a href="#_signed_distance_function_sdf">1.36. signed distance function (sdf)</a></li>
+<li><a href="#_time">1.37. Time</a></li>
+<li><a href="#_time_step">1.38. Time step</a></li>
+<li><a href="#_utils">1.39. Utils</a></li>
+<li><a href="#_wvel">1.40. wvel</a></li>
+<li><a href="#_third_party_dependencies">1.41. Third party dependencies</a></li>
+<li><a href="#wrappers">1.42. wrappers</a></li>
 </ul>
 </li>
 <li><a href="#_user">2. User</a></li>
@@ -1286,8 +1287,8 @@ it is used to setup the inlet velocity from parameters.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">inflow_create_pp</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-n">Inflow</span> <span class="tok-o">*</span><span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">);</span> <b class="conum">(1)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">inflow_create_pp_cc</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">newcolor</span><span class="tok-p">,</span> <span class="tok-n">Inflow</span> <span class="tok-o">*</span><span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">cc</span><span class="tok-p">);</span> <b class="conum">(2)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">inflow_create_pp</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">kBT0</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-n">Inflow</span> <span class="tok-o">*</span><span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">);</span> <b class="conum">(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">inflow_create_pp_cc</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">kBT0</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">newcolor</span><span class="tok-p">,</span> <span class="tok-n">Inflow</span> <span class="tok-o">*</span><span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">cc</span><span class="tok-p">);</span> <b class="conum">(2)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -1948,16 +1949,22 @@ contains the three <em>hidden</em> generic data structures:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">struct</span> <span class="tok-n">DFluPack</span> <span class="tok-p">{</span>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">struct</span> <span class="tok-n">Opt</span> <span class="tok-p">{</span>
+    <span class="tok-kt">bool</span> <span class="tok-n">colors</span><span class="tok-p">,</span> <span class="tok-n">ids</span><span class="tok-p">;</span>
+<span class="tok-p">};</span>
+
+<span class="tok-k">struct</span> <span class="tok-n">DFluPack</span> <span class="tok-p">{</span>
     <span class="tok-n">DMap</span> <span class="tok-n">map</span><span class="tok-p">;</span>
     <span class="tok-n">dBags</span> <span class="tok-n">dpp</span><span class="tok-p">,</span> <span class="tok-n">dii</span><span class="tok-p">,</span> <span class="tok-n">dcc</span><span class="tok-p">;</span>
     <span class="tok-n">hBags</span> <span class="tok-n">hpp</span><span class="tok-p">,</span> <span class="tok-n">hii</span><span class="tok-p">,</span> <span class="tok-n">hcc</span><span class="tok-p">;</span>
     <span class="tok-kt">int</span> <span class="tok-n">nhalo</span><span class="tok-p">;</span> <span class="tok-cm">/* number of sent particles */</span>
     <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">;</span> <span class="tok-cm">/* subdomain size */</span>
+    <span class="tok-n">Opt</span> <span class="tok-n">opt</span><span class="tok-p">;</span>
 <span class="tok-p">};</span>
 
 <span class="tok-k">struct</span> <span class="tok-n">DFluComm</span> <span class="tok-p">{</span>
     <span class="tok-n">Comm</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-o">*</span><span class="tok-n">ii</span><span class="tok-p">,</span> <span class="tok-o">*</span><span class="tok-n">cc</span><span class="tok-p">;</span>
+    <span class="tok-n">Opt</span> <span class="tok-n">opt</span><span class="tok-p">;</span>
 <span class="tok-p">};</span>
 
 <span class="tok-k">struct</span> <span class="tok-n">DFluUnpack</span> <span class="tok-p">{</span>
@@ -1966,6 +1973,7 @@ contains the three <em>hidden</em> generic data structures:</p>
     <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">iire</span><span class="tok-p">,</span> <span class="tok-o">*</span><span class="tok-n">ccre</span><span class="tok-p">;</span>
     <span class="tok-kt">int</span> <span class="tok-n">nhalo</span><span class="tok-p">;</span> <span class="tok-cm">/* number of received particles */</span>
     <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">;</span> <span class="tok-cm">/* subdomain size */</span>
+    <span class="tok-n">Opt</span> <span class="tok-n">opt</span><span class="tok-p">;</span>
 <span class="tok-p">};</span></code></pre>
 </div>
 </div>
@@ -1979,9 +1987,9 @@ The <code>xxre</code> variables in <code>Unpack</code> are buffer for remote qua
 <h5 id="_interface_12">interface</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">dflu_pack_ini</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxdensity</span><span class="tok-p">,</span> <span class="tok-n">DFluPack</span> <span class="tok-o">**</span><span class="tok-n">p</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">dflu_comm_ini</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span> <span class="tok-n">comm</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">DFluComm</span> <span class="tok-o">**</span><span class="tok-n">c</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">dflu_unpack_ini</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxdensity</span><span class="tok-p">,</span> <span class="tok-n">DFluUnpack</span> <span class="tok-o">**</span><span class="tok-n">u</span><span class="tok-p">);</span>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">dflu_pack_ini</span><span class="tok-p">(</span><span class="tok-kt">bool</span> <span class="tok-n">colors</span><span class="tok-p">,</span> <span class="tok-kt">bool</span> <span class="tok-n">ids</span><span class="tok-p">,</span> <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxdensity</span><span class="tok-p">,</span> <span class="tok-n">DFluPack</span> <span class="tok-o">**</span><span class="tok-n">p</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">dflu_comm_ini</span><span class="tok-p">(</span><span class="tok-kt">bool</span> <span class="tok-n">colors</span><span class="tok-p">,</span> <span class="tok-kt">bool</span> <span class="tok-n">ids</span><span class="tok-p">,</span> <span class="tok-n">MPI_Comm</span> <span class="tok-n">comm</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">DFluComm</span> <span class="tok-o">**</span><span class="tok-n">c</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">dflu_unpack_ini</span><span class="tok-p">(</span><span class="tok-kt">bool</span> <span class="tok-n">colors</span><span class="tok-p">,</span> <span class="tok-kt">bool</span> <span class="tok-n">ids</span><span class="tok-p">,</span> <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxdensity</span><span class="tok-p">,</span> <span class="tok-n">DFluUnpack</span> <span class="tok-o">**</span><span class="tok-n">u</span><span class="tok-p">);</span>
 
 <span class="tok-kt">void</span> <span class="tok-nf">dflu_pack_fin</span><span class="tok-p">(</span><span class="tok-n">DFluPack</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>
 <span class="tok-kt">void</span> <span class="tok-nf">dflu_comm_fin</span><span class="tok-p">(</span><span class="tok-n">DFluComm</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>
@@ -2446,9 +2454,9 @@ number of particles in each fragment layer.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">fsi_bind_solvent</span><span class="tok-p">(</span><span class="tok-n">Cloud</span> <span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-n">Force</span> <span class="tok-o">*</span><span class="tok-n">ff</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">starts</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Fsi</span> <span class="tok-o">*</span><span class="tok-n">fsi</span><span class="tok-p">);</span> <b class="conum">(1)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">fsi_bulk</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">PairParams</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">Fsi</span> <span class="tok-o">*</span><span class="tok-n">fsi</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nw</span><span class="tok-p">,</span> <span class="tok-n">PaWrap</span> <span class="tok-o">*</span><span class="tok-n">pw</span><span class="tok-p">,</span> <span class="tok-n">FoWrap</span> <span class="tok-o">*</span><span class="tok-n">fw</span><span class="tok-p">);</span>                      <b class="conum">(2)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">fsi_halo</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">PairParams</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">Fsi</span> <span class="tok-o">*</span><span class="tok-n">fsi</span><span class="tok-p">,</span> <span class="tok-n">Pap26</span> <span class="tok-n">PP</span><span class="tok-p">,</span> <span class="tok-n">Fop26</span> <span class="tok-n">FF</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">counts</span><span class="tok-p">[</span><span class="tok-mi">26</span><span class="tok-p">]);</span>                  <b class="conum">(3)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">fsi_bind_solvent</span><span class="tok-p">(</span><span class="tok-n">PaArray</span> <span class="tok-n">pa</span><span class="tok-p">,</span> <span class="tok-n">Force</span> <span class="tok-o">*</span><span class="tok-n">ff</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">starts</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Fsi</span> <span class="tok-o">*</span><span class="tok-n">fsi</span><span class="tok-p">);</span> <b class="conum">(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">fsi_bulk</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">PairParams</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">Fsi</span> <span class="tok-o">*</span><span class="tok-n">fsi</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nw</span><span class="tok-p">,</span> <span class="tok-n">PaWrap</span> <span class="tok-o">*</span><span class="tok-n">pw</span><span class="tok-p">,</span> <span class="tok-n">FoWrap</span> <span class="tok-o">*</span><span class="tok-n">fw</span><span class="tok-p">);</span>      <b class="conum">(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">fsi_halo</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">PairParams</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">Fsi</span> <span class="tok-o">*</span><span class="tok-n">fsi</span><span class="tok-p">,</span> <span class="tok-n">Pap26</span> <span class="tok-n">PP</span><span class="tok-p">,</span> <span class="tok-n">Fop26</span> <span class="tok-n">FF</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">counts</span><span class="tok-p">[</span><span class="tok-mi">26</span><span class="tok-p">]);</span>  <b class="conum">(3)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -3000,9 +3008,91 @@ matrix convention. For example the interaction table for 3 colors</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_parser">1.26. parser</h3>
+<h3 id="_parray">1.26. parray</h3>
+<div class="paragraph">
+<p>Generic particle array to be passed to interaction kernels.</p>
+</div>
 <div class="sect3">
-<h4 id="_purpose_4">1.26.1. purpose</h4>
+<h4 id="_host_interface_3">1.26.1. host interface</h4>
+<div class="paragraph">
+<p>A <code>PaArray</code> structure can be configured by pushing particles and,
+optionally, colors:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">parray_push_pp</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-n">PaArray</span> <span class="tok-o">*</span><span class="tok-n">a</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">parray_push_cc</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">cc</span><span class="tok-p">,</span> <span class="tok-n">PaArray</span> <span class="tok-o">*</span><span class="tok-n">a</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+Particles must be pushed before colors
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Client can check if the colors has been pushed by calling</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">bool</span> <span class="tok-nf">parray_is_colored</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">PaArray</span> <span class="tok-o">*</span><span class="tok-n">a</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The particle array data are meant to be passed to kernels.
+In order to inline the fetching mode (see device interface), different
+views can be generated from the <code>PaArray</code> structure:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">parray_get_view</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">PaArray</span> <span class="tok-o">*</span><span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-n">PaArray_v</span> <span class="tok-o">*</span><span class="tok-n">v</span><span class="tok-p">);</span>  <b class="conum">(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">parray_get_view</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">PaArray</span> <span class="tok-o">*</span><span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-n">PaCArray_v</span> <span class="tok-o">*</span><span class="tok-n">v</span><span class="tok-p">);</span> <b class="conum">(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>Get a view to fetch particles without colors</p>
+</li>
+<li>
+<p>Get a view to fetch particles with colors</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_device_interface_2">1.26.2. device interface</h4>
+<div class="paragraph">
+<p>Generic particle (see <em>pair</em> module)  can be fetched depending on the view:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">static</span> <span class="tok-n">__device__</span> <span class="tok-kt">void</span> <span class="tok-n">parray_get</span><span class="tok-p">(</span><span class="tok-n">PaArray_v</span> <span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">PairPa</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">)</span> <b class="conum">(1)</b>
+<span class="tok-k">static</span> <span class="tok-n">__device__</span> <span class="tok-kt">void</span> <span class="tok-n">parray_get</span><span class="tok-p">(</span><span class="tok-n">PaCArray_v</span> <span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">PairPa</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">)</span> <b class="conum">(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>fetch position and velocity only</p>
+</li>
+<li>
+<p>fetch position, velocity and color</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_parser">1.27. parser</h3>
+<div class="sect3">
+<h4 id="_purpose_4">1.27.1. purpose</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -3037,7 +3127,7 @@ If no source contains the parmeter, an error is raised.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_data_structure_2">1.26.2. data structure</h4>
+<h4 id="_data_structure_2">1.27.2. data structure</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-k">enum</span> <span class="tok-p">{</span>
@@ -3063,7 +3153,7 @@ priority etc.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_interface_22">1.26.3. interface</h4>
+<h4 id="_interface_22">1.27.3. interface</h4>
 <div class="paragraph">
 <p>Allocate and free the structure:</p>
 </div>
@@ -3172,13 +3262,13 @@ same as the size of <code>desc</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_partlist">1.27. partlist</h3>
+<h3 id="_partlist">1.28. partlist</h3>
 <div class="paragraph">
 <p>Part list: a structure to handle a list of dead or alive particles
 Purpose: kill particles during redistribution or cell lists build</p>
 </div>
 <div class="sect3">
-<h4 id="_data_structure_3">1.27.1. data structure</h4>
+<h4 id="_data_structure_3">1.28.1. data structure</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">struct</span> <span class="tok-n">PartList</span> <span class="tok-p">{</span>
@@ -3189,7 +3279,7 @@ Purpose: kill particles during redistribution or cell lists build</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_interface_23">1.27.2. interface</h4>
+<h4 id="_interface_23">1.28.2. interface</h4>
 <div class="paragraph">
 <p>contains only device interface:</p>
 </div>
@@ -3209,7 +3299,7 @@ Purpose: kill particles during redistribution or cell lists build</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_forces">1.28. Forces</h3>
+<h3 id="_forces">1.29. Forces</h3>
 <div class="stemblock">
 <div class="content">
 \[E^{spring} \propto \left( x - x_0 \right)^2 + E^{nonlin} \\
@@ -3222,12 +3312,12 @@ E_{bnd} \propto \left(\theta - \theta_0 \right)^2\]
 </div>
 </div>
 <div class="sect2">
-<h3 id="_red_blood_cell">1.29. Red blood cell</h3>
+<h3 id="_red_blood_cell">1.30. Red blood cell</h3>
 <div class="paragraph">
 <p>Red blood cell. <a href="type.h">src/rbc/type.h</a> defines <code>struct rbc::Quants</code></p>
 </div>
 <div class="sect3">
-<h4 id="_components">1.29.1. components</h4>
+<h4 id="_components">1.30.1. components</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -3269,14 +3359,14 @@ a file <code>rbc.stretch</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cell_templates">1.29.2. cell templates</h4>
+<h4 id="_cell_templates">1.30.2. cell templates</h4>
 <div class="paragraph">
 <p>See <code>src/data/cells</code></p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_random_force">1.30. random force</h3>
+<h3 id="_random_force">1.31. random force</h3>
 <div class="paragraph">
 <p>Activate by <code>RBC_RND</code> in <code>conf.h</code>. If environment variable <code>RBC_RNC</code>
 is set it is used as seed. Magnitude of the force is</p>
@@ -3289,7 +3379,7 @@ f0  = sqrtf(2*g*T/dt)*rnd</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_shape_rbc">1.31. shape RBC</h3>
+<h3 id="_shape_rbc">1.32. shape RBC</h3>
 <div class="paragraph">
 <p>Compute membrane quantities on host. <code>rbc_shape_edg</code> and
 <code>rbc_shape_area</code> return the output in the way accessible with <code>Adj</code>.</p>
@@ -3308,7 +3398,7 @@ f0  = sqrtf(2*g*T/dt)*rnd</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_stretch_rbc">1.32. stretch RBC</h3>
+<h3 id="_stretch_rbc">1.33. stretch RBC</h3>
 <div class="paragraph">
 <p>Apply force to every vertex of an every cell constant force. Force is
 configured from a file <code>path</code>. The format of the file:</p>
@@ -3333,7 +3423,7 @@ fx_nv fy_nv fz_nv</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_scheme_restrain">1.33. scheme/restrain</h3>
+<h3 id="_scheme_restrain">1.34. scheme/restrain</h3>
 <div class="paragraph">
 <p>Restrain the movement of drop or rbc membrane by shifting center of
 mass velocity.</p>
@@ -3352,7 +3442,7 @@ The <code>Restrain</code> module  shifts the center of mass velocity of \(P\) su
 single drop.</p>
 </div>
 <div class="sect3">
-<h4 id="_interface_24">1.33.1. interface</h4>
+<h4 id="_interface_24">1.34.1. interface</h4>
 <div class="paragraph">
 <p>allocate and free host structure:</p>
 </div>
@@ -3407,7 +3497,7 @@ single drop.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_configuration_9">1.33.2. configuration</h4>
+<h4 id="_configuration_9">1.34.2. configuration</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">restrain</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
@@ -3419,7 +3509,7 @@ single drop.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_rigid">1.34. Rigid</h3>
+<h3 id="_rigid">1.35. Rigid</h3>
 <div class="paragraph">
 <p>Rigid objects consist of frozen particles moving in a rigid fashion.
 Interactions with other objects are modeled via pairwise interactions
@@ -3430,7 +3520,7 @@ with the frozen particles.</p>
 particles may bounce back.</p>
 </div>
 <div class="sect3">
-<h4 id="_quantities">1.34.1. Quantities</h4>
+<h4 id="_quantities">1.35.1. Quantities</h4>
 <div class="sect4">
 <h5 id="_data_structure_4">data structure</h5>
 <div class="paragraph">
@@ -3514,7 +3604,7 @@ This is initialised using</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_update">1.34.2. update</h4>
+<h4 id="_update">1.35.2. update</h4>
 <div class="paragraph">
 <p>Position and velocities of rigid objects are updated from forces
 exerted on the particles.</p>
@@ -3667,19 +3757,19 @@ structures</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_signed_distance_function_sdf">1.35. signed distance function (sdf)</h3>
+<h3 id="_signed_distance_function_sdf">1.36. signed distance function (sdf)</h3>
 <div class="sect3">
-<h4 id="_purpose_5">1.35.1. purpose</h4>
+<h4 id="_purpose_5">1.36.1. purpose</h4>
 <div class="paragraph">
 <p>Signed distance function is interpolated from a uniform grid.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_implementation">1.35.2. implementation</h4>
+<h4 id="_implementation">1.36.2. implementation</h4>
 
 </div>
 <div class="sect3">
-<h4 id="_components_2">1.35.3. components</h4>
+<h4 id="_components_2">1.36.3. components</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -3697,7 +3787,7 @@ deleted</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_time">1.36. Time</h3>
+<h3 id="_time">1.37. Time</h3>
 <div class="paragraph">
 <p>Keeps current simulation time.</p>
 </div>
@@ -3723,7 +3813,7 @@ crossed" <code>n*interval</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_time_step">1.37. Time step</h3>
+<h3 id="_time_step">1.38. Time step</h3>
 <div class="paragraph">
 <p>Return time step based on the current state of the simulation. If
 <code>type=const</code> always return the same timestep. If <code>type=disp</code> return
@@ -3751,9 +3841,9 @@ constructed using <code>time_step_accel_push</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_utils">1.38. Utils</h3>
+<h3 id="_utils">1.39. Utils</h3>
 <div class="sect3">
-<h4 id="_error">1.38.1. error</h4>
+<h4 id="_error">1.39.1. error</h4>
 <div class="paragraph">
 <p>Custom error handling with context.</p>
 </div>
@@ -3787,7 +3877,7 @@ one of the subfunctions.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_cc">1.38.2. cc</h4>
+<h4 id="_cc">1.39.2. cc</h4>
 <div class="paragraph">
 <p>[C]uda [C]heck.</p>
 </div>
@@ -3808,7 +3898,7 @@ dump a backtrace (see <a href="#error">[error]</a>).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_mc">1.38.3. mc</h4>
+<h4 id="_mc">1.39.3. mc</h4>
 <div class="paragraph">
 <p>[M]PI [C]heck.</p>
 </div>
@@ -3829,7 +3919,7 @@ dump a backtrace (see <a href="#error">[error]</a>).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_kernel_launch_macros">1.38.4. kernel launch macros</h4>
+<h4 id="_kernel_launch_macros">1.39.4. kernel launch macros</h4>
 <div class="paragraph">
 <p>[K]ernel [L]aunch.</p>
 </div>
@@ -3851,12 +3941,12 @@ dump a backtrace (see <a href="#error">[error]</a>).</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_wvel">1.39. wvel</h3>
+<h3 id="_wvel">1.40. wvel</h3>
 <div class="paragraph">
 <p>wall velocity field</p>
 </div>
 <div class="sect3">
-<h4 id="_purpose_6">1.39.1. purpose</h4>
+<h4 id="_purpose_6">1.40.1. purpose</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -3869,7 +3959,7 @@ dump a backtrace (see <a href="#error">[error]</a>).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_data_structures_9">1.39.2. data structures</h4>
+<h4 id="_data_structures_9">1.40.2. data structures</h4>
 <div class="paragraph">
 <p>data structures are separated into 2 kinds of data structures:</p>
 </div>
@@ -3887,7 +3977,7 @@ specific time. It is passed to device kernels.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_interface_28">1.39.3. interface</h4>
+<h4 id="_interface_28">1.40.3. interface</h4>
 <div class="paragraph">
 <p>Interface is splitted between host and device</p>
 </div>
@@ -3951,7 +4041,7 @@ position and velocity of particle.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_configuration_10">1.39.4. Configuration</h4>
+<h4 id="_configuration_10">1.40.4. Configuration</h4>
 <div class="sect4">
 <h5 id="_constant_2">constant</h5>
 <div class="paragraph">
@@ -4023,15 +4113,15 @@ position and velocity of particle.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_third_party_dependencies">1.40. Third party dependencies</h3>
+<h3 id="_third_party_dependencies">1.41. Third party dependencies</h3>
 <div class="sect3">
-<h4 id="_cuda_compiler">1.40.1. cuda compiler</h4>
+<h4 id="_cuda_compiler">1.41.1. cuda compiler</h4>
 <div class="paragraph">
 <p><a href="http://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc" class="bare">http://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc</a></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_mpi_library">1.40.2. MPI library</h4>
+<h4 id="_mpi_library">1.41.2. MPI library</h4>
 <div class="paragraph">
 <p>To get the flags</p>
 </div>
@@ -4050,7 +4140,7 @@ position and velocity of particle.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_libconfig">1.40.3. libconfig</h4>
+<h4 id="_libconfig">1.41.3. libconfig</h4>
 <div class="paragraph">
 <p>a library for processing structured configuration files</p>
 </div>
@@ -4105,7 +4195,7 @@ make install</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_hdf5">1.40.4. hdf5</h4>
+<h4 id="_hdf5">1.41.4. hdf5</h4>
 <div class="paragraph">
 <p>a data model, library, and file format for storing and managing data</p>
 </div>
@@ -4148,16 +4238,16 @@ make install</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="wrappers">1.41. wrappers</h3>
+<h3 id="wrappers">1.42. wrappers</h3>
 <div class="sect3">
-<h4 id="intro">1.41.1. intro</h4>
+<h4 id="intro">1.42.1. intro</h4>
 <div class="paragraph">
 <p><code>u.run</code> respects several environment variables to modify the way <code>udx</code>
 is run</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="mem">1.41.2. MEM</h4>
+<h4 id="mem">1.42.2. MEM</h4>
 <div class="paragraph">
 <p>if <code>MEM</code> is set <code>udx</code> is ran with <code>cuda-memcheck</code> and <code>MEM</code> is used as a
 list of parameters</p>
@@ -4174,7 +4264,7 @@ MEM='--tool initcheck'                    u.test test/*</pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="val">1.41.3. VAL</h4>
+<h4 id="val">1.42.3. VAL</h4>
 <div class="paragraph">
 <p>if <code>VAL</code> is set <code>udx</code> is ran with valgrind and <code>VAL</code> is used as a list
 of parameters.</p>
@@ -4198,7 +4288,7 @@ cmd: srun -n 1 -u valgrind --option ./udx 1 1 1</pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="prof">1.41.4. PROF</h4>
+<h4 id="prof">1.42.4. PROF</h4>
 <div class="paragraph">
 <p>if <code>PROF</code> is set is ran with <code>nvprof</code></p>
 </div>
@@ -4207,7 +4297,7 @@ cmd: srun -n 1 -u valgrind --option ./udx 1 1 1</pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="tim">1.41.5. TIM</h4>
+<h4 id="tim">1.42.5. TIM</h4>
 <div class="paragraph">
 <p>if <code>TIM</code> is set is ran with <code>time</code></p>
 </div>

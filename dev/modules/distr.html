@@ -166,16 +166,22 @@ contains the three <em>hidden</em> generic data structures:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">struct</span> <span class="tok-n">DFluPack</span> <span class="tok-p">{</span>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">struct</span> <span class="tok-n">Opt</span> <span class="tok-p">{</span>
+    <span class="tok-kt">bool</span> <span class="tok-n">colors</span><span class="tok-p">,</span> <span class="tok-n">ids</span><span class="tok-p">;</span>
+<span class="tok-p">};</span>
+
+<span class="tok-k">struct</span> <span class="tok-n">DFluPack</span> <span class="tok-p">{</span>
     <span class="tok-n">DMap</span> <span class="tok-n">map</span><span class="tok-p">;</span>
     <span class="tok-n">dBags</span> <span class="tok-n">dpp</span><span class="tok-p">,</span> <span class="tok-n">dii</span><span class="tok-p">,</span> <span class="tok-n">dcc</span><span class="tok-p">;</span>
     <span class="tok-n">hBags</span> <span class="tok-n">hpp</span><span class="tok-p">,</span> <span class="tok-n">hii</span><span class="tok-p">,</span> <span class="tok-n">hcc</span><span class="tok-p">;</span>
     <span class="tok-kt">int</span> <span class="tok-n">nhalo</span><span class="tok-p">;</span> <span class="tok-cm">/* number of sent particles */</span>
     <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">;</span> <span class="tok-cm">/* subdomain size */</span>
+    <span class="tok-n">Opt</span> <span class="tok-n">opt</span><span class="tok-p">;</span>
 <span class="tok-p">};</span>
 
 <span class="tok-k">struct</span> <span class="tok-n">DFluComm</span> <span class="tok-p">{</span>
     <span class="tok-n">Comm</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-o">*</span><span class="tok-n">ii</span><span class="tok-p">,</span> <span class="tok-o">*</span><span class="tok-n">cc</span><span class="tok-p">;</span>
+    <span class="tok-n">Opt</span> <span class="tok-n">opt</span><span class="tok-p">;</span>
 <span class="tok-p">};</span>
 
 <span class="tok-k">struct</span> <span class="tok-n">DFluUnpack</span> <span class="tok-p">{</span>
@@ -184,6 +190,7 @@ contains the three <em>hidden</em> generic data structures:</p>
     <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">iire</span><span class="tok-p">,</span> <span class="tok-o">*</span><span class="tok-n">ccre</span><span class="tok-p">;</span>
     <span class="tok-kt">int</span> <span class="tok-n">nhalo</span><span class="tok-p">;</span> <span class="tok-cm">/* number of received particles */</span>
     <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">;</span> <span class="tok-cm">/* subdomain size */</span>
+    <span class="tok-n">Opt</span> <span class="tok-n">opt</span><span class="tok-p">;</span>
 <span class="tok-p">};</span></code></pre>
 </div>
 </div>
@@ -197,9 +204,9 @@ The <code>xxre</code> variables in <code>Unpack</code> are buffer for remote qua
 <h3 id="_interface_2">2.2. interface</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">dflu_pack_ini</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxdensity</span><span class="tok-p">,</span> <span class="tok-n">DFluPack</span> <span class="tok-o">**</span><span class="tok-n">p</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">dflu_comm_ini</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span> <span class="tok-n">comm</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">DFluComm</span> <span class="tok-o">**</span><span class="tok-n">c</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">dflu_unpack_ini</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxdensity</span><span class="tok-p">,</span> <span class="tok-n">DFluUnpack</span> <span class="tok-o">**</span><span class="tok-n">u</span><span class="tok-p">);</span>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">dflu_pack_ini</span><span class="tok-p">(</span><span class="tok-kt">bool</span> <span class="tok-n">colors</span><span class="tok-p">,</span> <span class="tok-kt">bool</span> <span class="tok-n">ids</span><span class="tok-p">,</span> <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxdensity</span><span class="tok-p">,</span> <span class="tok-n">DFluPack</span> <span class="tok-o">**</span><span class="tok-n">p</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">dflu_comm_ini</span><span class="tok-p">(</span><span class="tok-kt">bool</span> <span class="tok-n">colors</span><span class="tok-p">,</span> <span class="tok-kt">bool</span> <span class="tok-n">ids</span><span class="tok-p">,</span> <span class="tok-n">MPI_Comm</span> <span class="tok-n">comm</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">DFluComm</span> <span class="tok-o">**</span><span class="tok-n">c</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">dflu_unpack_ini</span><span class="tok-p">(</span><span class="tok-kt">bool</span> <span class="tok-n">colors</span><span class="tok-p">,</span> <span class="tok-kt">bool</span> <span class="tok-n">ids</span><span class="tok-p">,</span> <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxdensity</span><span class="tok-p">,</span> <span class="tok-n">DFluUnpack</span> <span class="tok-o">**</span><span class="tok-n">u</span><span class="tok-p">);</span>
 
 <span class="tok-kt">void</span> <span class="tok-nf">dflu_pack_fin</span><span class="tok-p">(</span><span class="tok-n">DFluPack</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>
 <span class="tok-kt">void</span> <span class="tok-nf">dflu_comm_fin</span><span class="tok-p">(</span><span class="tok-n">DFluComm</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>
