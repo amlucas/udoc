@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<title>exch</title>
+<link rel="stylesheet" href="/udoc/css/main.css">
+<link rel="stylesheet" href="./pygments-colorful.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>exch</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_map">1. map</a>
+<ul class="sectlevel2">
+<li><a href="#_data_structure">1.1. data structure</a></li>
+<li><a href="#_interface">1.2. interface</a></li>
+</ul>
+</li>
+<li><a href="#_flu">2. flu</a>
+<ul class="sectlevel2">
+<li><a href="#_interface_2">2.1. interface</a></li>
+</ul>
+</li>
+<li><a href="#_obj">3. obj</a></li>
+<li><a href="#_mesh">4. mesh</a></li>
+<li><a href="#_common">5. common</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Exchange quantities across nodes for "ghost particles".</p>
+</div>
+<div class="paragraph">
+<p>A quantity is exchanged with a neighboring node if its position is
+within a given distance from the subdomain boundaries.</p>
+</div>
+<div class="paragraph">
+<p>The workflow is very similar for every quantity to exchange:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>build a map from the positions of the quatities and store it in a
+<code>Map</code> structure.</p>
+</li>
+<li>
+<p>pack the data using <code>Map</code> in a <code>Pack</code> structure</p>
+</li>
+<li>
+<p>communicaion: exchange packed data with neighbors, receive data into
+<code>Unpack</code> structure. This is done using the
+<a href="comm.html">generic communicator</a>.</p>
+</li>
+<li>
+<p>Unpack the data from <code>Unpack</code> to quantities.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Optionally, other quantities can be exchanged back, e.g. forces.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_map">1. map</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Helper for packing data to send buffers. This is common to all
+quantities.
+As opposed to the <em>distr</em> module, the mapping is not <em>one to one</em>.
+A single quantity can be exchanged with up to 7 neighboring nodes if
+it is in a corner.</p>
+</div>
+<div class="sect2">
+<h3 id="_data_structure">1.1. data structure</h3>
+<div class="paragraph">
+<p>A single structure is able to build a map for up to <code>nw</code> objects
+(e.g. rbc and rigid give <code>nw = 2</code>)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">struct</span> <span class="tok-n">EMap</span> <span class="tok-p">{</span>
+    <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">counts</span><span class="tok-p">;</span>      <span class="tok-cm">/* number of entities leaving in each fragment */</span>
+    <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">starts</span><span class="tok-p">;</span>      <span class="tok-cm">/* cumulative sum of the above                 */</span>
+    <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">offsets</span><span class="tok-p">;</span>     <span class="tok-cm">/* offsets per fragment for each solute        */</span>
+    <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">ids</span><span class="tok-p">[</span><span class="tok-n">NFRAGS</span><span class="tok-p">];</span> <span class="tok-cm">/* indices of leaving objects                  */</span>
+<span class="tok-p">};</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_interface">1.2. interface</h3>
+<div class="paragraph">
+<p>Host interface:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">emap_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">nw</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nfrags</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">cap</span><span class="tok-p">[],</span> <span class="tok-cm">/**/</span> <span class="tok-n">EMap</span> <span class="tok-o">*</span><span class="tok-n">map</span><span class="tok-p">);</span>               <b class="conum">(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">emap_fin</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">nfrags</span><span class="tok-p">,</span> <span class="tok-n">EMap</span> <span class="tok-o">*</span><span class="tok-n">map</span><span class="tok-p">);</span>                                       <b class="conum">(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">emap_reini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">nw</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nfrags</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">EMap</span> <span class="tok-n">map</span><span class="tok-p">);</span>                         <b class="conum">(3)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">emap_scan</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">nw</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nfrags</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">EMap</span> <span class="tok-n">map</span><span class="tok-p">);</span>                          <b class="conum">(4)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">emap_download_counts</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">nw</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nfrags</span><span class="tok-p">,</span> <span class="tok-n">EMap</span> <span class="tok-n">map</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">int</span> <span class="tok-n">counts</span><span class="tok-p">[]);</span> <b class="conum">(5)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>allocate the map structure on device</p>
+</li>
+<li>
+<p>deallocate the map structure</p>
+</li>
+<li>
+<p>reset the map structure</p>
+</li>
+<li>
+<p>scan the map structure to get starts</p>
+</li>
+<li>
+<p>copy counts from device to host</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Device interface:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">static</span> <span class="tok-n">__device__</span> <span class="tok-kt">int</span> <span class="tok-n">emap_code</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">r</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">])</span> <b class="conum">(1)</b>
+<span class="tok-k">static</span> <span class="tok-n">__device__</span> <span class="tok-kt">int</span> <span class="tok-n">emap_code_box</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-n">float3</span> <span class="tok-n">lo</span><span class="tok-p">,</span> <span class="tok-n">float3</span> <span class="tok-n">hi</span><span class="tok-p">)</span>  <b class="conum">(2)</b>
+<span class="tok-k">static</span> <span class="tok-n">__device__</span> <span class="tok-kt">void</span> <span class="tok-n">emap_add</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">soluteid</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">pid</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">fid</span><span class="tok-p">,</span> <span class="tok-n">EMap</span> <span class="tok-n">m</span><span class="tok-p">)</span> <b class="conum">(3)</b>
+<span class="tok-k">static</span> <span class="tok-n">__device__</span> <span class="tok-kt">int</span> <span class="tok-n">emap_decode</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">code</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">int</span> <span class="tok-n">fids</span><span class="tok-p">[</span><span class="tok-n">MAX_DSTS</span><span class="tok-p">])</span> <b class="conum">(4)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>get code (local fragment id) from position</p>
+</li>
+<li>
+<p>get code (local fragment id) from box position</p>
+</li>
+<li>
+<p>add a quantity to the map</p>
+</li>
+<li>
+<p>get destination fragments from code</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_flu">2. flu</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Exchange solvent particles within a cutoff radius from the neighboring
+nodes.</p>
+</div>
+<div class="sect2">
+<h3 id="_interface_2">2.1. interface</h3>
+<div class="paragraph">
+<p>allocate, deallocate the structures:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">eflu_pack_ini</span><span class="tok-p">(</span><span class="tok-kt">bool</span> <span class="tok-n">colors</span><span class="tok-p">,</span> <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxd</span><span class="tok-p">,</span> <span class="tok-n">EFluPack</span> <span class="tok-o">**</span><span class="tok-n">p</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">eflu_comm_ini</span><span class="tok-p">(</span><span class="tok-kt">bool</span> <span class="tok-n">colors</span><span class="tok-p">,</span> <span class="tok-n">MPI_Comm</span> <span class="tok-n">comm</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">EFluComm</span> <span class="tok-o">**</span><span class="tok-n">c</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">eflu_unpack_ini</span><span class="tok-p">(</span><span class="tok-kt">bool</span> <span class="tok-n">colors</span><span class="tok-p">,</span> <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxd</span><span class="tok-p">,</span> <span class="tok-n">EFluUnpack</span> <span class="tok-o">**</span><span class="tok-n">u</span><span class="tok-p">);</span>
+
+<span class="tok-kt">void</span> <span class="tok-nf">eflu_pack_fin</span><span class="tok-p">(</span><span class="tok-n">EFluPack</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">eflu_comm_fin</span><span class="tok-p">(</span><span class="tok-n">EFluComm</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">eflu_unpack_fin</span><span class="tok-p">(</span><span class="tok-n">EFluUnpack</span> <span class="tok-o">*</span><span class="tok-n">u</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>build the map:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">eflu_compute_map</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">start</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">count</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">EFluPack</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">eflu_download_cell_starts</span><span class="tok-p">(</span><span class="tok-cm">/**/</span> <span class="tok-n">EFluPack</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>pack and copy data on host:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">eflu_pack</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">PaArray</span> <span class="tok-o">*</span><span class="tok-n">parray</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">EFluPack</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">eflu_download_data</span><span class="tok-p">(</span><span class="tok-n">EFluPack</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>communicate the packed data with neighbors:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">eflu_post_recv</span><span class="tok-p">(</span><span class="tok-n">EFluComm</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-n">EFluUnpack</span> <span class="tok-o">*</span><span class="tok-n">u</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">eflu_post_send</span><span class="tok-p">(</span><span class="tok-n">EFluPack</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">,</span> <span class="tok-n">EFluComm</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">eflu_wait_recv</span><span class="tok-p">(</span><span class="tok-n">EFluComm</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-n">EFluUnpack</span> <span class="tok-o">*</span><span class="tok-n">u</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">eflu_wait_send</span><span class="tok-p">(</span><span class="tok-n">EFluComm</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>
+
+<span class="tok-kt">void</span> <span class="tok-nf">eflu_unpack</span><span class="tok-p">(</span><span class="tok-n">EFluUnpack</span> <span class="tok-o">*</span><span class="tok-n">u</span><span class="tok-p">);</span>
+
+<span class="tok-k">using</span> <span class="tok-n">flu</span><span class="tok-o">::</span><span class="tok-n">LFrag26</span><span class="tok-p">;</span>
+<span class="tok-k">using</span> <span class="tok-n">flu</span><span class="tok-o">::</span><span class="tok-n">RFrag26</span><span class="tok-p">;</span>
+
+<span class="tok-kt">void</span> <span class="tok-nf">eflu_get_local_frags</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">EFluPack</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">LFrag26</span> <span class="tok-o">*</span><span class="tok-n">lfrags</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">eflu_get_remote_frags</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">EFluUnpack</span> <span class="tok-o">*</span><span class="tok-n">u</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">RFrag26</span> <span class="tok-o">*</span><span class="tok-n">rfrags</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>unpack and get data informations needed by the <em>fluforces</em> module:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">eflu_unpack</span><span class="tok-p">(</span><span class="tok-n">EFluUnpack</span> <span class="tok-o">*</span><span class="tok-n">u</span><span class="tok-p">);</span>
+
+<span class="tok-k">using</span> <span class="tok-n">flu</span><span class="tok-o">::</span><span class="tok-n">LFrag26</span><span class="tok-p">;</span>
+<span class="tok-k">using</span> <span class="tok-n">flu</span><span class="tok-o">::</span><span class="tok-n">RFrag26</span><span class="tok-p">;</span>
+
+<span class="tok-kt">void</span> <span class="tok-nf">eflu_get_local_frags</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">EFluPack</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">LFrag26</span> <span class="tok-o">*</span><span class="tok-n">lfrags</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">eflu_get_remote_frags</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">EFluUnpack</span> <span class="tok-o">*</span><span class="tok-n">u</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">RFrag26</span> <span class="tok-o">*</span><span class="tok-n">rfrags</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_obj">3. obj</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_mesh">4. mesh</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_common">5. common</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>helper for common exchange operations</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">ecommon_pack_pp</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-n">PackHelper</span> <span class="tok-n">ph</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Pap26</span> <span class="tok-n">buf</span><span class="tok-p">);</span> <b class="conum">(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">ecommon_shift_one_frag</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">fid</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">);</span> <b class="conum">(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>pack particles <code>pp</code> into 27 buffers <code>buf</code> according to the local map <code>ph</code></p>
+</li>
+<li>
+<p>shift particles in the fragment direction</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The local map is defined through the structure</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">struct</span> <span class="tok-n">PackHelper</span> <span class="tok-p">{</span>
+    <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">starts</span><span class="tok-p">;</span>
+    <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">offsets</span><span class="tok-p">;</span>
+    <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">indices</span><span class="tok-p">[</span><span class="tok-n">NFRAGS</span><span class="tok-p">];</span>
+<span class="tok-p">};</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>which is a map for a single set of quantities.</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
