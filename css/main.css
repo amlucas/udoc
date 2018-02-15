@@ -14,35 +14,8 @@ h4 { font-size:1.12em }
 h5 { font-size:.83em }
 h6 { font-size:.75em }
 
-em {
-    font-style:italic
-}
-
-#header:before,#header:after,#content:before,#content:after {
-    content:" ";
-    display:table
-}
-
-#header:after,#content:after {
-    clear:both
-}
-
-#header .details {
-    border-bottom:1px solid #ddddd8;
-    line-height:1.45;
-    padding-top:.25em;
-    padding-bottom:.25em;
-    padding-left:.25em;
-    display:flex;
-    flex-flow:row wrap
-}
-
 #header .details br {
     display:none
-}
-
-#header .details br+span:before {
-    content:"\00a0\2013\00a0"
 }
 
 #header .details br+span.author:before {
@@ -50,54 +23,29 @@ em {
     color:rgba(0,0,0,.85)
 }
 
-ul {
-    list-style-type:none
-}
-
+#toc ul { list-style-type:none }
 #toc a {
     text-decoration:none
 }
 
 body.toc2 {
-    padding-left:15em;
-    padding-right:0
+    padding-left:18em;
+    font-size: 0.9em;
 }
 
 #toc.toc2 {
-    margin-top:0!important;
     background-color:#f8f8f7;
     position:fixed;
-    width:15em;
+    width:18em;
     left:0;
     top:0;
-    border-right:1px solid #efefed;
-    border-top-width:0!important;
-    border-bottom-width:0!important;
-    z-index:1000;
-    padding:1.25em 1em;
     height:100%;
     overflow:auto
 }
 
-#toc.toc2 #toctitle {
-    margin-top:0;
-    margin-bottom:.8rem;
-    font-size:1.2em
-}
-
-#toc.toc2>ul {
-    font-size:.9em;
-    margin-bottom:0
-}
-
-#toc.toc2 li {
-    margin-left: 0;
-    margin-bottom:0
-}
-
 #toc.toc2 ul {
     margin-left:0;
-    padding-left:1em
+    padding-left:0;
 }
 
 .literalblock pre, .listingblock pre, listingblock .pygments, .listingblock .pygments code {
