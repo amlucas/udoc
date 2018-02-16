@@ -105,16 +105,14 @@
 <div class="sect3">
 <h4 id="_what_is_em_udevicex_em">1.1.1. what is <em>uDeviceX</em>?</h4>
 <div class="paragraph">
-<p>It is a dissipate particle dynamic particle simulation code which can
-model multiphase flows, rigid objects, and some biological structures.</p>
+<p>It is a dissipate particle dynamic particle (DPD) simulation code
+which can model multiphase flows, rigid and soft objects. <em>uDeviceX</em>
+was ACM 2015 Gordon Bell Award Finalist.</p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="_em_udevicex_em_code">1.1.2. <em>uDeviceX</em> code</h4>
 <div class="paragraph">
-<p>It is written in C++ using cuda and MPI. Simulation are controlled
-from a configuration file and from command line options. Here is an
-example</p>
+<p>It is written in C++ using cuda and MPI and requires NVIDIA
+GPUs. Simulation are set from a configuration file and from command
+line options. Here is an example</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -124,8 +122,13 @@ example</p>
 <div class="paragraph">
 <p>Configuration files and command option follow the syntax of
 <em>libconfig</em> library. Some parameters have default values and are set
-in '$HOME/.udx/defult.cfg'.</p>
+in '$HOME/.udx/defult.cfg'. <em>uDeviceX</em> outputs DPD particles,
+trajectories of the objects, and averaged flow fields.</p>
 </div>
+</div>
+<div class="sect3">
+<h4 id="_code">1.1.2. code</h4>
+
 </div>
 </div>
 <div class="sect2">
