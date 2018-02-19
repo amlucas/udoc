@@ -133,7 +133,7 @@ trajectories of the objects, and averaged flow fields.</p>
 <div class="sect3">
 <h4 id="_code">1.1.2. code</h4>
 <div class="paragraph">
-<p>Code is organized in <em>units</em> which are executable.  <em>uDeviceX</em>
+<p>Code is organized in <em>units</em> which are executables.  <em>uDeviceX</em>
 installs several command line tools which have prefix <code>u.</code>, for
 example <code>u.run</code>.</p>
 </div>
@@ -1005,8 +1005,11 @@ positive direction x, y or z</p>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">struct</span> <span class="tok-n">int3</span><span class="tok-p">;</span>
+<span class="tok-k">struct</span> <span class="tok-n">Particle</span><span class="tok-p">;</span>
+<span class="tok-k">struct</span> <span class="tok-n">Coords</span><span class="tok-p">;</span>
 
-<span class="tok-kt">void</span> <span class="tok-nf">color_linear_flux</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">coords</span><span class="tok-p">,</span> <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">dir</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">color</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">cc</span><span class="tok-p">);</span></code></pre>
+<span class="tok-kt">void</span> <span class="tok-nf">color_linear_flux</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">dir</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">color</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span>
+                       <span class="tok-kt">int</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -1196,7 +1199,40 @@ It needs 3 entities:</p>
 <div class="sect3">
 <h4 id="_velocity_controller">1.15.1. Velocity controller</h4>
 <div class="paragraph">
-<p>control velocity by modifying the imposed hydrostatic force</p>
+<p>control velocity by modifying the imposed hydrostatic force
+the force is modified using a PID controller <a href="https://en.wikipedia.org/wiki/PID_controller" class="bare">https://en.wikipedia.org/wiki/PID_controller</a>.</p>
+</div>
+<div class="sect4">
+<h5 id="_controlled_variables">Controlled variables</h5>
+<div class="paragraph">
+<p>The controlled variable is the (global) body force value.
+The state of the system is represented by</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\mathbf{U} = \frac 1 n \sum\limits_{i=1}^n \mathbf{f} \left( \mathbf{r_i}, \mathbf{v_i} \right)\]
+</div>
+</div>
+<div class="paragraph">
+<p>where \(( \mathbf{r_i}, \mathbf{v_i})\) are the \(i^{th}\)
+particle position and velocity, \(n\) is the number of particles
+and \(\mathbf{f}\) is a given transformation.</p>
+</div>
+<div class="paragraph">
+<p>the transformation is the way of averaging the velocity:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>cartesian transformation keeps the velocity and does not depends on position.</p>
+</li>
+<li>
+<p>radial transformation returns the velocity in polar coordinates
+scaled by the radial position. the <code>z</code> component corresponds to
+cartesian transformation</p>
+</li>
+</ul>
+</div>
 </div>
 <div class="sect4">
 <h5 id="_interface_7">interface</h5>
@@ -1205,33 +1241,45 @@ It needs 3 entities:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">vcont_ini</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span> <span class="tok-n">comm</span><span class="tok-p">,</span> <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-n">float3</span> <span class="tok-n">vtarget</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">factor</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">PidVCont</span> <span class="tok-o">**</span><span class="tok-n">c</span><span class="tok-p">);</span>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">vcont_ini</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span> <span class="tok-n">comm</span><span class="tok-p">,</span> <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">PidVCont</span> <span class="tok-o">**</span><span class="tok-n">c</span><span class="tok-p">);</span>
 <span class="tok-kt">void</span> <span class="tok-nf">vcont_fin</span><span class="tok-p">(</span><span class="tok-cm">/**/</span> <span class="tok-n">PidVCont</span> <span class="tok-o">*</span><span class="tok-n">cont</span><span class="tok-p">);</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>initialize the transformation structure (to be done only once):</p>
+<p>set the parameters (to be done only once, before any other calls):</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">vcon_set_cart</span><span class="tok-p">(</span><span class="tok-cm">/**/</span> <span class="tok-n">PidVCont</span> <span class="tok-o">*</span><span class="tok-n">cont</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">vcon_set_radial</span><span class="tok-p">(</span><span class="tok-cm">/**/</span> <span class="tok-n">PidVCont</span> <span class="tok-o">*</span><span class="tok-n">cont</span><span class="tok-p">);</span></code></pre>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">vcont_set_params</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">factor</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">Kp</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">Ki</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">Kd</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">PidVCont</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span> <b class="conum">(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">vcont_set_target</span><span class="tok-p">(</span><span class="tok-n">float3</span> <span class="tok-n">vtarget</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">PidVCont</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>  <b class="conum">(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">vcont_set_cart</span><span class="tok-p">(</span><span class="tok-cm">/**/</span> <span class="tok-n">PidVCont</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>  <b class="conum">(3)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">vcont_set_radial</span><span class="tok-p">(</span><span class="tok-cm">/**/</span> <span class="tok-n">PidVCont</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>  <b class="conum">(4)</b></code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>set the PID control variables. <code>factor</code> scales variables <code>Kp</code>, Ki`
+and <code>Kd</code></p>
+</li>
+<li>
+<p>set the target velocity (in transformed space)</p>
+</li>
+<li>
+<p>set the transformation mode to cartesian</p>
+</li>
+<li>
+<p>set the transformation mode to radial</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
-<p>the transformation is the way of averaging the velocity:</p>
+<p>The parameters can also be set through the configuration file:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>cartesian transformation keeps the velocity as it is before averaging.</p>
-</li>
-<li>
-<p>radial transformation returns the velocity in polar coordinates
-scaled by the radial position. the <code>z</code> component corresponds to
-cartesian transformation</p>
-</li>
-</ul>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">vcont_set_conf</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">cfg</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">PidVCont</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span></code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p>Control operations:</p>
