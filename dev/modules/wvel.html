@@ -61,17 +61,20 @@
 <h2 id="_data_structures">2. data structures</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>data structures are separated into 2 kinds of data structures:</p>
+<p>data structures are separated into 3 kinds of data structures:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>Wvel</code>, which contains all informations needed for the velocity
+<p><code>Wvel</code> (hidden), which contains all informations needed for the velocity
 field. It is hold and maintained on host.</p>
 </li>
 <li>
-<p><code>Wvel_v</code> (<code>Wvel view</code>), containing only the information needed for one
-specific time. It is passed to device kernels.</p>
+<p><code>WvelStep</code> (hidden), containing only the information needed for one
+specific time step. It is generated from <code>Wvel</code> structure.</p>
+</li>
+<li>
+<p>Views, passed to kernels. They are generated from the <code>WvelStep</code> structure.</p>
 </li>
 </ul>
 </div>
@@ -90,12 +93,15 @@ specific time. It is passed to device kernels.</p>
 <code>Wvel</code> to a view at a given timestep.</p>
 </div>
 <div class="paragraph">
-<p>alloc, free structure:</p>
+<p>alloc, free structures:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">wvel_ini</span><span class="tok-p">(</span><span class="tok-n">Wvel</span> <span class="tok-o">**</span><span class="tok-n">wv</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">wvel_fin</span><span class="tok-p">(</span><span class="tok-n">Wvel</span> <span class="tok-o">*</span><span class="tok-n">wv</span><span class="tok-p">);</span></code></pre>
+<span class="tok-kt">void</span> <span class="tok-nf">wvel_fin</span><span class="tok-p">(</span><span class="tok-n">Wvel</span> <span class="tok-o">*</span><span class="tok-n">wv</span><span class="tok-p">);</span>
+
+<span class="tok-kt">void</span> <span class="tok-nf">wvel_step_ini</span><span class="tok-p">(</span><span class="tok-n">WvelStep</span> <span class="tok-o">**</span><span class="tok-n">wv</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">wvel_step_fin</span><span class="tok-p">(</span><span class="tok-n">WvelStep</span> <span class="tok-o">*</span><span class="tok-n">wv</span><span class="tok-p">);</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -104,8 +110,8 @@ specific time. It is passed to device kernels.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">wvel_set_cste</span><span class="tok-p">(</span><span class="tok-n">float3</span> <span class="tok-n">u</span><span class="tok-p">,</span> <span class="tok-n">Wvel</span> <span class="tok-o">*</span><span class="tok-n">vw</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">wvel_set_shear</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">gdot</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">vdir</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">gdir</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">half</span><span class="tok-p">,</span> <span class="tok-n">Wvel</span> <span class="tok-o">*</span><span class="tok-n">vw</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">wvel_set_shear_sin</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">gdot</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">vdir</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">gdir</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">half</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">w</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">log_freq</span><span class="tok-p">,</span> <span class="tok-n">Wvel</span> <span class="tok-o">*</span><span class="tok-n">vw</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">wvel_set_shear</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">gdot</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">vdir</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">gdir</span><span class="tok-p">,</span> <span class="tok-n">Wvel</span> <span class="tok-o">*</span><span class="tok-n">vw</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">wvel_set_shear_sin</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">gdot</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">vdir</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">gdir</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">w</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">log_freq</span><span class="tok-p">,</span> <span class="tok-n">Wvel</span> <span class="tok-o">*</span><span class="tok-n">vw</span><span class="tok-p">);</span>
 <span class="tok-kt">void</span> <span class="tok-nf">wvel_set_hs</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">u</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">h</span><span class="tok-p">,</span> <span class="tok-n">Wvel</span> <span class="tok-o">*</span><span class="tok-n">vw</span><span class="tok-p">);</span>
 <span class="tok-kt">void</span> <span class="tok-nf">wvel_set_timestep</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-n">Wvel</span> <span class="tok-o">*</span><span class="tok-n">vw</span><span class="tok-p">);</span></code></pre>
 </div>
@@ -119,24 +125,64 @@ specific time. It is passed to device kernels.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Get <em>view</em> structure:</p>
+<p>Get <em>step</em> structure:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">wvel_get_view</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-kt">long</span> <span class="tok-n">it</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Wvel</span> <span class="tok-o">*</span><span class="tok-n">wv</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Wvel_v</span> <span class="tok-o">*</span><span class="tok-n">view</span><span class="tok-p">);</span></code></pre>
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">wvel_get_step</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-kt">long</span> <span class="tok-n">it</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Wvel</span> <span class="tok-o">*</span><span class="tok-n">wv</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">WvelStep</span> <span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Get <em>view</em> structures:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">wvel_get_view</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">WvelStep</span> <span class="tok-o">*</span><span class="tok-n">w</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">WvelCste_v</span> <span class="tok-o">*</span><span class="tok-n">v</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">wvel_get_view</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">WvelStep</span> <span class="tok-o">*</span><span class="tok-n">w</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">WvelShear_v</span> <span class="tok-o">*</span><span class="tok-n">v</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">wvel_get_view</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">WvelStep</span> <span class="tok-o">*</span><span class="tok-n">w</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">WvelHS_v</span> <span class="tok-o">*</span><span class="tok-n">v</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The convertion to <em>view</em> structures can be dispatch using the type of
+the parameters:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-k">enum</span> <span class="tok-p">{</span>
+    <span class="tok-n">WALL_VEL_V_CSTE</span><span class="tok-p">,</span>
+    <span class="tok-n">WALL_VEL_V_SHEAR</span><span class="tok-p">,</span>
+    <span class="tok-n">WALL_VEL_V_HS</span><span class="tok-p">,</span>
+<span class="tok-p">};</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>which can be retrieved from the <em>Step</em> structure using</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">int</span> <span class="tok-nf">wvel_get_type</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">WvelStep</span> <span class="tok-o">*</span><span class="tok-n">w</span><span class="tok-p">);</span></code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_device">3.2. Device</h3>
 <div class="paragraph">
-<p>Device code contains the functions describing the field.
-Also contains bouncer function: gives bounced-back velocity from
+<p>Velocity field can be retrieved, depending on the view structure, using</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-k">static</span> <span class="tok-n">__device__</span> <span class="tok-kt">void</span> <span class="tok-n">wvel</span><span class="tok-p">(</span><span class="tok-n">WvelCste_v</span> <span class="tok-n">p</span><span class="tok-p">,</span> <span class="tok-n">Coords_v</span> <span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-n">float3</span> <span class="tok-n">r</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">float3</span> <span class="tok-o">*</span><span class="tok-n">v</span><span class="tok-p">)</span>
+<span class="tok-k">static</span> <span class="tok-n">__device__</span> <span class="tok-kt">void</span> <span class="tok-n">wvel</span><span class="tok-p">(</span><span class="tok-n">WvelShear_v</span> <span class="tok-n">p</span><span class="tok-p">,</span> <span class="tok-n">Coords_v</span> <span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-n">float3</span> <span class="tok-n">r</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">float3</span> <span class="tok-o">*</span><span class="tok-n">v</span><span class="tok-p">)</span>
+<span class="tok-k">static</span> <span class="tok-n">__device__</span> <span class="tok-kt">void</span> <span class="tok-n">wvel</span><span class="tok-p">(</span><span class="tok-n">WvelHS_v</span> <span class="tok-n">p</span><span class="tok-p">,</span> <span class="tok-n">Coords_v</span> <span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-n">float3</span> <span class="tok-n">r</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">float3</span> <span class="tok-o">*</span><span class="tok-n">v</span><span class="tok-p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Bounce function: gives bounced-back velocity from
 position and velocity of particle.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-k">static</span> <span class="tok-n">__device__</span> <span class="tok-kt">void</span> <span class="tok-n">wvel</span><span class="tok-p">(</span><span class="tok-n">Wvel_v</span> <span class="tok-n">wv</span><span class="tok-p">,</span> <span class="tok-n">Coords_v</span> <span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-n">float3</span> <span class="tok-n">r</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">float3</span> <span class="tok-o">*</span><span class="tok-n">v</span><span class="tok-p">)</span>
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-k">template</span> <span class="tok-o">&lt;</span><span class="tok-k">typename</span> <span class="tok-n">Wvel_v</span><span class="tok-o">&gt;</span>
 <span class="tok-k">static</span> <span class="tok-n">__device__</span> <span class="tok-kt">void</span> <span class="tok-n">bounce_vel</span><span class="tok-p">(</span><span class="tok-n">Wvel_v</span> <span class="tok-n">wv</span><span class="tok-p">,</span> <span class="tok-n">Coords_v</span> <span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-n">float3</span> <span class="tok-n">rw</span><span class="tok-p">,</span> <span class="tok-cm">/* io */</span> <span class="tok-n">float3</span><span class="tok-o">*</span> <span class="tok-n">v</span><span class="tok-p">)</span></code></pre>
 </div>
 </div>
@@ -189,7 +235,6 @@ position and velocity of particle.</p>
 <span class="tok-s">    gdot = 3.0;</span>
 <span class="tok-s">    vdir = 0;</span>
 <span class="tok-s">    gdir = 1;</span>
-<span class="tok-s">    half = 0;</span>
 <span class="tok-s">    w = 5.0;</span>
 <span class="tok-s">    log_freq = 1000;</span>
 <span class="tok-na">};</span></code></pre>
