@@ -80,6 +80,9 @@ particle position and velocity, \(n\) is the number of particles
 and \(\mathbf{f}\) is a given transformation.</p>
 </div>
 <div class="paragraph">
+<p>There is therefore 3 (independant) controlled variables.</p>
+</div>
+<div class="paragraph">
 <p>the transformation is the way of averaging the velocity:</p>
 </div>
 <div class="ulist">
@@ -177,6 +180,10 @@ and <code>Kd</code></p>
 <span class="tok-s">     active = true;</span>
 <span class="tok-s">     type   = &quot;cart&quot;;          # can be also &quot;rad&quot;</span>
 <span class="tok-s">     U      = [1.0, 1.0, 0.0]; # target velocity in transformed space</span>
+<span class="tok-s">     factor = 0.08</span>
+<span class="tok-s">     Kp = 2.0</span>
+<span class="tok-s">     Ki = 1.0</span>
+<span class="tok-s">     Kd = 8.0</span>
 <span class="tok-s">     log_freq    = 500;</span>
 <span class="tok-s">     adjust_freq = 500;</span>
 <span class="tok-s">     sample_freq = 1;</span>
