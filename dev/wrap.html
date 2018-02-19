@@ -30,52 +30,66 @@ is run</p>
 <p>if <code>MEM</code> is set <code>udx</code> is ran with <code>cuda-memcheck</code> and <code>MEM</code> is used as a
 list of parameters</p>
 </div>
-<div class="literalblock">
+<div class="listingblock">
 <div class="content">
 <pre>MEM= u.test test/*
 MEM='--leakcheck --blocking'              u.test test/*
-MEM='--tool initcheck'                    u.test test/*
-----
-
-see also link:poc/memcheck[poc/memcheck]
-
-[[val]]
-== VAL
-
-if `VAL` is set `udx` is ran with valgrind and `VAL` is used as a list
-of parameters.
-
-----
-VAL= u.test test/*
-VAL="--leak-check=full --show-leak-kinds=all"  u.test test/*
-----
-
-`u.run` respect `DRYRUN` : only show the commands do not execute them
-
-----
-DRYRUN= VAL=--option u.run ./udx
+MEM='--tool initcheck'                    u.test test/*</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>see also <a href="poc/memcheck">poc/memcheck</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="val">3. VAL</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>if <code>VAL</code> is set <code>udx</code> is ran with valgrind and <code>VAL</code> is used as a list
+of parameters.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>VAL= u.test test/*
+VAL="--leak-check=full --show-leak-kinds=all"  u.test test/*</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>u.run</code> respect <code>DRYRUN</code> : only show the commands do not execute them</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>DRYRUN= VAL=--option u.run ./udx
 
 module: load cray-hdf5-parallel cudatoolkit daint-gpu
-cmd: srun -n 1 -u valgrind --option ./udx
-----
-
-[[prof]]
-== PROF
-
-if `PROF` is set is ran with `nvprof`
-
-----
-PROF="--export-profile main.prof" u.run ./udx
-nvprof -i main.prof
-----
-
-See also link:poc/prof/ppbandwidth[poc/ppbandwidth]
-
-[[tim]]
-== TIM
-
-if `TIM` is set is ran with `time`</pre>
+cmd: srun -n 1 -u valgrind --option ./udx</pre>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="prof">4. PROF</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>if <code>PROF</code> is set is ran with <code>nvprof</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>PROF="--export-profile main.prof" u.run ./udx
+nvprof -i main.prof</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>See also <a href="poc/prof/ppbandwidth">poc/ppbandwidth</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tim">5. TIM</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>if <code>TIM</code> is set is ran with <code>time</code></p>
 </div>
 </div>
 </div>
