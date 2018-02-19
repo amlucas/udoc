@@ -90,7 +90,7 @@
 <li><a href="#_time_step">1.41. Time step</a></li>
 <li><a href="#_utils">1.42. Utils</a></li>
 <li><a href="#_wvel">1.43. wvel</a></li>
-<li><a href="#_third_party_dependencies">1.44. Third party dependencies</a></li>
+<li><a href="#_third_party_dependencies">1.44. third party dependencies</a></li>
 <li><a href="#wrappers">1.45. wrappers</a></li>
 </ul>
 </li>
@@ -143,8 +143,8 @@ line options. Here is an example</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Configuration files and command option follow the syntax of
-<em>libconfig</em> library. Some parameters have default values and are set
+<p>Configuration files and command line options follow the syntax of
+<a href="https://hyperrealm.github.io/libconfig">libconfig library</a>. Some parameters have default values and are set
 in <code>$HOME/.udx/defult.cfg</code>. <em>uDeviceX</em> outputs DPD particles,
 trajectories of the objects, and averaged flow fields.</p>
 </div>
@@ -4642,7 +4642,7 @@ position and velocity of particle.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_third_party_dependencies">1.44. Third party dependencies</h3>
+<h3 id="_third_party_dependencies">1.44. third party dependencies</h3>
 <div class="sect3">
 <h4 id="_cuda_compiler">1.44.1. cuda compiler</h4>
 <div class="paragraph">
@@ -4729,10 +4729,7 @@ make install</code></pre>
 <p>a data model, library, and file format for storing and managing data</p>
 </div>
 <div class="paragraph">
-<p><a href="https://support.hdfgroup.org/HDF5" class="bare">https://support.hdfgroup.org/HDF5</a></p>
-</div>
-<div class="paragraph">
-<p>To get flags</p>
+<p>To get the compilation and linking flag the following commands flags</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -4748,20 +4745,15 @@ make install</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>To build from source</p>
-</div>
-<div class="paragraph">
-<p>link:https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8.17/src/hdf5-1.8.17.tar.gz</p>
+<p>To build from the
+<a href="https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8.17/src/hdf5-1.8.17.tar.gz">source</a></p>
 </div>
 <div class="paragraph">
 <p>Configuration options</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="sh"><span></span>      --prefix<span class="tok-o">=</span><span class="tok-nv">$HOME</span>/prefix/hdf5
-	  --enable-parallel
-	  <span class="tok-nv">CXX</span><span class="tok-o">=</span>/usr/lib64/mpich/bin/mpic++
-	  <span class="tok-nv">CC</span><span class="tok-o">=</span>/usr/lib64/mpich/bin/mpicc</code></pre>
+<pre class="pygments highlight"><code data-lang="sh"><span></span>      --prefix<span class="tok-o">=</span><span class="tok-nv">$HOME</span>/prefix/hdf5 --enable-parallel <span class="tok-nv">CXX</span><span class="tok-o">=</span>mpic++ <span class="tok-nv">CC</span><span class="tok-o">=</span>mpicc</code></pre>
 </div>
 </div>
 </div>

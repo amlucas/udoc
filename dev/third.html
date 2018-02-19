@@ -5,13 +5,13 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.6.1">
-<title>Third party dependencies</title>
+<title>third party dependencies</title>
 <link rel="stylesheet" href="/udoc/css/main.css">
 <link rel="stylesheet" href="./pygments-colorful.css">
 </head>
 <body class="article">
 <div id="header">
-<h1>Third party dependencies</h1>
+<h1>third party dependencies</h1>
 </div>
 <div id="content">
 <div class="sect1">
@@ -107,10 +107,7 @@ make install</code></pre>
 <p>a data model, library, and file format for storing and managing data</p>
 </div>
 <div class="paragraph">
-<p><a href="https://support.hdfgroup.org/HDF5" class="bare">https://support.hdfgroup.org/HDF5</a></p>
-</div>
-<div class="paragraph">
-<p>To get flags</p>
+<p>To get the compilation and linking flag the following commands flags</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -126,20 +123,15 @@ make install</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>To build from source</p>
-</div>
-<div class="paragraph">
-<p>link:https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8.17/src/hdf5-1.8.17.tar.gz</p>
+<p>To build from the
+<a href="https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8.17/src/hdf5-1.8.17.tar.gz">source</a></p>
 </div>
 <div class="paragraph">
 <p>Configuration options</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="sh"><span></span>      --prefix<span class="tok-o">=</span><span class="tok-nv">$HOME</span>/prefix/hdf5
-	  --enable-parallel
-	  <span class="tok-nv">CXX</span><span class="tok-o">=</span>/usr/lib64/mpich/bin/mpic++
-	  <span class="tok-nv">CC</span><span class="tok-o">=</span>/usr/lib64/mpich/bin/mpicc</code></pre>
+<pre class="pygments highlight"><code data-lang="sh"><span></span>      --prefix<span class="tok-o">=</span><span class="tok-nv">$HOME</span>/prefix/hdf5 --enable-parallel <span class="tok-nv">CXX</span><span class="tok-o">=</span>mpic++ <span class="tok-nv">CC</span><span class="tok-o">=</span>mpicc</code></pre>
 </div>
 </div>
 </div>
