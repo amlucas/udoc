@@ -3860,14 +3860,13 @@ Purpose: kill particles during redistribution or cell lists build</p>
 <div class="paragraph">
 <p>Consider closed triangulated mesh with <code>nv</code> vertices. Degree of a
 vertex is the number of edges incident to the vertex. Let <code>md</code> is a
-maximum degree of the vertices. To compute forces in one membrane
-<em>uDeviceX</em> launches <code>nv * md</code> threads each thread adds forces to only
-one vertices.  There are three types of forces: edge forces which
-depend on two vertices, triangle forces which depend on three
-vertices, and dihedral forces which depend of four vertices (edge and
-two adjusting triangles). <code>Adj_v</code> has an API call which allow for a
-given thread ID to find which vertices should be used in forces
-computation.</p>
+maximum degree of the vertices. There are three types of forces: edge
+forces which depend on two vertices, triangle forces which depend on
+three vertices, and dihedral forces which depend of four vertices
+(edge and two adjusting triangles). To compute forces in one membrane
+<em>uDeviceX</em> launches <code>nv * md</code> threads, each thread adds forces to only
+one vertices.  <code>Adj_v</code> has an API call which allows for a given thread
+ID to find which vertices should be used in forces computation.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3875,23 +3874,55 @@ computation.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>It return 0 if thread is not <code>valid</code>. If <code>md * nv</code> is bigger than
-number of edges in the membrane some threads are not needed. <code>AdjMap</code>
-is a structure which contains five indices and an ID of the mesh:</p>
+<p>If <code>md * nv</code> is bigger than the number of edges in the membrane and
+some threads are not needed. The function returns 0 in this case.
+<code>AdjMap</code> is a structure which contains five indices and an ID of the
+mesh:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">struct</span> <span class="tok-n">Adj_v</span> <span class="tok-p">{</span>
-    <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">adj0</span><span class="tok-p">;</span>
-    <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">adj1</span><span class="tok-p">;</span>
-    <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-n">md</span><span class="tok-p">;</span>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">struct</span> <span class="tok-n">AdjMap</span> <span class="tok-p">{</span>
+    <span class="tok-kt">int</span> <span class="tok-n">i0</span><span class="tok-p">,</span> <span class="tok-n">i1</span><span class="tok-p">,</span> <span class="tok-n">i2</span><span class="tok-p">,</span> <span class="tok-n">i3</span><span class="tok-p">,</span> <span class="tok-n">i4</span><span class="tok-p">;</span>
+    <span class="tok-kt">int</span> <span class="tok-n">rbc</span><span class="tok-p">;</span>
 <span class="tok-p">};</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>Each thread adds force to a vertices with index <code>0</code>. It considers edge
-<code>01</code>, triangle <code>012</code>, and two dihedrals <code>0124</code> and <code>1203</code>. For example
-the contribution of edge <code>01</code>.</p>
+<code>01</code>, triangle <code>012</code>, and two dihedrals <code>0124</code> and <code>1203</code>. For
+example, a contribution of edge force <code>01</code> to vertex <code>1</code> is added by
+another thread.</p>
+</div>
+<div class="paragraph">
+<p><code>Adj_v</code> is initilized from a host structure <code>Adj</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">adj_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">md</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nt</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">int4</span> <span class="tok-o">*</span><span class="tok-n">tt</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Adj</span><span class="tok-o">**</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">adj_fin</span><span class="tok-p">(</span><span class="tok-n">Adj</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-kt">int</span>  <span class="tok-nf">adj_get_map</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Adj</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">AdjMap</span> <span class="tok-o">*</span><span class="tok-n">m</span><span class="tok-p">);</span>
+<span class="tok-kt">int</span>  <span class="tok-nf">adj_get_max</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Adj</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">adj_get_anti</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Adj</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">anti</span><span class="tok-p">);</span>
+
+<span class="tok-kt">void</span> <span class="tok-nf">adj_view_ini</span><span class="tok-p">(</span><span class="tok-n">Adj</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">Adj_v</span><span class="tok-o">**</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">adj_view_fin</span><span class="tok-p">(</span><span class="tok-n">Adj_v</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>Adj</code> can be used to pack data which can be asseced on device:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">float</span> <span class="tok-o">*</span><span class="tok-n">A</span><span class="tok-p">;</span>
+<span class="tok-n">n</span> <span class="tok-o">=</span> <span class="tok-n">adj_get_max</span><span class="tok-p">(</span><span class="tok-n">adj</span><span class="tok-p">);</span>
+<span class="tok-n">EMALLOC</span><span class="tok-p">(</span><span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-o">&amp;</span><span class="tok-n">A</span><span class="tok-p">);</span>
+<span class="tok-k">for</span> <span class="tok-p">(</span><span class="tok-n">i</span> <span class="tok-o">=</span> <span class="tok-mi">0</span><span class="tok-p">;</span> <span class="tok-n">i</span> <span class="tok-o">&lt;</span> <span class="tok-n">n</span><span class="tok-p">;</span> <span class="tok-n">i</span><span class="tok-o">++</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+   <span class="tok-n">valid</span> <span class="tok-o">=</span> <span class="tok-n">adj_get_map</span><span class="tok-p">(</span><span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-n">adj</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-o">&amp;</span><span class="tok-n">m</span><span class="tok-p">);</span>
+   <span class="tok-k">if</span> <span class="tok-p">(</span><span class="tok-o">!</span><span class="tok-n">valid</span><span class="tok-p">)</span> <span class="tok-k">continue</span><span class="tok-p">;</span>
+   <span class="tok-n">i0</span> <span class="tok-o">=</span> <span class="tok-n">m</span><span class="tok-p">.</span><span class="tok-n">i0</span><span class="tok-p">;</span> <span class="tok-n">i1</span> <span class="tok-o">=</span> <span class="tok-n">m</span><span class="tok-p">.</span><span class="tok-n">i1</span><span class="tok-p">;</span> <span class="tok-n">i2</span> <span class="tok-o">=</span> <span class="tok-n">m</span><span class="tok-p">.</span><span class="tok-n">i2</span><span class="tok-p">;</span>
+   <span class="tok-n">A</span><span class="tok-p">[</span><span class="tok-n">i</span><span class="tok-p">]</span> <span class="tok-o">=</span> <span class="tok-n">some_function_of</span><span class="tok-p">(</span><span class="tok-n">i0</span><span class="tok-p">,</span> <span class="tok-n">i1</span><span class="tok-p">,</span> <span class="tok-n">i2</span><span class="tok-p">)</span>
+<span class="tok-p">}</span></code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
