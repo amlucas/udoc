@@ -3877,7 +3877,7 @@ computation.</p>
 <div class="paragraph">
 <p>It return 0 if thread is not <code>valid</code>. If <code>md * nv</code> is bigger than
 number of edges in the membrane some threads are not needed. <code>AdjMap</code>
-is a structure which contains five indices and ID of a mesh:</p>
+is a structure which contains five indices and an ID of the mesh:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3887,6 +3887,11 @@ is a structure which contains five indices and ID of a mesh:</p>
     <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-n">md</span><span class="tok-p">;</span>
 <span class="tok-p">};</span></code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Each thread adds force to a vertices with index <code>0</code>. It considers edge
+<code>01</code>, triangle <code>012</code>, and two dihedrals <code>0124</code> and <code>1203</code>. For example
+the contribution of edge <code>01</code>.</p>
 </div>
 </div>
 <div class="sect2">
