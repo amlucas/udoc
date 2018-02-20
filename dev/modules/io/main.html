@@ -93,12 +93,12 @@ triangles, number of vertices and maximum degree.</p>
 <span class="tok-kt">void</span> <span class="tok-nf">mesh_read_ply</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">path</span><span class="tok-p">,</span> <span class="tok-n">MeshRead</span><span class="tok-o">**</span><span class="tok-p">);</span>
 <span class="tok-kt">void</span> <span class="tok-nf">mesh_fin</span><span class="tok-p">(</span><span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">);</span>
 
-<span class="tok-kt">int</span> <span class="tok-nf">mesh_get_nt</span><span class="tok-p">(</span><span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">);</span>
-<span class="tok-kt">int</span> <span class="tok-nf">mesh_get_nv</span><span class="tok-p">(</span><span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">);</span>
-<span class="tok-kt">int</span> <span class="tok-nf">mesh_get_md</span><span class="tok-p">(</span><span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-kt">int</span> <span class="tok-nf">mesh_get_nt</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-kt">int</span> <span class="tok-nf">mesh_get_nv</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-kt">int</span> <span class="tok-nf">mesh_get_md</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">);</span>
 
-<span class="tok-k">const</span> <span class="tok-n">int4</span>  <span class="tok-o">*</span><span class="tok-nf">mesh_get_tri</span><span class="tok-p">(</span><span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">);</span>
-<span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-o">*</span><span class="tok-nf">mesh_get_vert</span><span class="tok-p">(</span><span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+<span class="tok-k">const</span> <span class="tok-n">int4</span>  <span class="tok-o">*</span><span class="tok-nf">mesh_get_tri</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-o">*</span><span class="tok-nf">mesh_get_vert</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
 </div>
 </div>
 </div>
