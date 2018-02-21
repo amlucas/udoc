@@ -1153,8 +1153,8 @@ positive direction x, y or z</p>
 <span class="tok-k">struct</span> <span class="tok-n">Particle</span><span class="tok-p">;</span>
 <span class="tok-k">struct</span> <span class="tok-n">Coords</span><span class="tok-p">;</span>
 
-<span class="tok-kt">void</span> <span class="tok-nf">color_linear_flux</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">dir</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">color</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span>
-                       <span class="tok-kt">int</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+<span class="tok-kt">void</span> <span class="tok-nf">color_linear_flux</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">dir</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">color</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span>
+                       <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">cc</span><span class="tok-p">);</span></code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -2337,6 +2337,7 @@ contains the three <em>hidden</em> generic data structures:</p>
     <span class="tok-n">hBags</span> <span class="tok-n">hpp</span><span class="tok-p">;</span>
 
     <span class="tok-cm">/* optional: ids */</span>
+    <span class="tok-kt">bool</span> <span class="tok-n">ids</span><span class="tok-p">;</span>
     <span class="tok-n">DMap</span> <span class="tok-n">hmap</span><span class="tok-p">;</span>
     <span class="tok-n">hBags</span> <span class="tok-n">hii</span><span class="tok-p">;</span>
 
@@ -2346,12 +2347,14 @@ contains the three <em>hidden</em> generic data structures:</p>
 <span class="tok-k">struct</span> <span class="tok-n">DRbcComm</span> <span class="tok-p">{</span>
     <span class="tok-cm">/* optional: ids */</span>
     <span class="tok-n">Comm</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-o">*</span><span class="tok-n">ii</span><span class="tok-p">;</span>
+    <span class="tok-kt">bool</span> <span class="tok-n">ids</span><span class="tok-p">;</span>
 <span class="tok-p">};</span>
 
 <span class="tok-k">struct</span> <span class="tok-n">DRbcUnpack</span> <span class="tok-p">{</span>
     <span class="tok-n">hBags</span> <span class="tok-n">hpp</span><span class="tok-p">;</span>
 
     <span class="tok-cm">/* optional: ids */</span>
+    <span class="tok-kt">bool</span> <span class="tok-n">ids</span><span class="tok-p">;</span>
     <span class="tok-n">hBags</span> <span class="tok-n">hii</span><span class="tok-p">;</span>
 
     <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">;</span> <span class="tok-cm">/* subdomain size */</span>
@@ -2367,9 +2370,9 @@ each RBC. Other variables have the same naming conventions than <code>distr::flu
 <h4 id="_interface_13">17.3.2. interface</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">drbc_pack_ini</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxc</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-n">DRbcPack</span> <span class="tok-o">**</span><span class="tok-n">p</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">drbc_comm_ini</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span> <span class="tok-n">comm</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">DRbcComm</span> <span class="tok-o">**</span><span class="tok-n">c</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">drbc_unpack_ini</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxc</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-n">DRbcUnpack</span> <span class="tok-o">**</span><span class="tok-n">u</span><span class="tok-p">);</span>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">drbc_pack_ini</span><span class="tok-p">(</span><span class="tok-kt">bool</span> <span class="tok-n">ids</span><span class="tok-p">,</span> <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxc</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-n">DRbcPack</span> <span class="tok-o">**</span><span class="tok-n">p</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">drbc_comm_ini</span><span class="tok-p">(</span><span class="tok-kt">bool</span> <span class="tok-n">ids</span><span class="tok-p">,</span> <span class="tok-n">MPI_Comm</span> <span class="tok-n">comm</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">DRbcComm</span> <span class="tok-o">**</span><span class="tok-n">c</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">drbc_unpack_ini</span><span class="tok-p">(</span><span class="tok-kt">bool</span> <span class="tok-n">ids</span><span class="tok-p">,</span> <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxc</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-n">DRbcUnpack</span> <span class="tok-o">**</span><span class="tok-n">u</span><span class="tok-p">);</span>
 
 <span class="tok-kt">void</span> <span class="tok-nf">drbc_pack_fin</span><span class="tok-p">(</span><span class="tok-n">DRbcPack</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>
 <span class="tok-kt">void</span> <span class="tok-nf">drbc_comm_fin</span><span class="tok-p">(</span><span class="tok-n">DRbcComm</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>
@@ -5153,7 +5156,7 @@ specific time step. It is generated from <code>Wvel</code> structure.</p>
 <div class="content">
 <pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">wvel_set_cste</span><span class="tok-p">(</span><span class="tok-n">float3</span> <span class="tok-n">u</span><span class="tok-p">,</span> <span class="tok-n">Wvel</span> <span class="tok-o">*</span><span class="tok-n">vw</span><span class="tok-p">);</span>
 <span class="tok-kt">void</span> <span class="tok-nf">wvel_set_shear</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">gdot</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">vdir</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">gdir</span><span class="tok-p">,</span> <span class="tok-n">Wvel</span> <span class="tok-o">*</span><span class="tok-n">vw</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">wvel_set_shear_sin</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">gdot</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">vdir</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">gdir</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">w</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">log_freq</span><span class="tok-p">,</span> <span class="tok-n">Wvel</span> <span class="tok-o">*</span><span class="tok-n">vw</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">wvel_set_shear_sin</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">gdot</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">vdir</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">gdir</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">w</span><span class="tok-p">,</span> <span class="tok-n">Wvel</span> <span class="tok-o">*</span><span class="tok-n">vw</span><span class="tok-p">);</span>
 <span class="tok-kt">void</span> <span class="tok-nf">wvel_set_hs</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">u</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">h</span><span class="tok-p">,</span> <span class="tok-n">Wvel</span> <span class="tok-o">*</span><span class="tok-n">vw</span><span class="tok-p">);</span>
 <span class="tok-kt">void</span> <span class="tok-nf">wvel_set_timestep</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-n">Wvel</span> <span class="tok-o">*</span><span class="tok-n">vw</span><span class="tok-p">);</span></code></pre>
 </div>
@@ -5171,7 +5174,7 @@ specific time step. It is generated from <code>Wvel</code> structure.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">wvel_get_step</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-kt">long</span> <span class="tok-n">it</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Wvel</span> <span class="tok-o">*</span><span class="tok-n">wv</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">WvelStep</span> <span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">wvel_get_step</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">t</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Wvel</span> <span class="tok-o">*</span><span class="tok-n">wv</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">WvelStep</span> <span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -5276,12 +5279,8 @@ position and velocity of particle.</p>
 <span class="tok-s">    vdir = 0;</span>
 <span class="tok-s">    gdir = 1;</span>
 <span class="tok-s">    w = 5.0;</span>
-<span class="tok-s">    log_freq = 1000;</span>
 <span class="tok-na">};</span></code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>in this case, the value \(3 * \sin(5 t)\) is printed every 1000 iterations.</p>
 </div>
 </div>
 <div class="sect3">
