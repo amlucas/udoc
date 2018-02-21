@@ -2701,13 +2701,247 @@ nodes.</p>
 <div class="sect2">
 <h3 id="_obj">18.3. obj</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>Object exchanger is used to exchange particles from objects (<em>rbc</em> or
+<em>rig</em>) with neighboring nodes for computing their interactions with
+the solvent (<em>fsi</em>) or with other objects (<em>contact forces</em>).
+It sends the remote forces back to the local node.</p>
+</div>
+<div class="paragraph">
+<p>Sending back the forces is optional.</p>
+</div>
+<div class="sect3">
+<h4 id="_particle_exchange_interface">18.3.1. particle exchange interface</h4>
+<div class="paragraph">
+<p>allocate, deallocate the structures:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">eobj_pack_ini</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nw</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxd</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxpsolid</span><span class="tok-p">,</span> <span class="tok-n">EObjPack</span> <span class="tok-o">**</span><span class="tok-n">p</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">eobj_comm_ini</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span> <span class="tok-n">cart</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">EObjComm</span> <span class="tok-o">**</span><span class="tok-n">c</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">eobj_unpack_ini</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxd</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxpsolid</span><span class="tok-p">,</span> <span class="tok-n">EObjUnpack</span> <span class="tok-o">**</span><span class="tok-n">u</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">eobj_packf_ini</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxd</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxpsolid</span><span class="tok-p">,</span> <span class="tok-n">EObjPackF</span> <span class="tok-o">**</span><span class="tok-n">p</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">eobj_unpackf_ini</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxd</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxpsolid</span><span class="tok-p">,</span> <span class="tok-n">EObjUnpackF</span> <span class="tok-o">**</span><span class="tok-n">u</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>build the map from array of wrappers <code>PaWrap</code> containing array of particles:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">eobj_build_map</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">nw</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">PaWrap</span> <span class="tok-o">*</span><span class="tok-n">ww</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">EObjPack</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>pack the data:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">eobj_pack</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">nw</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">PaWrap</span> <span class="tok-o">*</span><span class="tok-n">ww</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">EObjPack</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">eobj_download</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">nw</span><span class="tok-p">,</span> <span class="tok-n">EObjPack</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>communicate the packed data with neighboring nodes:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">eobj_post_recv</span><span class="tok-p">(</span><span class="tok-n">EObjComm</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-n">EObjUnpack</span> <span class="tok-o">*</span><span class="tok-n">u</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">eobj_post_send</span><span class="tok-p">(</span><span class="tok-n">EObjPack</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">,</span> <span class="tok-n">EObjComm</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">eobj_wait_recv</span><span class="tok-p">(</span><span class="tok-n">EObjComm</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-n">EObjUnpack</span> <span class="tok-o">*</span><span class="tok-n">u</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">eobj_wait_send</span><span class="tok-p">(</span><span class="tok-n">EObjComm</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>retrieve information about the received data:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-n">int26</span> <span class="tok-nf">eobj_get_counts</span><span class="tok-p">(</span><span class="tok-n">EObjUnpack</span> <span class="tok-o">*</span><span class="tok-n">u</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-n">Pap26</span> <span class="tok-nf">eobj_upload_shift</span><span class="tok-p">(</span><span class="tok-n">EObjUnpack</span> <span class="tok-o">*</span><span class="tok-n">u</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-n">Fop26</span> <span class="tok-nf">eobj_reini_ff</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">EObjUnpack</span> <span class="tok-o">*</span><span class="tok-n">u</span><span class="tok-p">,</span> <span class="tok-n">EObjPackF</span> <span class="tok-o">*</span><span class="tok-n">pf</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>get the number of particles inside each fragment</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>upload particles on device, shift them in local coordinates and
+return device pointers</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>set forces on device to 0 and return device pointers</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_force_back_sender_interface">18.3.2. force back sender interface</h4>
+<div class="paragraph">
+<p>allocate, deallocate the optional structures:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">eobj_pack_fin</span><span class="tok-p">(</span><span class="tok-n">EObjPack</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">eobj_comm_fin</span><span class="tok-p">(</span><span class="tok-n">EObjComm</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">eobj_unpack_fin</span><span class="tok-p">(</span><span class="tok-n">EObjUnpack</span> <span class="tok-o">*</span><span class="tok-n">u</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">eobj_packf_fin</span><span class="tok-p">(</span><span class="tok-n">EObjPackF</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">eobj_unpackf_fin</span><span class="tok-p">(</span><span class="tok-n">EObjUnpackF</span> <span class="tok-o">*</span><span class="tok-n">u</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>download the forces on host:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">eobj_download_ff</span><span class="tok-p">(</span><span class="tok-n">EObjPackF</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>communicate back the forces to neighbours:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">eobj_post_recv_ff</span><span class="tok-p">(</span><span class="tok-n">EObjComm</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-n">EObjUnpackF</span> <span class="tok-o">*</span><span class="tok-n">u</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">eobj_post_send_ff</span><span class="tok-p">(</span><span class="tok-n">EObjPackF</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">,</span> <span class="tok-n">EObjComm</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">eobj_wait_recv_ff</span><span class="tok-p">(</span><span class="tok-n">EObjComm</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-n">EObjUnpackF</span> <span class="tok-o">*</span><span class="tok-n">u</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">eobj_wait_send_ff</span><span class="tok-p">(</span><span class="tok-n">EObjComm</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>unpack forces arrays inside wrappers <code>FoWrap</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">eobj_unpack_ff</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">EObjUnpackF</span> <span class="tok-o">*</span><span class="tok-n">u</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">EObjPack</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nw</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">FoWrap</span> <span class="tok-o">*</span><span class="tok-n">ww</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_mesh">18.4. mesh</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>exchange full mesh particles with neighbouring nodes when bounding box
+of the mesh crosses or is close enough to the subdomain boundaries.
+This is used for mesh bounce back or solvent recoloring.</p>
+</div>
+<div class="paragraph">
+<p>It can optionally send back momentum data per triangles to original node.</p>
+</div>
+<div class="sect3">
+<h4 id="_mesh_exchanger_interface">18.4.1. mesh exchanger interface</h4>
+<div class="paragraph">
+<p>allocate, deallocate:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">emesh_pack_ini</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">max_mesh_num</span><span class="tok-p">,</span> <span class="tok-n">EMeshPack</span> <span class="tok-o">**</span><span class="tok-n">p</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">emesh_comm_ini</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span> <span class="tok-n">comm</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">EMeshComm</span> <span class="tok-o">**</span><span class="tok-n">c</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">emesh_unpack_ini</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">max_mesh_num</span><span class="tok-p">,</span> <span class="tok-n">EMeshUnpack</span> <span class="tok-o">**</span><span class="tok-n">u</span><span class="tok-p">);</span>
+
+<span class="tok-kt">void</span> <span class="tok-nf">emesh_pack_fin</span><span class="tok-p">(</span><span class="tok-n">EMeshPack</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">emesh_comm_fin</span><span class="tok-p">(</span><span class="tok-n">EMeshComm</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">emesh_unpack_fin</span><span class="tok-p">(</span><span class="tok-n">EMeshUnpack</span> <span class="tok-o">*</span><span class="tok-n">u</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>build map:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">emesh_build_map</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">nm</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">EMeshPack</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>pack data:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">emesh_pack</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">EMeshPack</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">emesh_download</span><span class="tok-p">(</span><span class="tok-n">EMeshPack</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>communicate data with neigbours:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">emesh_post_recv</span><span class="tok-p">(</span><span class="tok-n">EMeshComm</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-n">EMeshUnpack</span> <span class="tok-o">*</span><span class="tok-n">u</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">emesh_post_send</span><span class="tok-p">(</span><span class="tok-n">EMeshPack</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">,</span> <span class="tok-n">EMeshComm</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">emesh_wait_recv</span><span class="tok-p">(</span><span class="tok-n">EMeshComm</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-n">EMeshUnpack</span> <span class="tok-o">*</span><span class="tok-n">u</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">emesh_wait_send</span><span class="tok-p">(</span><span class="tok-n">EMeshComm</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>unpack the data to a single particle array:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">emesh_unpack</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">EMeshUnpack</span> <span class="tok-o">*</span><span class="tok-n">u</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">nmhalo</span><span class="tok-p">,</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>the returned value <code>nmhalo</code> is the number of
+received meshes</p>
+</div>
+<div class="paragraph">
+<p>get number of mesh per fragment:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">emesh_get_num_frag_mesh</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">EMeshUnpack</span> <span class="tok-o">*</span><span class="tok-n">u</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">int</span> <span class="tok-n">cc</span><span class="tok-p">[</span><span class="tok-n">NFRAGS</span><span class="tok-p">]);</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_back_momentum_sender_interface">18.4.2. back momentum sender interface</h4>
+<div class="paragraph">
+<p>allocate, deallocate the optional structures:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">emesh_packm_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">num_mom_per_mesh</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">max_mesh_num</span><span class="tok-p">,</span> <span class="tok-n">EMeshPackM</span> <span class="tok-o">**</span><span class="tok-n">p</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">emesh_commm_ini</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span> <span class="tok-n">comm</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">EMeshCommM</span> <span class="tok-o">**</span><span class="tok-n">c</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">emesh_unpackm_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">num_mom_per_mesh</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">max_mesh_num</span><span class="tok-p">,</span> <span class="tok-n">EMeshUnpackM</span> <span class="tok-o">**</span><span class="tok-n">u</span><span class="tok-p">);</span>
+
+<span class="tok-kt">void</span> <span class="tok-nf">emesh_packm_fin</span><span class="tok-p">(</span><span class="tok-n">EMeshPackM</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">emesh_commm_fin</span><span class="tok-p">(</span><span class="tok-n">EMeshCommM</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">emesh_unpackm_fin</span><span class="tok-p">(</span><span class="tok-n">EMeshUnpackM</span> <span class="tok-o">*</span><span class="tok-n">u</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>pack the momentum infos</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">emesh_packM</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">nt</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">counts</span><span class="tok-p">[</span><span class="tok-n">NFRAGS</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-n">Momentum</span> <span class="tok-o">*</span><span class="tok-n">mm</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">EMeshPackM</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">emesh_downloadM</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">counts</span><span class="tok-p">[</span><span class="tok-n">NFRAGS</span><span class="tok-p">],</span> <span class="tok-n">EMeshPackM</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>communicate back the momentum infos:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">emesh_post_recv</span><span class="tok-p">(</span><span class="tok-n">EMeshCommM</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-n">EMeshUnpackM</span> <span class="tok-o">*</span><span class="tok-n">u</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">emesh_post_send</span><span class="tok-p">(</span><span class="tok-n">EMeshPackM</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">,</span> <span class="tok-n">EMeshCommM</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">emesh_wait_recv</span><span class="tok-p">(</span><span class="tok-n">EMeshCommM</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-n">EMeshUnpackM</span> <span class="tok-o">*</span><span class="tok-n">u</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">emesh_wait_send</span><span class="tok-p">(</span><span class="tok-n">EMeshCommM</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>unpack the momentum infos to a single array:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">emesh_upload</span><span class="tok-p">(</span><span class="tok-n">EMeshUnpackM</span> <span class="tok-o">*</span><span class="tok-n">u</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">emesh_unpack_mom</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">nt</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">EMeshPack</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">EMeshUnpackM</span> <span class="tok-o">*</span><span class="tok-n">u</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Momentum</span> <span class="tok-o">*</span><span class="tok-n">mm</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
