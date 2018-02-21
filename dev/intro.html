@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<title>introduction</title>
+<link rel="stylesheet" href="/udoc/css/main.css">
+<link rel="stylesheet" href="./pygments-colorful.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>introduction</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_what_is_em_udevicex_em">1. what is <em>uDeviceX</em>?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>It is a dissipate particle dynamic particle (DPD) simulation code
+which can model multiphase flows, rigid and soft objects, boundary
+conditions can be periodic or "wall". Wall boundary can be set from a
+user provided file.</p>
+</div>
+<div class="paragraph">
+<p><em>uDeviceX</em> was ACM 2015 Gordon Bell Award Finalist.</p>
+</div>
+<div class="paragraph">
+<p>It is written in C++ using
+<a href="https://en.wikipedia.org/wiki/CUDA">CUDA</a>
+and
+<a href="https://en.wikipedia.org/wiki/Message_Passing_Interface">MPI</a>
+and requires NVIDIA GPUs. Simulation are set from a configuration file
+and from command line options. Here is an example</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>udx conf.cfg 'glb { dt = 0.1 }'</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Configuration files and command line options follow the syntax of
+<a href="https://hyperrealm.github.io/libconfig">libconfig library</a>. Some
+parameters have default values and are set in
+<code>$HOME/.udx/defult.cfg</code>. <em>uDeviceX</em> outputs DPD particles,
+trajectories of the objects, and averaged flow fields.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_code">2. code</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Code is organized in <em>units</em> which are executables.  <em>uDeviceX</em>
+installs several command line tools which have prefix <code>u.</code>, for
+example <code>u.run</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tests">3. tests</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>uDeviceX</em> comes with tests. Each test is a shell script with some
+conventions. To run a test</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>atest example.test</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Typically test compiles and run one of the units and produce a text
+file. <code>atest</code> compares the text file with a previously stored
+reference and report the result. Comparision can be exact or "fuzzy".</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
