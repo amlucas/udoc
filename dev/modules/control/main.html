@@ -7,7 +7,8 @@
 <meta name="generator" content="Asciidoctor 1.5.6.1">
 <title>Control</title>
 <link rel="stylesheet" href="/udoc/css/main.css">
-<link rel="stylesheet" href="./pygments-colorful.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="./pygments-default.css">
 </head>
 <body class="article">
 <div id="header">
@@ -114,28 +115,32 @@ cartesian transformation</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">vcont_set_params</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">factor</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">Kp</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">Ki</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">Kd</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">PidVCont</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span> <b class="conum">(1)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">vcont_set_target</span><span class="tok-p">(</span><span class="tok-n">float3</span> <span class="tok-n">vtarget</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">PidVCont</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>  <b class="conum">(2)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">vcont_set_cart</span><span class="tok-p">(</span><span class="tok-cm">/**/</span> <span class="tok-n">PidVCont</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>  <b class="conum">(3)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">vcont_set_radial</span><span class="tok-p">(</span><span class="tok-cm">/**/</span> <span class="tok-n">PidVCont</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>  <b class="conum">(4)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">vcont_set_params</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">factor</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">Kp</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">Ki</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">Kd</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">PidVCont</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">vcont_set_target</span><span class="tok-p">(</span><span class="tok-n">float3</span> <span class="tok-n">vtarget</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">PidVCont</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>  <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">vcont_set_cart</span><span class="tok-p">(</span><span class="tok-cm">/**/</span> <span class="tok-n">PidVCont</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>  <i class="conum" data-value="3"></i><b>(3)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">vcont_set_radial</span><span class="tok-p">(</span><span class="tok-cm">/**/</span> <span class="tok-n">PidVCont</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>  <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>set the PID control variables. <code>factor</code> scales variables <code>Kp</code>, Ki`
-and <code>Kd</code></p>
-</li>
-<li>
-<p>set the target velocity (in transformed space)</p>
-</li>
-<li>
-<p>set the transformation mode to cartesian</p>
-</li>
-<li>
-<p>set the transformation mode to radial</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>set the PID control variables. <code>factor</code> scales variables <code>Kp</code>, Ki`
+and <code>Kd</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>set the target velocity (in transformed space)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>set the transformation mode to cartesian</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>set the transformation mode to radial</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>The parameters can also be set through the configuration file:</p>
@@ -150,23 +155,26 @@ and <code>Kd</code></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span>   <span class="tok-nf">vcont_sample</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">coords</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">starts</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">counts</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">PidVCont</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span> <b class="conum">(1)</b>
-<span class="tok-n">float3</span> <span class="tok-nf">vcont_adjustF</span><span class="tok-p">(</span><span class="tok-cm">/**/</span> <span class="tok-n">PidVCont</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span> <b class="conum">(2)</b>
-<span class="tok-kt">void</span>   <span class="tok-nf">vcont_log</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">PidVCont</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>    <b class="conum">(3)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span>   <span class="tok-nf">vcont_sample</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">coords</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">starts</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">counts</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">PidVCont</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-n">float3</span> <span class="tok-nf">vcont_adjustF</span><span class="tok-p">(</span><span class="tok-cm">/**/</span> <span class="tok-n">PidVCont</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kt">void</span>   <span class="tok-nf">vcont_log</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">PidVCont</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>    <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>get average velocity according to transformation and store it</p>
-</li>
-<li>
-<p>reduce sampled quantities and update the controller. return the force</p>
-</li>
-<li>
-<p>logging informations; dumped into the file <code>vcon.txt</code></p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>get average velocity according to transformation and store it</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>reduce sampled quantities and update the controller. return the force</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>logging informations; dumped into the file <code>vcon.txt</code></td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
@@ -243,19 +251,21 @@ it is used to setup the inlet velocity from parameters.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">inflow_create_pp</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">kBT</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-n">Inflow</span> <span class="tok-o">*</span><span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">);</span> <b class="conum">(1)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">inflow_create_pp_cc</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">kBT</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">newcolor</span><span class="tok-p">,</span> <span class="tok-n">Inflow</span> <span class="tok-o">*</span><span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">cc</span><span class="tok-p">);</span> <b class="conum">(2)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">inflow_create_pp</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">kBT</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-n">Inflow</span> <span class="tok-o">*</span><span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">inflow_create_pp_cc</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">kBT</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">newcolor</span><span class="tok-p">,</span> <span class="tok-n">Inflow</span> <span class="tok-o">*</span><span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">cc</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>add particles to the array <code>pp</code> and increase <code>n</code> accordingly</p>
-</li>
-<li>
-<p>same as above, with colors <code>cc</code> set to <code>color</code></p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>add particles to the array <code>pp</code> and increase <code>n</code> accordingly</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>same as above, with colors <code>cc</code> set to <code>color</code></td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
@@ -339,29 +349,33 @@ the point <code>(1, 2, 3)</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">filter_particles</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Outflow</span> <span class="tok-o">*</span><span class="tok-n">o</span><span class="tok-p">);</span> <b class="conum">(1)</b>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">filter_particles</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Outflow</span> <span class="tok-o">*</span><span class="tok-n">o</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
 
-<span class="tok-kt">void</span> <span class="tok-nf">download_ndead</span><span class="tok-p">(</span><span class="tok-n">Outflow</span> <span class="tok-o">*</span><span class="tok-n">o</span><span class="tok-p">);</span>                                   <b class="conum">(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">download_ndead</span><span class="tok-p">(</span><span class="tok-n">Outflow</span> <span class="tok-o">*</span><span class="tok-n">o</span><span class="tok-p">);</span>                                   <i class="conum" data-value="2"></i><b>(2)</b>
 
-<span class="tok-kt">int</span><span class="tok-o">*</span> <span class="tok-nf">get_deathlist</span><span class="tok-p">(</span><span class="tok-n">Outflow</span> <span class="tok-o">*</span><span class="tok-n">o</span><span class="tok-p">);</span>                                    <b class="conum">(3)</b>
-<span class="tok-kt">int</span>  <span class="tok-nf">get_ndead</span><span class="tok-p">(</span><span class="tok-n">Outflow</span> <span class="tok-o">*</span><span class="tok-n">o</span><span class="tok-p">);</span>                                        <b class="conum">(4)</b></code></pre>
+<span class="tok-kt">int</span><span class="tok-o">*</span> <span class="tok-nf">get_deathlist</span><span class="tok-p">(</span><span class="tok-n">Outflow</span> <span class="tok-o">*</span><span class="tok-n">o</span><span class="tok-p">);</span>                                    <i class="conum" data-value="3"></i><b>(3)</b>
+<span class="tok-kt">int</span>  <span class="tok-nf">get_ndead</span><span class="tok-p">(</span><span class="tok-n">Outflow</span> <span class="tok-o">*</span><span class="tok-n">o</span><span class="tok-p">);</span>                                        <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>store dying particles infos inside Outflow struct</p>
-</li>
-<li>
-<p>copy from device to host number of dead particles</p>
-</li>
-<li>
-<p>return the list of dead marks (dead=1, alive=0)</p>
-</li>
-<li>
-<p>return the number of dead particles</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>store dying particles infos inside Outflow struct</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>copy from device to host number of dead particles</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>return the list of dead marks (dead=1, alive=0)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>return the number of dead particles</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">

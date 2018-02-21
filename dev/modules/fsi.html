@@ -7,7 +7,8 @@
 <meta name="generator" content="Asciidoctor 1.5.6.1">
 <title>fsi</title>
 <link rel="stylesheet" href="/udoc/css/main.css">
-<link rel="stylesheet" href="./pygments-colorful.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="./pygments-default.css">
 </head>
 <body class="article">
 <div id="header">
@@ -44,23 +45,26 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">fsi_bind_solvent</span><span class="tok-p">(</span><span class="tok-n">PaArray</span> <span class="tok-n">pa</span><span class="tok-p">,</span> <span class="tok-n">Force</span> <span class="tok-o">*</span><span class="tok-n">ff</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">starts</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Fsi</span> <span class="tok-o">*</span><span class="tok-n">fsi</span><span class="tok-p">);</span> <b class="conum">(1)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">fsi_bulk</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">PairParams</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">Fsi</span> <span class="tok-o">*</span><span class="tok-n">fsi</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nw</span><span class="tok-p">,</span> <span class="tok-n">PaWrap</span> <span class="tok-o">*</span><span class="tok-n">pw</span><span class="tok-p">,</span> <span class="tok-n">FoWrap</span> <span class="tok-o">*</span><span class="tok-n">fw</span><span class="tok-p">);</span>      <b class="conum">(2)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">fsi_halo</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">PairParams</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">Fsi</span> <span class="tok-o">*</span><span class="tok-n">fsi</span><span class="tok-p">,</span> <span class="tok-n">Pap26</span> <span class="tok-n">PP</span><span class="tok-p">,</span> <span class="tok-n">Fop26</span> <span class="tok-n">FF</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">counts</span><span class="tok-p">[</span><span class="tok-mi">26</span><span class="tok-p">]);</span>  <b class="conum">(3)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">fsi_bind_solvent</span><span class="tok-p">(</span><span class="tok-n">PaArray</span> <span class="tok-n">pa</span><span class="tok-p">,</span> <span class="tok-n">Force</span> <span class="tok-o">*</span><span class="tok-n">ff</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">starts</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Fsi</span> <span class="tok-o">*</span><span class="tok-n">fsi</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">fsi_bulk</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">PairParams</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">Fsi</span> <span class="tok-o">*</span><span class="tok-n">fsi</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nw</span><span class="tok-p">,</span> <span class="tok-n">PaWrap</span> <span class="tok-o">*</span><span class="tok-n">pw</span><span class="tok-p">,</span> <span class="tok-n">FoWrap</span> <span class="tok-o">*</span><span class="tok-n">fw</span><span class="tok-p">);</span>      <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">fsi_halo</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">PairParams</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">Fsi</span> <span class="tok-o">*</span><span class="tok-n">fsi</span><span class="tok-p">,</span> <span class="tok-n">Pap26</span> <span class="tok-n">PP</span><span class="tok-p">,</span> <span class="tok-n">Fop26</span> <span class="tok-n">FF</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">counts</span><span class="tok-p">[</span><span class="tok-mi">26</span><span class="tok-p">]);</span>  <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>store solvent interactions inside hidden structure <code>Fsi</code></p>
-</li>
-<li>
-<p>compute the interactions between local objects and local solvent</p>
-</li>
-<li>
-<p>compute the interactions between remote objects and local solvent</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>store solvent interactions inside hidden structure <code>Fsi</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>compute the interactions between local objects and local solvent</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>compute the interactions between remote objects and local solvent</td>
+</tr>
+</table>
 </div>
 </div>
 </div>

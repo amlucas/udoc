@@ -7,7 +7,8 @@
 <meta name="generator" content="Asciidoctor 1.5.6.1">
 <title>scheme/move</title>
 <link rel="stylesheet" href="/udoc/css/main.css">
-<link rel="stylesheet" href="./pygments-colorful.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="./pygments-default.css">
 </head>
 <body class="article">
 <div id="header">
@@ -82,19 +83,21 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">scheme_move_apply</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-n">MoveParams</span><span class="tok-o">*</span> <span class="tok-n">moveparams</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">mass</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Force</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">);</span> <b class="conum">(1)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">scheme_move_clear_vel</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">);</span> <b class="conum">(2)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">scheme_move_apply</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-n">MoveParams</span><span class="tok-o">*</span> <span class="tok-n">moveparams</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">mass</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Force</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">scheme_move_clear_vel</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>apply one step of the time scheme to the particles</p>
-</li>
-<li>
-<p>set velocity of particles to 0</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>apply one step of the time scheme to the particles</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>set velocity of particles to 0</td>
+</tr>
+</table>
 </div>
 </div>
 </div>

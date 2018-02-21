@@ -7,7 +7,8 @@
 <meta name="generator" content="Asciidoctor 1.5.6.1">
 <title>comm</title>
 <link rel="stylesheet" href="/udoc/css/main.css">
-<link rel="stylesheet" href="./pygments-colorful.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="./pygments-default.css">
 </head>
 <body class="article">
 <div id="header">
@@ -155,28 +156,32 @@ It needs 3 entities:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">int</span> <span class="tok-nf">comm_post_recv</span><span class="tok-p">(</span><span class="tok-n">hBags</span> <span class="tok-o">*</span><span class="tok-n">b</span><span class="tok-p">,</span> <span class="tok-n">Comm</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>           <b class="conum">(1)</b>
-<span class="tok-kt">int</span> <span class="tok-nf">comm_post_send</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">hBags</span> <span class="tok-o">*</span><span class="tok-n">b</span><span class="tok-p">,</span> <span class="tok-n">Comm</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>     <b class="conum">(2)</b>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">int</span> <span class="tok-nf">comm_post_recv</span><span class="tok-p">(</span><span class="tok-n">hBags</span> <span class="tok-o">*</span><span class="tok-n">b</span><span class="tok-p">,</span> <span class="tok-n">Comm</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>           <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">int</span> <span class="tok-nf">comm_post_send</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">hBags</span> <span class="tok-o">*</span><span class="tok-n">b</span><span class="tok-p">,</span> <span class="tok-n">Comm</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>     <i class="conum" data-value="2"></i><b>(2)</b>
 
-<span class="tok-kt">int</span> <span class="tok-nf">comm_wait_recv</span><span class="tok-p">(</span><span class="tok-n">Comm</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">hBags</span> <span class="tok-o">*</span><span class="tok-n">b</span><span class="tok-p">);</span>      <b class="conum">(3)</b>
-<span class="tok-kt">int</span> <span class="tok-nf">comm_wait_send</span><span class="tok-p">(</span><span class="tok-n">Comm</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>                     <b class="conum">(4)</b></code></pre>
+<span class="tok-kt">int</span> <span class="tok-nf">comm_wait_recv</span><span class="tok-p">(</span><span class="tok-n">Comm</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">hBags</span> <span class="tok-o">*</span><span class="tok-n">b</span><span class="tok-p">);</span>      <i class="conum" data-value="3"></i><b>(3)</b>
+<span class="tok-kt">int</span> <span class="tok-nf">comm_wait_send</span><span class="tok-p">(</span><span class="tok-n">Comm</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span>                     <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>call MPI asynchroneous recv and store requests in <code>s</code></p>
-</li>
-<li>
-<p>call MPI asynchroneous send and store requests in <code>s</code></p>
-</li>
-<li>
-<p>wait for recv requests</p>
-</li>
-<li>
-<p>wait for send requests</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>call MPI asynchroneous recv and store requests in <code>s</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>call MPI asynchroneous send and store requests in <code>s</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>wait for recv requests</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>wait for send requests</td>
+</tr>
+</table>
 </div>
 </div>
 </div>

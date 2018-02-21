@@ -7,7 +7,8 @@
 <meta name="generator" content="Asciidoctor 1.5.6.1">
 <title>body forces</title>
 <link rel="stylesheet" href="/udoc/css/main.css">
-<link rel="stylesheet" href="./pygments-colorful.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="./pygments-default.css">
 </head>
 <body class="article">
 <div id="header">
@@ -75,35 +76,41 @@ a specific time. It is passed to device kernels.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">bforce_ini_none</span><span class="tok-p">(</span><span class="tok-cm">/**/</span> <span class="tok-n">BForce</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>            <b class="conum">(1)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">bforce_ini_cste</span><span class="tok-p">(</span><span class="tok-n">float3</span> <span class="tok-n">f</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">BForce</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>  <b class="conum">(2)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">bforce_ini_dp</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">BForce</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>     <b class="conum">(3)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">bforce_ini_shear</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">BForce</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>  <b class="conum">(4)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">bforce_ini_rol</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">BForce</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>    <b class="conum">(5)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">bforce_ini_rad</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">BForce</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>    <b class="conum">(6)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">bforce_ini_none</span><span class="tok-p">(</span><span class="tok-cm">/**/</span> <span class="tok-n">BForce</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>            <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">bforce_ini_cste</span><span class="tok-p">(</span><span class="tok-n">float3</span> <span class="tok-n">f</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">BForce</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>  <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">bforce_ini_dp</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">BForce</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>     <i class="conum" data-value="3"></i><b>(3)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">bforce_ini_shear</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">BForce</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>  <i class="conum" data-value="4"></i><b>(4)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">bforce_ini_rol</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">BForce</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>    <i class="conum" data-value="5"></i><b>(5)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">bforce_ini_rad</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">BForce</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>    <i class="conum" data-value="6"></i><b>(6)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>no force</p>
-</li>
-<li>
-<p>constant force <code>f</code></p>
-</li>
-<li>
-<p>double poiseuille</p>
-</li>
-<li>
-<p>shear</p>
-</li>
-<li>
-<p>4 roller mill</p>
-</li>
-<li>
-<p>radial force</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>no force</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>constant force <code>f</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>double poiseuille</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>shear</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>4 roller mill</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>radial force</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>initialize from configuration:</p>
@@ -118,19 +125,21 @@ a specific time. It is passed to device kernels.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">bforce_adjust</span><span class="tok-p">(</span><span class="tok-n">float3</span> <span class="tok-n">f</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">BForce</span> <span class="tok-o">*</span><span class="tok-n">fpar</span><span class="tok-p">);</span> <b class="conum">(1)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">bforce_apply</span><span class="tok-p">(</span><span class="tok-kt">long</span> <span class="tok-n">it</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">mass</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">BForce</span> <span class="tok-o">*</span><span class="tok-n">bf</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Force</span> <span class="tok-o">*</span><span class="tok-n">ff</span><span class="tok-p">);</span> <b class="conum">(2)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">bforce_adjust</span><span class="tok-p">(</span><span class="tok-n">float3</span> <span class="tok-n">f</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">BForce</span> <span class="tok-o">*</span><span class="tok-n">fpar</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">bforce_apply</span><span class="tok-p">(</span><span class="tok-kt">long</span> <span class="tok-n">it</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">mass</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">BForce</span> <span class="tok-o">*</span><span class="tok-n">bf</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Force</span> <span class="tok-o">*</span><span class="tok-n">ff</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>change value of the force</p>
-</li>
-<li>
-<p>apply body force to particles</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>change value of the force</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>apply body force to particles</td>
+</tr>
+</table>
 </div>
 </div>
 </div>

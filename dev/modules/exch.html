@@ -7,7 +7,8 @@
 <meta name="generator" content="Asciidoctor 1.5.6.1">
 <title>exch</title>
 <link rel="stylesheet" href="/udoc/css/main.css">
-<link rel="stylesheet" href="./pygments-colorful.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="./pygments-default.css">
 </head>
 <body class="article">
 <div id="header">
@@ -103,58 +104,67 @@ it is in a corner.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">emap_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">nw</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nfrags</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">cap</span><span class="tok-p">[],</span> <span class="tok-cm">/**/</span> <span class="tok-n">EMap</span> <span class="tok-o">*</span><span class="tok-n">map</span><span class="tok-p">);</span>               <b class="conum">(1)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">emap_fin</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">nfrags</span><span class="tok-p">,</span> <span class="tok-n">EMap</span> <span class="tok-o">*</span><span class="tok-n">map</span><span class="tok-p">);</span>                                       <b class="conum">(2)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">emap_reini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">nw</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nfrags</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">EMap</span> <span class="tok-n">map</span><span class="tok-p">);</span>                         <b class="conum">(3)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">emap_scan</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">nw</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nfrags</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">EMap</span> <span class="tok-n">map</span><span class="tok-p">);</span>                          <b class="conum">(4)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">emap_download_counts</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">nw</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nfrags</span><span class="tok-p">,</span> <span class="tok-n">EMap</span> <span class="tok-n">map</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">int</span> <span class="tok-n">counts</span><span class="tok-p">[]);</span> <b class="conum">(5)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">emap_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">nw</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nfrags</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">cap</span><span class="tok-p">[],</span> <span class="tok-cm">/**/</span> <span class="tok-n">EMap</span> <span class="tok-o">*</span><span class="tok-n">map</span><span class="tok-p">);</span>               <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">emap_fin</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">nfrags</span><span class="tok-p">,</span> <span class="tok-n">EMap</span> <span class="tok-o">*</span><span class="tok-n">map</span><span class="tok-p">);</span>                                       <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">emap_reini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">nw</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nfrags</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">EMap</span> <span class="tok-n">map</span><span class="tok-p">);</span>                         <i class="conum" data-value="3"></i><b>(3)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">emap_scan</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">nw</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nfrags</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">EMap</span> <span class="tok-n">map</span><span class="tok-p">);</span>                          <i class="conum" data-value="4"></i><b>(4)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">emap_download_counts</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">nw</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nfrags</span><span class="tok-p">,</span> <span class="tok-n">EMap</span> <span class="tok-n">map</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">int</span> <span class="tok-n">counts</span><span class="tok-p">[]);</span> <i class="conum" data-value="5"></i><b>(5)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>allocate the map structure on device</p>
-</li>
-<li>
-<p>deallocate the map structure</p>
-</li>
-<li>
-<p>reset the map structure</p>
-</li>
-<li>
-<p>scan the map structure to get starts</p>
-</li>
-<li>
-<p>copy counts from device to host</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>allocate the map structure on device</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>deallocate the map structure</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>reset the map structure</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>scan the map structure to get starts</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>copy counts from device to host</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Device interface:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">static</span> <span class="tok-n">__device__</span> <span class="tok-kt">int</span> <span class="tok-n">emap_code</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">r</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">])</span> <b class="conum">(1)</b>
-<span class="tok-k">static</span> <span class="tok-n">__device__</span> <span class="tok-kt">int</span> <span class="tok-n">emap_code_box</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-n">float3</span> <span class="tok-n">lo</span><span class="tok-p">,</span> <span class="tok-n">float3</span> <span class="tok-n">hi</span><span class="tok-p">)</span>  <b class="conum">(2)</b>
-<span class="tok-k">static</span> <span class="tok-n">__device__</span> <span class="tok-kt">void</span> <span class="tok-n">emap_add</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">soluteid</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">pid</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">fid</span><span class="tok-p">,</span> <span class="tok-n">EMap</span> <span class="tok-n">m</span><span class="tok-p">)</span> <b class="conum">(3)</b>
-<span class="tok-k">static</span> <span class="tok-n">__device__</span> <span class="tok-kt">int</span> <span class="tok-n">emap_decode</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">code</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">int</span> <span class="tok-n">fids</span><span class="tok-p">[</span><span class="tok-n">MAX_DSTS</span><span class="tok-p">])</span> <b class="conum">(4)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">static</span> <span class="tok-n">__device__</span> <span class="tok-kt">int</span> <span class="tok-n">emap_code</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">r</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">])</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-k">static</span> <span class="tok-n">__device__</span> <span class="tok-kt">int</span> <span class="tok-n">emap_code_box</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-n">float3</span> <span class="tok-n">lo</span><span class="tok-p">,</span> <span class="tok-n">float3</span> <span class="tok-n">hi</span><span class="tok-p">)</span>  <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-k">static</span> <span class="tok-n">__device__</span> <span class="tok-kt">void</span> <span class="tok-n">emap_add</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">soluteid</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">pid</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">fid</span><span class="tok-p">,</span> <span class="tok-n">EMap</span> <span class="tok-n">m</span><span class="tok-p">)</span> <i class="conum" data-value="3"></i><b>(3)</b>
+<span class="tok-k">static</span> <span class="tok-n">__device__</span> <span class="tok-kt">int</span> <span class="tok-n">emap_decode</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">code</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">int</span> <span class="tok-n">fids</span><span class="tok-p">[</span><span class="tok-n">MAX_DSTS</span><span class="tok-p">])</span> <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>get code (local fragment id) from position</p>
-</li>
-<li>
-<p>get code (local fragment id) from box position</p>
-</li>
-<li>
-<p>add a quantity to the map</p>
-</li>
-<li>
-<p>get destination fragments from code</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>get code (local fragment id) from position</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>get code (local fragment id) from box position</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>add a quantity to the map</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>get destination fragments from code</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -260,19 +270,21 @@ nodes.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">ecommon_pack_pp</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-n">PackHelper</span> <span class="tok-n">ph</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Pap26</span> <span class="tok-n">buf</span><span class="tok-p">);</span> <b class="conum">(1)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">ecommon_shift_one_frag</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">fid</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">);</span> <b class="conum">(2)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">ecommon_pack_pp</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-n">PackHelper</span> <span class="tok-n">ph</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Pap26</span> <span class="tok-n">buf</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">ecommon_shift_one_frag</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">fid</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>pack particles <code>pp</code> into 27 buffers <code>buf</code> according to the local map <code>ph</code></p>
-</li>
-<li>
-<p>shift particles in the fragment direction</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>pack particles <code>pp</code> into 27 buffers <code>buf</code> according to the local map <code>ph</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>shift particles in the fragment direction</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>The local map is defined through the structure</p>

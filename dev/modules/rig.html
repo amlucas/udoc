@@ -7,7 +7,8 @@
 <meta name="generator" content="Asciidoctor 1.5.6.1">
 <title>Rigid</title>
 <link rel="stylesheet" href="/udoc/css/main.css">
-<link rel="stylesheet" href="./pygments-colorful.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="./pygments-default.css">
 </head>
 <body class="article">
 <div id="header">
@@ -113,19 +114,21 @@ This is initialised using</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rig_strt_dump_templ</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">coords</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span>         <b class="conum">(1)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">rig_strt_dump</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">coords</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">id</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span> <b class="conum">(2)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rig_strt_dump_templ</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">coords</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span>         <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">rig_strt_dump</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">coords</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">id</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>to be called only once: dump the frozen particle in local referential (common to every rigid objects)</p>
-</li>
-<li>
-<p>dump <code>Solid</code> structures, describing position, orientation and velocity of the rigid objects</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>to be called only once: dump the frozen particle in local referential (common to every rigid objects)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>dump <code>Solid</code> structures, describing position, orientation and velocity of the rigid objects</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -179,37 +182,43 @@ axis = {1, 1, 0}</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rig_ini_pininfo</span><span class="tok-p">(</span><span class="tok-n">RigPinInfo</span> <span class="tok-o">**</span><span class="tok-p">);</span> <b class="conum">(1)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">rig_fin_pininfo</span><span class="tok-p">(</span><span class="tok-n">RigPinInfo</span> <span class="tok-o">*</span><span class="tok-p">);</span> <b class="conum">(2)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">rig_set_pininfo</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">com</span><span class="tok-p">,</span> <span class="tok-n">int3</span> <span class="tok-n">axis</span><span class="tok-p">,</span> <span class="tok-n">RigPinInfo</span> <span class="tok-o">*</span><span class="tok-p">);</span> <b class="conum">(3)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">rig_set_pdir</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">pdir</span><span class="tok-p">,</span> <span class="tok-n">RigPinInfo</span> <span class="tok-o">*</span><span class="tok-p">);</span> <b class="conum">(4)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">rig_set_pininfo_conf</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">cfg</span><span class="tok-p">,</span> <span class="tok-n">RigPinInfo</span> <span class="tok-o">*</span><span class="tok-p">);</span> <b class="conum">(5)</b>
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rig_ini_pininfo</span><span class="tok-p">(</span><span class="tok-n">RigPinInfo</span> <span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">rig_fin_pininfo</span><span class="tok-p">(</span><span class="tok-n">RigPinInfo</span> <span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">rig_set_pininfo</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">com</span><span class="tok-p">,</span> <span class="tok-n">int3</span> <span class="tok-n">axis</span><span class="tok-p">,</span> <span class="tok-n">RigPinInfo</span> <span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">rig_set_pdir</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">pdir</span><span class="tok-p">,</span> <span class="tok-n">RigPinInfo</span> <span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="4"></i><b>(4)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">rig_set_pininfo_conf</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">cfg</span><span class="tok-p">,</span> <span class="tok-n">RigPinInfo</span> <span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="5"></i><b>(5)</b>
 
-<span class="tok-kt">int</span> <span class="tok-nf">rig_get_pdir</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">RigPinInfo</span> <span class="tok-o">*</span><span class="tok-p">);</span> <b class="conum">(6)</b></code></pre>
+<span class="tok-kt">int</span> <span class="tok-nf">rig_get_pdir</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">RigPinInfo</span> <span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="6"></i><b>(6)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>allocate the hidden structure</p>
-</li>
-<li>
-<p>deallocate the hidden structure</p>
-</li>
-<li>
-<p>set the motion constrains</p>
-</li>
-<li>
-<p>for periodic objects, set the direction of periodicity
-(e.g. cylinder)</p>
-</li>
-<li>
-<p>set the above parameters from configuration file</p>
-</li>
-<li>
-<p>get the perioid direction</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>allocate the hidden structure</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>deallocate the hidden structure</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>set the motion constrains</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>for periodic objects, set the direction of periodicity
+(e.g. cylinder)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>set the above parameters from configuration file</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>get the perioid direction</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>The periodic direction can be 0, 1 or 2 for the \(x, y\) or
@@ -258,28 +267,32 @@ reference frame</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rig_reinit_ft</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">ns</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Solid</span> <span class="tok-o">*</span><span class="tok-n">ss</span><span class="tok-p">);</span> <b class="conum">(1)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">rig_update</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">RigPinInfo</span> <span class="tok-o">*</span><span class="tok-n">pi</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Force</span> <span class="tok-o">*</span><span class="tok-n">ff</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-o">*</span><span class="tok-n">rr0</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">ns</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-n">Solid</span> <span class="tok-o">*</span><span class="tok-n">ss</span><span class="tok-p">);</span> <b class="conum">(2)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">rig_generate</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">ns</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Solid</span> <span class="tok-o">*</span><span class="tok-n">ss</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nps</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-o">*</span><span class="tok-n">rr0</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">);</span> <b class="conum">(3)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">rig_update_mesh</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">ns</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Solid</span> <span class="tok-o">*</span><span class="tok-n">ss</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-o">*</span><span class="tok-n">vv</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">);</span> <b class="conum">(4)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rig_reinit_ft</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">ns</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Solid</span> <span class="tok-o">*</span><span class="tok-n">ss</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">rig_update</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">RigPinInfo</span> <span class="tok-o">*</span><span class="tok-n">pi</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Force</span> <span class="tok-o">*</span><span class="tok-n">ff</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-o">*</span><span class="tok-n">rr0</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">ns</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-n">Solid</span> <span class="tok-o">*</span><span class="tok-n">ss</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">rig_generate</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">ns</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Solid</span> <span class="tok-o">*</span><span class="tok-n">ss</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nps</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-o">*</span><span class="tok-n">rr0</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">rig_update_mesh</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">ns</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Solid</span> <span class="tok-o">*</span><span class="tok-n">ss</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-o">*</span><span class="tok-n">vv</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">);</span> <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>set the force and torque to 0</p>
-</li>
-<li>
-<p>update particle and rigid objects positions and velocity</p>
-</li>
-<li>
-<p>generate rigid particles from template positions and rigid
-structures</p>
-</li>
-<li>
-<p>update the mesh position</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>set the force and torque to 0</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>update particle and rigid objects positions and velocity</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>generate rigid particles from template positions and rigid
+structures</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>update the mesh position</td>
+</tr>
+</table>
 </div>
 </div>
 </div>

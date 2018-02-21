@@ -7,7 +7,8 @@
 <meta name="generator" content="Asciidoctor 1.5.6.1">
 <title>debug</title>
 <link rel="stylesheet" href="/udoc/css/main.css">
-<link rel="stylesheet" href="./pygments-colorful.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="./pygments-default.css">
 </head>
 <body class="article">
 <div id="header">
@@ -27,37 +28,43 @@ Configuration is encoded using the following enum values:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-k">enum</span> <span class="tok-p">{</span>
-    <span class="tok-n">DBG_POS</span><span class="tok-p">,</span>      <b class="conum">(1)</b>
-    <span class="tok-n">DBG_POS_SOFT</span><span class="tok-p">,</span> <b class="conum">(2)</b>
-    <span class="tok-n">DBG_VEL</span><span class="tok-p">,</span>      <b class="conum">(3)</b>
-    <span class="tok-n">DBG_FORCES</span><span class="tok-p">,</span>   <b class="conum">(4)</b>
-    <span class="tok-n">DBG_COLORS</span><span class="tok-p">,</span>   <b class="conum">(5)</b>
-    <span class="tok-n">DBG_CLIST</span><span class="tok-p">,</span>    <b class="conum">(6)</b>
+    <span class="tok-n">DBG_POS</span><span class="tok-p">,</span>      <i class="conum" data-value="1"></i><b>(1)</b>
+    <span class="tok-n">DBG_POS_SOFT</span><span class="tok-p">,</span> <i class="conum" data-value="2"></i><b>(2)</b>
+    <span class="tok-n">DBG_VEL</span><span class="tok-p">,</span>      <i class="conum" data-value="3"></i><b>(3)</b>
+    <span class="tok-n">DBG_FORCES</span><span class="tok-p">,</span>   <i class="conum" data-value="4"></i><b>(4)</b>
+    <span class="tok-n">DBG_COLORS</span><span class="tok-p">,</span>   <i class="conum" data-value="5"></i><b>(5)</b>
+    <span class="tok-n">DBG_CLIST</span><span class="tok-p">,</span>    <i class="conum" data-value="6"></i><b>(6)</b>
     <span class="tok-n">DBG_NKIND_</span>
 <span class="tok-p">};</span></code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>positions are inside subdomain</p>
-</li>
-<li>
-<p>positions are inside subdomain plus a margin</p>
-</li>
-<li>
-<p>velocities</p>
-</li>
-<li>
-<p>forces</p>
-</li>
-<li>
-<p>colors</p>
-</li>
-<li>
-<p>cell lists</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>positions are inside subdomain</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>positions are inside subdomain plus a margin</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>velocities</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>forces</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>colors</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>cell lists</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Consider subdomain of dimensions \((L_x, Ly, Lz)\).
