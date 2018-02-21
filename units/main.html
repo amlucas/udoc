@@ -8,27 +8,44 @@
 <title>units</title>
 <link rel="stylesheet" href="/udoc/css/main.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
-<link rel="stylesheet" href="./pygments-default.css">
+<link rel="stylesheet" href="./pygments-colorful.css">
 </head>
-<body class="article">
+<body class="article toc2 toc-left">
 <div id="header">
 <h1>units</h1>
-</div>
-<div id="content">
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p><em>uDeviceX</em> consists of units. They are implemented in link::/src/u/[/src/u/].</p>
-</div>
-</div>
-<div id="toc" class="toc">
+<div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#_build_and_run">1. Build and run</a></li>
 <li><a href="#_update_make_file_fragments">2. Update make file fragments</a></li>
 <li><a href="#_create_a_new_unit">3. Create a new unit</a></li>
-<li><a href="#_list_of_units">4. list of units</a></li>
+<li><a href="#_list_of_units">4. list of units</a>
+<ul class="sectlevel2">
+<li><a href="#_comm_unit">4.1. comm unit</a></li>
+<li><a href="#_error_unit">4.2. error unit</a></li>
+<li><a href="#_hw_unit">4.3. hw unit</a></li>
+<li><a href="#_hw_unit_2">4.4. hw unit</a></li>
+<li><a href="#_linal_unit">4.5. linal unit</a></li>
+<li><a href="#_mesh_bb_unit">4.6. mesh bb unit</a></li>
+<li><a href="#_mpi_error">4.7. MPI error</a></li>
+<li><a href="#_pair_unit">4.8. pair unit</a></li>
+<li><a href="#_rbc_forces">4.9. RBC forces</a></li>
+<li><a href="#_rbc">4.10. RBC</a></li>
+<li><a href="#_rbc_random">4.11. RBC random</a></li>
+<li><a href="#_scan_unit">4.12. scan unit</a></li>
+<li><a href="#_signed_distance_function_sdf_unit">4.13. signed distance function (sdf) unit</a></li>
+<li><a href="#_x_unit">4.14. x unit</a></li>
 </ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>uDeviceX</em> consists of units. They are implemented in <code>/src/u/</code>.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -99,62 +116,288 @@ u/hw/hst/make/rule.mk</code> to git.</p>
 <div class="sect1">
 <h2 id="_list_of_units">4. list of units</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_comm_unit">4.1. comm unit</h3>
+<div class="paragraph">
+<p>a send/recv unit with the 26 neighbors using <a href="../dev/modules/comm.html">comm module</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_error_unit">4.2. error unit</h3>
+<div class="paragraph">
+<p>a unit to test error handling <code>UC</code>, <code>CC</code> and <code>MC</code> (see <a href="../dev/modules/utils/main.html">utils</a>)</p>
+</div>
+<div class="sect3">
+<h4 id="_compile">4.2.1. compile</h4>
+<div class="paragraph">
+<p>from <code>/src/</code> directory:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="sh"><span></span>u.conf0 u/error
+u.make -j</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_usage">4.2.2. usage</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="sh"><span></span><span class="tok-nv">ERR_KIND</span><span class="tok-o">=</span>&lt;kind&gt; ./udx</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>where <code>&lt;kind&gt;</code> must be:</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="comm.html">comm</a></p>
+<p>0 for rasing an error from host code</p>
 </li>
 <li>
-<p><a href="error.html">error</a></p>
+<p>1 for testing <code>MC</code> on a failing MPI call</p>
 </li>
 <li>
-<p>hello world</p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="hw/hst.html">host</a></p>
-</li>
-<li>
-<p><a href="hw/dev.html">cuda</a></p>
+<p>2 for testing <code>CC</code> on a failing cuda API call</p>
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p><a href="meshbb.html">meshbb</a></p>
-</li>
-<li>
-<p><a href="mpi.html">mpi</a></p>
-</li>
-<li>
-<p><a href="pair.html">pair</a></p>
-</li>
-<li>
-<p>red blood cell units</p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="rbc/force.html">force</a></p>
-</li>
-<li>
-<p><a href="rbc/main.html">main</a></p>
-</li>
-<li>
-<p><a href="rbc/rnd.html">rnd</a></p>
-</li>
-</ul>
+<div class="paragraph">
+<p>The output should result in an error message, location of the error
+and a backtrace</p>
 </div>
-</li>
-<li>
-<p><a href="sdf.html">sdf</a></p>
-</li>
-<li>
-<p><a href="scan.html">scan</a></p>
-</li>
-<li>
-<p><a href="x.html">x</a></p>
-</li>
-</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_hw_unit">4.3. hw unit</h3>
+<div class="paragraph">
+<p>a "Hello World!" unit with kernel launch.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_hw_unit_2">4.4. hw unit</h3>
+<div class="paragraph">
+<p>a "Hello World!" unit. This serves as a base for creating new units</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_linal_unit">4.5. linal unit</h3>
+<div class="paragraph">
+<p>a unit to test linear algebra functions</p>
+</div>
+<div class="sect3">
+<h4 id="_compile_2">4.5.1. compile</h4>
+<div class="paragraph">
+<p>Run from src/</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>u.conf0 u/linal</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_run">4.5.2. run</h4>
+<div class="paragraph">
+<p>Invert symmetric 3x3 matrix</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>u.run ./udx -- 2 1 5   3 4   -2
+2.857143e-01 -2.857143e-01 1.428571e-01 3.766234e-01 3.896104e-02 -6.493507e-02</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>compare to octave/matlab</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&gt;&gt; C = [2,1,5;1,3,4;5,4,-2]
+&gt;&gt; C^(-1)
+ans =
+
+   0.285714  -0.285714   0.142857
+  -0.285714   0.376623   0.038961
+   0.142857   0.038961  -0.064935</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_mesh_bb_unit">4.6. mesh bb unit</h3>
+<div class="sect3">
+<h4 id="_intro">4.6.1. intro</h4>
+<div class="paragraph">
+<p>Bounce back on triangulated mesh</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_params">4.6.2. params</h4>
+<div class="paragraph">
+<p>if <code>MESHBB_LOG_ROOTS</code> is defined logs coeficeints of cubic polynomials
+and roots to <code>meshbb.roots</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_mpi_error">4.7. MPI error</h3>
+<div class="paragraph">
+<p>Units triggers mpi error. A test for <code>MC</code> macro.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pair_unit">4.8. pair unit</h3>
+<div class="sect3">
+<h4 id="_intro_2">4.8.1. Intro</h4>
+<div class="paragraph">
+<p>It is for test pair interactions.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_compile_3">4.8.2. Compile</h4>
+<div class="paragraph">
+<p>Run from src/</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>u.conf0 u/pair</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or from other directorie</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>s=&lt;path to src&gt;
+echo run | u.conf $s u/pair $s/conf/test.h</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_build">4.8.3. Build</h4>
+<div class="listingblock">
+<div class="content">
+<pre>u.make -j</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_run_2">4.8.4. Run</h4>
+<div class="paragraph">
+<p>Particles coordinates, velocities, kinds, and colors are provided via
+<code>stdin</code>. An example is in <a href="/src/data/pair/2">src/data/pair/2</a>.
+If <code>RND</code> is set it is used as a scale of random force for all pairs.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>s=&lt;path to src&gt;
+./udx        &lt; $s/data/pair/2
+RND=42 ./udx &lt; $s/data/pair/2</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Returns force between two particles</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>-2.4 0 0</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_source">4.8.5. Source</h4>
+<div class="paragraph">
+<p><a href="/src/u/pair/imp/main.h">u/pair/imp/main.h</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_test">4.8.6. Test</h4>
+<div class="listingblock">
+<div class="content">
+<pre>u.test test/pair</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_rbc_forces">4.9. RBC forces</h3>
+<div class="paragraph">
+<p>Dumps internal RBC forces.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_rbc">4.10. RBC</h3>
+<div class="paragraph">
+<p>Runs RBC without solvent and contact forces.</p>
+</div>
+<div class="paragraph">
+<p>See also <a href="src/test/rbc/u/main">src/test/rbc/u/main</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_rbc_random">4.11. RBC random</h3>
+<div class="paragraph">
+<p>Dumps random numbers generated by <a href="src/rbc/rnd">src/rbc/rnd</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_scan_unit">4.12. scan unit</h3>
+<div class="paragraph">
+<p>a unit to test scan algorithm (exclusive prefix sum , see e.g. <a href="https://en.wikipedia.org/wiki/Prefix_sum" class="bare">https://en.wikipedia.org/wiki/Prefix_sum</a>) on host and device.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_signed_distance_function_sdf_unit">4.13. signed distance function (sdf) unit</h3>
+<div class="paragraph">
+<p>a unit to test sdf field.</p>
+</div>
+<div class="sect3">
+<h4 id="_compile_4">4.13.1. compile</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="sh"><span></span>u.conf0 u/sdf
+u.make -j</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_run_3">4.13.2. run</h4>
+<div class="paragraph">
+<p>Copy sdf file</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="sh"><span></span>u.cp.sdf cyl1/cyl sdf.dat</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>cyl1/cyl</code> along <code>z</code> and center at the domain center and radius
+<code>lx/4</code>.</p>
+</div>
+<div class="paragraph">
+<p>Pass coordinates as arguments</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>x=2.5 y=0 z=0
+u.run ./udx $x $y $z</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Returns</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>0 0 2.5 1.45547</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_x_unit">4.14. x unit</h3>
+<div class="paragraph">
+<p>standard <em>uDeviceX</em> code</p>
+</div>
 </div>
 </div>
 </div>
