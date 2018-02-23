@@ -3501,28 +3501,42 @@ A =  ( xy yy yz)
 </div>
 </div>
 <div class="paragraph">
-<p>Set parameters of the transformation</p>
+<p>Set parameters of the transformation, some transfroms are for grids
+which are cell centered and defined by low and high boundaries and the
+number of cell.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">tform_vector</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">a0</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">a1</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span>   <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">b0</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">b1</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-cm">/**/</span> <span class="tok-n">Tform</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">tform_chain</span><span class="tok-p">(</span><span class="tok-n">Tform</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">Tform</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Tform</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">tform_chain</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Tform</span> <span class="tok-o">*</span><span class="tok-n">A</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Tform</span> <span class="tok-o">*</span><span class="tok-n">B</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Tform</span> <span class="tok-o">*</span><span class="tok-n">C</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">tform_to_grid</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">lo</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">hi</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-cm">/**/</span> <span class="tok-n">Tform</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">tform_from_grid</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">a0</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">b0</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-cm">/**/</span> <span class="tok-n">Tform</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="4"></i><b>(4)</b>
 <span class="tok-kt">void</span> <span class="tok-nf">tform_grid2grid</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">f_lo</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">f_hi</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">f_n</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span>
-                     <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">t_lo</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">t_hi</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">t_n</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-cm">/**/</span>
-                     <span class="tok-n">Tform</span><span class="tok-o">*</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">tform_to_grid</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">a0</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">b0</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-cm">/**/</span> <span class="tok-n">Tform</span><span class="tok-o">*</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">tform_from_grid</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">a0</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">b0</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-cm">/**/</span> <span class="tok-n">Tform</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+                     <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">t_lo</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">t_hi</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">t_n</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span>
+                     <span class="tok-n">Tform</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="5"></i><b>(5)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>transfrom which convert vectors <code>a0</code> to <code>a1</code> and <code>b0</code> to <code>b1</code></td>
+<td>converts vectors <code>a0</code> to <code>a1</code> and <code>b0</code> to <code>b1</code></td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>transform is a chain of two transforms</td>
+<td>a chain of two transforms: C(x) is equivalent to 'B(A(x))'</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>transfrom to a grid: for example, it transfroms <code>lo</code> to <code>-1/2</code> and <code>hi</code> to <code>n - 1/2</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>transfrom from a grid: for example, it transfroms <code>-1/2</code> to <code>lo</code> and <code>n - 1/2</code> to <code>hi</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>grid to grid transform</td>
 </tr>
 </table>
 </div>
@@ -3530,7 +3544,7 @@ A =  ( xy yy yz)
 <h6 id="_convert_vector">Convert vector</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">tform_convert</span><span class="tok-p">(</span><span class="tok-n">Tform</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">a0</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-cm">/**/</span> <span class="tok-kt">float</span> <span class="tok-n">a1</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">]);</span></code></pre>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">tform_convert</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Tform</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">a0</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-cm">/**/</span> <span class="tok-kt">float</span> <span class="tok-n">a1</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">]);</span></code></pre>
 </div>
 </div>
 </div>
@@ -3538,7 +3552,7 @@ A =  ( xy yy yz)
 <h6 id="_convert_to_view">convert to view</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">tform_to_view</span><span class="tok-p">(</span><span class="tok-n">Tform</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Tform_v</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">tform_to_view</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Tform</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Tform_v</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
 </div>
 </div>
 </div>
