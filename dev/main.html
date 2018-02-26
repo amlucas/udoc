@@ -242,7 +242,7 @@
 <ul class="sectlevel2">
 <li><a href="#_purpose_6">46.1. purpose</a></li>
 <li><a href="#_data_structures_9">46.2. data structures</a></li>
-<li><a href="#_interface_28">46.3. interface</a></li>
+<li><a href="#_interface_27">46.3. interface</a></li>
 <li><a href="#_configuration_9">46.4. Configuration</a></li>
 </ul>
 </li>
@@ -5028,35 +5028,40 @@ constructed using <code>time_step_accel_push</code>.</p>
 <div class="sect2">
 <h3 id="_error">45.1. error</h3>
 <div class="paragraph">
-<p>Custom error handling with context.</p>
+<p><em>uDeviceX</em> has a primitive error handling mechanism. Error is raised if</p>
 </div>
-<div class="sect3">
-<h4 id="_usage">45.1.1. Usage</h4>
 <div class="ulist">
 <ul>
 <li>
-<p>an error can be raised by the use of one of the following macros:</p>
-<div class="ulist">
-<ul>
+<p><code>ERR(fmt, &#8230;&#8203;)</code> is called. Syntax of ERR is the same as one of
+<code>printf(3)</code>.</p>
+</li>
 <li>
-<p><code>signal_error_extra(fmt, &#8230;&#8203;)</code> will raise an error with extra
-information formatted by the caller in a prinf format fashion</p>
+<p>a function wrapped with <code>CC</code> returns a error code</p>
+</li>
+<li>
+<p>a function wrapped with <code>MC</code> returns a error code</p>
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p>use macro <code>UC</code> on any function which might contain an error signal in
-one of the subfunctions.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_interface_27">45.1.2. Interface</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>If error is raised the <em>uDeviceX</em> aborts and prints a error message
+with a function call trace. Only the function calls wrapped with <code>UC</code>
+go into trace. For example,</p>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre>void c() { ERR("c failed"); }
+void b() { UC(c()); }
+void a() { UC(b()); }
+void main () {
+    a();
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>produces a log with source file name and line number of two <code>UC</code> calls
+and <code>ERR</code> call.</p>
 </div>
 </div>
 <div class="sect2">
@@ -5068,7 +5073,7 @@ one of the subfunctions.</p>
 <p>Error handling for cuda API calls.</p>
 </div>
 <div class="sect3">
-<h4 id="_usage_2">45.2.1. Usage</h4>
+<h4 id="_usage">45.2.1. Usage</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-n">CC</span><span class="tok-p">(</span><span class="tok-n">my_cuda_api_call</span><span class="tok-p">());</span></code></pre>
@@ -5089,7 +5094,7 @@ dump a backtrace (see <a href="#error">[error]</a>).</p>
 <p>Error handling for MPI API calls.</p>
 </div>
 <div class="sect3">
-<h4 id="_usage_3">45.3.1. Usage</h4>
+<h4 id="_usage_2">45.3.1. Usage</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-n">MC</span><span class="tok-p">(</span><span class="tok-n">my_mpi_api_call</span><span class="tok-p">());</span></code></pre>
@@ -5165,7 +5170,7 @@ specific time step. It is generated from <code>Wvel</code> structure.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_interface_28">46.3. interface</h3>
+<h3 id="_interface_27">46.3. interface</h3>
 <div class="paragraph">
 <p>Interface is splitted between host and device</p>
 </div>

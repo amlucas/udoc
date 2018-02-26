@@ -143,10 +143,13 @@ xdomain() == xs() * nx</pre>
 <p>where <code>nx</code> is a number of subdomains in <code>X</code> direction.</p>
 </div>
 <div class="paragraph">
-<p>Wall is defined in <em>sdf file</em> system. In this system <code>-1/2</code> coresponds
-to <code>0</code> and <code>N-1/2</code> corresponds to <code>xdomain()</code> where <code>N</code> is a number of
-cells in <code>X</code> direction. Each MPI process projects from <em>sdf file</em>
-system to <em>texture</em> system.</p>
+<p>Wall is defined in <em>sdf file</em> system. In this system <code>-1/2</code>
+corresponds to <code>0</code> and <code>N-1/2</code> corresponds to <code>xdomain()</code> where <code>N</code> is
+a number of cells in <code>X</code> direction. Each MPI process projects from
+<em>sdf file</em> system to <em>texture</em> system: a grid which is used to
+interpolate a field. If <code>T</code> is a size of the texture and <code>M</code> is a wall
+margin <code>-1/2</code> in <em>texture</em> system corresponds to <code>xlo() - M</code> and
+<code>T-1/2</code> corresponds to <code>xhi() + M</code>.</p>
 </div>
 </div>
 </div>
