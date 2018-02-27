@@ -154,6 +154,7 @@
 <li><a href="#_linal">24.1. linal</a></li>
 <li><a href="#_host_random_number_generation">24.2. Host random number generation</a></li>
 <li><a href="#_linar_coordinate_transformation_for_3d_vector">24.3. linar coordinate transformation for 3D vector</a></li>
+<li><a href="#_functions_for_a_triangle">24.4. functions for a triangle</a></li>
 </ul>
 </li>
 <li><a href="#_scheme_move">25. scheme/move</a>
@@ -3595,11 +3596,36 @@ number of cell.</p>
 <span class="tok-kt">void</span> <span class="tok-nf">tform_dump</span><span class="tok-p">(</span><span class="tok-n">Tform</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">FILE</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
 </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_functions_for_a_triangle">24.4. functions for a triangle</h3>
 <div class="paragraph">
-<p>Unresolved directive in modules/math/main.adoc - include::tri.inc.adoc[]</p>
+<p>Host and device functions for a triangle. For
+area computation
+link:<a href="https://people.eecs.berkeley.edu/~wkahan/Triangle.pdf">a formula</a>
+stable to numerical error is used.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">double</span> <span class="tok-nf">kahan_area0</span><span class="tok-p">(</span><span class="tok-kt">double</span> <span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-kt">double</span> <span class="tok-n">b</span><span class="tok-p">,</span> <span class="tok-kt">double</span> <span class="tok-n">c</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">double</span> <span class="tok-nf">kahan_area</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">double</span> <span class="tok-n">a</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">double</span> <span class="tok-n">b</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">double</span> <span class="tok-n">c</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">]);</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
-</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>returns area of a triangle given sides</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>returns area of a triangle given coordinate of coordinates of the
+vertices</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
