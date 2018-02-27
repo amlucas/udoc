@@ -154,12 +154,11 @@
 <li><a href="#_linal">24.1. linal</a></li>
 <li><a href="#_host_random_number_generation">24.2. Host random number generation</a></li>
 <li><a href="#_linar_coordinate_transformation_for_3d_vector">24.3. linar coordinate transformation for 3D vector</a></li>
-<li><a href="#_linar_coordinate_transformation_for_3d_vector_2">24.4. linar coordinate transformation for 3D vector</a></li>
 </ul>
 </li>
 <li><a href="#_scheme_move">25. scheme/move</a>
 <ul class="sectlevel2">
-<li><a href="#_interface_22">25.1. interface</a></li>
+<li><a href="#_interface_21">25.1. interface</a></li>
 </ul>
 </li>
 <li><a href="#_pair">26. pair</a>
@@ -187,13 +186,13 @@
 <ul class="sectlevel2">
 <li><a href="#_purpose_4">29.1. purpose</a></li>
 <li><a href="#_data_structure_3">29.2. data structure</a></li>
-<li><a href="#_interface_23">29.3. interface</a></li>
+<li><a href="#_interface_22">29.3. interface</a></li>
 </ul>
 </li>
 <li><a href="#_partlist">30. partlist</a>
 <ul class="sectlevel2">
 <li><a href="#_data_structure_4">30.1. data structure</a></li>
-<li><a href="#_interface_24">30.2. interface</a></li>
+<li><a href="#_interface_23">30.2. interface</a></li>
 </ul>
 </li>
 <li><a href="#_triangles">31. Triangles</a></li>
@@ -214,7 +213,7 @@
 <li><a href="#_stretch_rbc">41. stretch RBC</a></li>
 <li><a href="#_scheme_restrain">42. scheme/restrain</a>
 <ul class="sectlevel2">
-<li><a href="#_interface_25">42.1. interface</a></li>
+<li><a href="#_interface_24">42.1. interface</a></li>
 <li><a href="#_configuration_8">42.2. configuration</a></li>
 </ul>
 </li>
@@ -245,7 +244,7 @@
 <ul class="sectlevel2">
 <li><a href="#_purpose_6">48.1. purpose</a></li>
 <li><a href="#_data_structures_9">48.2. data structures</a></li>
-<li><a href="#_interface_28">48.3. interface</a></li>
+<li><a href="#_interface_27">48.3. interface</a></li>
 <li><a href="#_configuration_9">48.4. Configuration</a></li>
 </ul>
 </li>
@@ -3596,101 +3595,8 @@ number of cell.</p>
 <span class="tok-kt">void</span> <span class="tok-nf">tform_dump</span><span class="tok-p">(</span><span class="tok-n">Tform</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">FILE</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
 </div>
 </div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_linar_coordinate_transformation_for_3d_vector_2">24.4. linar coordinate transformation for 3D vector</h3>
 <div class="paragraph">
-<p>Transform vector <code>a[3]</code> to <code>b[3]</code> using</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>    b[X] = s[X]*a[X] + o[X]
-    b[Y] = s[Y]*a[Y] + o[Y]
-    b[Z] = s[Z]*a[Z] + o[Z]</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Coefficient <code>s</code> and <code>o</code> are defined implicitly by API calls.</p>
-</div>
-<div class="sect3">
-<h4 id="_interface_21">24.4.1. interface</h4>
-<div class="sect4">
-<h5 id="_allocate_deallocate_2">Allocate/Deallocate</h5>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">tform_ini</span><span class="tok-p">(</span><span class="tok-n">Tform</span><span class="tok-o">**</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">tform_fin</span><span class="tok-p">(</span><span class="tok-n">Tform</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Set parameters of the transformation, some transfroms are for grids
-which are cell centered and defined by low and high boundaries and the
-number of cell.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">tform_vector</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">a0</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">a1</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span>   <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">b0</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">b1</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-cm">/**/</span> <span class="tok-n">Tform</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">tform_chain</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Tform</span> <span class="tok-o">*</span><span class="tok-n">A</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Tform</span> <span class="tok-o">*</span><span class="tok-n">B</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Tform</span> <span class="tok-o">*</span><span class="tok-n">C</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">tform_to_grid</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">lo</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">hi</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-cm">/**/</span> <span class="tok-n">Tform</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">tform_from_grid</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">a0</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">b0</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-cm">/**/</span> <span class="tok-n">Tform</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="4"></i><b>(4)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">tform_grid2grid</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">f_lo</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">f_hi</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">f_n</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span>
-                     <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">t_lo</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">t_hi</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">t_n</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span>
-                     <span class="tok-n">Tform</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="5"></i><b>(5)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>converts vectors <code>a0</code> to <code>a1</code> and <code>b0</code> to <code>b1</code></td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>a chain of two transforms: C(x) is equivalent to 'B(A(x))'</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>transfrom to a grid: for example, it transfroms <code>lo</code> to <code>-1/2</code> and <code>hi</code> to <code>n - 1/2</code></td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>transfrom from a grid: for example, it transfroms <code>-1/2</code> to <code>lo</code> and <code>n - 1/2</code> to <code>hi</code></td>
-</tr>
-<tr>
-<td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>grid to grid transform</td>
-</tr>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_convert_vector_2">Convert vector</h6>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">tform_convert</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Tform</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">a0</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-cm">/**/</span> <span class="tok-kt">float</span> <span class="tok-n">a1</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">]);</span></code></pre>
-</div>
-</div>
-</div>
-<div class="sect5">
-<h6 id="_convert_to_view_2">convert to view</h6>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">tform_to_view</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Tform</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Tform_v</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
-</div>
-</div>
-</div>
-<div class="sect5">
-<h6 id="_log_2">log</h6>
-<div class="paragraph">
-<p>Log or dump the state of 'Tform'</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">tform_log</span><span class="tok-p">(</span><span class="tok-n">Tform</span><span class="tok-o">*</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">tform_dump</span><span class="tok-p">(</span><span class="tok-n">Tform</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">FILE</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
-</div>
+<p>Unresolved directive in modules/math/main.adoc - include::tri.inc.adoc[]</p>
 </div>
 </div>
 </div>
@@ -3718,7 +3624,7 @@ number of cell.</p>
 </ul>
 </div>
 <div class="sect2">
-<h3 id="_interface_22">25.1. interface</h3>
+<h3 id="_interface_21">25.1. interface</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">scheme_move_apply</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">mass</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Force</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
@@ -4286,7 +4192,7 @@ priority etc.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_interface_23">29.3. interface</h3>
+<h3 id="_interface_22">29.3. interface</h3>
 <div class="paragraph">
 <p>Allocate and free the structure:</p>
 </div>
@@ -4414,7 +4320,7 @@ Purpose: kill particles during redistribution or cell lists build</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_interface_24">30.2. interface</h3>
+<h3 id="_interface_23">30.2. interface</h3>
 <div class="paragraph">
 <p>contains only device interface:</p>
 </div>
@@ -4795,7 +4701,7 @@ The <code>Restrain</code> module  shifts the center of mass velocity of \(P\) su
 single drop.</p>
 </div>
 <div class="sect2">
-<h3 id="_interface_25">42.1. interface</h3>
+<h3 id="_interface_24">42.1. interface</h3>
 <div class="paragraph">
 <p>allocate and free host structure:</p>
 </div>
@@ -4910,7 +4816,7 @@ linear velocity of the rigid object.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_interface_26">43.1.2. Interface</h4>
+<h4 id="_interface_25">43.1.2. Interface</h4>
 <div class="paragraph">
 <p>allocate and deallocate the quantities:</p>
 </div>
@@ -5074,7 +4980,7 @@ Default value for no periodicty is set via</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_interface_27">43.2.2. interface</h4>
+<h4 id="_interface_26">43.2.2. interface</h4>
 <div class="paragraph">
 <p>naming:</p>
 </div>
@@ -5366,7 +5272,7 @@ specific time step. It is generated from <code>Wvel</code> structure.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_interface_28">48.3. interface</h3>
+<h3 id="_interface_27">48.3. interface</h3>
 <div class="paragraph">
 <p>Interface is splitted between host and device</p>
 </div>
