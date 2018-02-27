@@ -3446,8 +3446,7 @@ triangles, number of vertices and maximum degree.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-cm">/* invert symmetric matrix m0[6] */</span>
-<span class="tok-kt">void</span> <span class="tok-nf">linal_inv3x3</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">m0</span><span class="tok-p">[</span><span class="tok-mi">6</span><span class="tok-p">],</span> <span class="tok-cm">/**/</span> <span class="tok-kt">float</span> <span class="tok-n">minv0</span><span class="tok-p">[</span><span class="tok-mi">6</span><span class="tok-p">]);</span> <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">linal_inv3x3</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">m0</span><span class="tok-p">[</span><span class="tok-mi">6</span><span class="tok-p">],</span> <span class="tok-cm">/**/</span> <span class="tok-kt">float</span> <span class="tok-n">minv0</span><span class="tok-p">[</span><span class="tok-mi">6</span><span class="tok-p">]);</span> <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -4480,16 +4479,17 @@ Purpose: kill particles during redistribution or cell lists build</p>
 <h2 id="_affine_transformation_matrices">35. affine transformation matrices</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A an array of list transformation <code>4 x 4</code> matrices.</p>
+<p>An array of <code>4 x 4</code> affine transformation matrices.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">matrices_ini_file</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">path</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Matrices</span><span class="tok-o">**</span><span class="tok-p">);</span>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">matrices_read</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">path</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Matrices</span><span class="tok-o">**</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">matrices_read_r</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">path</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Matrices</span><span class="tok-o">**</span><span class="tok-p">);</span>
 <span class="tok-kt">void</span> <span class="tok-nf">matrices_ini_filter</span><span class="tok-p">(</span><span class="tok-n">Matrices</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Matrices</span><span class="tok-o">**</span><span class="tok-p">);</span>
 
-<span class="tok-kt">int</span>  <span class="tok-nf">matrices_get_n</span><span class="tok-p">(</span><span class="tok-n">Matrices</span><span class="tok-o">*</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">matrices_get</span><span class="tok-p">(</span><span class="tok-n">Matrices</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">double</span> <span class="tok-n">M</span><span class="tok-p">[</span><span class="tok-mi">4</span><span class="tok-o">*</span><span class="tok-mi">4</span><span class="tok-p">]);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">matrices_get</span><span class="tok-p">(</span><span class="tok-n">Matrices</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">double</span><span class="tok-o">**</span><span class="tok-p">);</span>
 <span class="tok-kt">void</span> <span class="tok-nf">matrices_get_r</span><span class="tok-p">(</span><span class="tok-n">Matrices</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">double</span> <span class="tok-n">r</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">]);</span>
+<span class="tok-kt">int</span>  <span class="tok-nf">matrices_get_n</span><span class="tok-p">(</span><span class="tok-n">Matrices</span><span class="tok-o">*</span><span class="tok-p">);</span>
 
 <span class="tok-kt">void</span> <span class="tok-nf">matrices_fin</span><span class="tok-p">(</span><span class="tok-n">Matrices</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
 </div>
