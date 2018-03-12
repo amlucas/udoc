@@ -209,7 +209,11 @@
 <li><a href="#_mesh_adjacency_structure">37. mesh adjacency structure</a></li>
 <li><a href="#_rbc_center_of_mass">38. RBC center of mass</a></li>
 <li><a href="#_rbc_area_and_volume">39. RBC area and volume</a></li>
-<li><a href="#_forces">40. Forces</a></li>
+<li><a href="#_forces">40. Forces</a>
+<ul class="sectlevel2">
+<li><a href="#_spring_force">40.1. Spring force</a></li>
+</ul>
+</li>
 <li><a href="#_red_blood_cell">41. Red blood cell</a>
 <ul class="sectlevel2">
 <li><a href="#_components">41.1. components</a></li>
@@ -4765,14 +4769,33 @@ host version of <code>av</code> array</td>
 <div class="sect1">
 <h2 id="_forces">40. Forces</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_spring_force">40.1. Spring force</h3>
+<div class="paragraph">
+<p>A force between neighboring beads:</p>
+</div>
 <div class="stemblock">
 <div class="content">
-\[E^{spring} \propto \left( x - x_0 \right)^2 + E^{nonlin} \\
-E^{tot}_{area} \propto \left( A^{tot} - A_{0}^{tot} \right)^2 \\
+\[F_{wlc}(r) = \frac{k_{s}}
+                  {l_{max}}
+             \frac{4 r^2 - 9 r + 6}
+	          {4 * (r - 1)^2}\]
+</div>
+</div>
+<div class="stemblock">
+<div class="content">
+\[F_{pow}(r) = \frac{k_{pow}}
+                  {r^{m + 1}}\]
+</div>
+</div>
+<div class="stemblock">
+<div class="content">
+\[E^{tot}_{area} \propto \left( A^{tot} - A_{0}^{tot} \right)^2 \\
 E^{local}_{area} \propto \left( A - A_{0} \right)^2 \\
 E^{local}_{area} \propto \left( A - A_{0} \right)^2 \\
 E^{tot}_{vol} \propto \left( V^{tot} - V_{0}^{tot} \right)^2 \\
 E_{bnd} \propto \left(\theta - \theta_0 \right)^2\]
+</div>
 </div>
 </div>
 </div>
