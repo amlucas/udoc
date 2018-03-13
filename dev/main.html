@@ -602,11 +602,16 @@ make -j     <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 <div class="sect2">
 <h3 id="_deploy">3.3. Deploy</h3>
 <div class="paragraph">
-<p>The deploy command cleans, builds and pushes the documentation on github pages <a href="https://github.com/amlucas/udoc" class="bare">https://github.com/amlucas/udoc</a></p>
+<p>The deploy command cleans, builds and pushes the documentation on
+github pages <a href="https://github.com/amlucas/udoc" class="bare">https://github.com/amlucas/udoc</a>.
+The commit message on the udoc repository points on the current
+<code>uDeviceX</code> commit. It is preferable to have a clean local repository
+before deploying:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="sh"><span></span>./tools/deploy</code></pre>
+<pre class="pygments highlight"><code data-lang="sh"><span></span>git clean -xdf
+./tools/deploy</code></pre>
 </div>
 </div>
 </div>
