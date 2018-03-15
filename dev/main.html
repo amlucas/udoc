@@ -270,6 +270,7 @@
 <li><a href="#_mpi_library">53.2. MPI library</a></li>
 <li><a href="#_libconfig">53.3. libconfig</a></li>
 <li><a href="#_hdf5">53.4. hdf5</a></li>
+<li><a href="#_bop">53.5. bop</a></li>
 </ul>
 </li>
 <li><a href="#wrappers">54. wrappers</a>
@@ -671,6 +672,7 @@ ffmpeg version <span class="tok-m">2</span>.8.11-0ubuntu0.16.04.1 Copyright <spa
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">edg_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">md</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span>                     <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">hx</span><span class="tok-p">);</span>
 <span class="tok-kt">void</span> <span class="tok-nf">edg_set</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">md</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">j</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">val</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">hx</span><span class="tok-p">,</span>       <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">hy</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
 <span class="tok-kt">int</span>  <span class="tok-nf">edg_get</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">md</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">j</span><span class="tok-p">,</span>         <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">hx</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">hy</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kt">int</span>  <span class="tok-nf">edg_valid</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">md</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">j</span><span class="tok-p">,</span>         <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">hx</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b>
 <span class="tok-c1">// end::interface</span></code></pre>
 </div>
 </div>
@@ -3506,8 +3508,9 @@ unused. For example, traingle <code>i</code> is</p>
 </div>
 </div>
 <div class="paragraph">
-<p><code>mesh_get_nt</code>, <code>mesh_get_nv</code>, and <code>mesh_get_md</code> return the number of
-triangles, number of vertices and maximum degree.</p>
+<p><code>mesh_get_nt</code>, <code>mesh_get_nv</code>, <code>mesh_get_ne</code>, and <code>mesh_get_md</code> return
+the number of triangles, number of vertices, number of edges, and
+maximum degree.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3517,6 +3520,7 @@ triangles, number of vertices and maximum degree.</p>
 
 <span class="tok-kt">int</span> <span class="tok-nf">mesh_read_get_nt</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">);</span>
 <span class="tok-kt">int</span> <span class="tok-nf">mesh_read_get_nv</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-kt">int</span> <span class="tok-nf">mesh_read_get_ne</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">);</span>
 <span class="tok-kt">int</span> <span class="tok-nf">mesh_read_get_md</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">);</span>
 
 <span class="tok-k">const</span> <span class="tok-n">int4</span>  <span class="tok-o">*</span><span class="tok-nf">mesh_read_get_tri</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">);</span>
@@ -3727,7 +3731,12 @@ stable to numerical error is used.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">double</span> <span class="tok-nf">kahan_area0</span><span class="tok-p">(</span><span class="tok-kt">double</span> <span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-kt">double</span> <span class="tok-n">b</span><span class="tok-p">,</span> <span class="tok-kt">double</span> <span class="tok-n">c</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
-<span class="tok-kt">double</span> <span class="tok-nf">kahan_area</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">double</span> <span class="tok-n">a</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">double</span> <span class="tok-n">b</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">double</span> <span class="tok-n">c</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">]);</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+<span class="tok-kt">double</span> <span class="tok-nf">kahan_area</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">double</span> <span class="tok-n">a</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">double</span> <span class="tok-n">b</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">double</span> <span class="tok-n">c</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">]);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kt">void</span>   <span class="tok-nf">ac_bc_cross</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">double</span> <span class="tok-n">a</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">double</span> <span class="tok-n">b</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">double</span> <span class="tok-n">c</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-cm">/**/</span> <span class="tok-kt">double</span> <span class="tok-n">r</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">]);</span> <i class="conum" data-value="3"></i><b>(3)</b>
+<span class="tok-kt">double</span> <span class="tok-nf">shewchuk_area</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">double</span> <span class="tok-n">a</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">double</span> <span class="tok-n">b</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">double</span> <span class="tok-n">c</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">]);</span> <i class="conum" data-value="4"></i><b>(4)</b>
+<span class="tok-kt">double</span> <span class="tok-nf">orient3d</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">double</span> <span class="tok-n">a</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">double</span> <span class="tok-n">b</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">double</span> <span class="tok-n">c</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">double</span> <span class="tok-n">d</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">]);</span> <i class="conum" data-value="5"></i><b>(5)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">dihedral_xy</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">double</span> <span class="tok-n">a</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">double</span> <span class="tok-n">b</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">double</span> <span class="tok-n">c</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">double</span> <span class="tok-n">d</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span>
+                   <span class="tok-kt">double</span> <span class="tok-o">*</span><span class="tok-n">x</span><span class="tok-p">,</span> <span class="tok-kt">double</span> <span class="tok-o">*</span><span class="tok-n">y</span><span class="tok-p">);</span> <i class="conum" data-value="6"></i><b>(6)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -5939,6 +5948,33 @@ make install</code></pre>
 <div class="content">
 <pre class="pygments highlight"><code data-lang="sh"><span></span>      --prefix<span class="tok-o">=</span><span class="tok-nv">$HOME</span>/prefix/hdf5 --enable-parallel <span class="tok-nv">CXX</span><span class="tok-o">=</span>mpic++ <span class="tok-nv">CC</span><span class="tok-o">=</span>mpicc</code></pre>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bop">53.5. bop</h3>
+<div class="paragraph">
+<p>a simple format for particle data, see
+<a href="https://gitlab.ethz.ch/mavt-cse/bop">bop</a>.</p>
+</div>
+<div class="paragraph">
+<p>installation:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="sh"><span></span>git clone git@gitlab.ethz.ch:mavt-cse/bop.git
+<span class="tok-nb">cd</span> bop
+./configure <span class="tok-o">[</span>OPTIONS<span class="tok-o">]</span> <i class="conum" data-value="1"></i><b>(1)</b>
+make
+make -s <span class="tok-nb">test</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>see <code>./configure --help</code></td>
+</tr>
+</table>
 </div>
 </div>
 </div>
