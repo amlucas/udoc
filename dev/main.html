@@ -3605,39 +3605,7 @@ maximum degree.</p>
     <span class="tok-n">UC</span><span class="tok-p">(</span><span class="tok-n">io_point_push</span><span class="tok-p">(</span><span class="tok-n">p</span><span class="tok-p">,</span> <span class="tok-n">MAX_N</span><span class="tok-p">,</span> <span class="tok-n">rr</span><span class="tok-p">,</span> <span class="tok-s">&quot;x y z&quot;</span><span class="tok-p">));</span>
     <span class="tok-n">UC</span><span class="tok-p">(</span><span class="tok-n">io_point_push</span><span class="tok-p">(</span><span class="tok-n">p</span><span class="tok-p">,</span> <span class="tok-n">MAX_N</span><span class="tok-p">,</span> <span class="tok-n">density</span><span class="tok-p">,</span> <span class="tok-s">&quot;density&quot;</span><span class="tok-p">));</span>
     <span class="tok-n">id</span> <span class="tok-o">=</span> <span class="tok-mi">0</span><span class="tok-p">;</span>
-    <span class="tok-n">UC</span><span class="tok-p">(</span><span class="tok-n">io_point_write</span><span class="tok-p">(</span><span class="tok-n">p</span><span class="tok-p">,</span> <span class="tok-n">comm</span><span class="tok-p">,</span> <span class="tok-n">id</span><span class="tok-p">));</span>
-<span class="tok-c1">// end::main[]</span>
-
-    <span class="tok-n">UC</span><span class="tok-p">(</span><span class="tok-n">io_point_push</span><span class="tok-p">(</span><span class="tok-n">p</span><span class="tok-p">,</span> <span class="tok-n">MAX_N</span> <span class="tok-o">-</span> <span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-n">rr</span><span class="tok-p">,</span> <span class="tok-s">&quot;x y z&quot;</span><span class="tok-p">));</span>
-    <span class="tok-n">UC</span><span class="tok-p">(</span><span class="tok-n">io_point_push</span><span class="tok-p">(</span><span class="tok-n">p</span><span class="tok-p">,</span> <span class="tok-n">MAX_N</span> <span class="tok-o">-</span> <span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-n">density</span><span class="tok-p">,</span> <span class="tok-s">&quot;density&quot;</span><span class="tok-p">));</span>
-    <span class="tok-n">id</span> <span class="tok-o">=</span> <span class="tok-mi">1</span><span class="tok-p">;</span>
-    <span class="tok-n">UC</span><span class="tok-p">(</span><span class="tok-n">io_point_write</span><span class="tok-p">(</span><span class="tok-n">p</span><span class="tok-p">,</span> <span class="tok-n">comm</span><span class="tok-p">,</span> <span class="tok-n">id</span><span class="tok-p">));</span>
-
-    <span class="tok-n">UC</span><span class="tok-p">(</span><span class="tok-n">io_point_fin</span><span class="tok-p">(</span><span class="tok-n">p</span><span class="tok-p">));</span>
-<span class="tok-p">}</span>
-
-<span class="tok-kt">int</span> <span class="tok-n">main</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">argc</span><span class="tok-p">,</span> <span class="tok-kt">char</span> <span class="tok-o">**</span><span class="tok-n">argv</span><span class="tok-p">)</span> <span class="tok-p">{</span>
-    <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">path</span><span class="tok-p">;</span>
-    <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">cfg</span><span class="tok-p">;</span>
-    <span class="tok-kt">int</span> <span class="tok-n">rank</span><span class="tok-p">,</span> <span class="tok-n">dims</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">];</span>
-    <span class="tok-n">MPI_Comm</span> <span class="tok-n">comm</span><span class="tok-p">;</span>
-
-    <span class="tok-n">m</span><span class="tok-o">::</span><span class="tok-n">ini</span><span class="tok-p">(</span><span class="tok-o">&amp;</span><span class="tok-n">argc</span><span class="tok-p">,</span> <span class="tok-o">&amp;</span><span class="tok-n">argv</span><span class="tok-p">);</span>
-    <span class="tok-n">m</span><span class="tok-o">::</span><span class="tok-n">get_dims</span><span class="tok-p">(</span><span class="tok-o">&amp;</span><span class="tok-n">argc</span><span class="tok-p">,</span> <span class="tok-o">&amp;</span><span class="tok-n">argv</span><span class="tok-p">,</span> <span class="tok-n">dims</span><span class="tok-p">);</span>
-    <span class="tok-n">m</span><span class="tok-o">::</span><span class="tok-n">get_cart</span><span class="tok-p">(</span><span class="tok-n">MPI_COMM_WORLD</span><span class="tok-p">,</span> <span class="tok-n">dims</span><span class="tok-p">,</span> <span class="tok-o">&amp;</span><span class="tok-n">comm</span><span class="tok-p">);</span>
-
-    <span class="tok-n">MC</span><span class="tok-p">(</span><span class="tok-n">m</span><span class="tok-o">::</span><span class="tok-n">Comm_rank</span><span class="tok-p">(</span><span class="tok-n">comm</span><span class="tok-p">,</span> <span class="tok-o">&amp;</span><span class="tok-n">rank</span><span class="tok-p">));</span>
-    <span class="tok-n">msg_ini</span><span class="tok-p">(</span><span class="tok-n">rank</span><span class="tok-p">);</span>
-
-    <span class="tok-n">UC</span><span class="tok-p">(</span><span class="tok-n">conf_ini</span><span class="tok-p">(</span><span class="tok-o">&amp;</span><span class="tok-n">cfg</span><span class="tok-p">));</span>
-    <span class="tok-n">UC</span><span class="tok-p">(</span><span class="tok-n">conf_read</span><span class="tok-p">(</span><span class="tok-n">argc</span><span class="tok-p">,</span> <span class="tok-n">argv</span><span class="tok-p">,</span> <span class="tok-n">cfg</span><span class="tok-p">));</span>
-    <span class="tok-n">UC</span><span class="tok-p">(</span><span class="tok-n">conf_lookup_string</span><span class="tok-p">(</span><span class="tok-n">cfg</span><span class="tok-p">,</span> <span class="tok-s">&quot;o&quot;</span><span class="tok-p">,</span> <span class="tok-o">&amp;</span><span class="tok-n">path</span><span class="tok-p">));</span>
-    <span class="tok-n">main0</span><span class="tok-p">(</span><span class="tok-n">comm</span><span class="tok-p">,</span> <span class="tok-n">path</span><span class="tok-p">);</span>
-
-    <span class="tok-n">UC</span><span class="tok-p">(</span><span class="tok-n">conf_fin</span><span class="tok-p">(</span><span class="tok-n">cfg</span><span class="tok-p">));</span>
-    <span class="tok-n">MC</span><span class="tok-p">(</span><span class="tok-n">m</span><span class="tok-o">::</span><span class="tok-n">Barrier</span><span class="tok-p">(</span><span class="tok-n">comm</span><span class="tok-p">));</span>
-    <span class="tok-n">m</span><span class="tok-o">::</span><span class="tok-n">fin</span><span class="tok-p">();</span>
-<span class="tok-p">}</span></code></pre>
+    <span class="tok-n">UC</span><span class="tok-p">(</span><span class="tok-n">io_point_write</span><span class="tok-p">(</span><span class="tok-n">p</span><span class="tok-p">,</span> <span class="tok-n">comm</span><span class="tok-p">,</span> <span class="tok-n">id</span><span class="tok-p">));</span></code></pre>
 </div>
 </div>
 </div>
