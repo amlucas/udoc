@@ -5076,42 +5076,58 @@ host version of <code>av</code> array</td>
 <div class="paragraph">
 <p>\(l_0\) is an equilibrium lenght, \(l_{max}\) is a maximum
 lenght \(l_{max} = l_{0} / x_{0}\), and \(k_p\) is defined from
-condition that \(U_{spring}\) has a maximum at \(r = l0\).</p>
+condition that \(U_{spring}\) has a maximum at \(r = l_0\).</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_local_area_constrain">41.2. local area constrain</h3>
+<div class="paragraph">
+<p>For every triangle with area \(A^{loc}\) and an equilibrium area
+\(A_0^{loc}\)</p>
+</div>
 <div class="stemblock">
 <div class="content">
 \[E^{loc}_{area} =
 k_d
 \frac
-{\left( A^{loc} - A_{0}^{loc} \right)^2}
-{{2 A_{0}^{loc} }\]
+{
+  \left(
+    A^{loc} - A_0^{loc}
+  \right)^2
+}
+{2 A_0^{loc}}\]
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_total_area_constrain">41.3. total area constrain</h3>
+<div class="paragraph">
+<p>For whole mesh with area \(A^{tot}\) and an equilibrium area
+\(A_0^{tot}\)</p>
+</div>
 <div class="stemblock">
 <div class="content">
 \[E^{tot}_{area} =
 k_a
 \frac
-{\left( A^{tot} - A_{0}^{tot} \right)^2}
-{2 A_{0}^{tot} }\]
+{\left( A^{tot} - A_0^{tot} \right)^2}
+{2 A_0^{tot} }\]
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_total_volume_constrain">41.4. total volume constrain</h3>
+<div class="paragraph">
+<p>For whole mesh with volume \(V\) and an equilibrium volume
+\(V_0\)</p>
+</div>
 <div class="stemblock">
 <div class="content">
-\[E^{tot}_{vol} =
+\[E_{vol} =
 k_v
 \frac
-{\left( V^{tot} - V_{0}^{tot} \right)^2}
-{2 V_{0}^{tot}}\]
+{\left( V - V_0 \right)^2}
+{2 V_0}\]
 </div>
 </div>
 </div>
