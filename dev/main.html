@@ -215,15 +215,16 @@
 <li><a href="#_rbc_area_and_volume">40. RBC area and volume</a></li>
 <li><a href="#_elastic_energies">41. Elastic energies</a>
 <ul class="sectlevel2">
-<li><a href="#_local_area">41.1. local area</a></li>
-<li><a href="#_total_area">41.2. total area</a></li>
-<li><a href="#_total_volume">41.3. total volume</a></li>
-<li><a href="#_bending">41.4. bending</a></li>
+<li><a href="#_spring">41.1. spring</a></li>
+<li><a href="#_local_area_constrain">41.2. local area constrain</a></li>
+<li><a href="#_total_area_constrain">41.3. total area constrain</a></li>
+<li><a href="#_total_volume_constrain">41.4. total volume constrain</a></li>
+<li><a href="#_bending">41.5. bending</a></li>
 </ul>
 </li>
 <li><a href="#_forces">42. Forces</a>
 <ul class="sectlevel2">
-<li><a href="#_spring">42.1. spring</a></li>
+<li><a href="#_spring_2">42.1. spring</a></li>
 <li><a href="#_other_forces_todo">42.2. Other forces (TODO)</a></li>
 </ul>
 </li>
@@ -5043,16 +5044,18 @@ host version of <code>av</code> array</td>
 <div class="sect1">
 <h2 id="_elastic_energies">41. Elastic energies</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_spring">41.1. spring</h3>
 <div class="paragraph">
-<p>Spring energiy is a function of distance between connected bead \(r\)</p>
+<p>Spring energy is a function of distance between connected beads \(r\)</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[U_{sprint}(r) = U_{wlc}(r) + U_{pow}(r)\]
+\[U_{spring}(r) = U_{wlc}(r) + U_{pow}(r)\]
 </div>
 </div>
 <div class="paragraph">
-<p>where worm-like energy:</p>
+<p>where worm-like chain energy:</p>
 </div>
 <div class="stemblock">
 <div class="content">
@@ -5070,16 +5073,22 @@ host version of <code>av</code> array</td>
 \frac{k_p}{r^{m - 1}}\]
 </div>
 </div>
+<div class="paragraph">
+<p>\(l_0\) is an equilibrium lenght, \(l_{max}\) is a maximum
+lenght \(l_{max} = l_{0} / x_{0}\), and \(k_p\) is defined from
+condition that \(U_{spring}\) has a maximum at \(r = l0\).</p>
+</div>
+</div>
 <div class="sect2">
-<h3 id="_local_area">41.1. local area</h3>
+<h3 id="_local_area_constrain">41.2. local area constrain</h3>
 <div class="stemblock">
 <div class="content">
-\[E^{local}_{area} = k_d \left( A^{tot} - A_{0}^{tot} \right)^2\]
+\[E^{local}_{area} = k_d \left( A^{local} - A_{0}^{local} \right)^2\]
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_total_area">41.2. total area</h3>
+<h3 id="_total_area_constrain">41.3. total area constrain</h3>
 <div class="stemblock">
 <div class="content">
 \[E^{tot}_{area} = k_a \left( A^{tot} - A_{0}^{tot} \right)^2\]
@@ -5087,7 +5096,7 @@ host version of <code>av</code> array</td>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_total_volume">41.3. total volume</h3>
+<h3 id="_total_volume_constrain">41.4. total volume constrain</h3>
 <div class="stemblock">
 <div class="content">
 \[E^{tot}_{vol} = k_v \left( V^{tot} - V_{0}^{tot} \right)^2\]
@@ -5095,7 +5104,7 @@ host version of <code>av</code> array</td>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_bending">41.4. bending</h3>
+<h3 id="_bending">41.5. bending</h3>
 <div class="stemblock">
 <div class="content">
 \[E_{bnd} = k_b
@@ -5114,7 +5123,7 @@ host version of <code>av</code> array</td>
 <h2 id="_forces">42. Forces</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_spring">42.1. spring</h3>
+<h3 id="_spring_2">42.1. spring</h3>
 <div class="paragraph">
 <p>A force between two connected beads. \(l_0\) is an equilibrium
 spring lenght, \(l_{max}\) is a maximum spring lenght \(l_0 =
