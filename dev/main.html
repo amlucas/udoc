@@ -215,7 +215,7 @@
 <li><a href="#_rbc_area_and_volume">40. RBC area and volume</a></li>
 <li><a href="#_forces">41. Forces</a>
 <ul class="sectlevel2">
-<li><a href="#_spring_force">41.1. Spring force</a></li>
+<li><a href="#_spring">41.1. spring</a></li>
 <li><a href="#_other_forces_todo">41.2. Other forces (TODO)</a></li>
 </ul>
 </li>
@@ -4890,7 +4890,7 @@ MPI rank</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="6"></i><b>6</b></td>
-<td>log array of matrices to <code>stderr</code> using <code>msg_print</code></td>
+<td>log an array of matrices to <code>stderr</code> using <code>msg_print</code></td>
 </tr>
 </table>
 </div>
@@ -5036,9 +5036,13 @@ host version of <code>av</code> array</td>
 <h2 id="_forces">41. Forces</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_spring_force">41.1. Spring force</h3>
+<h3 id="_spring">41.1. spring</h3>
 <div class="paragraph">
-<p>A force between neighboring beads:</p>
+<p>\(l_0\)$ is an equilibrium spring lenght, \(l_{max}\) is a
+maximum spring lenght \(l_0 = l_0 / x_0\).</p>
+</div>
+<div class="paragraph">
+<p>A force between neighboring consissts of repulsive worm-like-chain part</p>
 </div>
 <div class="stemblock">
 <div class="content">
@@ -5047,6 +5051,9 @@ host version of <code>av</code> array</td>
              \frac{4 r^2 - 9 r + 6}
 	          {4 (r - 1)^2}\]
 </div>
+</div>
+<div class="paragraph">
+<p>and attractive power law part</p>
 </div>
 <div class="stemblock">
 <div class="content">
