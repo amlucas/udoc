@@ -5061,7 +5061,7 @@ host version of <code>av</code> array</td>
 <div class="content">
 \[U_{wlc}(r) =
 \frac{k_s}{4 l_{max}}
-\frac{3 x^2 - 2 x^3}{1 - x}, \quad x = r/l_{max}\]
+\frac{3 x^2 - 2 x^3}{1 - x}, \quad x = \frac{r}{l_{max}}\]
 </div>
 </div>
 <div class="paragraph">
@@ -5083,7 +5083,11 @@ condition that \(U_{spring}\) has a maximum at \(r = l0\).</p>
 <h3 id="_local_area_constrain">41.2. local area constrain</h3>
 <div class="stemblock">
 <div class="content">
-\[E^{local}_{area} = k_d \left( A^{local} - A_{0}^{local} \right)^2\]
+\[E^{loc}_{area} =
+k_d
+\frac
+{\left( A^{loc} - A_{0}^{loc} \right)^2}
+{{2 A_{0}^{loc} }\]
 </div>
 </div>
 </div>
@@ -5091,7 +5095,11 @@ condition that \(U_{spring}\) has a maximum at \(r = l0\).</p>
 <h3 id="_total_area_constrain">41.3. total area constrain</h3>
 <div class="stemblock">
 <div class="content">
-\[E^{tot}_{area} = k_a \left( A^{tot} - A_{0}^{tot} \right)^2\]
+\[E^{tot}_{area} =
+k_a
+\frac
+{\left( A^{tot} - A_{0}^{tot} \right)^2}
+{2 A_{0}^{tot} }\]
 </div>
 </div>
 </div>
@@ -5099,7 +5107,11 @@ condition that \(U_{spring}\) has a maximum at \(r = l0\).</p>
 <h3 id="_total_volume_constrain">41.4. total volume constrain</h3>
 <div class="stemblock">
 <div class="content">
-\[E^{tot}_{vol} = k_v \left( V^{tot} - V_{0}^{tot} \right)^2\]
+\[E^{tot}_{vol} =
+k_v
+\frac
+{\left( V^{tot} - V_{0}^{tot} \right)^2}
+{2 V_{0}^{tot}}\]
 </div>
 </div>
 </div>
@@ -5108,12 +5120,12 @@ condition that \(U_{spring}\) has a maximum at \(r = l0\).</p>
 <div class="stemblock">
 <div class="content">
 \[E_{bnd} = k_b
-\left(
+\left[
   1 - \cos
   \left(
     \theta - \theta_0
   \right)
-\right)\]
+\right]\]
 </div>
 </div>
 </div>
