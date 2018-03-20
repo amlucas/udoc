@@ -5041,19 +5041,10 @@ allowed number of meshes</td>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
 <td>compute area and volume for every mesh, <code>nm</code> is a number of meshes,
-output <code>av</code> is a devices array and is as follow</td>
+output <code>av</code> is a devices array in the form <code>area[0] volume[0] &#8230;&#8203; area[nc-1] volume[nc-1]</code></td>
 </tr>
-</table>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>area[0] volume[0] ... area[nc-1] volume[nc-1]</pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
 <tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
 <td>after <code>area_volume_compute</code> call, <code>area_volume_host</code> returns a
 host version of <code>av</code> array</td>
 </tr>
