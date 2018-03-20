@@ -276,7 +276,7 @@
 </li>
 <li><a href="#_third_party_dependencies">54. third party dependencies</a>
 <ul class="sectlevel2">
-<li><a href="#_cuda_compiler">54.1. cuda compiler</a></li>
+<li><a href="#_nvcc">54.1. nvcc</a></li>
 <li><a href="#_mpi_library">54.2. MPI library</a></li>
 <li><a href="#_libconfig">54.3. libconfig</a></li>
 <li><a href="#_hdf5">54.4. hdf5</a></li>
@@ -6027,9 +6027,9 @@ position and velocity of particle.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">wvel {</span>
-    <span class="tok-na">type</span> <span class="tok-o">=</span> <span class="tok-s">&quot;constant&quot;;</span>
-<span class="tok-s">    u    = [1.0, 0.0, 0.0];</span>
-<span class="tok-na">};</span></code></pre>
+    <span class="tok-na">type</span> <span class="tok-o">=</span> <span class="tok-s">&quot;constant&quot;</span>
+<span class="tok-s">    u    = [1.0, 0.0, 0.0]</span>
+<span class="tok-na">}</span></code></pre>
 </div>
 </div>
 </div>
@@ -6041,12 +6041,12 @@ position and velocity of particle.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">wvel {</span>
-    <span class="tok-na">type</span> <span class="tok-o">=</span> <span class="tok-s">&quot;shear&quot;;</span>
-<span class="tok-s">    gdot = 3.0;</span>
-<span class="tok-s">    vdir = 0;</span>
-<span class="tok-s">    gdir = 1;</span>
-<span class="tok-s">    half = 0;</span>
-<span class="tok-na">};</span></code></pre>
+    <span class="tok-na">type</span> <span class="tok-o">=</span> <span class="tok-s">&quot;shear&quot;</span>
+<span class="tok-s">    gdot = 3.0</span>
+<span class="tok-s">    vdir = 0</span>
+<span class="tok-s">    gdir = 1</span>
+<span class="tok-s">    half = 0</span>
+<span class="tok-na">}</span></code></pre>
 </div>
 </div>
 </div>
@@ -6058,12 +6058,12 @@ position and velocity of particle.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">wvel {</span>
-    <span class="tok-na">type</span> <span class="tok-o">=</span> <span class="tok-s">&quot;shear sin&quot;;</span>
-<span class="tok-s">    gdot = 3.0;</span>
-<span class="tok-s">    vdir = 0;</span>
-<span class="tok-s">    gdir = 1;</span>
-<span class="tok-s">    w = 5.0;</span>
-<span class="tok-na">};</span></code></pre>
+    <span class="tok-na">type</span> <span class="tok-o">=</span> <span class="tok-s">&quot;shear sin&quot;</span>
+<span class="tok-s">    gdot = 3.0</span>
+<span class="tok-s">    vdir = 0</span>
+<span class="tok-s">    gdir = 1</span>
+<span class="tok-s">    w = 5.0</span>
+<span class="tok-na">}</span></code></pre>
 </div>
 </div>
 </div>
@@ -6075,10 +6075,10 @@ position and velocity of particle.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">wvel {</span>
-    <span class="tok-na">type</span> <span class="tok-o">=</span> <span class="tok-s">&quot;hele shaw&quot;;</span>
-<span class="tok-s">    u = 1.0;</span>
-<span class="tok-s">    h = 8.0;</span>
-<span class="tok-na">};</span></code></pre>
+    <span class="tok-na">type</span> <span class="tok-o">=</span> <span class="tok-s">&quot;hele shaw&quot;</span>
+<span class="tok-s">    u = 1.0</span>
+<span class="tok-s">    h = 8.0</span>
+<span class="tok-na">}</span></code></pre>
 </div>
 </div>
 </div>
@@ -6089,9 +6089,9 @@ position and velocity of particle.</p>
 <h2 id="_third_party_dependencies">54. third party dependencies</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_cuda_compiler">54.1. cuda compiler</h3>
+<h3 id="_nvcc">54.1. nvcc</h3>
 <div class="paragraph">
-<p><a href="http://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc" class="bare">http://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc</a></p>
+<p><a href="http://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc">cuda compiler driver</a></p>
 </div>
 </div>
 <div class="sect2">
@@ -6116,10 +6116,7 @@ position and velocity of particle.</p>
 <div class="sect2">
 <h3 id="_libconfig">54.3. libconfig</h3>
 <div class="paragraph">
-<p>a library for processing structured configuration files</p>
-</div>
-<div class="paragraph">
-<p>link:http://hyperrealm.com/libconfig/libconfig.html</p>
+<p><a href="http://hyperrealm.com/libconfig/libconfig.html">a library for processing structured configuration files</a></p>
 </div>
 <div class="sect3">
 <h4 id="_from_source">54.3.1. from source</h4>
