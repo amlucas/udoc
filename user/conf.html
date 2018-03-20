@@ -52,9 +52,9 @@
 </div>
 <div class="dlist">
 <dl>
-<dt class="hdlist1"><code>type = string</code></dt>
+<dt class="hdlist1"><code>type = "const"|"disp"</code></dt>
 <dd>
-<p>a strategy for time step. Possible values are <code>const</code> and <code>disp</code></p>
+<p>a strategy for time step.</p>
 </dd>
 <dt class="hdlist1"><code>end = float</code></dt>
 <dd>
@@ -62,7 +62,7 @@
 </dd>
 <dt class="hdlist1"><code>wall = float</code></dt>
 <dd>
-<p>when create wall?</p>
+<p>when to create wall?</p>
 </dd>
 <dt class="hdlist1"><code>screenlog = bool</code></dt>
 <dd>
@@ -70,8 +70,10 @@
 </dd>
 </dl>
 </div>
+<div class="sect2">
+<h3 id="_code_type_const_code"><code>type = const</code></h3>
 <div class="paragraph">
-<p>If <code>type = const</code> the time step must be set and it is constant for entire simulation</p>
+<p>Timestep is constant</p>
 </div>
 <div class="dlist">
 <dl>
@@ -81,31 +83,24 @@
 </dd>
 </dl>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_code_type_disp_code"><code>type = disp</code></h3>
 <div class="paragraph">
-<p>If <code>type = disp</code> the time step must be set and it is constant for entire simulation</p>
+<p>The time step is adjusted base on the forces (TODO)</p>
 </div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><code>dt = float</code></dt>
 <dd>
-<p>timestep</p>
-</dd>
-</dl>
-</div>
-<div class="paragraph">
-<p>if <code>type = disp</code> the time step is adjusted base on the forces</p>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><code>dt = float</code></dt>
-<dd>
-<p>timestep</p>
+<p>initial timestep</p>
 </dd>
 <dt class="hdlist1"><code>dx = float</code></dt>
 <dd>
 <p>maximum displacement</p>
 </dd>
 </dl>
+</div>
 </div>
 </div>
 </div>
