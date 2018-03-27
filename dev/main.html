@@ -156,7 +156,7 @@
 <li><a href="#_linal">24.1. linal</a></li>
 <li><a href="#_host_random_number_generation">24.2. Host random number generation</a></li>
 <li><a href="#_linar_coordinate_transformation_for_3d_vector">24.3. linar coordinate transformation for 3D vector</a></li>
-<li><a href="#_functions_for_a_triangle">24.4. functions for a triangle</a></li>
+<li><a href="#_triangle_functions">24.4. triangle functions</a></li>
 </ul>
 </li>
 <li><a href="#_scheme_move">25. scheme/move</a>
@@ -199,9 +199,9 @@
 </ul>
 </li>
 <li><a href="#_triangles">31. Triangles</a></li>
-<li><a href="#_compute_volume_of_a_mesh">32. compute volume of a mesh</a></li>
-<li><a href="#_compute_volume_of_a_mesh_2">33. compute volume of a mesh</a></li>
-<li><a href="#_compute_volume_of_a_mesh_3">34. compute volume of a mesh</a></li>
+<li><a href="#_compute_area_of_a_mesh">32. compute area of a mesh</a></li>
+<li><a href="#_compute_volume_of_a_mesh">33. compute volume of a mesh</a></li>
+<li><a href="#_compute_area_of_triangles_in_a_mesh">34. compute area of triangles in a mesh</a></li>
 <li><a href="#_positions">35. Positions</a></li>
 <li><a href="#_meshbb">36. meshbb</a>
 <ul class="sectlevel2">
@@ -3844,9 +3844,9 @@ number of cell.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_functions_for_a_triangle">24.4. functions for a triangle</h3>
+<h3 id="_triangle_functions">24.4. triangle functions</h3>
 <div class="paragraph">
-<p>Host and device functions for a triangle. For
+<p>Host and device functions for a given triangle. For
 area computation
 <a href="https://people.eecs.berkeley.edu/~wkahan/Triangle.pdf">a formula</a>
 stable to numerical error is used.</p>
@@ -3874,7 +3874,7 @@ stable to numerical error is used.</p>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>\(\mathbf{a} - \mathbf{c} \times \mathbf{b} - mathbf{c}\)</td>
+<td>\(\mathbf{a} - \mathbf{c} \times \mathbf{b} - \mathbf{c}\)</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
@@ -4671,18 +4671,18 @@ Purpose: kill particles during redistribution or cell lists build</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_compute_volume_of_a_mesh">32. compute volume of a mesh</h2>
+<h2 id="_compute_area_of_a_mesh">32. compute area of a mesh</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Compute an area of a triangulated mesh.</p>
+<p>Compute the area of a triangulated mesh.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">mesh_volume_ini</span><span class="tok-p">(</span><span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">MeshVolume</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">mesh_volume_fin</span><span class="tok-p">(</span><span class="tok-n">MeshVolume</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">mesh_area_ini</span><span class="tok-p">(</span><span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">MeshArea</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">mesh_area_fin</span><span class="tok-p">(</span><span class="tok-n">MeshArea</span><span class="tok-o">*</span><span class="tok-p">);</span>
 
-<span class="tok-kt">double</span> <span class="tok-nf">mesh_volume_apply0</span><span class="tok-p">(</span><span class="tok-n">MeshVolume</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">Vectors</span><span class="tok-o">*</span><span class="tok-p">);</span>                      <i class="conum" data-value="2"></i><b>(2)</b>
-<span class="tok-kt">void</span>  <span class="tok-nf">mesh_volume_apply</span><span class="tok-p">(</span><span class="tok-n">MeshVolume</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nm</span><span class="tok-p">,</span> <span class="tok-n">Vectors</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">double</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+<span class="tok-kt">double</span> <span class="tok-nf">mesh_area_apply0</span><span class="tok-p">(</span><span class="tok-n">MeshArea</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">Vectors</span><span class="tok-o">*</span><span class="tok-p">);</span>                     <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kt">void</span>  <span class="tok-nf">mesh_area_apply</span><span class="tok-p">(</span><span class="tok-n">MeshArea</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nm</span><span class="tok-p">,</span> <span class="tok-n">Vectors</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">double</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -4693,18 +4693,18 @@ Purpose: kill particles during redistribution or cell lists build</p>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>compute an area for one object</td>
+<td>compute the area of one object</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>compute an area for <code>nm</code> objects</td>
+<td>compute the areas of <code>nm</code> objects</td>
 </tr>
 </table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_compute_volume_of_a_mesh_2">33. compute volume of a mesh</h2>
+<h2 id="_compute_volume_of_a_mesh">33. compute volume of a mesh</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Compute a volume enclosed by a triangulated mesh on host.</p>
@@ -4737,10 +4737,10 @@ Purpose: kill particles during redistribution or cell lists build</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_compute_volume_of_a_mesh_3">34. compute volume of a mesh</h2>
+<h2 id="_compute_area_of_triangles_in_a_mesh">34. compute area of triangles in a mesh</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Compute a an area for every triangle of the mesh.</p>
+<p>Compute the area of every triangle of the mesh.</p>
 </div>
 <div class="listingblock">
 <div class="content">
