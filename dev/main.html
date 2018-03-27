@@ -89,8 +89,9 @@
 <ul class="sectlevel2">
 <li><a href="#_velocity_controller">14.1. Velocity controller</a></li>
 <li><a href="#_inflow">14.2. Inflow</a></li>
-<li><a href="#_outflow">14.3. Outflow</a></li>
-<li><a href="#_density_controller">14.4. Density controller</a></li>
+<li><a href="#_method">14.3. Method</a></li>
+<li><a href="#_outflow">14.4. Outflow</a></li>
+<li><a href="#_density_controller">14.5. Density controller</a></li>
 </ul>
 </li>
 <li><a href="#_coords">15. coords</a>
@@ -1544,17 +1545,31 @@ and \(\mathbf{f}\) is a given transformation.</p>
 <div class="paragraph">
 <p>the transformation is the way of averaging the velocity:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>cartesian transformation keeps the velocity and does not depends on position.</p>
-</li>
-<li>
+<div class="paragraph">
+<p>cartesian transformation keeps the velocity and does not depends on
+position:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\mathbf{f} \left( \mathbf{r}, \mathbf{v} \right) = \mathbf{v}\]
+</div>
+</div>
+<div class="paragraph">
 <p>radial transformation returns the velocity in polar coordinates
 scaled by the radial position. the <code>z</code> component corresponds to
-cartesian transformation</p>
-</li>
-</ul>
+cartesian transformation:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\mathbf{f} \left( \mathbf{r}, \mathbf{v} \right) = \left(
+r [v_x \cos(\theta) + v_y \sin(\theta)],
+r[- v_x \sin(\theta) + v_y \cos(\theta)],
+v_z \right),\]
+</div>
+</div>
+<div class="paragraph">
+<p>with \(r = \sqrt{x^2 + y^2}\) and \(\theta = \arctan(y/x)\).
+\(x\) and \(y\) are particle position with respect to the center of the domain.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1643,17 +1658,17 @@ and <code>Kd</code></td>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">vcon</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
-<span class="tok-s">     active = true;</span>
-<span class="tok-s">     type   = &quot;cart&quot;;          # can be also &quot;rad&quot;</span>
-<span class="tok-s">     U      = [1.0, 1.0, 0.0]; # target velocity in transformed space</span>
+<span class="tok-s">     active = true</span>
+<span class="tok-s">     type   = &quot;cart&quot;          # can be also &quot;rad&quot;</span>
+<span class="tok-s">     U      = [1.0, 1.0, 0.0] # target velocity in transformed space</span>
 <span class="tok-s">     factor = 0.08</span>
 <span class="tok-s">     Kp = 2.0</span>
 <span class="tok-s">     Ki = 1.0</span>
 <span class="tok-s">     Kd = 8.0</span>
-<span class="tok-s">     log_freq    = 500;</span>
-<span class="tok-s">     adjust_freq = 500;</span>
-<span class="tok-s">     sample_freq = 1;</span>
-<span class="tok-na">};</span></code></pre>
+<span class="tok-s">     log_freq    = 500</span>
+<span class="tok-s">     adjust_freq = 500</span>
+<span class="tok-s">     sample_freq = 1</span>
+<span class="tok-na">}</span></code></pre>
 </div>
 </div>
 </div>
@@ -1661,10 +1676,37 @@ and <code>Kd</code></td>
 <div class="sect2">
 <h3 id="_inflow">14.2. Inflow</h3>
 <div class="paragraph">
-<p>Mass rate inflow</p>
+<p>Mass rate inflow.</p>
+</div>
+<div class="paragraph">
+<p>Create particles given a surface \(S(u, v)\), with a velocity profile
+\(\mathbf{U}(u,v)\) with \((u,v) \in (0,1) \times (0,1)\).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_method">14.3. Method</h3>
+<div class="paragraph">
+<p>Define "cumulative inflow" \(\phi(u, v)\) in a bin of area \(dA
+\in S\).</p>
+</div>
+<div class="paragraph">
+<p>Updated as follow:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\phi^{n+1} = \phi^n + dt \rho dA \mathbf{u} \cdot \mathbf{n}\]
+</div>
+</div>
+<div class="paragraph">
+<p>where \(\rho\) is the number density.</p>
+</div>
+<div class="paragraph">
+<p>When \(\phi \geq 1\), a particle is released at the bin position
+with random velocity \(\mathcal{N} (\mathbf{u}, k_BT)\).
+We also set \(\phi \leftarrow \phi - 1\).</p>
 </div>
 <div class="sect3">
-<h4 id="_interface_8">14.2.1. interface</h4>
+<h4 id="_interface_8">14.3.1. interface</h4>
 <div class="paragraph">
 <p>allocate, deallocate:</p>
 </div>
@@ -1725,7 +1767,7 @@ it is used to setup the inlet velocity from parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_configuration_3">14.2.2. configuration</h4>
+<h4 id="_configuration_3">14.3.2. configuration</h4>
 <div class="sect4">
 <h5 id="_plate">plate</h5>
 <div class="paragraph">
@@ -1735,47 +1777,47 @@ the point <code>(1, 2, 3)</code>:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">inflow</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
-<span class="tok-s">    active      = true;</span>
-<span class="tok-s">    type        = &quot;plate&quot;;</span>
-<span class="tok-s">    L1          = 1.0;</span>
-<span class="tok-s">    L2          = 16.0;</span>
-<span class="tok-s">    direction   = 0;                # [0,1,2] = [X,Y,Z]</span>
-<span class="tok-s">    origin      = [1.0, 2.0, 3.0];</span>
-<span class="tok-s">    upoiseuille = false;            # true for parabolic profile along L1</span>
-<span class="tok-s">    vpoiseuille = false;            # true for parabolic profile along L2</span>
-<span class="tok-s">    u           = [10.0, 0.0, 0.0];</span>
-<span class="tok-na">};</span></code></pre>
+<span class="tok-s">    active      = true</span>
+<span class="tok-s">    type        = &quot;plate&quot;</span>
+<span class="tok-s">    L1          = 1.0</span>
+<span class="tok-s">    L2          = 16.0</span>
+<span class="tok-s">    direction   = 0                # [0,1,2] = [X,Y,Z]</span>
+<span class="tok-s">    origin      = [1.0, 2.0, 3.0]</span>
+<span class="tok-s">    upoiseuille = false            # true for parabolic profile along L1</span>
+<span class="tok-s">    vpoiseuille = false            # true for parabolic profile along L2</span>
+<span class="tok-s">    u           = [10.0, 0.0, 0.0]</span>
+<span class="tok-na">}</span></code></pre>
 </div>
 </div>
 </div>
 <div class="sect4">
 <h5 id="_circle">circle</h5>
 <div class="paragraph">
-<p>syntax for cylinder:</p>
+<p>syntax for cylindrical surface:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">inflow</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
-<span class="tok-s">    active = true;</span>
-<span class="tok-s">    type   = &quot;circle&quot;;</span>
-<span class="tok-s">    R      = 1.0;              # radius</span>
-<span class="tok-s">    H      = 16.0;             # hight of the cylinder</span>
-<span class="tok-s">    U      = 1.0;              # maximum velocity</span>
-<span class="tok-s">    center = [8.0, 8.0, 8.0];</span>
-<span class="tok-s">    poiseuille = false;        # parabolic profile along H if true</span>
-<span class="tok-na">};</span></code></pre>
+<span class="tok-s">    active = true</span>
+<span class="tok-s">    type   = &quot;circle&quot;</span>
+<span class="tok-s">    R      = 1.0              # radius</span>
+<span class="tok-s">    H      = 16.0             # hight of the cylinder</span>
+<span class="tok-s">    U      = 1.0              # maximum velocity</span>
+<span class="tok-s">    center = [8.0, 8.0, 8.0]</span>
+<span class="tok-s">    poiseuille = false        # parabolic profile along H if true</span>
+<span class="tok-na">}</span></code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_outflow">14.3. Outflow</h3>
+<h3 id="_outflow">14.4. Outflow</h3>
 <div class="paragraph">
 <p>Delete particles satisfying a predicate</p>
 </div>
 <div class="sect3">
-<h4 id="_interface_9">14.3.1. interface</h4>
+<h4 id="_interface_9">14.4.1. interface</h4>
 <div class="paragraph">
 <p>allocate, deallocate:</p>
 </div>
@@ -1833,7 +1875,7 @@ the point <code>(1, 2, 3)</code>:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_configuration_4">14.3.2. configuration</h4>
+<h4 id="_configuration_4">14.4.2. configuration</h4>
 <div class="sect4">
 <h5 id="_plate_2">plate</h5>
 <div class="paragraph">
@@ -1871,7 +1913,7 @@ syntax for a cylinder of radius 8 centered at <code>(8, 8, 8)</code>:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_density_controller">14.4. Density controller</h3>
+<h3 id="_density_controller">14.5. Density controller</h3>
 
 </div>
 </div>
