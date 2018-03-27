@@ -129,8 +129,7 @@
 <li><a href="#_fluforces">20. fluforces</a>
 <ul class="sectlevel2">
 <li><a href="#_interface_17">20.1. interface</a></li>
-<li><a href="#_data_structures_7">20.2. data structures</a></li>
-<li><a href="#_submodules">20.3. submodules</a></li>
+<li><a href="#_submodules">20.2. submodules</a></li>
 </ul>
 </li>
 <li><a href="#_frag">21. frag</a>
@@ -269,7 +268,7 @@
 <li><a href="#_wvel">53. wvel</a>
 <ul class="sectlevel2">
 <li><a href="#_purpose_6">53.1. purpose</a></li>
-<li><a href="#_data_structures_8">53.2. data structures</a></li>
+<li><a href="#_data_structures_7">53.2. data structures</a></li>
 <li><a href="#_interface_28">53.3. interface</a></li>
 <li><a href="#_configuration_9">53.4. Configuration</a></li>
 </ul>
@@ -3212,19 +3211,47 @@ received meshes</p>
 <div class="sect2">
 <h3 id="_interface_17">20.1. interface</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>allocate and free bulk structure:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">fluforces_bulk_ini</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxp</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">FluForcesBulk</span> <span class="tok-o">**</span><span class="tok-n">b</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">fluforces_bulk_fin</span><span class="tok-p">(</span><span class="tok-cm">/**/</span> <span class="tok-n">FluForcesBulk</span> <span class="tok-o">*</span><span class="tok-n">b</span><span class="tok-p">);</span></code></pre>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_data_structures_7">20.2. data structures</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>compute bulk interactions:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">fluforces_bulk_prepare</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">PaArray</span> <span class="tok-o">*</span><span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">FluForcesBulk</span> <span class="tok-o">*</span><span class="tok-n">b</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">fluforces_bulk_apply</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">PairParams</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">FluForcesBulk</span> <span class="tok-o">*</span><span class="tok-n">b</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">start</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">count</span><span class="tok-p">,</span>
+                          <span class="tok-cm">/**/</span> <span class="tok-k">const</span> <span class="tok-n">FoArray</span> <span class="tok-o">*</span><span class="tok-n">ff</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>allocate and free halo structure:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">fluforces_halo_ini</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span> <span class="tok-n">cart</span><span class="tok-p">,</span> <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">FluForcesHalo</span> <span class="tok-o">**</span><span class="tok-n">hd</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">fluforces_halo_fin</span><span class="tok-p">(</span><span class="tok-cm">/**/</span> <span class="tok-n">FluForcesHalo</span> <span class="tok-o">*</span><span class="tok-n">h</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>compute halo interactions:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">fluforces_halo_prepare</span><span class="tok-p">(</span><span class="tok-n">flu</span><span class="tok-o">::</span><span class="tok-n">LFrag26</span> <span class="tok-n">lfrags</span><span class="tok-p">,</span> <span class="tok-n">flu</span><span class="tok-o">::</span><span class="tok-n">RFrag26</span> <span class="tok-n">rfrags</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">FluForcesHalo</span> <span class="tok-o">*</span><span class="tok-n">h</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">fluforces_halo_apply</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">PairParams</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">FluForcesHalo</span> <span class="tok-o">*</span><span class="tok-n">h</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-k">const</span> <span class="tok-n">FoArray</span> <span class="tok-o">*</span><span class="tok-n">farray</span><span class="tok-p">);</span></code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_submodules">20.3. submodules</h3>
+<h3 id="_submodules">20.2. submodules</h3>
 <div class="sect3">
-<h4 id="_bulk">20.3.1. bulk</h4>
+<h4 id="_bulk">20.2.1. bulk</h4>
 <div class="paragraph">
 <p>compute local interactions of solvent particles, given cell starts,
 cell counts (see <a href="clist.html">clist</a>) and particles array</p>
@@ -3278,22 +3305,17 @@ v y          03 04 05          12 13 xx          xx xx xx
 </div>
 </div>
 <div class="sect3">
-<h4 id="_fluforces_halo">20.3.2. fluforces: halo</h4>
+<h4 id="_halo">20.2.2. halo</h4>
 <div class="paragraph">
 <p>solvent forces with remote particles (fragments)</p>
 </div>
-<div class="sect4">
-<h5 id="_internals">Internals</h5>
 <div class="paragraph">
-<p>main kernel is <code>dev::forces</code> and performs all interactions:</p>
+<p>main kernel performs interactions for a given halo:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>dispatch threads along fragments</p>
-</li>
-<li>
-<p>fetch generalized particle</p>
+<p>fetch generalized particle <code>a</code></p>
 </li>
 <li>
 <p>build map (how to access neighboring particles?)</p>
@@ -3304,8 +3326,10 @@ v y          03 04 05          12 13 xx          xx xx xx
 <li>
 <p>compute pairwise interactions</p>
 </li>
+<li>
+<p>accumulate to force <code>a</code> in output force array</p>
+</li>
 </ul>
-</div>
 </div>
 </div>
 </div>
@@ -5925,7 +5949,7 @@ dump a backtrace (see <a href="#error">[error]</a>).</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_data_structures_8">53.2. data structures</h3>
+<h3 id="_data_structures_7">53.2. data structures</h3>
 <div class="paragraph">
 <p>data structures are separated into 3 kinds of data structures:</p>
 </div>
