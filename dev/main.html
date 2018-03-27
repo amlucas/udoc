@@ -267,10 +267,9 @@
 </li>
 <li><a href="#_wvel">54. wvel</a>
 <ul class="sectlevel2">
-<li><a href="#_purpose_5">54.1. purpose</a></li>
-<li><a href="#_data_structures_8">54.2. data structures</a></li>
-<li><a href="#_interface_33">54.3. interface</a></li>
-<li><a href="#_configuration_9">54.4. Configuration</a></li>
+<li><a href="#_data_structures_8">54.1. data structures</a></li>
+<li><a href="#_interface_33">54.2. interface</a></li>
+<li><a href="#_configuration_9">54.3. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#_third_party_dependencies">55. third party dependencies</a>
@@ -5882,6 +5881,9 @@ which are not inside the domain are not kept.</td>
 </div>
 <div class="sect2">
 <h3 id="_submodules_2">50.2. submodules</h3>
+<div class="paragraph">
+<p>Some tasks of the SDF object are splitted into submodules:</p>
+</div>
 <div class="sect3">
 <h4 id="_array3d">50.2.1. array3D</h4>
 <div class="paragraph">
@@ -6368,23 +6370,12 @@ dump a backtrace (see <a href="#error">[error]</a>).</p>
 <h2 id="_wvel">54. wvel</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>wall velocity field</p>
+<p>Wall velocity field.
+Used to set velocity to wall particles for wall interactions.
+Also used to get wall velocity for bounce back on walls</p>
 </div>
 <div class="sect2">
-<h3 id="_purpose_5">54.1. purpose</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>set velocity to wall particles for wall interactions</p>
-</li>
-<li>
-<p>get wall velocity for bounce back on walls</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_data_structures_8">54.2. data structures</h3>
+<h3 id="_data_structures_8">54.1. data structures</h3>
 <div class="paragraph">
 <p>data structures are separated into 3 kinds of data structures:</p>
 </div>
@@ -6405,12 +6396,12 @@ specific time step. It is generated from <code>Wvel</code> structure.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_interface_33">54.3. interface</h3>
+<h3 id="_interface_33">54.2. interface</h3>
 <div class="paragraph">
 <p>Interface is splitted between host and device</p>
 </div>
 <div class="sect3">
-<h4 id="_host">54.3.1. Host</h4>
+<h4 id="_host">54.2.1. Host</h4>
 <div class="paragraph">
 <p>Host code is responsible for initialisation of <code>Wvel</code> and convert
 <code>Wvel</code> to a view at a given timestep.</p>
@@ -6488,7 +6479,7 @@ the parameters:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_device">54.3.2. Device</h4>
+<h4 id="_device">54.2.2. Device</h4>
 <div class="paragraph">
 <p>Velocity field can be retrieved, depending on the view structure, using</p>
 </div>
@@ -6512,30 +6503,30 @@ position and velocity of particle.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_configuration_9">54.4. Configuration</h3>
+<h3 id="_configuration_9">54.3. Configuration</h3>
 <div class="sect3">
-<h4 id="_constant_2">54.4.1. constant</h4>
+<h4 id="_constant_2">54.3.1. constant</h4>
 <div class="paragraph">
 <p>constant velocity \(u = (1, 0, 0)\):</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">wvel {</span>
-    <span class="tok-na">type</span> <span class="tok-o">=</span> <span class="tok-s">&quot;constant&quot;</span>
+<pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">wvel</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
+<span class="tok-s">    type = &quot;constant&quot;</span>
 <span class="tok-s">    u    = [1.0, 0.0, 0.0]</span>
 <span class="tok-na">}</span></code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_shear_2">54.4.2. shear</h4>
+<h4 id="_shear_2">54.3.2. shear</h4>
 <div class="paragraph">
 <p>shear velocity \(u = (3 y, 0, 0)\):</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">wvel {</span>
-    <span class="tok-na">type</span> <span class="tok-o">=</span> <span class="tok-s">&quot;shear&quot;</span>
+<pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">wvel</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
+<span class="tok-s">    type = &quot;shear&quot;</span>
 <span class="tok-s">    gdot = 3.0</span>
 <span class="tok-s">    vdir = 0</span>
 <span class="tok-s">    gdir = 1</span>
@@ -6545,14 +6536,14 @@ position and velocity of particle.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_sinusoidal_shear">54.4.3. sinusoidal shear</h4>
+<h4 id="_sinusoidal_shear">54.3.3. sinusoidal shear</h4>
 <div class="paragraph">
 <p>shear velocity \(u(t) = (3 y \sin(5 t), 0, 0)\):</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">wvel {</span>
-    <span class="tok-na">type</span> <span class="tok-o">=</span> <span class="tok-s">&quot;shear sin&quot;</span>
+<pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">wvel</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
+<span class="tok-s">    type = &quot;shear sin&quot;</span>
 <span class="tok-s">    gdot = 3.0</span>
 <span class="tok-s">    vdir = 0</span>
 <span class="tok-s">    gdir = 1</span>
@@ -6562,14 +6553,14 @@ position and velocity of particle.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_hele_shaw">54.4.4. Hele Shaw</h4>
+<h4 id="_hele_shaw">54.3.4. Hele Shaw</h4>
 <div class="paragraph">
 <p>velocity \(u_r = \frac u r \left(1 - \frac {4 z^2}{h^2}\right)\):</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">wvel {</span>
-    <span class="tok-na">type</span> <span class="tok-o">=</span> <span class="tok-s">&quot;hele shaw&quot;</span>
+<pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">wvel</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
+<span class="tok-s">    type = &quot;hele shaw&quot;</span>
 <span class="tok-s">    u = 1.0</span>
 <span class="tok-s">    h = 8.0</span>
 <span class="tok-na">}</span></code></pre>
