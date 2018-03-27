@@ -251,9 +251,8 @@
 </li>
 <li><a href="#_signed_distance_function_sdf">50. signed distance function (sdf)</a>
 <ul class="sectlevel2">
-<li><a href="#_bounce_back">50.1. bounce back</a></li>
-<li><a href="#_interface_28">50.2. interface</a></li>
-<li><a href="#_submodules_2">50.3. submodules</a></li>
+<li><a href="#_interface_28">50.1. interface</a></li>
+<li><a href="#_submodules_2">50.2. submodules</a></li>
 </ul>
 </li>
 <li><a href="#_time">51. Time</a></li>
@@ -269,8 +268,8 @@
 <li><a href="#_wvel">54. wvel</a>
 <ul class="sectlevel2">
 <li><a href="#_purpose_5">54.1. purpose</a></li>
-<li><a href="#_data_structures_7">54.2. data structures</a></li>
-<li><a href="#_interface_29">54.3. interface</a></li>
+<li><a href="#_data_structures_8">54.2. data structures</a></li>
+<li><a href="#_interface_33">54.3. interface</a></li>
 <li><a href="#_configuration_9">54.4. Configuration</a></li>
 </ul>
 </li>
@@ -5798,54 +5797,7 @@ the wall.</p>
 The isosurface \(S(x,y,z) = 0\) is located at the wall interface.</p>
 </div>
 <div class="sect2">
-<h3 id="_bounce_back">50.1. bounce back</h3>
-<div class="paragraph">
-<p>Particles crossing the wall surface are bounced back into the domain.
-Define:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>\(\mathbf{r}_0, \mathbf{v}_0\) position and velocity before the particle has
-crossed the surface</p>
-</li>
-<li>
-<p>\(\mathbf{r}_1, \mathbf{v}_1\) position and velocity after the particle has
-crossed the surface, not bounced back</p>
-</li>
-<li>
-<p>\(\mathbf{r}_n, \mathbf{v}_n\) position and velocity after bounce-back</p>
-</li>
-<li>
-<p>\(\mathbf{r}_w, \mathbf{v}_w\) position and velocity of the wall
-at collision point</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>The collision point is found by solving for the collision time \(h\)</p>
-</div>
-<div class="stemblock">
-<div class="content">
-\[S(\mathbf{r}_0 + h \mathbf{v}_0) = 0\]
-</div>
-</div>
-<div class="paragraph">
-<p>with Newton iterations.
-We obtain \(\mathbf{r}_w = \mathbf{r}_0 + h \mathbf{v}_0\).</p>
-</div>
-<div class="paragraph">
-<p>The bounced particle is set to</p>
-</div>
-<div class="stemblock">
-<div class="content">
-\[\mathbf{r}_n = \mathbf{r}_w + (dt - h) \mathbf{v}_n \\
-\mathbf{v}_n = 2 \mathbf{v}_w - \mathbf{v}_0\]
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_interface_28">50.2. interface</h3>
+<h3 id="_interface_28">50.1. interface</h3>
 <div class="paragraph">
 <p>allocate, deallocate the structure:</p>
 </div>
@@ -5929,20 +5881,320 @@ which are not inside the domain are not kept.</td>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_submodules_2">50.3. submodules</h3>
+<h3 id="_submodules_2">50.2. submodules</h3>
+<div class="sect3">
+<h4 id="_array3d">50.2.1. array3D</h4>
+<div class="paragraph">
+<p>a simple data holder for storing a 3D cuda array scalar field.</p>
+</div>
+<div class="sect4">
+<h5 id="_data_structure_6">data structure</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">struct</span> <span class="tok-n">Array3d</span> <span class="tok-p">{</span>
+    <span class="tok-n">cudaArray_t</span> <span class="tok-n">a</span><span class="tok-p">;</span>  <i class="conum" data-value="1"></i><b>(1)</b>
+    <span class="tok-kt">size_t</span> <span class="tok-n">x</span><span class="tok-p">,</span> <span class="tok-n">y</span><span class="tok-p">,</span> <span class="tok-n">z</span><span class="tok-p">;</span> <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-p">};</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>data on device</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>grid size</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_interface_29">interface</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">struct</span> <span class="tok-n">Array3d</span><span class="tok-p">;</span>
+<span class="tok-kt">void</span> <span class="tok-nf">array3d_ini</span><span class="tok-p">(</span><span class="tok-n">Array3d</span><span class="tok-o">**</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span> <span class="tok-n">x</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span> <span class="tok-n">y</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span> <span class="tok-n">z</span><span class="tok-p">);</span>                <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">array3d_fin</span><span class="tok-p">(</span><span class="tok-n">Array3d</span><span class="tok-o">*</span><span class="tok-p">);</span>                                               <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">array3d_copy</span><span class="tok-p">(</span><span class="tok-kt">size_t</span> <span class="tok-n">x</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span> <span class="tok-n">y</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span> <span class="tok-n">z</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-o">*</span><span class="tok-n">D</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Array3d</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>allocate the structure</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>deallocate the structure</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>copy data from host to cuda array on device</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_bounce">50.2.2. bounce</h4>
+<div class="paragraph">
+<p>Particles crossing the wall surface are bounced back into the domain.
+We define:</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>field</code>: read sdf field from a file</p>
+<p>\(\mathbf{r}_0, \mathbf{v}_0\) position and velocity before the particle has
+crossed the surface</p>
 </li>
 <li>
-<p><code>bounce</code>: bounce back particles</p>
+<p>\(\mathbf{r}_1, \mathbf{v}_1\) position and velocity after the particle has
+crossed the surface, not bounced back</p>
 </li>
 <li>
-<p><code>label</code>: label which particle stays in bulk, turns into wall, or
-deleted</p>
+<p>\(\mathbf{r}_n, \mathbf{v}_n\) position and velocity after bounce-back</p>
+</li>
+<li>
+<p>\(\mathbf{r}_w, \mathbf{v}_w\) position and velocity of the wall
+at collision point</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>The collision point is found by solving for the collision time \(h\)</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[S(\mathbf{r}_0 + h \mathbf{v}_0) = 0\]
+</div>
+</div>
+<div class="paragraph">
+<p>with Newton iterations.
+We obtain \(\mathbf{r}_w = \mathbf{r}_0 + h \mathbf{v}_0\).</p>
+</div>
+<div class="paragraph">
+<p>The bounced particle is set to</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\mathbf{r}_n = \mathbf{r}_w + (dt - h) \mathbf{v}_n \\
+\mathbf{v}_n = 2 \mathbf{v}_w - \mathbf{v}_0\]
+</div>
+</div>
+<div class="sect4">
+<h5 id="_interface_30">interface</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">bounce_back</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">WvelStep</span> <span class="tok-o">*</span><span class="tok-n">wv</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Sdf</span> <span class="tok-o">*</span><span class="tok-n">sdf</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_field">50.2.3. field</h4>
+<div class="paragraph">
+<p>read and manage a scalar field on host</p>
+</div>
+<div class="sect4">
+<h5 id="_interface_31">interface</h5>
+<div class="paragraph">
+<p>allocate, deallocate:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">field_ini</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">path</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Field</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">field_fin</span><span class="tok-p">(</span><span class="tok-n">Field</span><span class="tok-o">*</span><span class="tok-p">);</span>                         <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>allocate and read field from file "path"</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>deallocate the field structure</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>getter functions:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">field_size</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Field</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">int</span> <span class="tok-n">N</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">]);</span>       <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">field_extend</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Field</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">float</span> <span class="tok-n">ext</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">]);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">field_data</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Field</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">float</span><span class="tok-o">**</span><span class="tok-p">);</span>        <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>get grid size</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>get extents of the grid</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>get pointer to data</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">field_sample</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Field</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Tform</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">N</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-cm">/**/</span> <span class="tok-n">Field</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">field_dump</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Field</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">MPI_Comm</span> <span class="tok-n">cart</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">field_scale</span><span class="tok-p">(</span><span class="tok-n">Field</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">scale</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>sample field to a new grid size <code>N</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>dump field to "wall.h5"</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>scale field by <code>scale</code></td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_label">50.2.4. label</h4>
+<div class="paragraph">
+<p>a simple tool to mark particles in wall regions</p>
+</div>
+<div class="paragraph">
+<p>labels can be:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span>    <span class="tok-n">LABEL_BULK</span><span class="tok-p">,</span>  <span class="tok-cm">/* remains in bulk */</span>
+    <span class="tok-n">LABEL_WALL</span><span class="tok-p">,</span>  <span class="tok-cm">/* becomes wall particle */</span>
+    <span class="tok-n">LABEL_DEEP</span>   <span class="tok-cm">/* deep inside the wall */</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">wall_label_dev</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Sdf</span> <span class="tok-o">*</span><span class="tok-n">sdf</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">labels</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">wall_label_hst</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Sdf</span> <span class="tok-o">*</span><span class="tok-n">sdf</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">labels</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>set labels on an array of particles on device</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>set labels on an array of particles on host</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_tex3d">50.2.5. tex3D</h4>
+<div class="paragraph">
+<p>a simple texture object manager for representing 3d grid scalar field</p>
+</div>
+<div class="sect4">
+<h5 id="_data_structures_7">data structures</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">struct</span> <span class="tok-n">Tex3d_v</span> <span class="tok-p">{</span> <span class="tok-n">cudaTextureObject_t</span> <span class="tok-n">t</span><span class="tok-p">;</span> <span class="tok-p">};</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-k">struct</span> <span class="tok-n">Tex3d</span>   <span class="tok-p">{</span> <span class="tok-n">cudaTextureObject_t</span> <span class="tok-n">t</span><span class="tok-p">;</span> <span class="tok-p">};</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>view, to be passed on device</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Host structure</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_interface_32">interface</h5>
+<div class="paragraph">
+<p>allocate and destroy texture object:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">tex3d_ini</span><span class="tok-p">(</span><span class="tok-n">Tex3d</span><span class="tok-o">**</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">tex3d_fin</span><span class="tok-p">(</span><span class="tok-n">Tex3d</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>manipulate texture object:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">tex3d_copy</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Array3d</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Tex3d</span><span class="tok-o">*</span><span class="tok-p">);</span>    <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">tex3d_to_view</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Tex3d</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Tex3d_v</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>create texture object from <code>Array3d</code> object</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>create a view to be passed to kernels</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_tform">50.2.6. tform</h4>
+<div class="paragraph">
+<p>a simple set of linear transformations for sdf</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-cm">/* T: texture size, N: sdf file size, M: wall margin */</span>
+<span class="tok-kt">void</span> <span class="tok-nf">tex2sdf_ini</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">T</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">N</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">M</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-cm">/**/</span> <span class="tok-n">Tform</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">out2sdf_ini</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">N</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-cm">/**/</span> <span class="tok-n">Tform</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">sub2tex_ini</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">T</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">M</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-cm">/**/</span> <span class="tok-n">Tform</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>transform from texture coordinates to sdf coordinates</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>transform from Glbal coordinates to sdf coordinates</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>transform from subdomain coordinates to texture coordinates</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 </div>
@@ -6132,7 +6384,7 @@ dump a backtrace (see <a href="#error">[error]</a>).</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_data_structures_7">54.2. data structures</h3>
+<h3 id="_data_structures_8">54.2. data structures</h3>
 <div class="paragraph">
 <p>data structures are separated into 3 kinds of data structures:</p>
 </div>
@@ -6153,7 +6405,7 @@ specific time step. It is generated from <code>Wvel</code> structure.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_interface_29">54.3. interface</h3>
+<h3 id="_interface_33">54.3. interface</h3>
 <div class="paragraph">
 <p>Interface is splitted between host and device</p>
 </div>
