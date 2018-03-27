@@ -250,9 +250,8 @@
 </li>
 <li><a href="#_signed_distance_function_sdf">49. signed distance function (sdf)</a>
 <ul class="sectlevel2">
-<li><a href="#_purpose_5">49.1. purpose</a></li>
-<li><a href="#_implementation">49.2. implementation</a></li>
-<li><a href="#_components_2">49.3. components</a></li>
+<li><a href="#_interface_28">49.1. interface</a></li>
+<li><a href="#_components_2">49.2. components</a></li>
 </ul>
 </li>
 <li><a href="#_time">50. Time</a></li>
@@ -267,9 +266,9 @@
 </li>
 <li><a href="#_wvel">53. wvel</a>
 <ul class="sectlevel2">
-<li><a href="#_purpose_6">53.1. purpose</a></li>
+<li><a href="#_purpose_5">53.1. purpose</a></li>
 <li><a href="#_data_structures_7">53.2. data structures</a></li>
-<li><a href="#_interface_28">53.3. interface</a></li>
+<li><a href="#_interface_29">53.3. interface</a></li>
 <li><a href="#_configuration_9">53.4. Configuration</a></li>
 </ul>
 </li>
@@ -5735,18 +5734,132 @@ structures</td>
 <div class="sect1">
 <h2 id="_signed_distance_function_sdf">49. signed distance function (sdf)</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_purpose_5">49.1. purpose</h3>
 <div class="paragraph">
-<p>Signed distance function is interpolated from a uniform grid.</p>
+<p>The Signed Distance Function (SDF) \(S(x, y, z)\) is used to give the distance from a
+given position to the wall.
+The sign of the SDF field tells if the position is inside or outside
+the wall.</p>
+</div>
+<div class="paragraph">
+<p>Conventions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>\(S(x,y,z) &lt; -1\) : inside domain, far from wall</p>
+</li>
+<li>
+<p>\(S(x,y,z) &lt; 0\) : inside domain</p>
+</li>
+<li>
+<p>\(S(x,y,z) = 0\) : wall interface</p>
+</li>
+<li>
+<p>\(S(x,y,z) &gt; 0\) : inside wall</p>
+</li>
+<li>
+<p>\(S(x,y,z) &gt; 1\) : inside wall, far from surface</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Example of sdf function in 2D:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/udoc/include/sdf.png" alt="sdf">
+</div>
+</div>
+<div class="paragraph">
+<p>The above example denotes a circular wall of radius 2.
+The isosurface \(S(x,y,z) = 0\) is located at the wall interface.</p>
+</div>
+<div class="sect2">
+<h3 id="_interface_28">49.1. interface</h3>
+<div class="paragraph">
+<p>allocate, deallocate the structure:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">sdf_ini</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-n">Sdf</span><span class="tok-o">**</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">sdf_fin</span><span class="tok-p">(</span><span class="tok-n">Sdf</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>interface:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">sdf_gen</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">MPI_Comm</span> <span class="tok-n">cart</span><span class="tok-p">,</span> <span class="tok-kt">bool</span> <span class="tok-n">dump</span><span class="tok-p">,</span> <span class="tok-n">Sdf</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">sdf_to_view</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Sdf</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Sdf_v</span><span class="tok-o">*</span><span class="tok-p">);</span>                   <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>generate the sdf field from file "sdf.dat"</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>get view to be passed to kernels</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>device interface:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-n">_I_</span> <span class="tok-kt">bool</span> <span class="tok-n">sdf_far</span><span class="tok-p">(</span><span class="tok-n">Sdf_v</span> <span class="tok-o">*</span><span class="tok-n">sdf</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">x</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">y</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">z</span><span class="tok-p">)</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-n">_I_</span> <span class="tok-kt">float</span> <span class="tok-n">sdf</span><span class="tok-p">(</span><span class="tok-n">Sdf_v</span> <span class="tok-o">*</span><span class="tok-n">sdf0</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">x</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">y</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">z</span><span class="tok-p">)</span>  <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>returns true if position is far inside the domain (approximation)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>returns the sdf value at given position (linear interpolation)</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Bounce back from wall:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">sdf_bounce</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">WvelStep</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Sdf</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Sorting tools:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">sdf_bulk_wall</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Sdf</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/*io*/</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">s_n</span><span class="tok-p">,</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">s_pp</span><span class="tok-p">,</span> <span class="tok-cm">/*o*/</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">w_n</span><span class="tok-p">,</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">w_pp</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">int</span>  <span class="tok-nf">sdf_who_stays</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Sdf</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nc</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">stay</span><span class="tok-p">);</span>          <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>extract wall particles from solvent particles. Solvent particles
+which are not inside the domain are not kept.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>label <code>nc</code> objects of <code>nv</code> particles to inside domain or not.</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_implementation">49.2. implementation</h3>
-
-</div>
-<div class="sect2">
-<h3 id="_components_2">49.3. components</h3>
+<h3 id="_components_2">49.2. components</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -5936,7 +6049,7 @@ dump a backtrace (see <a href="#error">[error]</a>).</p>
 <p>wall velocity field</p>
 </div>
 <div class="sect2">
-<h3 id="_purpose_6">53.1. purpose</h3>
+<h3 id="_purpose_5">53.1. purpose</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -5970,7 +6083,7 @@ specific time step. It is generated from <code>Wvel</code> structure.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_interface_28">53.3. interface</h3>
+<h3 id="_interface_29">53.3. interface</h3>
 <div class="paragraph">
 <p>Interface is splitted between host and device</p>
 </div>
