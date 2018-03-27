@@ -54,15 +54,14 @@
 <li><a href="#_kahan_summation">8. Kahan summation</a></li>
 <li><a href="#_body_forces">9. body forces</a>
 <ul class="sectlevel2">
-<li><a href="#_data_structures">9.1. data structures</a></li>
-<li><a href="#_interface_3">9.2. interface</a></li>
-<li><a href="#_configuration">9.3. configuration</a></li>
+<li><a href="#_interface_3">9.1. interface</a></li>
+<li><a href="#_configuration">9.2. configuration</a></li>
 </ul>
 </li>
 <li><a href="#_clist">10. clist</a>
 <ul class="sectlevel2">
 <li><a href="#_example_2">10.1. example</a></li>
-<li><a href="#_data_structures_2">10.2. data structures</a></li>
+<li><a href="#_data_structures">10.2. data structures</a></li>
 <li><a href="#_interface_4">10.3. interface</a></li>
 <li><a href="#_algorithm">10.4. algorithm</a></li>
 </ul>
@@ -81,7 +80,7 @@
 <li><a href="#_comm">13. comm</a>
 <ul class="sectlevel2">
 <li><a href="#_purpose_2">13.1. purpose</a></li>
-<li><a href="#_data_structures_3">13.2. data structures</a></li>
+<li><a href="#_data_structures_2">13.2. data structures</a></li>
 <li><a href="#_allocation_mod">13.3. allocation mod</a></li>
 <li><a href="#_interface_6">13.4. interface</a></li>
 </ul>
@@ -96,7 +95,7 @@
 </li>
 <li><a href="#_coords">15. coords</a>
 <ul class="sectlevel2">
-<li><a href="#_data_structures_4">15.1. data structures</a></li>
+<li><a href="#_data_structures_3">15.1. data structures</a></li>
 <li><a href="#_host_interface">15.2. Host interface</a></li>
 <li><a href="#_configuration_5">15.3. Configuration</a></li>
 </ul>
@@ -129,7 +128,7 @@
 <li><a href="#_fluforces">20. fluforces</a>
 <ul class="sectlevel2">
 <li><a href="#_interface_17">20.1. interface</a></li>
-<li><a href="#_data_structures_8">20.2. data structures</a></li>
+<li><a href="#_data_structures_7">20.2. data structures</a></li>
 <li><a href="#_submodules">20.3. submodules</a></li>
 </ul>
 </li>
@@ -269,7 +268,7 @@
 <li><a href="#_wvel">53. wvel</a>
 <ul class="sectlevel2">
 <li><a href="#_purpose_6">53.1. purpose</a></li>
-<li><a href="#_data_structures_9">53.2. data structures</a></li>
+<li><a href="#_data_structures_8">53.2. data structures</a></li>
 <li><a href="#_interface_28">53.3. interface</a></li>
 <li><a href="#_configuration_9">53.4. Configuration</a></li>
 </ul>
@@ -682,8 +681,7 @@ ffmpeg version <span class="tok-m">2</span>.8.11-0ubuntu0.16.04.1 Copyright <spa
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">edg_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">md</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span>                     <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">hx</span><span class="tok-p">);</span>
 <span class="tok-kt">void</span> <span class="tok-nf">edg_set</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">md</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">j</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">val</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">hx</span><span class="tok-p">,</span>       <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">hy</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
 <span class="tok-kt">int</span>  <span class="tok-nf">edg_get</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">md</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">j</span><span class="tok-p">,</span>         <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">hx</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">hy</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
-<span class="tok-kt">int</span>  <span class="tok-nf">edg_valid</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">md</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">j</span><span class="tok-p">,</span>         <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">hx</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b>
-<span class="tok-c1">// end::interface</span></code></pre>
+<span class="tok-kt">int</span>  <span class="tok-nf">edg_valid</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">md</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">j</span><span class="tok-p">,</span>         <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">hx</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -771,10 +769,9 @@ output: 0 4 9 10 12 15</pre>
 <h3 id="_interface_2">7.1. interface</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">scan_apply</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">input</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">size</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">output</span><span class="tok-p">,</span> <span class="tok-cm">/*w*/</span> <span class="tok-n">Scan</span> <span class="tok-o">*</span><span class="tok-n">w</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
-
-<span class="tok-kt">void</span> <span class="tok-nf">scan_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">size</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Scan</span> <span class="tok-o">**</span><span class="tok-n">w</span><span class="tok-p">);</span>                                  <i class="conum" data-value="2"></i><b>(2)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">scan_fin</span><span class="tok-p">(</span><span class="tok-cm">/**/</span> <span class="tok-n">Scan</span> <span class="tok-o">*</span><span class="tok-n">w</span><span class="tok-p">);</span>                                             <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">scan_apply</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">input</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">size</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">output</span><span class="tok-p">,</span> <span class="tok-cm">/*w*/</span> <span class="tok-n">Scan</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">scan_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">size</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Scan</span><span class="tok-o">**</span><span class="tok-p">);</span>                                       <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">scan_fin</span><span class="tok-p">(</span><span class="tok-n">Scan</span><span class="tok-o">*</span><span class="tok-p">);</span>                                                       <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -848,12 +845,8 @@ stable to numerical error.</p>
 <h2 id="_body_forces">9. body forces</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>force applied to every particles</p>
-</div>
-<div class="sect2">
-<h3 id="_data_structures">9.1. data structures</h3>
-<div class="paragraph">
-<p>Defined by two structures:</p>
+<p>Force applied to every particles with active flag <code>push</code>.
+It is defined by two structures:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -867,9 +860,8 @@ a specific time. It is passed to device kernels.</p>
 </li>
 </ul>
 </div>
-</div>
 <div class="sect2">
-<h3 id="_interface_3">9.2. interface</h3>
+<h3 id="_interface_3">9.1. interface</h3>
 <div class="paragraph">
 <p>allocate/deallocate the structure:</p>
 </div>
@@ -951,64 +943,64 @@ a specific time. It is passed to device kernels.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_configuration">9.3. configuration</h3>
+<h3 id="_configuration">9.2. configuration</h3>
 <div class="sect3">
-<h4 id="_none">9.3.1. none</h4>
+<h4 id="_none">9.2.1. none</h4>
 <div class="paragraph">
 <p>no body force (default value)</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">bforce {</span>
-    <span class="tok-na">type</span> <span class="tok-o">=</span> <span class="tok-s">&quot;none&quot;;</span>
-<span class="tok-na">};</span></code></pre>
+<pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">bforce</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
+<span class="tok-s">    type = &quot;none&quot;</span>
+<span class="tok-na">}</span></code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_constant">9.3.2. constant</h4>
+<h4 id="_constant">9.2.2. constant</h4>
 <div class="paragraph">
 <p>constant force</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">bforce {</span>
-    <span class="tok-na">type</span> <span class="tok-o">=</span> <span class="tok-s">&quot;constant&quot;;</span>
-<span class="tok-s">    f    = [1.0, 0.0, 0.0];</span>
-<span class="tok-na">};</span></code></pre>
+<pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">bforce</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
+<span class="tok-s">    type = &quot;constant&quot;</span>
+<span class="tok-s">    f    = [1.0, 0.0, 0.0]</span>
+<span class="tok-na">}</span></code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_double_poiseuille">9.3.3. double poiseuille</h4>
+<h4 id="_double_poiseuille">9.2.3. double poiseuille</h4>
 <div class="paragraph">
 <p><code>fx = y &gt; yc ? a : -a</code></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">bforce {</span>
-    <span class="tok-na">type</span> <span class="tok-o">=</span> <span class="tok-s">&quot;double_poiseuille&quot;;</span>
-<span class="tok-s">    a    = 1.0;</span>
-<span class="tok-na">};</span></code></pre>
+<pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">bforce</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
+<span class="tok-s">    type = &quot;double_poiseuille&quot;</span>
+<span class="tok-s">    a    = 1.0</span>
+<span class="tok-na">}</span></code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_shear">9.3.4. shear</h4>
+<h4 id="_shear">9.2.4. shear</h4>
 <div class="paragraph">
 <p><code>fx = a * (y - yc)</code></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">bforce {</span>
-    <span class="tok-na">type</span> <span class="tok-o">=</span> <span class="tok-s">&quot;shear&quot;;</span>
-<span class="tok-s">    a    = 1.0;</span>
-<span class="tok-na">};</span></code></pre>
+<pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">bforce</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
+<span class="tok-s">    type = &quot;shear&quot;</span>
+<span class="tok-s">    a    = 1.0</span>
+<span class="tok-na">}</span></code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_4_roller_mill">9.3.5. 4 roller mill</h4>
+<h4 id="_4_roller_mill">9.2.5. 4 roller mill</h4>
 <div class="listingblock">
 <div class="content">
 <pre>    f.x =  2*sin(x)*cos(y) * a;
@@ -1021,25 +1013,25 @@ normalized to have <code>x = Pi</code> and <code>x = -Pi</code> at the domain ed
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">bforce {</span>
-    <span class="tok-na">type</span> <span class="tok-o">=</span> <span class="tok-s">&quot;four_roller&quot;;</span>
-<span class="tok-s">    a    = 1.0;</span>
-<span class="tok-na">};</span></code></pre>
+<pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">bforce</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
+<span class="tok-s">    type = &quot;four_roller&quot;</span>
+<span class="tok-s">    a    = 1.0</span>
+<span class="tok-na">}</span></code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_radial">9.3.6. radial</h4>
+<h4 id="_radial">9.2.6. radial</h4>
 <div class="paragraph">
 <p><code>fr = a * er / r</code>, where <code>fr</code> is radial force, <code>er</code> is unit radial
 vector at position <code>r</code> and <code>r</code> is radial position.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">bforce {</span>
-    <span class="tok-na">type</span> <span class="tok-o">=</span> <span class="tok-s">&quot;rad&quot;;</span>
-<span class="tok-s">    a    = 1.0;</span>
-<span class="tok-na">};</span></code></pre>
+<pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">bforce</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
+<span class="tok-s">    type = &quot;rad&quot;</span>
+<span class="tok-s">    a    = 1.0</span>
+<span class="tok-na">}</span></code></pre>
 </div>
 </div>
 </div>
@@ -1102,7 +1094,7 @@ cell and <code>ss</code> (starts) is the prefix sum of <code>cc</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_data_structures_2">10.2. data structures</h3>
+<h3 id="_data_structures">10.2. data structures</h3>
 <div class="sect3">
 <h4 id="_clist_2">10.2.1. Clist</h4>
 <div class="listingblock">
@@ -1371,7 +1363,7 @@ positive direction x, y or z</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_data_structures_3">13.2. data structures</h3>
+<h3 id="_data_structures_2">13.2. data structures</h3>
 <div class="paragraph">
 <p><code>hBags</code>: buffers on the host, contains all necessary information of the data to communicate:</p>
 </div>
@@ -1918,7 +1910,7 @@ C_y, C_z) = (G_x/2, G_y/2, G_z/2)\)</p>
 </ul>
 </div>
 <div class="sect2">
-<h3 id="_data_structures_4">15.1. data structures</h3>
+<h3 id="_data_structures_3">15.1. data structures</h3>
 <div class="paragraph">
 <p>All the needed information is stored in the hidden structure <code>Coords</code>.
 A <em>view</em> structure <code>Coords_v</code> is public to device code:</p>
@@ -2395,7 +2387,7 @@ arrays is implemented as:</p>
 <p>Redistribute solvent particles accross nodes.</p>
 </div>
 <div class="sect3">
-<h4 id="_data_structures_5">18.2.1. data structures</h4>
+<h4 id="_data_structures_4">18.2.1. data structures</h4>
 <div class="paragraph">
 <p>Solvent distribution follow the common workflow described above and
 contains the three <em>hidden</em> generic data structures:</p>
@@ -2504,7 +2496,7 @@ It is done in two phases:</p>
 mass of their bounding box (see <a href="algo/minmax.html">minmax</a>).</p>
 </div>
 <div class="sect3">
-<h4 id="_data_structures_6">18.3.1. data structures</h4>
+<h4 id="_data_structures_5">18.3.1. data structures</h4>
 <div class="paragraph">
 <p>RBC distribution follows the common workflow described above and
 contains the three <em>hidden</em> generic data structures:</p>
@@ -2584,7 +2576,7 @@ each RBC. Other variables have the same naming conventions than <code>distr::flu
 mass.</p>
 </div>
 <div class="sect3">
-<h4 id="_data_structures_7">18.4.1. data structures</h4>
+<h4 id="_data_structures_6">18.4.1. data structures</h4>
 <div class="paragraph">
 <p>Rigid bodies distribution is very similar to the above. The <em>hidden</em> data
 structures fit again in the general workflow:</p>
@@ -3182,7 +3174,7 @@ received meshes</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_data_structures_8">20.2. data structures</h3>
+<h3 id="_data_structures_7">20.2. data structures</h3>
 <div class="paragraph">
 <p>TODO</p>
 </div>
@@ -3534,7 +3526,8 @@ maximum degree.</p>
 <span class="tok-kt">int</span> <span class="tok-nf">mesh_read_get_md</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">);</span>
 
 <span class="tok-k">const</span> <span class="tok-n">int4</span>  <span class="tok-o">*</span><span class="tok-nf">mesh_read_get_tri</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">);</span>
-<span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-o">*</span><span class="tok-nf">mesh_read_get_vert</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+<span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-o">*</span><span class="tok-nf">mesh_read_get_vert</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-k">const</span> <span class="tok-n">int4</span>  <span class="tok-o">*</span><span class="tok-nf">mesh_read_get_dih</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
 </div>
 </div>
 </div>
@@ -5890,7 +5883,7 @@ dump a backtrace (see <a href="#error">[error]</a>).</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_data_structures_9">53.2. data structures</h3>
+<h3 id="_data_structures_8">53.2. data structures</h3>
 <div class="paragraph">
 <p>data structures are separated into 3 kinds of data structures:</p>
 </div>
