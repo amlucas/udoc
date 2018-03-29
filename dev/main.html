@@ -164,7 +164,7 @@
 <li><a href="#mesh_volume">22.4. volume: compute volume of a mesh</a></li>
 </ul>
 </li>
-<li><a href="#_pair">23. pair</a>
+<li><a href="#_pair_pairwise_interactions">23. pair: pairwise interactions</a>
 <ul class="sectlevel2">
 <li><a href="#_dpd_interactions">23.1. dpd interactions</a></li>
 <li><a href="#_repulsive_lj">23.2. repulsive LJ</a></li>
@@ -231,12 +231,14 @@
 <li><a href="#_submodules_3">32.2. submodules</a></li>
 </ul>
 </li>
-<li><a href="#_utils">33. Utils</a>
+<li><a href="#_utils">33. utils</a>
 <ul class="sectlevel2">
-<li><a href="#_error">33.1. error</a></li>
-<li><a href="#_cc">33.2. cc</a></li>
-<li><a href="#_mc">33.3. mc</a></li>
-<li><a href="#_kernel_launch_macros">33.4. kernel launch macros</a></li>
+<li><a href="#_utility_functions">33.1. utility functions</a></li>
+<li><a href="#_error_handling">33.2. error handling</a></li>
+<li><a href="#_cc_cuda_check">33.3. cc: cuda check</a></li>
+<li><a href="#_mc_mpi_check">33.4. mc: mpi check</a></li>
+<li><a href="#_kl_kernel_launch">33.5. kl: kernel launch</a></li>
+<li><a href="#_texo_texture_object">33.6. texo: texture object</a></li>
 </ul>
 </li>
 <li><a href="#_wvel">34. wvel</a>
@@ -4015,7 +4017,7 @@ submodules, see <a href="#algo_edg">edg</a> or <a href="#rbc_adj">adj</a>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_pair">23. pair</h2>
+<h2 id="_pair_pairwise_interactions">23. pair: pairwise interactions</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>pairwise forces.
@@ -6653,10 +6655,149 @@ Based on <a href="#math_tform">tform module</a>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_utils">33. Utils</h2>
+<h2 id="_utils">33. utils</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_error">33.1. error</h3>
+<h3 id="_utility_functions">33.1. utility functions</h3>
+<div class="paragraph">
+<p>a set of utility functions</p>
+</div>
+<div class="sect3">
+<h4 id="_general_tools">33.1.1. general tools</h4>
+<div class="paragraph">
+<p>the following functions are provided in the <code>imp.h</code> header file.</p>
+</div>
+<div class="paragraph">
+<p>memory management functions:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">emalloc</span><span class="tok-p">(</span><span class="tok-kt">size_t</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">void</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">efree</span><span class="tok-p">(</span><span class="tok-kt">void</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kt">void</span> <span class="tok-o">*</span><span class="tok-nf">ememcpy</span><span class="tok-p">(</span><span class="tok-kt">void</span> <span class="tok-o">*</span><span class="tok-n">dest</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">void</span> <span class="tok-o">*</span><span class="tok-n">src</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span> <span class="tok-n">n</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>safe <code>malloc</code>: throws an error on failure</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>safe <code>free</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>safe <code>memcpy</code></td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>convenient macros for the above functions:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-cp">#define EMALLOC(n, ppdata) UC(emalloc((n)*sizeof(**(ppdata)), (void**)(ppdata)))</span>
+<span class="tok-cp">#define EFREE(pdata) UC(efree(pdata))</span>
+<span class="tok-cp">#define EMEMCPY(n, src, dest) ememcpy((void*)(dest), (const void*)(src), (n)*sizeof(*(dest)))</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>safe versions of the <code>stdio</code> functions:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">efopen</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">fname</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">mode</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">FILE</span><span class="tok-o">**</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">efclose</span><span class="tok-p">(</span><span class="tok-kt">FILE</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">efread</span><span class="tok-p">(</span><span class="tok-kt">void</span> <span class="tok-o">*</span><span class="tok-n">ptr</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span> <span class="tok-n">size</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span> <span class="tok-n">nmemb</span><span class="tok-p">,</span> <span class="tok-kt">FILE</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">efwrite</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">void</span> <span class="tok-o">*</span><span class="tok-n">ptr</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span> <span class="tok-n">size</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span> <span class="tok-n">nmemb</span><span class="tok-p">,</span> <span class="tok-kt">FILE</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">efgets</span><span class="tok-p">(</span><span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">s</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">size</span><span class="tok-p">,</span> <span class="tok-kt">FILE</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>additional tools:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">bool</span> <span class="tok-nf">same_str</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">b</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>returns true if the two strings are the same</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_msg_messages">33.1.2. msg: messages</h4>
+<div class="paragraph">
+<p>a simple logging tool for many rank application.
+a message is printed in the <code>stderr</code> stream by the master rank (rank 0).
+all ranks also print the message in file <code>.XXX</code>, where <code>XXX</code> is the
+MPI rank id.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">msg_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">rank</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">msg_print</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">fmt</span><span class="tok-p">,</span> <span class="tok-p">...);</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>initialise the logger</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>log message. format is the same as printf</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_os_operating_system_tasks">33.1.3. os: operating system tasks</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">os_mkdir</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">char</span><span class="tok-o">*</span> <span class="tok-n">path</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">long</span> <span class="tok-nf">os_time</span><span class="tok-p">();</span>                  <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">os_srand</span><span class="tok-p">(</span><span class="tok-kt">long</span> <span class="tok-kt">int</span> <span class="tok-n">seedval</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b>
+<span class="tok-kt">double</span> <span class="tok-nf">os_drand</span><span class="tok-p">();</span>               <i class="conum" data-value="4"></i><b>(4)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">os_sleep</span><span class="tok-p">(</span><span class="tok-kt">unsigned</span> <span class="tok-kt">int</span> <span class="tok-n">seconds</span><span class="tok-p">);</span> <i class="conum" data-value="5"></i><b>(5)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>create a directory</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>returns local time</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>seed for <code>os_drand()</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>returns double random number between 0 and 1</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>sleep for <code>seconds</code> seconds</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_error_handling">33.2. error handling</h3>
 <div class="paragraph">
 <p><em>uDeviceX</em> has a primitive error handling mechanism. Error is raised if</p>
 </div>
@@ -6695,15 +6836,14 @@ and <code>ERR</code> call.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_cc">33.2. cc</h3>
+<h3 id="_cc_cuda_check">33.3. cc: cuda check</h3>
 <div class="paragraph">
-<p>[C]uda [C]heck.</p>
+<p>[C]uda [C]heck macro.</p>
 </div>
 <div class="paragraph">
-<p>Error handling for cuda API calls.</p>
+<p>Error handling for cuda API calls.
+usage:</p>
 </div>
-<div class="sect3">
-<h4 id="_usage">33.2.1. Usage</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-n">CC</span><span class="tok-p">(</span><span class="tok-n">my_cuda_api_call</span><span class="tok-p">());</span></code></pre>
@@ -6714,17 +6854,15 @@ and <code>ERR</code> call.</p>
 dump a backtrace (see <a href="#error">[error]</a>).</p>
 </div>
 </div>
-</div>
 <div class="sect2">
-<h3 id="_mc">33.3. mc</h3>
+<h3 id="_mc_mpi_check">33.4. mc: mpi check</h3>
 <div class="paragraph">
-<p>[M]PI [C]heck.</p>
+<p>[M]PI [C]heck macro.</p>
 </div>
 <div class="paragraph">
-<p>Error handling for MPI API calls.</p>
+<p>Error handling for MPI API calls.
+usage:</p>
 </div>
-<div class="sect3">
-<h4 id="_usage_2">33.3.1. Usage</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-n">MC</span><span class="tok-p">(</span><span class="tok-n">my_mpi_api_call</span><span class="tok-p">());</span></code></pre>
@@ -6735,11 +6873,10 @@ dump a backtrace (see <a href="#error">[error]</a>).</p>
 dump a backtrace (see <a href="#error">[error]</a>).</p>
 </div>
 </div>
-</div>
 <div class="sect2">
-<h3 id="_kernel_launch_macros">33.4. kernel launch macros</h3>
+<h3 id="_kl_kernel_launch">33.5. kl: kernel launch</h3>
 <div class="paragraph">
-<p>[K]ernel [L]aunch.</p>
+<p>[K]ernel [L]aunch macro.</p>
 </div>
 <div class="paragraph">
 <p>a macro for cuds kernel launches</p>
@@ -6754,6 +6891,37 @@ dump a backtrace (see <a href="#error">[error]</a>).</p>
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-n">KL</span><span class="tok-p">(</span><span class="tok-n">fun</span><span class="tok-p">,</span> <span class="tok-p">(</span><span class="tok-n">i</span><span class="tok-o">+</span><span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-n">j</span><span class="tok-p">,</span> <span class="tok-n">k</span><span class="tok-p">),</span> <span class="tok-p">())</span>     <span class="tok-o">-&gt;</span> <span class="tok-n">fun</span><span class="tok-o">&lt;&lt;&lt;</span><span class="tok-n">i</span><span class="tok-o">+</span><span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-n">j</span><span class="tok-p">,</span> <span class="tok-n">k</span><span class="tok-o">&gt;&gt;&gt;</span><span class="tok-p">()</span>
 <span class="tok-n">KL</span><span class="tok-p">(</span><span class="tok-n">fun</span><span class="tok-p">,</span> <span class="tok-p">(</span><span class="tok-n">i</span><span class="tok-o">+</span><span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-n">j</span><span class="tok-p">,</span> <span class="tok-n">k</span><span class="tok-p">),</span> <span class="tok-p">(</span><span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-n">b</span><span class="tok-p">))</span> <span class="tok-o">-&gt;</span> <span class="tok-n">fun</span><span class="tok-o">&lt;&lt;&lt;</span><span class="tok-n">i</span><span class="tok-o">+</span><span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-n">j</span><span class="tok-p">,</span> <span class="tok-n">k</span><span class="tok-o">&gt;&gt;&gt;</span><span class="tok-p">(</span><span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-n">b</span><span class="tok-p">)</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_texo_texture_object">33.6. texo: texture object</h3>
+<div class="paragraph">
+<p>a simple wrapper for texture objects in cuda.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">template</span><span class="tok-o">&lt;</span><span class="tok-k">typename</span> <span class="tok-n">T</span><span class="tok-o">&gt;</span>
+<span class="tok-k">struct</span> <span class="tok-n">Texo</span> <span class="tok-p">{</span>
+    <span class="tok-n">cudaTextureObject_t</span> <span class="tok-n">d</span><span class="tok-p">;</span>
+<span class="tok-p">};</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>on host: create and destroy the texture object of a given type <code>T</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-n">texo_setup</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-n">T</span> <span class="tok-o">*</span><span class="tok-n">data</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Texo</span><span class="tok-o">&lt;</span><span class="tok-n">T</span><span class="tok-o">&gt;</span> <span class="tok-o">*</span><span class="tok-n">to</span><span class="tok-p">)</span>
+<span class="tok-kt">void</span> <span class="tok-n">texo_destroy</span><span class="tok-p">(</span><span class="tok-cm">/**/</span> <span class="tok-n">Texo</span><span class="tok-o">&lt;</span><span class="tok-n">T</span><span class="tok-o">&gt;</span> <span class="tok-o">*</span><span class="tok-n">to</span><span class="tok-p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>on device: fetch from texture object:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">const</span> <span class="tok-n">T</span> <span class="tok-n">texo_fetch</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Texo</span><span class="tok-o">&lt;</span><span class="tok-n">T</span><span class="tok-o">&gt;</span> <span class="tok-n">t</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">i</span><span class="tok-p">)</span></code></pre>
 </div>
 </div>
 </div>
