@@ -202,8 +202,8 @@
 <li><a href="#_compute_area_of_a_mesh">32. compute area of a mesh</a></li>
 <li><a href="#_compute_volume_of_a_mesh">33. compute volume of a mesh</a></li>
 <li><a href="#_compute_area_of_triangles_in_a_mesh">34. compute area of triangles in a mesh</a></li>
-<li><a href="#_vectors">35. Vectors</a></li>
-<li><a href="#_vectors_2">36. Vectors</a></li>
+<li><a href="#algo_vectors">35. Vectors</a></li>
+<li><a href="#algo_vectors">36. Vectors</a></li>
 <li><a href="#_meshbb">37. meshbb</a>
 <ul class="sectlevel2">
 <li><a href="#_interface_24">37.1. interface</a></li>
@@ -4749,7 +4749,7 @@ Purpose: kill particles during redistribution or cell lists build</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_vectors">35. Vectors</h2>
+<h2 id="algo_vectors">35. Vectors</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A read-only wrapper to provide uniform accsses to an array <code>n</code> vectors
@@ -4812,11 +4812,14 @@ of size three. The module does not copy data.</p>
 <span class="tok-n">vectors_get</span><span class="tok-p">(</span><span class="tok-n">pos</span><span class="tok-p">,</span> <span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">r</span><span class="tok-p">);</span>
 <span class="tok-n">vectors_fin</span><span class="tok-p">(</span><span class="tok-n">pos</span><span class="tok-p">);</span></code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>See also <a href="#algo_scalars">Scalars</a>.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_vectors_2">36. Vectors</h2>
+<h2 id="algo_vectors">36. Vectors</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A read-only wrapper to provide uniform accsses to an array <code>n</code> vectors
@@ -4879,6 +4882,9 @@ of size three. The module does not copy data.</p>
 <span class="tok-n">vectors_get</span><span class="tok-p">(</span><span class="tok-n">pos</span><span class="tok-p">,</span> <span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">r</span><span class="tok-p">);</span>
 <span class="tok-n">vectors_fin</span><span class="tok-p">(</span><span class="tok-n">pos</span><span class="tok-p">);</span></code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>See also <a href="#algo_scalars">Scalars</a>.</p>
 </div>
 </div>
 </div>
@@ -6493,7 +6499,7 @@ We obtain \(\mathbf{r}_w = \mathbf{r}_0 + h \mathbf{v}_0\).</p>
 <h4 id="_tform">41.2.6. tform</h4>
 <div class="paragraph">
 <p>A simple set of linear transformations for sdf.
-Based on <a href="#math_tform">tform module</a>&gt;.</p>
+Based on <a href="#math_tform">tform module</a>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
