@@ -202,8 +202,8 @@
 <li><a href="#_compute_area_of_a_mesh">32. compute area of a mesh</a></li>
 <li><a href="#_compute_volume_of_a_mesh">33. compute volume of a mesh</a></li>
 <li><a href="#_compute_area_of_triangles_in_a_mesh">34. compute area of triangles in a mesh</a></li>
-<li><a href="#_positions">35. Positions</a></li>
-<li><a href="#_positions_2">36. Positions</a></li>
+<li><a href="#_vectors">35. Vectors</a></li>
+<li><a href="#_vectors_2">36. Vectors</a></li>
 <li><a href="#_meshbb">37. meshbb</a>
 <ul class="sectlevel2">
 <li><a href="#_interface_24">37.1. interface</a></li>
@@ -3682,11 +3682,14 @@ determinant smaller than epsilon (hardcoded to <code>1e-8</code>).</td>
 <div class="paragraph">
 <p>structure of the matrix is <code>xx, xy, yy, yz, zz</code>, where</p>
 </div>
-<div class="listingblock">
+<div class="stemblock">
 <div class="content">
-<pre>     ( xx xy xz)
-A =  ( xy yy yz)
-     ( xz yz zz)</pre>
+\[A =
+\begin{bmatrix}
+    xx &amp; xy &amp; xz \\
+    xy &amp; yy &amp; yz \\
+    xz &amp; yz &amp; zz
+\end{bmatrix}\]
 </div>
 </div>
 </div>
@@ -4746,7 +4749,7 @@ Purpose: kill particles during redistribution or cell lists build</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_positions">35. Positions</h2>
+<h2 id="_vectors">35. Vectors</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Host array of vectors for size three.</p>
@@ -4767,7 +4770,7 @@ Purpose: kill particles during redistribution or cell lists build</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_positions_2">36. Positions</h2>
+<h2 id="_vectors_2">36. Vectors</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Host array of vectors for size three.</p>
