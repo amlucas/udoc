@@ -209,72 +209,64 @@
 <li><a href="#_interface_24">37.1. interface</a></li>
 </ul>
 </li>
-<li><a href="#_elastic_energies">38. Elastic energies</a>
+<li><a href="#_red_blood_cell">38. Red blood cell</a>
 <ul class="sectlevel2">
-<li><a href="#_spring">38.1. spring</a></li>
-<li><a href="#_local_area_constrain">38.2. local area constrain</a></li>
-<li><a href="#_total_area_constrain">38.3. total area constrain</a></li>
-<li><a href="#_total_volume_constrain">38.4. total volume constrain</a></li>
-<li><a href="#_bending">38.5. bending</a></li>
+<li><a href="#rbc_energy">38.1. Elastic energies</a></li>
+<li><a href="#_quantities">38.2. Quantities</a></li>
+<li><a href="#_submodules_2">38.3. Submodules</a></li>
 </ul>
 </li>
-<li><a href="#_red_blood_cell">39. Red blood cell</a>
+<li><a href="#_scheme_restrain">39. scheme/restrain</a>
 <ul class="sectlevel2">
-<li><a href="#_quantities">39.1. Quantities</a></li>
-<li><a href="#_submodules_2">39.2. Submodules</a></li>
+<li><a href="#_interface_26">39.1. interface</a></li>
+<li><a href="#_configuration_8">39.2. configuration</a></li>
 </ul>
 </li>
-<li><a href="#_scheme_restrain">40. scheme/restrain</a>
+<li><a href="#_rigid">40. Rigid</a>
 <ul class="sectlevel2">
-<li><a href="#_interface_26">40.1. interface</a></li>
-<li><a href="#_configuration_8">40.2. configuration</a></li>
+<li><a href="#_quantities_2">40.1. Quantities</a></li>
+<li><a href="#_update">40.2. update</a></li>
 </ul>
 </li>
-<li><a href="#_rigid">41. Rigid</a>
+<li><a href="#_signed_distance_function_sdf">41. signed distance function (sdf)</a>
 <ul class="sectlevel2">
-<li><a href="#_quantities_2">41.1. Quantities</a></li>
-<li><a href="#_update">41.2. update</a></li>
+<li><a href="#_interface_29">41.1. interface</a></li>
+<li><a href="#_submodules_3">41.2. submodules</a></li>
 </ul>
 </li>
-<li><a href="#_signed_distance_function_sdf">42. signed distance function (sdf)</a>
+<li><a href="#_time">42. Time</a></li>
+<li><a href="#_time_step">43. Time step</a></li>
+<li><a href="#_utils">44. Utils</a>
 <ul class="sectlevel2">
-<li><a href="#_interface_29">42.1. interface</a></li>
-<li><a href="#_submodules_3">42.2. submodules</a></li>
+<li><a href="#_error">44.1. error</a></li>
+<li><a href="#_cc">44.2. cc</a></li>
+<li><a href="#_mc">44.3. mc</a></li>
+<li><a href="#_kernel_launch_macros">44.4. kernel launch macros</a></li>
 </ul>
 </li>
-<li><a href="#_time">43. Time</a></li>
-<li><a href="#_time_step">44. Time step</a></li>
-<li><a href="#_utils">45. Utils</a>
+<li><a href="#_wvel">45. wvel</a>
 <ul class="sectlevel2">
-<li><a href="#_error">45.1. error</a></li>
-<li><a href="#_cc">45.2. cc</a></li>
-<li><a href="#_mc">45.3. mc</a></li>
-<li><a href="#_kernel_launch_macros">45.4. kernel launch macros</a></li>
+<li><a href="#_data_structures_8">45.1. data structures</a></li>
+<li><a href="#_interface_34">45.2. interface</a></li>
+<li><a href="#_configuration_9">45.3. Configuration</a></li>
 </ul>
 </li>
-<li><a href="#_wvel">46. wvel</a>
+<li><a href="#_third_party_dependencies">46. third party dependencies</a>
 <ul class="sectlevel2">
-<li><a href="#_data_structures_8">46.1. data structures</a></li>
-<li><a href="#_interface_34">46.2. interface</a></li>
-<li><a href="#_configuration_9">46.3. Configuration</a></li>
+<li><a href="#_nvcc">46.1. nvcc</a></li>
+<li><a href="#_mpi_library">46.2. MPI library</a></li>
+<li><a href="#_libconfig">46.3. libconfig</a></li>
+<li><a href="#_hdf5">46.4. hdf5</a></li>
+<li><a href="#_bop">46.5. bop</a></li>
 </ul>
 </li>
-<li><a href="#_third_party_dependencies">47. third party dependencies</a>
+<li><a href="#wrappers">47. wrappers</a>
 <ul class="sectlevel2">
-<li><a href="#_nvcc">47.1. nvcc</a></li>
-<li><a href="#_mpi_library">47.2. MPI library</a></li>
-<li><a href="#_libconfig">47.3. libconfig</a></li>
-<li><a href="#_hdf5">47.4. hdf5</a></li>
-<li><a href="#_bop">47.5. bop</a></li>
-</ul>
-</li>
-<li><a href="#wrappers">48. wrappers</a>
-<ul class="sectlevel2">
-<li><a href="#intro">48.1. intro</a></li>
-<li><a href="#mem">48.2. MEM</a></li>
-<li><a href="#val">48.3. VAL</a></li>
-<li><a href="#prof">48.4. PROF</a></li>
-<li><a href="#tim">48.5. TIM</a></li>
+<li><a href="#intro">47.1. intro</a></li>
+<li><a href="#mem">47.2. MEM</a></li>
+<li><a href="#val">47.3. VAL</a></li>
+<li><a href="#prof">47.4. PROF</a></li>
+<li><a href="#tim">47.5. TIM</a></li>
 </ul>
 </li>
 </ul>
@@ -4920,10 +4912,32 @@ object.</td>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_elastic_energies">38. Elastic energies</h2>
+<h2 id="_red_blood_cell">38. Red blood cell</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Red blood cell membranes are represented via particles with
+connectivity.</p>
+</div>
+<div class="paragraph">
+<p>This module stores the required quantities and functions for:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>initializing red blood cells positions and orientations</p>
+</li>
+<li>
+<p>managing particles and connectivity</p>
+</li>
+<li>
+<p>membrane force computations</p>
+</li>
+</ul>
+</div>
 <div class="sect2">
-<h3 id="_spring">38.1. spring</h3>
+<h3 id="rbc_energy">38.1. Elastic energies</h3>
+<div class="sect3">
+<h4 id="_spring">38.1.1. spring</h4>
 <div class="paragraph">
 <p>Spring energy is a function of distance between connected beads \(r\)</p>
 </div>
@@ -4958,8 +4972,8 @@ condition that \(U_{spring}\) has a maximum at \(r = l_0\), and
 \(m\) is a power factor.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_local_area_constrain">38.2. local area constrain</h3>
+<div class="sect3">
+<h4 id="_local_area_constrain">38.1.2. local area constrain</h4>
 <div class="paragraph">
 <p>For every triangle with area \(A^{loc}\) and an equilibrium area
 \(A_0^{loc}\)</p>
@@ -4978,8 +4992,8 @@ k_d
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_total_area_constrain">38.3. total area constrain</h3>
+<div class="sect3">
+<h4 id="_total_area_constrain">38.1.3. total area constrain</h4>
 <div class="paragraph">
 <p>For whole mesh with area \(A^{tot}\) and an equilibrium area
 \(A_0^{tot}\)</p>
@@ -4994,8 +5008,8 @@ k_a
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_total_volume_constrain">38.4. total volume constrain</h3>
+<div class="sect3">
+<h4 id="_total_volume_constrain">38.1.4. total volume constrain</h4>
 <div class="paragraph">
 <p>For whole mesh with volume \(V\) and an equilibrium volume
 \(V_0\)</p>
@@ -5010,8 +5024,8 @@ k_v
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_bending">38.5. bending</h3>
+<div class="sect3">
+<h4 id="_bending">38.1.5. bending</h4>
 <div class="paragraph">
 <p>\(\theta\) is an angle between triangles with common edge,
 \(\theta_0\) is an equilibrium angle.</p>
@@ -5029,32 +5043,8 @@ k_v
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_red_blood_cell">39. Red blood cell</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Red blood cell membranes are represented via particles with
-connectivity.</p>
-</div>
-<div class="paragraph">
-<p>This module stores the required quantities and functions for:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>initializing red blood cells positions and orientations</p>
-</li>
-<li>
-<p>managing particles and connectivity</p>
-</li>
-<li>
-<p>membrane force computations</p>
-</li>
-</ul>
-</div>
 <div class="sect2">
-<h3 id="_quantities">39.1. Quantities</h3>
+<h3 id="_quantities">38.2. Quantities</h3>
 <div class="paragraph">
 <p><code>RbcQuants</code> structure contains particles of membrane and connectivity.</p>
 </div>
@@ -5108,9 +5098,9 @@ connectivity.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_submodules_2">39.2. Submodules</h3>
+<h3 id="_submodules_2">38.3. Submodules</h3>
 <div class="sect3">
-<h4 id="_adj_mesh_adjacency_structure">39.2.1. adj: mesh adjacency structure</h4>
+<h4 id="_adj_mesh_adjacency_structure">38.3.1. adj: mesh adjacency structure</h4>
 <div class="paragraph">
 <p>Consider closed triangulated mesh with <code>nv</code> vertices. Degree of a
 vertex is the number of edges incident to the vertex. Let <code>md</code> is a
@@ -5185,7 +5175,7 @@ another thread.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_com_center_of_mass">39.2.2. com: center of mass</h4>
+<h4 id="_com_center_of_mass">38.3.2. com: center of mass</h4>
 <div class="paragraph">
 <p>Compute position and velocity of each mesh of the membrane.</p>
 </div>
@@ -5202,7 +5192,7 @@ if <code>nm</code> exceeds <code>nm_max</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="rbc_matrices">39.2.3. matrices: affine transformation</h4>
+<h4 id="rbc_matrices">38.3.3. matrices: affine transformation</h4>
 <div class="paragraph">
 <p>An array of <code>4 x 4</code> affine transformation matrices.</p>
 </div>
@@ -5266,9 +5256,12 @@ MPI rank</td>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_forces">39.2.4. Forces</h4>
+<h4 id="_forces">38.3.4. Forces</h4>
 <div class="sect4">
 <h5 id="_model">Model</h5>
+<div class="paragraph">
+<p>The membrane forces are computed by differentiating the <a href="#rbc_energy">membrane energy</a> with respect to position:</p>
+</div>
 <div class="sect5">
 <h6 id="_spring_2">spring</h6>
 <div class="paragraph">
@@ -5394,7 +5387,7 @@ file:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_force_area_volume_area_and_volume">39.2.5. force/area_volume: area and volume</h4>
+<h4 id="_force_area_volume_area_and_volume">38.3.5. force/area_volume: area and volume</h4>
 <div class="paragraph">
 <p>Compute area and volume for every object.</p>
 </div>
@@ -5429,7 +5422,7 @@ host version of <code>av</code> array</td>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_force_rnd_random_generator">39.2.6. force/rnd: random generator</h4>
+<h4 id="_force_rnd_random_generator">38.3.6. force/rnd: random generator</h4>
 <div class="paragraph">
 <p>Device random number generator for random forces in rbc</p>
 </div>
@@ -5473,7 +5466,7 @@ host version of <code>av</code> array</td>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_gen_generate_membranes">39.2.7. gen: generate membranes</h4>
+<h4 id="_gen_generate_membranes">38.3.7. gen: generate membranes</h4>
 <div class="paragraph">
 <p>Generate membrane vertices from template mesh and affine transform
 matrices (see <a href="#rbc_matrices">matrices submodule</a>).</p>
@@ -5505,7 +5498,7 @@ belonging to subdomain are kept.</td>
 </div>
 </div>
 <div class="sect3">
-<h4 id="rbc_params">39.2.8. params: rbc parameters</h4>
+<h4 id="rbc_params">38.3.8. params: rbc parameters</h4>
 <div class="paragraph">
 <p>Parameters for the membrane forces.
 Consists of two structures: <code>RbcParams</code> (<em>hidden</em>, on host) and
@@ -5550,7 +5543,7 @@ Consists of two structures: <code>RbcParams</code> (<em>hidden</em>, on host) an
 </div>
 </div>
 <div class="sect3">
-<h4 id="_shape">39.2.9. shape</h4>
+<h4 id="_shape">38.3.9. shape</h4>
 <div class="paragraph">
 <p>Helper for stress free state.
 Compute membrane quantities on host.</p>
@@ -5601,7 +5594,7 @@ Compute membrane quantities on host.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_stretch_rbc">39.2.10. stretch RBC</h4>
+<h4 id="_stretch_rbc">38.3.10. stretch RBC</h4>
 <div class="paragraph">
 <p>Apply a constant force to every vertex of every cell. The force is
 configured from the file <code>path</code>.</p>
@@ -5632,7 +5625,7 @@ fx_nv fy_nv fz_nv</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_scheme_restrain">40. scheme/restrain</h2>
+<h2 id="_scheme_restrain">39. scheme/restrain</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Restrain the movement of drop or rbc membrane by shifting center of
@@ -5652,7 +5645,7 @@ The <code>Restrain</code> module  shifts the center of mass velocity of \(P\) su
 single drop.</p>
 </div>
 <div class="sect2">
-<h3 id="_interface_26">40.1. interface</h3>
+<h3 id="_interface_26">39.1. interface</h3>
 <div class="paragraph">
 <p>allocate and free host structure:</p>
 </div>
@@ -5711,7 +5704,7 @@ single drop.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_configuration_8">40.2. configuration</h3>
+<h3 id="_configuration_8">39.2. configuration</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">restrain</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
@@ -5724,7 +5717,7 @@ single drop.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_rigid">41. Rigid</h2>
+<h2 id="_rigid">40. Rigid</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Rigid objects consist of frozen particles moving in a rigid fashion.
@@ -5736,9 +5729,9 @@ with the frozen particles.</p>
 particles may bounce back.</p>
 </div>
 <div class="sect2">
-<h3 id="_quantities_2">41.1. Quantities</h3>
+<h3 id="_quantities_2">40.1. Quantities</h3>
 <div class="sect3">
-<h4 id="_data_structure_5">41.1.1. data structure</h4>
+<h4 id="_data_structure_5">40.1.1. data structure</h4>
 <div class="paragraph">
 <p><code>RigidQuants</code> structure contains particles of rigid objects as well as
 mesh particles.
@@ -5767,7 +5760,7 @@ linear velocity of the rigid object.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_interface_27">41.1.2. Interface</h4>
+<h4 id="_interface_27">40.1.2. Interface</h4>
 <div class="paragraph">
 <p>allocate and deallocate the quantities:</p>
 </div>
@@ -5822,13 +5815,13 @@ This is initialised using</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_update">41.2. update</h3>
+<h3 id="_update">40.2. update</h3>
 <div class="paragraph">
 <p>Position and velocities of rigid objects are updated from forces
 exerted on the particles.</p>
 </div>
 <div class="sect3">
-<h4 id="_pin_info">41.2.1. pin info</h4>
+<h4 id="_pin_info">40.2.1. pin info</h4>
 <div class="paragraph">
 <p>The hidden structure <code>RigPinInfo</code> is used to store information about
 constrained rigid motion.
@@ -5931,7 +5924,7 @@ Default value for no periodicty is set via</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_interface_28">41.2.2. interface</h4>
+<h4 id="_interface_28">40.2.2. interface</h4>
 <div class="paragraph">
 <p>naming:</p>
 </div>
@@ -5986,7 +5979,7 @@ structures</td>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_signed_distance_function_sdf">42. signed distance function (sdf)</h2>
+<h2 id="_signed_distance_function_sdf">41. signed distance function (sdf)</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The Signed Distance Function (SDF) \(S(x, y, z)\) is used to give the distance from a
@@ -6029,7 +6022,7 @@ the wall.</p>
 The isosurface \(S(x,y,z) = 0\) is located at the wall interface.</p>
 </div>
 <div class="sect2">
-<h3 id="_interface_29">42.1. interface</h3>
+<h3 id="_interface_29">41.1. interface</h3>
 <div class="paragraph">
 <p>allocate, deallocate the structure:</p>
 </div>
@@ -6113,12 +6106,12 @@ which are not inside the domain are not kept.</td>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_submodules_3">42.2. submodules</h3>
+<h3 id="_submodules_3">41.2. submodules</h3>
 <div class="paragraph">
 <p>Some tasks of the SDF object are splitted into submodules:</p>
 </div>
 <div class="sect3">
-<h4 id="_array3d">42.2.1. array3D</h4>
+<h4 id="_array3d">41.2.1. array3D</h4>
 <div class="paragraph">
 <p>a simple data holder for storing a 3D cuda array scalar field.</p>
 </div>
@@ -6174,7 +6167,7 @@ which are not inside the domain are not kept.</td>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_bounce">42.2.2. bounce</h4>
+<h4 id="_bounce">41.2.2. bounce</h4>
 <div class="paragraph">
 <p>Particles crossing the wall surface are bounced back into the domain.
 We define:</p>
@@ -6229,7 +6222,7 @@ We obtain \(\mathbf{r}_w = \mathbf{r}_0 + h \mathbf{v}_0\).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_field">42.2.3. field</h4>
+<h4 id="_field">41.2.3. field</h4>
 <div class="paragraph">
 <p>read and manage a scalar field on host</p>
 </div>
@@ -6308,7 +6301,7 @@ We obtain \(\mathbf{r}_w = \mathbf{r}_0 + h \mathbf{v}_0\).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_label">42.2.4. label</h4>
+<h4 id="_label">41.2.4. label</h4>
 <div class="paragraph">
 <p>a simple tool to mark particles in wall regions</p>
 </div>
@@ -6342,7 +6335,7 @@ We obtain \(\mathbf{r}_w = \mathbf{r}_0 + h \mathbf{v}_0\).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_tex3d">42.2.5. tex3D</h4>
+<h4 id="_tex3d">41.2.5. tex3D</h4>
 <div class="paragraph">
 <p>a simple texture object manager for representing 3d grid scalar field</p>
 </div>
@@ -6402,7 +6395,7 @@ We obtain \(\mathbf{r}_w = \mathbf{r}_0 + h \mathbf{v}_0\).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_tform">42.2.6. tform</h4>
+<h4 id="_tform">41.2.6. tform</h4>
 <div class="paragraph">
 <p>a simple set of linear transformations for sdf</p>
 </div>
@@ -6435,7 +6428,7 @@ We obtain \(\mathbf{r}_w = \mathbf{r}_0 + h \mathbf{v}_0\).</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_time">43. Time</h2>
+<h2 id="_time">42. Time</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Keeps current simulation time.</p>
@@ -6462,7 +6455,7 @@ crossed" <code>n*interval</code>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_time_step">44. Time step</h2>
+<h2 id="_time_step">43. Time step</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Return time step based on the current state of the simulation. If
@@ -6493,10 +6486,10 @@ constructed using <code>time_step_accel_push</code>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_utils">45. Utils</h2>
+<h2 id="_utils">44. Utils</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_error">45.1. error</h3>
+<h3 id="_error">44.1. error</h3>
 <div class="paragraph">
 <p><em>uDeviceX</em> has a primitive error handling mechanism. Error is raised if</p>
 </div>
@@ -6535,7 +6528,7 @@ and <code>ERR</code> call.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_cc">45.2. cc</h3>
+<h3 id="_cc">44.2. cc</h3>
 <div class="paragraph">
 <p>[C]uda [C]heck.</p>
 </div>
@@ -6543,7 +6536,7 @@ and <code>ERR</code> call.</p>
 <p>Error handling for cuda API calls.</p>
 </div>
 <div class="sect3">
-<h4 id="_usage">45.2.1. Usage</h4>
+<h4 id="_usage">44.2.1. Usage</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-n">CC</span><span class="tok-p">(</span><span class="tok-n">my_cuda_api_call</span><span class="tok-p">());</span></code></pre>
@@ -6556,7 +6549,7 @@ dump a backtrace (see <a href="#error">[error]</a>).</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_mc">45.3. mc</h3>
+<h3 id="_mc">44.3. mc</h3>
 <div class="paragraph">
 <p>[M]PI [C]heck.</p>
 </div>
@@ -6564,7 +6557,7 @@ dump a backtrace (see <a href="#error">[error]</a>).</p>
 <p>Error handling for MPI API calls.</p>
 </div>
 <div class="sect3">
-<h4 id="_usage_2">45.3.1. Usage</h4>
+<h4 id="_usage_2">44.3.1. Usage</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-n">MC</span><span class="tok-p">(</span><span class="tok-n">my_mpi_api_call</span><span class="tok-p">());</span></code></pre>
@@ -6577,7 +6570,7 @@ dump a backtrace (see <a href="#error">[error]</a>).</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_kernel_launch_macros">45.4. kernel launch macros</h3>
+<h3 id="_kernel_launch_macros">44.4. kernel launch macros</h3>
 <div class="paragraph">
 <p>[K]ernel [L]aunch.</p>
 </div>
@@ -6600,7 +6593,7 @@ dump a backtrace (see <a href="#error">[error]</a>).</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_wvel">46. wvel</h2>
+<h2 id="_wvel">45. wvel</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Wall velocity field.
@@ -6608,7 +6601,7 @@ Used to set velocity to wall particles for wall interactions.
 Also used to get wall velocity for bounce back on walls</p>
 </div>
 <div class="sect2">
-<h3 id="_data_structures_8">46.1. data structures</h3>
+<h3 id="_data_structures_8">45.1. data structures</h3>
 <div class="paragraph">
 <p>data structures are separated into 3 kinds of data structures:</p>
 </div>
@@ -6629,12 +6622,12 @@ specific time step. It is generated from <code>Wvel</code> structure.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_interface_34">46.2. interface</h3>
+<h3 id="_interface_34">45.2. interface</h3>
 <div class="paragraph">
 <p>Interface is splitted between host and device</p>
 </div>
 <div class="sect3">
-<h4 id="_host">46.2.1. Host</h4>
+<h4 id="_host">45.2.1. Host</h4>
 <div class="paragraph">
 <p>Host code is responsible for initialisation of <code>Wvel</code> and convert
 <code>Wvel</code> to a view at a given timestep.</p>
@@ -6712,7 +6705,7 @@ the parameters:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_device">46.2.2. Device</h4>
+<h4 id="_device">45.2.2. Device</h4>
 <div class="paragraph">
 <p>Velocity field can be retrieved, depending on the view structure, using</p>
 </div>
@@ -6736,9 +6729,9 @@ position and velocity of particle.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_configuration_9">46.3. Configuration</h3>
+<h3 id="_configuration_9">45.3. Configuration</h3>
 <div class="sect3">
-<h4 id="_constant_2">46.3.1. constant</h4>
+<h4 id="_constant_2">45.3.1. constant</h4>
 <div class="paragraph">
 <p>constant velocity \(u = (1, 0, 0)\):</p>
 </div>
@@ -6752,7 +6745,7 @@ position and velocity of particle.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_shear_2">46.3.2. shear</h4>
+<h4 id="_shear_2">45.3.2. shear</h4>
 <div class="paragraph">
 <p>shear velocity \(u = (3 y, 0, 0)\):</p>
 </div>
@@ -6769,7 +6762,7 @@ position and velocity of particle.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_sinusoidal_shear">46.3.3. sinusoidal shear</h4>
+<h4 id="_sinusoidal_shear">45.3.3. sinusoidal shear</h4>
 <div class="paragraph">
 <p>shear velocity \(u(t) = (3 y \sin(5 t), 0, 0)\):</p>
 </div>
@@ -6786,7 +6779,7 @@ position and velocity of particle.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_hele_shaw">46.3.4. Hele Shaw</h4>
+<h4 id="_hele_shaw">45.3.4. Hele Shaw</h4>
 <div class="paragraph">
 <p>velocity \(u_r = \frac u r \left(1 - \frac {4 z^2}{h^2}\right)\):</p>
 </div>
@@ -6804,16 +6797,16 @@ position and velocity of particle.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_third_party_dependencies">47. third party dependencies</h2>
+<h2 id="_third_party_dependencies">46. third party dependencies</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_nvcc">47.1. nvcc</h3>
+<h3 id="_nvcc">46.1. nvcc</h3>
 <div class="paragraph">
 <p><a href="http://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc">cuda compiler driver</a></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_mpi_library">47.2. MPI library</h3>
+<h3 id="_mpi_library">46.2. MPI library</h3>
 <div class="paragraph">
 <p>To get the flags</p>
 </div>
@@ -6832,12 +6825,12 @@ position and velocity of particle.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_libconfig">47.3. libconfig</h3>
+<h3 id="_libconfig">46.3. libconfig</h3>
 <div class="paragraph">
 <p><a href="http://hyperrealm.com/libconfig/libconfig.html">a library for processing structured configuration files</a></p>
 </div>
 <div class="sect3">
-<h4 id="_from_source">47.3.1. from source</h4>
+<h4 id="_from_source">46.3.1. from source</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="sh"><span></span><span class="tok-nv">v</span><span class="tok-o">=</span><span class="tok-m">1</span>.7.1
@@ -6851,7 +6844,7 @@ make install</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_from_git">47.3.2. from git</h4>
+<h4 id="_from_git">46.3.2. from git</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="sh"><span></span>git clone git@github.com:hyperrealm/libconfig.git
@@ -6864,7 +6857,7 @@ make install</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_from_apt">47.3.3. from apt</h4>
+<h4 id="_from_apt">46.3.3. from apt</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="sh"><span></span>sudo apt install libconfig-dev</code></pre>
@@ -6872,7 +6865,7 @@ make install</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_pkgconfig">47.3.4. pkgconfig</h4>
+<h4 id="_pkgconfig">46.3.4. pkgconfig</h4>
 <div class="paragraph">
 <p>add path for pkg config</p>
 </div>
@@ -6884,7 +6877,7 @@ make install</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_hdf5">47.4. hdf5</h3>
+<h3 id="_hdf5">46.4. hdf5</h3>
 <div class="paragraph">
 <p>a data model, library, and file format for storing and managing data</p>
 </div>
@@ -6918,7 +6911,7 @@ make install</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_bop">47.5. bop</h3>
+<h3 id="_bop">46.5. bop</h3>
 <div class="paragraph">
 <p>a simple format for particle data, see
 <a href="https://gitlab.ethz.ch/mavt-cse/bop">bop</a>.</p>
@@ -6947,17 +6940,17 @@ make -s <span class="tok-nb">test</span></code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="wrappers">48. wrappers</h2>
+<h2 id="wrappers">47. wrappers</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="intro">48.1. intro</h3>
+<h3 id="intro">47.1. intro</h3>
 <div class="paragraph">
 <p><code>u.run</code> respects several environment variables to modify the way <code>udx</code>
 is run</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="mem">48.2. MEM</h3>
+<h3 id="mem">47.2. MEM</h3>
 <div class="paragraph">
 <p>if <code>MEM</code> is set <code>udx</code> is ran with <code>cuda-memcheck</code> and <code>MEM</code> is used as a
 list of parameters</p>
@@ -6974,7 +6967,7 @@ MEM='--tool initcheck'                    u.test test/*</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="val">48.3. VAL</h3>
+<h3 id="val">47.3. VAL</h3>
 <div class="paragraph">
 <p>if <code>VAL</code> is set <code>udx</code> is ran with valgrind and <code>VAL</code> is used as a list
 of parameters.</p>
@@ -6998,7 +6991,7 @@ cmd: srun -n 1 -u valgrind --option ./udx</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="prof">48.4. PROF</h3>
+<h3 id="prof">47.4. PROF</h3>
 <div class="paragraph">
 <p>if <code>PROF</code> is set is ran with <code>nvprof</code></p>
 </div>
@@ -7013,7 +7006,7 @@ nvprof -i main.prof</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="tim">48.5. TIM</h3>
+<h3 id="tim">47.5. TIM</h3>
 <div class="paragraph">
 <p>if <code>TIM</code> is set is ran with <code>time</code></p>
 </div>
