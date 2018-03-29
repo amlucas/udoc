@@ -41,7 +41,7 @@
 <li><a href="#_gource_commands">4. gource commands</a></li>
 <li><a href="#_algo_algorithm_helpers">5. algo: algorithm helpers</a>
 <ul class="sectlevel2">
-<li><a href="#_edg_mesh_edge_data">5.1. edg: mesh edge data</a></li>
+<li><a href="#algo_edg">5.1. edg: mesh edge data</a></li>
 <li><a href="#_kahan_summation">5.2. Kahan summation</a></li>
 <li><a href="#_minmax">5.3. minmax</a></li>
 <li><a href="#algo_scan">5.4. scan: prefix sum</a></li>
@@ -156,112 +156,116 @@
 <li><a href="#_triangle_functions">21.4. triangle functions</a></li>
 </ul>
 </li>
-<li><a href="#_scheme_move">22. scheme/move</a>
+<li><a href="#_mesh_4">22. Mesh</a>
 <ul class="sectlevel2">
-<li><a href="#_interface_21">22.1. interface</a></li>
+<li><a href="#mesh_area">22.1. area: compute area of a mesh</a></li>
+<li><a href="#mesh_tri_area">22.2. tri_area: compute area of triangles in a mesh</a></li>
+<li><a href="#mesh_triangles">22.3. Triangles</a></li>
+<li><a href="#mesh_volume">22.4. volume: compute volume of a mesh</a></li>
 </ul>
 </li>
-<li><a href="#_pair">23. pair</a>
+<li><a href="#_scheme_move">23. scheme/move</a>
 <ul class="sectlevel2">
-<li><a href="#_dpd_interactions">23.1. dpd interactions</a></li>
-<li><a href="#_repulsive_lj">23.2. repulsive LJ</a></li>
-<li><a href="#_host_interface_2">23.3. Host interface</a></li>
-<li><a href="#_device_interface">23.4. device interface</a></li>
-<li><a href="#_configuration_7">23.5. Configuration</a></li>
+<li><a href="#_interface_21">23.1. interface</a></li>
 </ul>
 </li>
-<li><a href="#_parray">24. parray</a>
+<li><a href="#_pair">24. pair</a>
 <ul class="sectlevel2">
-<li><a href="#_host_interface_3">24.1. host interface</a></li>
-<li><a href="#_device_interface_2">24.2. device interface</a></li>
+<li><a href="#_dpd_interactions">24.1. dpd interactions</a></li>
+<li><a href="#_repulsive_lj">24.2. repulsive LJ</a></li>
+<li><a href="#_host_interface_2">24.3. Host interface</a></li>
+<li><a href="#_device_interface">24.4. device interface</a></li>
+<li><a href="#_configuration_7">24.5. Configuration</a></li>
 </ul>
 </li>
-<li><a href="#_farray">25. farray</a>
+<li><a href="#_parray">25. parray</a>
 <ul class="sectlevel2">
-<li><a href="#_host_interface_4">25.1. host interface</a></li>
-<li><a href="#_device_interface_3">25.2. device interface</a></li>
+<li><a href="#_host_interface_3">25.1. host interface</a></li>
+<li><a href="#_device_interface_2">25.2. device interface</a></li>
 </ul>
 </li>
-<li><a href="#_configuration_file_reader">26. configuration file reader</a>
+<li><a href="#_farray">26. farray</a>
 <ul class="sectlevel2">
-<li><a href="#_purpose_4">26.1. purpose</a></li>
-<li><a href="#_data_structure_3">26.2. data structure</a></li>
-<li><a href="#_interface_22">26.3. interface</a></li>
+<li><a href="#_host_interface_4">26.1. host interface</a></li>
+<li><a href="#_device_interface_3">26.2. device interface</a></li>
 </ul>
 </li>
-<li><a href="#_partlist">27. partlist</a>
+<li><a href="#_configuration_file_reader">27. configuration file reader</a>
 <ul class="sectlevel2">
-<li><a href="#_data_structure_4">27.1. data structure</a></li>
-<li><a href="#_interface_23">27.2. interface</a></li>
+<li><a href="#_purpose_4">27.1. purpose</a></li>
+<li><a href="#_data_structure_3">27.2. data structure</a></li>
+<li><a href="#_interface_22">27.3. interface</a></li>
 </ul>
 </li>
-<li><a href="#_triangles">28. Triangles</a></li>
-<li><a href="#_compute_area_of_a_mesh">29. compute area of a mesh</a></li>
-<li><a href="#_compute_volume_of_a_mesh">30. compute volume of a mesh</a></li>
-<li><a href="#_compute_area_of_triangles_in_a_mesh">31. compute area of triangles in a mesh</a></li>
-<li><a href="#_meshbb">32. meshbb</a>
+<li><a href="#_partlist">28. partlist</a>
 <ul class="sectlevel2">
-<li><a href="#_interface_24">32.1. interface</a></li>
+<li><a href="#_data_structure_4">28.1. data structure</a></li>
+<li><a href="#_interface_23">28.2. interface</a></li>
 </ul>
 </li>
-<li><a href="#_red_blood_cell">33. Red blood cell</a>
+<li><a href="#_meshbb">29. meshbb</a>
 <ul class="sectlevel2">
-<li><a href="#rbc_energy">33.1. Elastic energies</a></li>
-<li><a href="#_quantities">33.2. Quantities</a></li>
-<li><a href="#_submodules_2">33.3. Submodules</a></li>
+<li><a href="#_interface_24">29.1. interface</a></li>
 </ul>
 </li>
-<li><a href="#_scheme_restrain">34. scheme/restrain</a>
+<li><a href="#_red_blood_cell">30. Red blood cell</a>
 <ul class="sectlevel2">
-<li><a href="#_interface_26">34.1. interface</a></li>
-<li><a href="#_configuration_8">34.2. configuration</a></li>
+<li><a href="#rbc_energy">30.1. Elastic energies</a></li>
+<li><a href="#_quantities">30.2. Quantities</a></li>
+<li><a href="#_submodules_2">30.3. Submodules</a></li>
 </ul>
 </li>
-<li><a href="#_rigid">35. Rigid</a>
+<li><a href="#_scheme_restrain">31. scheme/restrain</a>
 <ul class="sectlevel2">
-<li><a href="#_quantities_2">35.1. Quantities</a></li>
-<li><a href="#_update">35.2. update</a></li>
+<li><a href="#_interface_26">31.1. interface</a></li>
+<li><a href="#_configuration_8">31.2. configuration</a></li>
 </ul>
 </li>
-<li><a href="#_signed_distance_function_sdf">36. signed distance function (sdf)</a>
+<li><a href="#_rigid">32. Rigid</a>
 <ul class="sectlevel2">
-<li><a href="#_interface_29">36.1. interface</a></li>
-<li><a href="#_submodules_3">36.2. submodules</a></li>
+<li><a href="#_quantities_2">32.1. Quantities</a></li>
+<li><a href="#_update">32.2. update</a></li>
 </ul>
 </li>
-<li><a href="#_time">37. Time</a></li>
-<li><a href="#_time_step">38. Time step</a></li>
-<li><a href="#_utils">39. Utils</a>
+<li><a href="#_signed_distance_function_sdf">33. signed distance function (sdf)</a>
 <ul class="sectlevel2">
-<li><a href="#_error">39.1. error</a></li>
-<li><a href="#_cc">39.2. cc</a></li>
-<li><a href="#_mc">39.3. mc</a></li>
-<li><a href="#_kernel_launch_macros">39.4. kernel launch macros</a></li>
+<li><a href="#_interface_29">33.1. interface</a></li>
+<li><a href="#_submodules_3">33.2. submodules</a></li>
 </ul>
 </li>
-<li><a href="#_wvel">40. wvel</a>
+<li><a href="#_time">34. Time</a></li>
+<li><a href="#_time_step">35. Time step</a></li>
+<li><a href="#_utils">36. Utils</a>
 <ul class="sectlevel2">
-<li><a href="#_data_structures_8">40.1. data structures</a></li>
-<li><a href="#_interface_34">40.2. interface</a></li>
-<li><a href="#_configuration_9">40.3. Configuration</a></li>
+<li><a href="#_error">36.1. error</a></li>
+<li><a href="#_cc">36.2. cc</a></li>
+<li><a href="#_mc">36.3. mc</a></li>
+<li><a href="#_kernel_launch_macros">36.4. kernel launch macros</a></li>
 </ul>
 </li>
-<li><a href="#_third_party_dependencies">41. third party dependencies</a>
+<li><a href="#_wvel">37. wvel</a>
 <ul class="sectlevel2">
-<li><a href="#_nvcc">41.1. nvcc</a></li>
-<li><a href="#_mpi_library">41.2. MPI library</a></li>
-<li><a href="#_libconfig">41.3. libconfig</a></li>
-<li><a href="#_hdf5">41.4. hdf5</a></li>
-<li><a href="#_bop">41.5. bop</a></li>
+<li><a href="#_data_structures_8">37.1. data structures</a></li>
+<li><a href="#_interface_34">37.2. interface</a></li>
+<li><a href="#_configuration_9">37.3. Configuration</a></li>
 </ul>
 </li>
-<li><a href="#wrappers">42. wrappers</a>
+<li><a href="#_third_party_dependencies">38. third party dependencies</a>
 <ul class="sectlevel2">
-<li><a href="#intro">42.1. intro</a></li>
-<li><a href="#mem">42.2. MEM</a></li>
-<li><a href="#val">42.3. VAL</a></li>
-<li><a href="#prof">42.4. PROF</a></li>
-<li><a href="#tim">42.5. TIM</a></li>
+<li><a href="#_nvcc">38.1. nvcc</a></li>
+<li><a href="#_mpi_library">38.2. MPI library</a></li>
+<li><a href="#_libconfig">38.3. libconfig</a></li>
+<li><a href="#_hdf5">38.4. hdf5</a></li>
+<li><a href="#_bop">38.5. bop</a></li>
+</ul>
+</li>
+<li><a href="#wrappers">39. wrappers</a>
+<ul class="sectlevel2">
+<li><a href="#intro">39.1. intro</a></li>
+<li><a href="#mem">39.2. MEM</a></li>
+<li><a href="#val">39.3. VAL</a></li>
+<li><a href="#prof">39.4. PROF</a></li>
+<li><a href="#tim">39.5. TIM</a></li>
 </ul>
 </li>
 </ul>
@@ -647,7 +651,7 @@ ffmpeg version <span class="tok-m">2</span>.8.11-0ubuntu0.16.04.1 Copyright <spa
 <h2 id="_algo_algorithm_helpers">5. algo: algorithm helpers</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_edg_mesh_edge_data">5.1. edg: mesh edge data</h3>
+<h3 id="algo_edg">5.1. edg: mesh edge data</h3>
 <div class="paragraph">
 <p>Set and get <code>val</code> on edges of the mesh.</p>
 </div>
@@ -3957,7 +3961,144 @@ stable to numerical error is used.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_scheme_move">22. scheme/move</h2>
+<h2 id="_mesh_4">22. Mesh</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>helpers for computation on triangle mesh.</p>
+</div>
+<div class="paragraph">
+<p>Mesh are stored with an array of vertices (<code>vv</code>) or particles (<code>pp</code>) in an array of
+structure fashion.
+The connectivity is a set of vertices indices grouped by triangles.
+For performance and convenience reasons, they are stored in a <code>int4</code>
+array, each element storing ids of the three vertices of the triangle
+(the last field is not used).</p>
+</div>
+<div class="paragraph">
+<p>More complex connectivity structures are defined in appropriate
+submodules, see <a href="#algo_edg">edg</a> or <a href="#rbc_adj">adj</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="mesh_area">22.1. area: compute area of a mesh</h3>
+<div class="paragraph">
+<p>Compute the area of a triangulated mesh.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">mesh_area_ini</span><span class="tok-p">(</span><span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">MeshArea</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">mesh_area_fin</span><span class="tok-p">(</span><span class="tok-n">MeshArea</span><span class="tok-o">*</span><span class="tok-p">);</span>
+
+<span class="tok-kt">double</span> <span class="tok-nf">mesh_area_apply0</span><span class="tok-p">(</span><span class="tok-n">MeshArea</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">Vectors</span><span class="tok-o">*</span><span class="tok-p">);</span>                     <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kt">void</span>  <span class="tok-nf">mesh_area_apply</span><span class="tok-p">(</span><span class="tok-n">MeshArea</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nm</span><span class="tok-p">,</span> <span class="tok-n">Vectors</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">double</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>in initialization triangles are stored</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>compute the area of one object</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>compute the areas of <code>nm</code> objects</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="mesh_tri_area">22.2. tri_area: compute area of triangles in a mesh</h3>
+<div class="paragraph">
+<p>Compute the area of every triangle of the mesh.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">mesh_tri_area_ini</span><span class="tok-p">(</span><span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">MeshTriArea</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">mesh_tri_area_fin</span><span class="tok-p">(</span><span class="tok-n">MeshTriArea</span><span class="tok-o">*</span><span class="tok-p">);</span>
+
+<span class="tok-kt">void</span>  <span class="tok-nf">mesh_tri_area_apply</span><span class="tok-p">(</span><span class="tok-n">MeshTriArea</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nm</span><span class="tok-p">,</span> <span class="tok-n">Vectors</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">double</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>in initialization triangles are stored</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>compute areas</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><code>nm</code> is the number of meshes.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="mesh_triangles">22.3. Triangles</h3>
+<div class="paragraph">
+<p>Triangles on device. It is created from <code>MeshRead*</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">triangles_ini</span><span class="tok-p">(</span><span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Triangles</span><span class="tok-o">**</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">triangles_fin</span><span class="tok-p">(</span><span class="tok-n">Triangles</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>the client must include <code>type.h</code> and can access fields directly.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">struct</span> <span class="tok-n">Triangles</span> <span class="tok-p">{</span>
+    <span class="tok-n">int4</span> <span class="tok-o">*</span><span class="tok-n">tt</span><span class="tok-p">;</span>
+    <span class="tok-kt">int</span> <span class="tok-n">nt</span><span class="tok-p">;</span>
+<span class="tok-p">};</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>nt</code> is the number of triangles.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="mesh_volume">22.4. volume: compute volume of a mesh</h3>
+<div class="paragraph">
+<p>Compute the volume enclosed by a triangulated mesh on host.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">mesh_volume_ini</span><span class="tok-p">(</span><span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">MeshVolume</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">mesh_volume_fin</span><span class="tok-p">(</span><span class="tok-n">MeshVolume</span><span class="tok-o">*</span><span class="tok-p">);</span>
+
+<span class="tok-kt">double</span> <span class="tok-nf">mesh_volume_apply0</span><span class="tok-p">(</span><span class="tok-n">MeshVolume</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">Vectors</span><span class="tok-o">*</span><span class="tok-p">);</span>                      <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kt">void</span>  <span class="tok-nf">mesh_volume_apply</span><span class="tok-p">(</span><span class="tok-n">MeshVolume</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nm</span><span class="tok-p">,</span> <span class="tok-n">Vectors</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">double</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>in initialization triangles are stored</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>compute volume for one object</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>compute volume for <code>nm</code> objects</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_scheme_move">23. scheme/move</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Time scheme update</p>
@@ -3976,7 +4117,7 @@ stable to numerical error is used.</p>
 </ul>
 </div>
 <div class="sect2">
-<h3 id="_interface_21">22.1. interface</h3>
+<h3 id="_interface_21">23.1. interface</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">scheme_move_apply</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">mass</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Force</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
@@ -3999,14 +4140,14 @@ stable to numerical error is used.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_pair">23. pair</h2>
+<h2 id="_pair">24. pair</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>pairwise forces.
 manages the parameters for dpd and repulsive Lennard-Jones parameters.</p>
 </div>
 <div class="sect2">
-<h3 id="_dpd_interactions">23.1. dpd interactions</h3>
+<h3 id="_dpd_interactions">24.1. dpd interactions</h3>
 <div class="paragraph">
 <p>DPD particles interact via the following force:</p>
 </div>
@@ -4056,7 +4197,7 @@ r_{ij} = | \mathbf{r}_{ij} |, \\
 </div>
 </div>
 <div class="sect2">
-<h3 id="_repulsive_lj">23.2. repulsive LJ</h3>
+<h3 id="_repulsive_lj">24.2. repulsive LJ</h3>
 <div class="paragraph">
 <p>Repulsive forces for contact are implemented using the repulsive LJ
 potential. It is given by</p>
@@ -4085,7 +4226,7 @@ potential. It is given by</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_host_interface_2">23.3. Host interface</h3>
+<h3 id="_host_interface_2">24.3. Host interface</h3>
 <div class="paragraph">
 <p>allocate, deallocate the structure:</p>
 </div>
@@ -4152,7 +4293,7 @@ parameters (see below).</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_device_interface">23.4. device interface</h3>
+<h3 id="_device_interface">24.4. device interface</h3>
 <div class="paragraph">
 <p>Inside a CUDA kernel, the pairwise force can be called by the generic function</p>
 </div>
@@ -4202,7 +4343,7 @@ particle <code>b</code> has the same color as particle <code>a</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_configuration_7">23.5. Configuration</h3>
+<h3 id="_configuration_7">24.5. Configuration</h3>
 <div class="paragraph">
 <p>parameters are configured through 3 namespaces: <code>flu</code>, <code>fsi</code> and
 <code>cnt</code>.</p>
@@ -4264,13 +4405,13 @@ matrix convention. For example the interaction table for 3 colors</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_parray">24. parray</h2>
+<h2 id="_parray">25. parray</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Generic particle array to be passed to interaction kernels.</p>
 </div>
 <div class="sect2">
-<h3 id="_host_interface_3">24.1. host interface</h3>
+<h3 id="_host_interface_3">25.1. host interface</h3>
 <div class="paragraph">
 <p>A <code>PaArray</code> structure can be configured by pushing particles and,
 optionally, colors:</p>
@@ -4326,7 +4467,7 @@ views can be generated from the <code>PaArray</code> structure:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_device_interface_2">24.2. device interface</h3>
+<h3 id="_device_interface_2">25.2. device interface</h3>
 <div class="paragraph">
 <p>Generic particle (see <em>pair</em> module)  can be fetched depending on the view:</p>
 </div>
@@ -4352,7 +4493,7 @@ views can be generated from the <code>PaArray</code> structure:</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_farray">25. farray</h2>
+<h2 id="_farray">26. farray</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Generic force array to be passed to interaction kernels.
@@ -4369,7 +4510,7 @@ Implemented versions:</p>
 </ul>
 </div>
 <div class="sect2">
-<h3 id="_host_interface_4">25.1. host interface</h3>
+<h3 id="_host_interface_4">26.1. host interface</h3>
 <div class="paragraph">
 <p>A <code>FoArray</code> structure can be configured by pushing forces and,
 optionally, stresses:</p>
@@ -4425,7 +4566,7 @@ views can be generated from the <code>FoArray</code> structure:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_device_interface_3">25.2. device interface</h3>
+<h3 id="_device_interface_3">26.2. device interface</h3>
 <div class="paragraph">
 <p>Generic forces (see <em>pair</em> module) can be added to the generic force
 array depending on the view type:</p>
@@ -4480,10 +4621,10 @@ of the Generic array:</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_configuration_file_reader">26. configuration file reader</h2>
+<h2 id="_configuration_file_reader">27. configuration file reader</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_purpose_4">26.1. purpose</h3>
+<h3 id="_purpose_4">27.1. purpose</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4518,7 +4659,7 @@ If no source contains the parmeter, an error is raised.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_data_structure_3">26.2. data structure</h3>
+<h3 id="_data_structure_3">27.2. data structure</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-k">enum</span> <span class="tok-p">{</span>
@@ -4546,7 +4687,7 @@ priority etc.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_interface_22">26.3. interface</h3>
+<h3 id="_interface_22">27.3. interface</h3>
 <div class="paragraph">
 <p>Allocate and free the structure:</p>
 </div>
@@ -4667,14 +4808,14 @@ a <code>/</code>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_partlist">27. partlist</h2>
+<h2 id="_partlist">28. partlist</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Part list: a structure to handle a list of dead or alive particles
 Purpose: kill particles during redistribution or cell lists build</p>
 </div>
 <div class="sect2">
-<h3 id="_data_structure_4">27.1. data structure</h3>
+<h3 id="_data_structure_4">28.1. data structure</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">struct</span> <span class="tok-n">PartList</span> <span class="tok-p">{</span>
@@ -4685,7 +4826,7 @@ Purpose: kill particles during redistribution or cell lists build</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_interface_23">27.2. interface</h3>
+<h3 id="_interface_23">28.2. interface</h3>
 <div class="paragraph">
 <p>contains only device interface:</p>
 </div>
@@ -4706,132 +4847,7 @@ Purpose: kill particles during redistribution or cell lists build</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_triangles">28. Triangles</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Triangles on device. It is created from <code>MeshRead*</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">triangles_ini</span><span class="tok-p">(</span><span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Triangles</span><span class="tok-o">**</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">triangles_fin</span><span class="tok-p">(</span><span class="tok-n">Triangles</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>a client should include <code>type.h</code> and access fields directly.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">struct</span> <span class="tok-n">Triangles</span> <span class="tok-p">{</span>
-    <span class="tok-n">int4</span> <span class="tok-o">*</span><span class="tok-n">tt</span><span class="tok-p">;</span>
-    <span class="tok-kt">int</span> <span class="tok-n">nt</span><span class="tok-p">;</span>
-<span class="tok-p">};</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>nt</code> is a number of triangles.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_compute_area_of_a_mesh">29. compute area of a mesh</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Compute the area of a triangulated mesh.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">mesh_area_ini</span><span class="tok-p">(</span><span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">MeshArea</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">mesh_area_fin</span><span class="tok-p">(</span><span class="tok-n">MeshArea</span><span class="tok-o">*</span><span class="tok-p">);</span>
-
-<span class="tok-kt">double</span> <span class="tok-nf">mesh_area_apply0</span><span class="tok-p">(</span><span class="tok-n">MeshArea</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">Vectors</span><span class="tok-o">*</span><span class="tok-p">);</span>                     <i class="conum" data-value="2"></i><b>(2)</b>
-<span class="tok-kt">void</span>  <span class="tok-nf">mesh_area_apply</span><span class="tok-p">(</span><span class="tok-n">MeshArea</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nm</span><span class="tok-p">,</span> <span class="tok-n">Vectors</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">double</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>in initialization triangles are stored</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>compute the area of one object</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>compute the areas of <code>nm</code> objects</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_compute_volume_of_a_mesh">30. compute volume of a mesh</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Compute a volume enclosed by a triangulated mesh on host.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">mesh_volume_ini</span><span class="tok-p">(</span><span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">MeshVolume</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">mesh_volume_fin</span><span class="tok-p">(</span><span class="tok-n">MeshVolume</span><span class="tok-o">*</span><span class="tok-p">);</span>
-
-<span class="tok-kt">double</span> <span class="tok-nf">mesh_volume_apply0</span><span class="tok-p">(</span><span class="tok-n">MeshVolume</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">Vectors</span><span class="tok-o">*</span><span class="tok-p">);</span>                      <i class="conum" data-value="2"></i><b>(2)</b>
-<span class="tok-kt">void</span>  <span class="tok-nf">mesh_volume_apply</span><span class="tok-p">(</span><span class="tok-n">MeshVolume</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nm</span><span class="tok-p">,</span> <span class="tok-n">Vectors</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">double</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>in initialization triangles are stored</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>compute volume for one object</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>compute volume for <code>nm</code> objects</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_compute_area_of_triangles_in_a_mesh">31. compute area of triangles in a mesh</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Compute the area of every triangle of the mesh.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">mesh_tri_area_ini</span><span class="tok-p">(</span><span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">MeshTriArea</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">mesh_tri_area_fin</span><span class="tok-p">(</span><span class="tok-n">MeshTriArea</span><span class="tok-o">*</span><span class="tok-p">);</span>
-
-<span class="tok-kt">void</span>  <span class="tok-nf">mesh_tri_area_apply</span><span class="tok-p">(</span><span class="tok-n">MeshTriArea</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nm</span><span class="tok-p">,</span> <span class="tok-n">Vectors</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">double</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>in initialization triangles are stored</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>compute areas</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p><code>nm</code> is a number of meshes.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_meshbb">32. meshbb</h2>
+<h2 id="_meshbb">29. meshbb</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Bounce back particles on a moving mesh</p>
@@ -4883,7 +4899,7 @@ The motion of the triangle points are assumed to be linear:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_interface_24">32.1. interface</h3>
+<h3 id="_interface_24">29.1. interface</h3>
 <div class="paragraph">
 <p>Allocate and deallocate <code>MeshBB</code> structure:</p>
 </div>
@@ -4955,7 +4971,7 @@ object.</td>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_red_blood_cell">33. Red blood cell</h2>
+<h2 id="_red_blood_cell">30. Red blood cell</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Red blood cell membranes are represented via particles with
@@ -4978,9 +4994,9 @@ connectivity.</p>
 </ul>
 </div>
 <div class="sect2">
-<h3 id="rbc_energy">33.1. Elastic energies</h3>
+<h3 id="rbc_energy">30.1. Elastic energies</h3>
 <div class="sect3">
-<h4 id="_spring">33.1.1. spring</h4>
+<h4 id="_spring">30.1.1. spring</h4>
 <div class="paragraph">
 <p>Spring energy is a function of distance between connected beads \(r\)</p>
 </div>
@@ -5016,7 +5032,7 @@ condition that \(U_{spring}\) has a maximum at \(r = l_0\), and
 </div>
 </div>
 <div class="sect3">
-<h4 id="_local_area_constrain">33.1.2. local area constrain</h4>
+<h4 id="_local_area_constrain">30.1.2. local area constrain</h4>
 <div class="paragraph">
 <p>For every triangle with area \(A^{loc}\) and an equilibrium area
 \(A_0^{loc}\)</p>
@@ -5036,7 +5052,7 @@ k_d
 </div>
 </div>
 <div class="sect3">
-<h4 id="_total_area_constrain">33.1.3. total area constrain</h4>
+<h4 id="_total_area_constrain">30.1.3. total area constrain</h4>
 <div class="paragraph">
 <p>For whole mesh with area \(A^{tot}\) and an equilibrium area
 \(A_0^{tot}\)</p>
@@ -5052,7 +5068,7 @@ k_a
 </div>
 </div>
 <div class="sect3">
-<h4 id="_total_volume_constrain">33.1.4. total volume constrain</h4>
+<h4 id="_total_volume_constrain">30.1.4. total volume constrain</h4>
 <div class="paragraph">
 <p>For whole mesh with volume \(V\) and an equilibrium volume
 \(V_0\)</p>
@@ -5068,7 +5084,7 @@ k_v
 </div>
 </div>
 <div class="sect3">
-<h4 id="_bending">33.1.5. bending</h4>
+<h4 id="_bending">30.1.5. bending</h4>
 <div class="paragraph">
 <p>\(\theta\) is an angle between triangles with common edge,
 \(\theta_0\) is an equilibrium angle.</p>
@@ -5087,7 +5103,7 @@ k_v
 </div>
 </div>
 <div class="sect2">
-<h3 id="_quantities">33.2. Quantities</h3>
+<h3 id="_quantities">30.2. Quantities</h3>
 <div class="paragraph">
 <p><code>RbcQuants</code> structure contains particles of membrane and connectivity.</p>
 </div>
@@ -5141,9 +5157,9 @@ k_v
 </div>
 </div>
 <div class="sect2">
-<h3 id="_submodules_2">33.3. Submodules</h3>
+<h3 id="_submodules_2">30.3. Submodules</h3>
 <div class="sect3">
-<h4 id="_adj_mesh_adjacency_structure">33.3.1. adj: mesh adjacency structure</h4>
+<h4 id="rbc_adj">30.3.1. adj: mesh adjacency structure</h4>
 <div class="paragraph">
 <p>Consider closed triangulated mesh with <code>nv</code> vertices. Degree of a
 vertex is the number of edges incident to the vertex. Let <code>md</code> is a
@@ -5218,7 +5234,7 @@ another thread.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_com_center_of_mass">33.3.2. com: center of mass</h4>
+<h4 id="_com_center_of_mass">30.3.2. com: center of mass</h4>
 <div class="paragraph">
 <p>Compute position and velocity of each mesh of the membrane.</p>
 </div>
@@ -5235,7 +5251,7 @@ if <code>nm</code> exceeds <code>nm_max</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="rbc_matrices">33.3.3. matrices: affine transformation</h4>
+<h4 id="rbc_matrices">30.3.3. matrices: affine transformation</h4>
 <div class="paragraph">
 <p>An array of <code>4 x 4</code> affine transformation matrices.</p>
 </div>
@@ -5299,7 +5315,7 @@ MPI rank</td>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_forces">33.3.4. Forces</h4>
+<h4 id="_forces">30.3.4. Forces</h4>
 <div class="sect4">
 <h5 id="_model">Model</h5>
 <div class="paragraph">
@@ -5430,7 +5446,7 @@ file:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_force_area_volume_area_and_volume">33.3.5. force/area_volume: area and volume</h4>
+<h4 id="_force_area_volume_area_and_volume">30.3.5. force/area_volume: area and volume</h4>
 <div class="paragraph">
 <p>Compute area and volume for every object.</p>
 </div>
@@ -5465,7 +5481,7 @@ host version of <code>av</code> array</td>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_force_rnd_random_generator">33.3.6. force/rnd: random generator</h4>
+<h4 id="_force_rnd_random_generator">30.3.6. force/rnd: random generator</h4>
 <div class="paragraph">
 <p>Device random number generator for random forces in rbc</p>
 </div>
@@ -5509,7 +5525,7 @@ host version of <code>av</code> array</td>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_gen_generate_membranes">33.3.7. gen: generate membranes</h4>
+<h4 id="_gen_generate_membranes">30.3.7. gen: generate membranes</h4>
 <div class="paragraph">
 <p>Generate membrane vertices from template mesh and affine transform
 matrices (see <a href="#rbc_matrices">matrices submodule</a>).</p>
@@ -5541,7 +5557,7 @@ belonging to subdomain are kept.</td>
 </div>
 </div>
 <div class="sect3">
-<h4 id="rbc_params">33.3.8. params: rbc parameters</h4>
+<h4 id="rbc_params">30.3.8. params: rbc parameters</h4>
 <div class="paragraph">
 <p>Parameters for the membrane forces.
 Consists of two structures: <code>RbcParams</code> (<em>hidden</em>, on host) and
@@ -5586,7 +5602,7 @@ Consists of two structures: <code>RbcParams</code> (<em>hidden</em>, on host) an
 </div>
 </div>
 <div class="sect3">
-<h4 id="_shape">33.3.9. shape</h4>
+<h4 id="_shape">30.3.9. shape</h4>
 <div class="paragraph">
 <p>Helper for stress free state.
 Compute membrane quantities on host.</p>
@@ -5637,7 +5653,7 @@ Compute membrane quantities on host.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_stretch_rbc">33.3.10. stretch RBC</h4>
+<h4 id="_stretch_rbc">30.3.10. stretch RBC</h4>
 <div class="paragraph">
 <p>Apply a constant force to every vertex of every cell. The force is
 configured from the file <code>path</code>.</p>
@@ -5668,7 +5684,7 @@ fx_nv fy_nv fz_nv</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_scheme_restrain">34. scheme/restrain</h2>
+<h2 id="_scheme_restrain">31. scheme/restrain</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Restrain the movement of drop or rbc membrane by shifting center of
@@ -5688,7 +5704,7 @@ The <code>Restrain</code> module  shifts the center of mass velocity of \(P\) su
 single drop.</p>
 </div>
 <div class="sect2">
-<h3 id="_interface_26">34.1. interface</h3>
+<h3 id="_interface_26">31.1. interface</h3>
 <div class="paragraph">
 <p>allocate and free host structure:</p>
 </div>
@@ -5747,7 +5763,7 @@ single drop.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_configuration_8">34.2. configuration</h3>
+<h3 id="_configuration_8">31.2. configuration</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">restrain</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
@@ -5760,7 +5776,7 @@ single drop.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_rigid">35. Rigid</h2>
+<h2 id="_rigid">32. Rigid</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Rigid objects consist of frozen particles moving in a rigid fashion.
@@ -5772,9 +5788,9 @@ with the frozen particles.</p>
 particles may bounce back.</p>
 </div>
 <div class="sect2">
-<h3 id="_quantities_2">35.1. Quantities</h3>
+<h3 id="_quantities_2">32.1. Quantities</h3>
 <div class="sect3">
-<h4 id="_data_structure_5">35.1.1. data structure</h4>
+<h4 id="_data_structure_5">32.1.1. data structure</h4>
 <div class="paragraph">
 <p><code>RigidQuants</code> structure contains particles of rigid objects as well as
 mesh particles.
@@ -5803,7 +5819,7 @@ linear velocity of the rigid object.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_interface_27">35.1.2. Interface</h4>
+<h4 id="_interface_27">32.1.2. Interface</h4>
 <div class="paragraph">
 <p>allocate and deallocate the quantities:</p>
 </div>
@@ -5858,13 +5874,13 @@ This is initialised using</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_update">35.2. update</h3>
+<h3 id="_update">32.2. update</h3>
 <div class="paragraph">
 <p>Position and velocities of rigid objects are updated from forces
 exerted on the particles.</p>
 </div>
 <div class="sect3">
-<h4 id="_pin_info">35.2.1. pin info</h4>
+<h4 id="_pin_info">32.2.1. pin info</h4>
 <div class="paragraph">
 <p>The hidden structure <code>RigPinInfo</code> is used to store information about
 constrained rigid motion.
@@ -5967,7 +5983,7 @@ Default value for no periodicty is set via</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_interface_28">35.2.2. interface</h4>
+<h4 id="_interface_28">32.2.2. interface</h4>
 <div class="paragraph">
 <p>naming:</p>
 </div>
@@ -6022,7 +6038,7 @@ structures</td>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_signed_distance_function_sdf">36. signed distance function (sdf)</h2>
+<h2 id="_signed_distance_function_sdf">33. signed distance function (sdf)</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The Signed Distance Function (SDF) \(S(x, y, z)\) is used to give the distance from a
@@ -6065,7 +6081,7 @@ the wall.</p>
 The isosurface \(S(x,y,z) = 0\) is located at the wall interface.</p>
 </div>
 <div class="sect2">
-<h3 id="_interface_29">36.1. interface</h3>
+<h3 id="_interface_29">33.1. interface</h3>
 <div class="paragraph">
 <p>allocate, deallocate the structure:</p>
 </div>
@@ -6149,12 +6165,12 @@ which are not inside the domain are not kept.</td>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_submodules_3">36.2. submodules</h3>
+<h3 id="_submodules_3">33.2. submodules</h3>
 <div class="paragraph">
 <p>Some tasks of the SDF object are splitted into submodules:</p>
 </div>
 <div class="sect3">
-<h4 id="_array3d">36.2.1. array3D</h4>
+<h4 id="_array3d">33.2.1. array3D</h4>
 <div class="paragraph">
 <p>a simple data holder for storing a 3D cuda array scalar field.</p>
 </div>
@@ -6210,7 +6226,7 @@ which are not inside the domain are not kept.</td>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_bounce">36.2.2. bounce</h4>
+<h4 id="_bounce">33.2.2. bounce</h4>
 <div class="paragraph">
 <p>Particles crossing the wall surface are bounced back into the domain.
 We define:</p>
@@ -6265,7 +6281,7 @@ We obtain \(\mathbf{r}_w = \mathbf{r}_0 + h \mathbf{v}_0\).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_field">36.2.3. field</h4>
+<h4 id="_field">33.2.3. field</h4>
 <div class="paragraph">
 <p>read and manage a scalar field on host</p>
 </div>
@@ -6344,7 +6360,7 @@ We obtain \(\mathbf{r}_w = \mathbf{r}_0 + h \mathbf{v}_0\).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_label">36.2.4. label</h4>
+<h4 id="_label">33.2.4. label</h4>
 <div class="paragraph">
 <p>a simple tool to mark particles in wall regions</p>
 </div>
@@ -6378,7 +6394,7 @@ We obtain \(\mathbf{r}_w = \mathbf{r}_0 + h \mathbf{v}_0\).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_tex3d">36.2.5. tex3D</h4>
+<h4 id="_tex3d">33.2.5. tex3D</h4>
 <div class="paragraph">
 <p>a simple texture object manager for representing 3d grid scalar field</p>
 </div>
@@ -6438,7 +6454,7 @@ We obtain \(\mathbf{r}_w = \mathbf{r}_0 + h \mathbf{v}_0\).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_tform">36.2.6. tform</h4>
+<h4 id="_tform">33.2.6. tform</h4>
 <div class="paragraph">
 <p>A simple set of linear transformations for sdf.
 Based on <a href="#math_tform">tform module</a>.</p>
@@ -6472,7 +6488,7 @@ Based on <a href="#math_tform">tform module</a>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_time">37. Time</h2>
+<h2 id="_time">34. Time</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Keeps current simulation time.</p>
@@ -6499,7 +6515,7 @@ crossed" <code>n*interval</code>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_time_step">38. Time step</h2>
+<h2 id="_time_step">35. Time step</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Return time step based on the current state of the simulation. If
@@ -6530,10 +6546,10 @@ constructed using <code>time_step_accel_push</code>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_utils">39. Utils</h2>
+<h2 id="_utils">36. Utils</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_error">39.1. error</h3>
+<h3 id="_error">36.1. error</h3>
 <div class="paragraph">
 <p><em>uDeviceX</em> has a primitive error handling mechanism. Error is raised if</p>
 </div>
@@ -6572,7 +6588,7 @@ and <code>ERR</code> call.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_cc">39.2. cc</h3>
+<h3 id="_cc">36.2. cc</h3>
 <div class="paragraph">
 <p>[C]uda [C]heck.</p>
 </div>
@@ -6580,7 +6596,7 @@ and <code>ERR</code> call.</p>
 <p>Error handling for cuda API calls.</p>
 </div>
 <div class="sect3">
-<h4 id="_usage">39.2.1. Usage</h4>
+<h4 id="_usage">36.2.1. Usage</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-n">CC</span><span class="tok-p">(</span><span class="tok-n">my_cuda_api_call</span><span class="tok-p">());</span></code></pre>
@@ -6593,7 +6609,7 @@ dump a backtrace (see <a href="#error">[error]</a>).</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_mc">39.3. mc</h3>
+<h3 id="_mc">36.3. mc</h3>
 <div class="paragraph">
 <p>[M]PI [C]heck.</p>
 </div>
@@ -6601,7 +6617,7 @@ dump a backtrace (see <a href="#error">[error]</a>).</p>
 <p>Error handling for MPI API calls.</p>
 </div>
 <div class="sect3">
-<h4 id="_usage_2">39.3.1. Usage</h4>
+<h4 id="_usage_2">36.3.1. Usage</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-n">MC</span><span class="tok-p">(</span><span class="tok-n">my_mpi_api_call</span><span class="tok-p">());</span></code></pre>
@@ -6614,7 +6630,7 @@ dump a backtrace (see <a href="#error">[error]</a>).</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_kernel_launch_macros">39.4. kernel launch macros</h3>
+<h3 id="_kernel_launch_macros">36.4. kernel launch macros</h3>
 <div class="paragraph">
 <p>[K]ernel [L]aunch.</p>
 </div>
@@ -6637,7 +6653,7 @@ dump a backtrace (see <a href="#error">[error]</a>).</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_wvel">40. wvel</h2>
+<h2 id="_wvel">37. wvel</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Wall velocity field.
@@ -6645,7 +6661,7 @@ Used to set velocity to wall particles for wall interactions.
 Also used to get wall velocity for bounce back on walls</p>
 </div>
 <div class="sect2">
-<h3 id="_data_structures_8">40.1. data structures</h3>
+<h3 id="_data_structures_8">37.1. data structures</h3>
 <div class="paragraph">
 <p>data structures are separated into 3 kinds of data structures:</p>
 </div>
@@ -6666,12 +6682,12 @@ specific time step. It is generated from <code>Wvel</code> structure.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_interface_34">40.2. interface</h3>
+<h3 id="_interface_34">37.2. interface</h3>
 <div class="paragraph">
 <p>Interface is splitted between host and device</p>
 </div>
 <div class="sect3">
-<h4 id="_host">40.2.1. Host</h4>
+<h4 id="_host">37.2.1. Host</h4>
 <div class="paragraph">
 <p>Host code is responsible for initialisation of <code>Wvel</code> and convert
 <code>Wvel</code> to a view at a given timestep.</p>
@@ -6749,7 +6765,7 @@ the parameters:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_device">40.2.2. Device</h4>
+<h4 id="_device">37.2.2. Device</h4>
 <div class="paragraph">
 <p>Velocity field can be retrieved, depending on the view structure, using</p>
 </div>
@@ -6773,9 +6789,9 @@ position and velocity of particle.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_configuration_9">40.3. Configuration</h3>
+<h3 id="_configuration_9">37.3. Configuration</h3>
 <div class="sect3">
-<h4 id="_constant_2">40.3.1. constant</h4>
+<h4 id="_constant_2">37.3.1. constant</h4>
 <div class="paragraph">
 <p>constant velocity \(u = (1, 0, 0)\):</p>
 </div>
@@ -6789,7 +6805,7 @@ position and velocity of particle.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_shear_2">40.3.2. shear</h4>
+<h4 id="_shear_2">37.3.2. shear</h4>
 <div class="paragraph">
 <p>shear velocity \(u = (3 y, 0, 0)\):</p>
 </div>
@@ -6806,7 +6822,7 @@ position and velocity of particle.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_sinusoidal_shear">40.3.3. sinusoidal shear</h4>
+<h4 id="_sinusoidal_shear">37.3.3. sinusoidal shear</h4>
 <div class="paragraph">
 <p>shear velocity \(u(t) = (3 y \sin(5 t), 0, 0)\):</p>
 </div>
@@ -6823,7 +6839,7 @@ position and velocity of particle.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_hele_shaw">40.3.4. Hele Shaw</h4>
+<h4 id="_hele_shaw">37.3.4. Hele Shaw</h4>
 <div class="paragraph">
 <p>velocity \(u_r = \frac u r \left(1 - \frac {4 z^2}{h^2}\right)\):</p>
 </div>
@@ -6841,16 +6857,16 @@ position and velocity of particle.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_third_party_dependencies">41. third party dependencies</h2>
+<h2 id="_third_party_dependencies">38. third party dependencies</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_nvcc">41.1. nvcc</h3>
+<h3 id="_nvcc">38.1. nvcc</h3>
 <div class="paragraph">
 <p><a href="http://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc">cuda compiler driver</a></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_mpi_library">41.2. MPI library</h3>
+<h3 id="_mpi_library">38.2. MPI library</h3>
 <div class="paragraph">
 <p>To get the flags</p>
 </div>
@@ -6869,12 +6885,12 @@ position and velocity of particle.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_libconfig">41.3. libconfig</h3>
+<h3 id="_libconfig">38.3. libconfig</h3>
 <div class="paragraph">
 <p><a href="http://hyperrealm.com/libconfig/libconfig.html">a library for processing structured configuration files</a></p>
 </div>
 <div class="sect3">
-<h4 id="_from_source">41.3.1. from source</h4>
+<h4 id="_from_source">38.3.1. from source</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="sh"><span></span><span class="tok-nv">v</span><span class="tok-o">=</span><span class="tok-m">1</span>.7.1
@@ -6888,7 +6904,7 @@ make install</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_from_git">41.3.2. from git</h4>
+<h4 id="_from_git">38.3.2. from git</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="sh"><span></span>git clone git@github.com:hyperrealm/libconfig.git
@@ -6901,7 +6917,7 @@ make install</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_from_apt">41.3.3. from apt</h4>
+<h4 id="_from_apt">38.3.3. from apt</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="sh"><span></span>sudo apt install libconfig-dev</code></pre>
@@ -6909,7 +6925,7 @@ make install</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_pkgconfig">41.3.4. pkgconfig</h4>
+<h4 id="_pkgconfig">38.3.4. pkgconfig</h4>
 <div class="paragraph">
 <p>add path for pkg config</p>
 </div>
@@ -6921,7 +6937,7 @@ make install</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_hdf5">41.4. hdf5</h3>
+<h3 id="_hdf5">38.4. hdf5</h3>
 <div class="paragraph">
 <p>a data model, library, and file format for storing and managing data</p>
 </div>
@@ -6955,7 +6971,7 @@ make install</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_bop">41.5. bop</h3>
+<h3 id="_bop">38.5. bop</h3>
 <div class="paragraph">
 <p>a simple format for particle data, see
 <a href="https://gitlab.ethz.ch/mavt-cse/bop">bop</a>.</p>
@@ -6984,17 +7000,17 @@ make -s <span class="tok-nb">test</span></code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="wrappers">42. wrappers</h2>
+<h2 id="wrappers">39. wrappers</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="intro">42.1. intro</h3>
+<h3 id="intro">39.1. intro</h3>
 <div class="paragraph">
 <p><code>u.run</code> respects several environment variables to modify the way <code>udx</code>
 is run</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="mem">42.2. MEM</h3>
+<h3 id="mem">39.2. MEM</h3>
 <div class="paragraph">
 <p>if <code>MEM</code> is set <code>udx</code> is ran with <code>cuda-memcheck</code> and <code>MEM</code> is used as a
 list of parameters</p>
@@ -7011,7 +7027,7 @@ MEM='--tool initcheck'                    u.test test/*</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="val">42.3. VAL</h3>
+<h3 id="val">39.3. VAL</h3>
 <div class="paragraph">
 <p>if <code>VAL</code> is set <code>udx</code> is ran with valgrind and <code>VAL</code> is used as a list
 of parameters.</p>
@@ -7035,7 +7051,7 @@ cmd: srun -n 1 -u valgrind --option ./udx</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="prof">42.4. PROF</h3>
+<h3 id="prof">39.4. PROF</h3>
 <div class="paragraph">
 <p>if <code>PROF</code> is set is ran with <code>nvprof</code></p>
 </div>
@@ -7050,7 +7066,7 @@ nvprof -i main.prof</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="tim">42.5. TIM</h3>
+<h3 id="tim">39.5. TIM</h3>
 <div class="paragraph">
 <p>if <code>TIM</code> is set is ran with <code>time</code></p>
 </div>
