@@ -155,7 +155,7 @@
 <ul class="sectlevel2">
 <li><a href="#_linal">24.1. linal</a></li>
 <li><a href="#_host_random_number_generation">24.2. Host random number generation</a></li>
-<li><a href="#_linar_coordinate_transformation_for_3d_vector">24.3. linar coordinate transformation for 3D vector</a></li>
+<li><a href="#math_tform">24.3. tform: linar coordinate transformation for 3D vector</a></li>
 <li><a href="#_triangle_functions">24.4. triangle functions</a></li>
 </ul>
 </li>
@@ -3729,7 +3729,7 @@ determinant smaller than epsilon (hardcoded to <code>1e-8</code>).</td>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_linar_coordinate_transformation_for_3d_vector">24.3. linar coordinate transformation for 3D vector</h3>
+<h3 id="math_tform">24.3. tform: linar coordinate transformation for 3D vector</h3>
 <div class="paragraph">
 <p>Transform vector <code>a[3]</code> to <code>b[3]</code> using</p>
 </div>
@@ -4752,19 +4752,65 @@ Purpose: kill particles during redistribution or cell lists build</p>
 <h2 id="_vectors">35. Vectors</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Host array of vectors for size three.</p>
+<p>A read-only wrapper to provide uniform accsses to an array <code>n</code> vectors
+of size three. The module does not copy data.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">vectors_float_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">float</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Vectors</span><span class="tok-o">**</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">vectors_postions_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Vectors</span><span class="tok-o">**</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">vectors_postions_edge_ini</span>  <span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Vectors</span><span class="tok-o">**</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">vectors_postions_center_ini</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Vectors</span><span class="tok-o">**</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">vectors_velocities_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Vectors</span><span class="tok-o">**</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">vectors_zero_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Vectors</span><span class="tok-o">**</span><span class="tok-p">);</span>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">vectors_float_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">float</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Vectors</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">vectors_postions_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Vectors</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">vectors_postions_edge_ini</span>  <span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Vectors</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">vectors_postions_center_ini</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Vectors</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="4"></i><b>(4)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">vectors_velocities_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Vectors</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="5"></i><b>(5)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">vectors_zero_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Vectors</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="6"></i><b>(6)</b>
 
 <span class="tok-kt">void</span> <span class="tok-nf">vectors_fin</span><span class="tok-p">(</span><span class="tok-n">Vectors</span><span class="tok-o">*</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">vectors_get</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Vectors</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">float</span> <span class="tok-n">r</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">]);</span></code></pre>
+<span class="tok-kt">void</span> <span class="tok-nf">vectors_get</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Vectors</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">float</span> <span class="tok-n">r</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">]);</span> <i class="conum" data-value="7"></i><b>(7)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>array of float packed as <code>x0 y0 z0   x1 y1 z1</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>particle positions</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>particle positions relative to domain edge</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>particle positions relative to domain center</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>particle velocity</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>array of zeros</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>return a vector <code>i</code></td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Example,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-cp">#define n 2</span>
+<span class="tok-n">Vectors</span>  <span class="tok-o">*</span><span class="tok-n">pos</span><span class="tok-p">;</span>
+<span class="tok-kt">float</span> <span class="tok-n">r</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-n">data</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-o">*</span><span class="tok-n">n</span><span class="tok-p">]</span> <span class="tok-o">=</span> <span class="tok-p">{</span><span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-mi">2</span><span class="tok-p">,</span> <span class="tok-mi">3</span><span class="tok-p">,</span>   <span class="tok-mi">4</span><span class="tok-p">,</span> <span class="tok-mi">5</span><span class="tok-p">,</span> <span class="tok-mi">6</span><span class="tok-p">};</span>
+<span class="tok-n">vectors_float_ini</span><span class="tok-p">(</span><span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-n">data</span><span class="tok-p">,</span> <span class="tok-o">&amp;</span><span class="tok-n">pos</span><span class="tok-p">);</span>
+<span class="tok-n">vectors_get</span><span class="tok-p">(</span><span class="tok-n">pos</span><span class="tok-p">,</span> <span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">r</span><span class="tok-p">);</span>
+<span class="tok-n">vectors_fin</span><span class="tok-p">(</span><span class="tok-n">pos</span><span class="tok-p">);</span></code></pre>
 </div>
 </div>
 </div>
@@ -4773,19 +4819,65 @@ Purpose: kill particles during redistribution or cell lists build</p>
 <h2 id="_vectors_2">36. Vectors</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Host array of vectors for size three.</p>
+<p>A read-only wrapper to provide uniform accsses to an array <code>n</code> vectors
+of size three. The module does not copy data.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">vectors_float_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">float</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Vectors</span><span class="tok-o">**</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">vectors_postions_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Vectors</span><span class="tok-o">**</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">vectors_postions_edge_ini</span>  <span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Vectors</span><span class="tok-o">**</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">vectors_postions_center_ini</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Vectors</span><span class="tok-o">**</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">vectors_velocities_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Vectors</span><span class="tok-o">**</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">vectors_zero_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Vectors</span><span class="tok-o">**</span><span class="tok-p">);</span>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">vectors_float_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">float</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Vectors</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">vectors_postions_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Vectors</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">vectors_postions_edge_ini</span>  <span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Vectors</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">vectors_postions_center_ini</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Vectors</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="4"></i><b>(4)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">vectors_velocities_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Vectors</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="5"></i><b>(5)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">vectors_zero_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Vectors</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="6"></i><b>(6)</b>
 
 <span class="tok-kt">void</span> <span class="tok-nf">vectors_fin</span><span class="tok-p">(</span><span class="tok-n">Vectors</span><span class="tok-o">*</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">vectors_get</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Vectors</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">float</span> <span class="tok-n">r</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">]);</span></code></pre>
+<span class="tok-kt">void</span> <span class="tok-nf">vectors_get</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Vectors</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">float</span> <span class="tok-n">r</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">]);</span> <i class="conum" data-value="7"></i><b>(7)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>array of float packed as <code>x0 y0 z0   x1 y1 z1</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>particle positions</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>particle positions relative to domain edge</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>particle positions relative to domain center</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>particle velocity</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>array of zeros</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>return a vector <code>i</code></td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Example,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-cp">#define n 2</span>
+<span class="tok-n">Vectors</span>  <span class="tok-o">*</span><span class="tok-n">pos</span><span class="tok-p">;</span>
+<span class="tok-kt">float</span> <span class="tok-n">r</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">],</span> <span class="tok-n">data</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-o">*</span><span class="tok-n">n</span><span class="tok-p">]</span> <span class="tok-o">=</span> <span class="tok-p">{</span><span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-mi">2</span><span class="tok-p">,</span> <span class="tok-mi">3</span><span class="tok-p">,</span>   <span class="tok-mi">4</span><span class="tok-p">,</span> <span class="tok-mi">5</span><span class="tok-p">,</span> <span class="tok-mi">6</span><span class="tok-p">};</span>
+<span class="tok-n">vectors_float_ini</span><span class="tok-p">(</span><span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-n">data</span><span class="tok-p">,</span> <span class="tok-o">&amp;</span><span class="tok-n">pos</span><span class="tok-p">);</span>
+<span class="tok-n">vectors_get</span><span class="tok-p">(</span><span class="tok-n">pos</span><span class="tok-p">,</span> <span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">r</span><span class="tok-p">);</span>
+<span class="tok-n">vectors_fin</span><span class="tok-p">(</span><span class="tok-n">pos</span><span class="tok-p">);</span></code></pre>
 </div>
 </div>
 </div>
@@ -6400,7 +6492,8 @@ We obtain \(\mathbf{r}_w = \mathbf{r}_0 + h \mathbf{v}_0\).</p>
 <div class="sect3">
 <h4 id="_tform">41.2.6. tform</h4>
 <div class="paragraph">
-<p>a simple set of linear transformations for sdf</p>
+<p>A simple set of linear transformations for sdf.
+Based on <a href="#math_tform">tform module</a>&gt;.</p>
 </div>
 <div class="listingblock">
 <div class="content">
