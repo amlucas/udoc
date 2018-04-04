@@ -226,7 +226,7 @@
 <li><a href="#_time_step">31.5. Time step</a></li>
 </ul>
 </li>
-<li><a href="#_signed_distance_function_sdf">32. signed distance function (sdf)</a>
+<li><a href="#sdf">32. sdf: signed distance function</a>
 <ul class="sectlevel2">
 <li><a href="#_interface_29">32.1. interface</a></li>
 <li><a href="#_submodules_3">32.2. submodules</a></li>
@@ -242,11 +242,11 @@
 <li><a href="#_texo_texture_object">33.6. texo: texture object</a></li>
 </ul>
 </li>
-<li><a href="#_wvel">34. wvel</a>
+<li><a href="#_wall">34. wall</a>
 <ul class="sectlevel2">
-<li><a href="#_data_structures_8">34.1. data structures</a></li>
+<li><a href="#_data_structure_8">34.1. data structure</a></li>
 <li><a href="#_interface_34">34.2. interface</a></li>
-<li><a href="#_configuration_9">34.3. Configuration</a></li>
+<li><a href="#_submodules_4">34.3. submodules</a></li>
 </ul>
 </li>
 <li><a href="#_third_party_dependencies">35. third party dependencies</a>
@@ -6248,7 +6248,7 @@ constructed using <code>time_step_accel_push</code>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_signed_distance_function_sdf">32. signed distance function (sdf)</h2>
+<h2 id="sdf">32. sdf: signed distance function</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The Signed Distance Function (SDF) \(S(x, y, z)\) is used to give the distance from a
@@ -6977,15 +6977,174 @@ dump a backtrace (see <a href="#error">[error]</a>).</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_wvel">34. wvel</h2>
+<h2 id="_wall">34. wall</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Manages frozen wall particles data.</p>
+</div>
+<div class="sect2">
+<h3 id="_data_structure_8">34.1. data structure</h3>
+<div class="paragraph">
+<p>The data is stored in a visible structure. The user can access
+directly the fields.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">struct</span> <span class="tok-n">WallQuants</span> <span class="tok-p">{</span>
+    <span class="tok-n">float4</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">;</span> <span class="tok-cm">/* particle positions xyzo xyzo ... */</span>
+    <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">;</span>      <span class="tok-cm">/* number of particles              */</span>
+    <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">;</span>     <span class="tok-cm">/* subdomain size                   */</span>
+<span class="tok-p">};</span>
+
+<span class="tok-k">struct</span> <span class="tok-n">WallTicket</span><span class="tok-p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Only positions of the particles are stored, Their velocity can be
+computed by using the <a href="#wall_wvel">wvel submodule</a>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>Ticket</code> hidden structure contains helpers (cell lists, texture objects,
+random number generator) for force interactions with external
+particles.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_interface_34">34.2. interface</h3>
+<div class="paragraph">
+<p>allocate and deallocate the data:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">wall_ini_quants</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-n">WallQuants</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">wall_ini_ticket</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-n">WallTicket</span><span class="tok-o">**</span><span class="tok-p">);</span>
+
+<span class="tok-kt">void</span> <span class="tok-nf">wall_fin_quants</span><span class="tok-p">(</span><span class="tok-n">WallQuants</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">wall_fin_ticket</span><span class="tok-p">(</span><span class="tok-n">WallTicket</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>generate the quantities:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">wall_gen_quants</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxn</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Sdf</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/* io */</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">o_n</span><span class="tok-p">,</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">o_pp</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">WallQuants</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">wall_gen_ticket</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">WallQuants</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">WallTicket</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>freeze the particles from a given equilibrated array of solvent particles
+occupying the subdomain. The input array of particles is resized
+and only solvent particles remain. Creates additional "margin
+particles" copied from neighbouring ranks. See <a href="#wall_exch">exch</a>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>generate <code>Ticket</code> structure from quantities</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>restart interface:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">wall_strt_quants</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxn</span><span class="tok-p">,</span> <span class="tok-n">WallQuants</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">wall_strt_dump_templ</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">WallQuants</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>read quantities from restart files</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>dump quantities to restart files (set 0 velocity to particles)</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>compute interactions with other particles (see <a href="#wall_force">force submodule</a>):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">wall_force</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">PairParams</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">WvelStep</span> <span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span>
+                <span class="tok-n">Sdf</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">WallQuants</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">WallTicket</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">PaArray</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">FoArray</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_submodules_4">34.3. submodules</h3>
+<div class="sect3">
+<h4 id="wall_exch">34.3.1. exch</h4>
+<div class="paragraph">
+<p>a simple module to exchange the "margin particles" between
+neighbouring ranks (on host).
+These particles are used in interactions and act as <em>ghost particles</em>.</p>
+</div>
+<div class="paragraph">
+<p>interface:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">wall_exch_pp</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span> <span class="tok-n">cart</span><span class="tok-p">,</span> <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxn</span><span class="tok-p">,</span> <span class="tok-cm">/*io*/</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">n</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>maxn</code> is the maximum number of particles that can be stored in the
+<code>pp</code> buffer.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="wall_force">34.3.2. force</h4>
+<div class="paragraph">
+<p>compute interaction forces between frozen wall particles and other particles.</p>
+</div>
+<div class="paragraph">
+<p>interface:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">wall_force_apply</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">PairParams</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">WvelStep</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">PaArray</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-n">RNDunif</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">WallForce</span><span class="tok-p">,</span>
+                      <span class="tok-cm">/**/</span> <span class="tok-k">const</span> <span class="tok-n">FoArray</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>where the helper structure <code>WallForce</code> acts as a view to be passed to
+the kernel. It is defined as:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">struct</span> <span class="tok-n">WallForce</span> <span class="tok-p">{</span> <span class="tok-cm">/* local wall data */</span>
+    <span class="tok-n">Sdf_v</span> <span class="tok-n">sdf_v</span><span class="tok-p">;</span>
+    <span class="tok-n">Texo</span><span class="tok-o">&lt;</span><span class="tok-kt">int</span><span class="tok-o">&gt;</span> <span class="tok-n">start</span><span class="tok-p">;</span>
+    <span class="tok-n">Texo</span><span class="tok-o">&lt;</span><span class="tok-n">float4</span><span class="tok-o">&gt;</span> <span class="tok-n">pp</span><span class="tok-p">;</span>
+    <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">;</span>
+    <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">;</span>
+<span class="tok-p">};</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_sdf">34.3.3. sdf</h4>
+<div class="paragraph">
+<p>See <a href="#sdf">sdf: signed distance function</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="wall_wvel">34.3.4. wvel</h4>
 <div class="paragraph">
 <p>Wall velocity field.
 Used to set velocity to wall particles for wall interactions.
 Also used to get wall velocity for bounce back on walls</p>
 </div>
-<div class="sect2">
-<h3 id="_data_structures_8">34.1. data structures</h3>
+<div class="sect4">
+<h5 id="_data_structures_8">data structures</h5>
 <div class="paragraph">
 <p>data structures are separated into 3 kinds of data structures:</p>
 </div>
@@ -7005,13 +7164,13 @@ specific time step. It is generated from <code>Wvel</code> structure.</p>
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_interface_34">34.2. interface</h3>
+<div class="sect4">
+<h5 id="_interface_35">interface</h5>
 <div class="paragraph">
 <p>Interface is splitted between host and device</p>
 </div>
-<div class="sect3">
-<h4 id="_host">34.2.1. Host</h4>
+<div class="sect5">
+<h6 id="_host">Host</h6>
 <div class="paragraph">
 <p>Host code is responsible for initialisation of <code>Wvel</code> and convert
 <code>Wvel</code> to a view at a given timestep.</p>
@@ -7088,8 +7247,8 @@ the parameters:</p>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_device">34.2.2. Device</h4>
+<div class="sect5">
+<h6 id="_device">Device</h6>
 <div class="paragraph">
 <p>Velocity field can be retrieved, depending on the view structure, using</p>
 </div>
@@ -7112,10 +7271,10 @@ position and velocity of particle.</p>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_configuration_9">34.3. Configuration</h3>
-<div class="sect3">
-<h4 id="_constant_2">34.3.1. constant</h4>
+<div class="sect4">
+<h5 id="_configuration_9">Configuration</h5>
+<div class="sect5">
+<h6 id="_constant_2">constant</h6>
 <div class="paragraph">
 <p>constant velocity \(u = (1, 0, 0)\):</p>
 </div>
@@ -7128,8 +7287,8 @@ position and velocity of particle.</p>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_shear_2">34.3.2. shear</h4>
+<div class="sect5">
+<h6 id="_shear_2">shear</h6>
 <div class="paragraph">
 <p>shear velocity \(u = (3 y, 0, 0)\):</p>
 </div>
@@ -7145,8 +7304,8 @@ position and velocity of particle.</p>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_sinusoidal_shear">34.3.3. sinusoidal shear</h4>
+<div class="sect5">
+<h6 id="_sinusoidal_shear">sinusoidal shear</h6>
 <div class="paragraph">
 <p>shear velocity \(u(t) = (3 y \sin(5 t), 0, 0)\):</p>
 </div>
@@ -7162,8 +7321,8 @@ position and velocity of particle.</p>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_hele_shaw">34.3.4. Hele Shaw</h4>
+<div class="sect5">
+<h6 id="_hele_shaw">Hele Shaw</h6>
 <div class="paragraph">
 <p>velocity \(u_r = \frac u r \left(1 - \frac {4 z^2}{h^2}\right)\):</p>
 </div>
@@ -7174,6 +7333,8 @@ position and velocity of particle.</p>
 <span class="tok-s">    u = 1.0</span>
 <span class="tok-s">    h = 8.0</span>
 <span class="tok-na">}</span></code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
