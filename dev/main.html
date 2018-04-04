@@ -5470,6 +5470,14 @@ Consists of two structures: <code>RbcParams</code> (<em>hidden</em>, on host) an
 </div>
 </div>
 <div class="paragraph">
+<p>Parameters are accessible via getter functions:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">double</span> <span class="tok-nf">rbc_params_get_tot_volume</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">RbcParams</span> <span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p>The <em>view</em> structure can be created with:</p>
 </div>
 <div class="listingblock">
@@ -5862,12 +5870,12 @@ a specific time. It is passed to device kernels.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">bforce_ini_none</span><span class="tok-p">(</span><span class="tok-cm">/**/</span> <span class="tok-n">BForce</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>            <i class="conum" data-value="1"></i><b>(1)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">bforce_ini_cste</span><span class="tok-p">(</span><span class="tok-n">float3</span> <span class="tok-n">f</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">BForce</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>  <i class="conum" data-value="2"></i><b>(2)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">bforce_ini_dp</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">BForce</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>     <i class="conum" data-value="3"></i><b>(3)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">bforce_ini_shear</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">BForce</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>  <i class="conum" data-value="4"></i><b>(4)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">bforce_ini_rol</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">BForce</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>    <i class="conum" data-value="5"></i><b>(5)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">bforce_ini_rad</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">BForce</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>    <i class="conum" data-value="6"></i><b>(6)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">bforce_set_none</span><span class="tok-p">(</span><span class="tok-cm">/**/</span> <span class="tok-n">BForce</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>            <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">bforce_set_cste</span><span class="tok-p">(</span><span class="tok-n">float3</span> <span class="tok-n">f</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">BForce</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>  <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">bforce_set_dp</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">BForce</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>     <i class="conum" data-value="3"></i><b>(3)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">bforce_set_shear</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">BForce</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>  <i class="conum" data-value="4"></i><b>(4)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">bforce_set_rol</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">BForce</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>    <i class="conum" data-value="5"></i><b>(5)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">bforce_set_rad</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">BForce</span> <span class="tok-o">*</span><span class="tok-n">p</span><span class="tok-p">);</span>    <i class="conum" data-value="6"></i><b>(6)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -5903,7 +5911,7 @@ a specific time. It is passed to device kernels.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">bforce_ini_conf</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">cfg</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">BForce</span> <span class="tok-o">*</span><span class="tok-n">bf</span><span class="tok-p">);</span></code></pre>
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">bforce_set_conf</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">cfg</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">BForce</span> <span class="tok-o">*</span><span class="tok-n">bf</span><span class="tok-p">);</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -6314,7 +6322,8 @@ The isosurface \(S(x,y,z) = 0\) is located at the wall interface.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">sdf_bulk_wall</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Sdf</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/*io*/</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">s_n</span><span class="tok-p">,</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">s_pp</span><span class="tok-p">,</span> <span class="tok-cm">/*o*/</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">w_n</span><span class="tok-p">,</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">w_pp</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
-<span class="tok-kt">int</span>  <span class="tok-nf">sdf_who_stays</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Sdf</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nc</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">stay</span><span class="tok-p">);</span>          <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+<span class="tok-kt">int</span>  <span class="tok-nf">sdf_who_stays</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Sdf</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nc</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">stay</span><span class="tok-p">);</span>          <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kt">double</span> <span class="tok-nf">sdf_compute_volume</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Sdf</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">long</span> <span class="tok-n">nsamples</span><span class="tok-p">);</span>                          <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -6327,6 +6336,11 @@ which are not inside the domain are not kept.</td>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
 <td>label <code>nc</code> objects of <code>nv</code> particles to inside domain or not.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>compute the volume between walls using monte carlo
+integration. <code>nsamples</code> is the number of samples per subdomain.</td>
 </tr>
 </table>
 </div>
