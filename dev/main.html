@@ -77,7 +77,7 @@
 <li><a href="#_interface_5">9.4. interface</a></li>
 </ul>
 </li>
-<li><a href="#_conf_runtime_configuration">10. conf: runtime configuration</a>
+<li><a href="#conf">10. conf: runtime configuration</a>
 <ul class="sectlevel2">
 <li><a href="#_purpose_3">10.1. purpose</a></li>
 <li><a href="#_data_structure">10.2. data structure</a></li>
@@ -88,23 +88,22 @@
 <ul class="sectlevel2">
 <li><a href="#_velocity_controller">11.1. Velocity controller</a></li>
 <li><a href="#_inflow">11.2. Inflow</a></li>
-<li><a href="#_method">11.3. Method</a></li>
-<li><a href="#_outflow">11.4. Outflow</a></li>
-<li><a href="#_density_controller">11.5. Density controller</a></li>
+<li><a href="#_outflow">11.3. Outflow</a></li>
+<li><a href="#_den_density_controller">11.4. den: Density controller</a></li>
 </ul>
 </li>
 <li><a href="#_coords">12. coords</a>
 <ul class="sectlevel2">
 <li><a href="#_data_structures_3">12.1. data structures</a></li>
 <li><a href="#_host_interface">12.2. Host interface</a></li>
-<li><a href="#_configuration_4">12.3. Configuration</a></li>
+<li><a href="#_configuration_5">12.3. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#_generic_d_evice_api">13. generic [d]evice API</a></li>
 <li><a href="#_debug">14. debug</a>
 <ul class="sectlevel2">
-<li><a href="#_interface_10">14.1. interface</a></li>
-<li><a href="#_configuration_5">14.2. configuration</a></li>
+<li><a href="#_interface_11">14.1. interface</a></li>
+<li><a href="#_configuration_6">14.2. configuration</a></li>
 </ul>
 </li>
 <li><a href="#_distr">15. distr</a>
@@ -128,24 +127,24 @@
 <li><a href="#_flu_solvent_particles">17. flu: solvent particles</a>
 <ul class="sectlevel2">
 <li><a href="#_data_structure_4">17.1. data structure</a></li>
-<li><a href="#_interface_17">17.2. interface</a></li>
+<li><a href="#_interface_18">17.2. interface</a></li>
 </ul>
 </li>
 <li><a href="#_fluforces">18. fluforces</a>
 <ul class="sectlevel2">
-<li><a href="#_interface_18">18.1. interface</a></li>
+<li><a href="#_interface_19">18.1. interface</a></li>
 <li><a href="#_submodules">18.2. submodules</a></li>
 </ul>
 </li>
 <li><a href="#_frag">19. frag</a>
 <ul class="sectlevel2">
 <li><a href="#_purpose_4">19.1. purpose</a></li>
-<li><a href="#_interface_19">19.2. interface</a></li>
+<li><a href="#_interface_20">19.2. interface</a></li>
 </ul>
 </li>
 <li><a href="#_fsi">20. fsi</a>
 <ul class="sectlevel2">
-<li><a href="#_interface_20">20.1. interface</a></li>
+<li><a href="#_interface_21">20.1. interface</a></li>
 </ul>
 </li>
 <li><a href="#_io">21. IO</a>
@@ -179,7 +178,7 @@
 <li><a href="#_repulsive_lj">24.2. repulsive LJ</a></li>
 <li><a href="#_host_interface_2">24.3. Host interface</a></li>
 <li><a href="#_device_interface">24.4. device interface</a></li>
-<li><a href="#_configuration_6">24.5. Configuration</a></li>
+<li><a href="#_configuration_7">24.5. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#_parray">25. parray</a>
@@ -197,12 +196,12 @@
 <li><a href="#_partlist">27. partlist</a>
 <ul class="sectlevel2">
 <li><a href="#_data_structure_5">27.1. data structure</a></li>
-<li><a href="#_interface_22">27.2. interface</a></li>
+<li><a href="#_interface_23">27.2. interface</a></li>
 </ul>
 </li>
 <li><a href="#_meshbb">28. meshbb</a>
 <ul class="sectlevel2">
-<li><a href="#_interface_23">28.1. interface</a></li>
+<li><a href="#_interface_24">28.1. interface</a></li>
 </ul>
 </li>
 <li><a href="#_red_blood_cell">29. Red blood cell</a>
@@ -229,7 +228,7 @@
 </li>
 <li><a href="#sdf">32. sdf: signed distance function</a>
 <ul class="sectlevel2">
-<li><a href="#_interface_29">32.1. interface</a></li>
+<li><a href="#_interface_30">32.1. interface</a></li>
 <li><a href="#_submodules_3">32.2. submodules</a></li>
 </ul>
 </li>
@@ -246,7 +245,7 @@
 <li><a href="#_wall">34. wall</a>
 <ul class="sectlevel2">
 <li><a href="#_data_structure_8">34.1. data structure</a></li>
-<li><a href="#_interface_34">34.2. interface</a></li>
+<li><a href="#_interface_35">34.2. interface</a></li>
 <li><a href="#_submodules_4">34.3. submodules</a></li>
 </ul>
 </li>
@@ -1402,7 +1401,7 @@ It needs 3 entities:</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_conf_runtime_configuration">10. conf: runtime configuration</h2>
+<h2 id="conf">10. conf: runtime configuration</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_purpose_3">10.1. purpose</h3>
@@ -1769,9 +1768,8 @@ and <code>Kd</code></td>
 <p>Create particles given a surface \(S(u, v)\), with a velocity profile
 \(\mathbf{U}(u,v)\) with \((u,v) \in (0,1) \times (0,1)\).</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_method">11.3. Method</h3>
+<div class="sect3">
+<h4 id="_method">11.2.1. Method</h4>
 <div class="paragraph">
 <p>Define "cumulative inflow" \(\phi(u, v)\) in a bin of area \(dA
 \in S\).</p>
@@ -1792,8 +1790,9 @@ and <code>Kd</code></td>
 with random velocity \(\mathcal{N} (\mathbf{u}, k_BT)\).
 We also set \(\phi \leftarrow \phi - 1\).</p>
 </div>
+</div>
 <div class="sect3">
-<h4 id="_interface_8">11.3.1. interface</h4>
+<h4 id="_interface_8">11.2.2. interface</h4>
 <div class="paragraph">
 <p>allocate, deallocate:</p>
 </div>
@@ -1854,7 +1853,7 @@ it is used to setup the inlet velocity from parameters.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_configuration_2">11.3.2. configuration</h4>
+<h4 id="_configuration_2">11.2.3. configuration</h4>
 <div class="sect4">
 <h5 id="_plate">plate</h5>
 <div class="paragraph">
@@ -1899,45 +1898,49 @@ the point <code>(1, 2, 3)</code>:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_outflow">11.4. Outflow</h3>
+<h3 id="_outflow">11.3. Outflow</h3>
 <div class="paragraph">
 <p>Delete particles satisfying a predicate</p>
 </div>
 <div class="sect3">
-<h4 id="_interface_9">11.4.1. interface</h4>
+<h4 id="_interface_9">11.3.1. interface</h4>
 <div class="paragraph">
 <p>allocate, deallocate:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">maxp</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Outflow</span> <span class="tok-o">**</span><span class="tok-n">o</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">fin</span><span class="tok-p">(</span><span class="tok-cm">/**/</span> <span class="tok-n">Outflow</span> <span class="tok-o">*</span><span class="tok-n">o</span><span class="tok-p">);</span></code></pre>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">outflow_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">maxp</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Outflow</span> <span class="tok-o">**</span><span class="tok-n">o</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">outflow_fin</span><span class="tok-p">(</span><span class="tok-cm">/**/</span> <span class="tok-n">Outflow</span> <span class="tok-o">*</span><span class="tok-n">o</span><span class="tok-p">);</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>initialize the outflow structure (to be done only once):</p>
+<p>set the outflow geometry type (to be done only once):</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">ini_params_circle</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">coords</span><span class="tok-p">,</span> <span class="tok-n">float3</span> <span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">R</span><span class="tok-p">,</span> <span class="tok-n">Outflow</span> <span class="tok-o">*</span><span class="tok-n">o</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">ini_params_plate</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">dir</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">r0</span><span class="tok-p">,</span> <span class="tok-n">Outflow</span> <span class="tok-o">*</span><span class="tok-n">o</span><span class="tok-p">);</span></code></pre>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">outflow_set_params_circle</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">float3</span> <span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">R</span><span class="tok-p">,</span> <span class="tok-n">Outflow</span> <span class="tok-o">*</span><span class="tok-n">o</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">outflow_set_params_plate</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">dir</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">r0</span><span class="tok-p">,</span> <span class="tok-n">Outflow</span> <span class="tok-o">*</span><span class="tok-n">o</span><span class="tok-p">);</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>depending on the geometry of outflow, call the appropriate
-<code>ini_params_xxx</code>.</p>
-</div>
-<div class="paragraph">
-<p>filter and mark particles (at every time step):</p>
+<p>this can be done via <a href="#conf">configuration</a> file:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">filter_particles</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Outflow</span> <span class="tok-o">*</span><span class="tok-n">o</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">outflow_set_conf</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">cfg</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">Outflow</span> <span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>filter and mark particles (to be called at every time step):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">outflow_filter_particles</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Outflow</span> <span class="tok-o">*</span><span class="tok-n">o</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
 
-<span class="tok-kt">void</span> <span class="tok-nf">download_ndead</span><span class="tok-p">(</span><span class="tok-n">Outflow</span> <span class="tok-o">*</span><span class="tok-n">o</span><span class="tok-p">);</span>                                   <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">outflow_download_ndead</span><span class="tok-p">(</span><span class="tok-n">Outflow</span> <span class="tok-o">*</span><span class="tok-n">o</span><span class="tok-p">);</span>                                   <i class="conum" data-value="2"></i><b>(2)</b>
 
-<span class="tok-kt">int</span><span class="tok-o">*</span> <span class="tok-nf">get_deathlist</span><span class="tok-p">(</span><span class="tok-n">Outflow</span> <span class="tok-o">*</span><span class="tok-n">o</span><span class="tok-p">);</span>                                    <i class="conum" data-value="3"></i><b>(3)</b>
-<span class="tok-kt">int</span>  <span class="tok-nf">get_ndead</span><span class="tok-p">(</span><span class="tok-n">Outflow</span> <span class="tok-o">*</span><span class="tok-n">o</span><span class="tok-p">);</span>                                        <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+<span class="tok-kt">int</span><span class="tok-o">*</span> <span class="tok-nf">outflow_get_deathlist</span><span class="tok-p">(</span><span class="tok-n">Outflow</span> <span class="tok-o">*</span><span class="tok-n">o</span><span class="tok-p">);</span>                                    <i class="conum" data-value="3"></i><b>(3)</b>
+<span class="tok-kt">int</span>  <span class="tok-nf">outflow_get_ndead</span><span class="tok-p">(</span><span class="tok-n">Outflow</span> <span class="tok-o">*</span><span class="tok-n">o</span><span class="tok-p">);</span>                                        <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -1962,7 +1965,7 @@ the point <code>(1, 2, 3)</code>:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_configuration_3">11.4.2. configuration</h4>
+<h4 id="_configuration_3">11.3.2. configuration</h4>
 <div class="sect4">
 <h5 id="_plate_2">plate</h5>
 <div class="paragraph">
@@ -1972,11 +1975,11 @@ syntax for the plate <code>y=4</code>:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">outflow</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
-<span class="tok-s">    active     = true;</span>
-<span class="tok-s">    type       = &quot;plate&quot;;</span>
-<span class="tok-s">    direction  = 1;      # [0,1,2] = [X,Y,Z]</span>
-<span class="tok-s">    position   = 4.0;    # position along &quot;direction&quot;</span>
-<span class="tok-na">};</span></code></pre>
+<span class="tok-s">    active     = true</span>
+<span class="tok-s">    type       = &quot;plate&quot;</span>
+<span class="tok-s">    direction  = 1      # [0,1,2] = [X,Y,Z]</span>
+<span class="tok-s">    position   = 4.0    # position along &quot;direction&quot;</span>
+<span class="tok-na">}</span></code></pre>
 </div>
 </div>
 </div>
@@ -1989,19 +1992,142 @@ syntax for a cylinder of radius 8 centered at <code>(8, 8, 8)</code>:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">outflow</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
-<span class="tok-s">    active = true;</span>
-<span class="tok-s">    type   = &quot;circle&quot;;</span>
-<span class="tok-s">    R      = 8.0;</span>
-<span class="tok-s">    center = [8.0, 8.0, 8.0];</span>
-<span class="tok-na">};</span></code></pre>
+<span class="tok-s">    active = true</span>
+<span class="tok-s">    type   = &quot;circle&quot;</span>
+<span class="tok-s">    R      = 8.0</span>
+<span class="tok-s">    center = [8.0, 8.0, 8.0]</span>
+<span class="tok-na">}</span></code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_density_controller">11.5. Density controller</h3>
+<h3 id="_den_density_controller">11.4. den: Density controller</h3>
+<div class="paragraph">
+<p>Delete particles in high density regions</p>
+</div>
+<div class="sect3">
+<h4 id="_interface_10">11.4.1. interface</h4>
+<div class="paragraph">
+<p>allocate, deallocate:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">den_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">maxp</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">DCont</span><span class="tok-o">**</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">den_map_ini</span><span class="tok-p">(</span><span class="tok-n">DContMap</span><span class="tok-o">**</span><span class="tok-p">);</span>
 
+<span class="tok-kt">void</span> <span class="tok-nf">den_fin</span><span class="tok-p">(</span><span class="tok-n">DCont</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">den_map_fin</span><span class="tok-p">(</span><span class="tok-n">DContMap</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>set the geometry type (to be done only once):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">den_map_set_none</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">DContMap</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">den_map_set_circle</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">R</span><span class="tok-p">,</span> <span class="tok-n">DContMap</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>this can be done via <a href="#conf">configuration</a> file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">den_map_set_conf</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">DContMap</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>filter and mark particles (to be called at every time step):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">outflow_filter_particles</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Outflow</span> <span class="tok-o">*</span><span class="tok-n">o</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+
+<span class="tok-kt">void</span> <span class="tok-nf">outflow_download_ndead</span><span class="tok-p">(</span><span class="tok-n">Outflow</span> <span class="tok-o">*</span><span class="tok-n">o</span><span class="tok-p">);</span>                                   <i class="conum" data-value="2"></i><b>(2)</b>
+
+<span class="tok-kt">int</span><span class="tok-o">*</span> <span class="tok-nf">outflow_get_deathlist</span><span class="tok-p">(</span><span class="tok-n">Outflow</span> <span class="tok-o">*</span><span class="tok-n">o</span><span class="tok-p">);</span>                                    <i class="conum" data-value="3"></i><b>(3)</b>
+<span class="tok-kt">int</span>  <span class="tok-nf">outflow_get_ndead</span><span class="tok-p">(</span><span class="tok-n">Outflow</span> <span class="tok-o">*</span><span class="tok-n">o</span><span class="tok-p">);</span>                                        <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>reset the structure</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>internally mark particles in the regions with density higher than <code>macdensity</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>internally download the number of dead particles</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The above functions only compute and store the results internally. The
+computed quantities can be accessed via:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">outflow_filter_particles</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Outflow</span> <span class="tok-o">*</span><span class="tok-n">o</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+
+<span class="tok-kt">void</span> <span class="tok-nf">outflow_download_ndead</span><span class="tok-p">(</span><span class="tok-n">Outflow</span> <span class="tok-o">*</span><span class="tok-n">o</span><span class="tok-p">);</span>                                   <i class="conum" data-value="2"></i><b>(2)</b>
+
+<span class="tok-kt">int</span><span class="tok-o">*</span> <span class="tok-nf">outflow_get_deathlist</span><span class="tok-p">(</span><span class="tok-n">Outflow</span> <span class="tok-o">*</span><span class="tok-n">o</span><span class="tok-p">);</span>                                    <i class="conum" data-value="3"></i><b>(3)</b>
+<span class="tok-kt">int</span>  <span class="tok-nf">outflow_get_ndead</span><span class="tok-p">(</span><span class="tok-n">Outflow</span> <span class="tok-o">*</span><span class="tok-n">o</span><span class="tok-p">);</span>                                        <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>return a pointer to internal buffer with the "death list"</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>return the number of particles killed by the filter operation</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_configuration_4">11.4.2. configuration</h4>
+<div class="sect4">
+<h5 id="_none">none</h5>
+<div class="paragraph">
+<p>disabled density control everywhere</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">denoutflow</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
+<span class="tok-s">    active = true</span>
+<span class="tok-s">    type = &quot;none&quot;</span>
+<span class="tok-na">}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_circle_3">circle</h5>
+<div class="paragraph">
+<p>delete particles going out of a cylinder centered at the center of the
+domain.
+syntax for a cylinder of radius 8:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">denoutflow</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
+<span class="tok-s">    active = true</span>
+<span class="tok-s">    type   = &quot;circle&quot;</span>
+<span class="tok-s">    R      = 8.0</span>
+<span class="tok-na">}</span></code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -2196,7 +2322,7 @@ A <em>view</em> structure <code>Coords_v</code> is public to device code:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_configuration_4">12.3. Configuration</h3>
+<h3 id="_configuration_5">12.3. Configuration</h3>
 <div class="paragraph">
 <p>Set subdomain sizes:</p>
 </div>
@@ -2341,7 +2467,7 @@ valid if</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_interface_10">14.1. interface</h3>
+<h3 id="_interface_11">14.1. interface</h3>
 <div class="paragraph">
 <p>allocate/deallocate the structure:</p>
 </div>
@@ -2385,7 +2511,7 @@ valid if</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_configuration_5">14.2. configuration</h3>
+<h3 id="_configuration_6">14.2. configuration</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">dbg</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
@@ -2464,7 +2590,7 @@ arrays is implemented as:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_interface_11">15.1.2. interface</h4>
+<h4 id="_interface_12">15.1.2. interface</h4>
 <div class="paragraph">
 <p>Host interface:</p>
 </div>
@@ -2558,7 +2684,7 @@ The <code>xxre</code> variables in <code>Unpack</code> are buffer for remote qua
 </div>
 </div>
 <div class="sect3">
-<h4 id="_interface_12">15.2.2. interface</h4>
+<h4 id="_interface_13">15.2.2. interface</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">dflu_pack_ini</span><span class="tok-p">(</span><span class="tok-kt">bool</span> <span class="tok-n">colors</span><span class="tok-p">,</span> <span class="tok-kt">bool</span> <span class="tok-n">ids</span><span class="tok-p">,</span> <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxdensity</span><span class="tok-p">,</span> <span class="tok-n">DFluPack</span> <span class="tok-o">**</span><span class="tok-n">p</span><span class="tok-p">);</span>
@@ -2669,7 +2795,7 @@ each RBC. Other variables have the same naming conventions than <code>distr::flu
 </div>
 </div>
 <div class="sect3">
-<h4 id="_interface_13">15.3.2. interface</h4>
+<h4 id="_interface_14">15.3.2. interface</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">drbc_pack_ini</span><span class="tok-p">(</span><span class="tok-kt">bool</span> <span class="tok-n">ids</span><span class="tok-p">,</span> <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxc</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-n">DRbcPack</span> <span class="tok-o">**</span><span class="tok-n">p</span><span class="tok-p">);</span>
@@ -2736,7 +2862,7 @@ structures fit again in the general workflow:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_interface_14">15.4.2. interface</h4>
+<h4 id="_interface_15">15.4.2. interface</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">drig_pack_ini</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxns</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-n">DRigPack</span> <span class="tok-o">**</span><span class="tok-n">p</span><span class="tok-p">);</span>
@@ -2858,7 +2984,7 @@ it is in a corner.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_interface_15">16.1.2. interface</h4>
+<h4 id="_interface_16">16.1.2. interface</h4>
 <div class="paragraph">
 <p>Host interface:</p>
 </div>
@@ -2935,7 +3061,7 @@ it is in a corner.</p>
 nodes.</p>
 </div>
 <div class="sect3">
-<h4 id="_interface_16">16.2.1. interface</h4>
+<h4 id="_interface_17">16.2.1. interface</h4>
 <div class="paragraph">
 <p>allocate, deallocate the structures:</p>
 </div>
@@ -3327,7 +3453,7 @@ directly the fields.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_interface_17">17.2. interface</h3>
+<h3 id="_interface_18">17.2. interface</h3>
 <div class="paragraph">
 <p>allocate and deallocate the data:</p>
 </div>
@@ -3415,7 +3541,7 @@ object (see &lt;&lt;&gt;&gt;).</td>
 <p>solvent forces</p>
 </div>
 <div class="sect2">
-<h3 id="_interface_18">18.1. interface</h3>
+<h3 id="_interface_19">18.1. interface</h3>
 <div class="paragraph">
 <p>allocate and free bulk structure:</p>
 </div>
@@ -3562,7 +3688,7 @@ between <em>fragment ids</em> (numbered from 0 to 26) and <em>directions</em>.</
 </div>
 </div>
 <div class="sect2">
-<h3 id="_interface_19">19.2. interface</h3>
+<h3 id="_interface_20">19.2. interface</h3>
 <div class="paragraph">
 <p>The major part of the functions are available to both device and host,
 within the namespaces <code>fragdev</code> and <code>fraghst</code>, respectively.</p>
@@ -3672,7 +3798,7 @@ number of particles in each fragment layer.</td>
 <p>flow-structure interactions between solvent and objects (rigid objects, rbc membranes)</p>
 </div>
 <div class="sect2">
-<h3 id="_interface_20">20.1. interface</h3>
+<h3 id="_interface_21">20.1. interface</h3>
 <div class="paragraph">
 <p>allocate/deallocate</p>
 </div>
@@ -4081,7 +4207,7 @@ determinant smaller than epsilon (hardcoded to <code>1e-8</code>).</td>
 <p>Coefficient <code>s</code> and <code>o</code> are defined implicitly by API calls.</p>
 </div>
 <div class="sect3">
-<h4 id="_interface_21">22.3.1. interface</h4>
+<h4 id="_interface_22">22.3.1. interface</h4>
 <div class="sect4">
 <h5 id="_allocate_deallocate">Allocate/Deallocate</h5>
 <div class="listingblock">
@@ -4554,7 +4680,7 @@ particle <code>b</code> has the same color as particle <code>a</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_configuration_6">24.5. Configuration</h3>
+<h3 id="_configuration_7">24.5. Configuration</h3>
 <div class="paragraph">
 <p>parameters are configured through 3 namespaces: <code>flu</code>, <code>fsi</code> and
 <code>cnt</code>.</p>
@@ -4853,7 +4979,7 @@ Purpose: kill particles during redistribution or cell lists build</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_interface_22">27.2. interface</h3>
+<h3 id="_interface_23">27.2. interface</h3>
 <div class="paragraph">
 <p>contains only device interface:</p>
 </div>
@@ -4926,7 +5052,7 @@ The motion of the triangle points are assumed to be linear:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_interface_23">28.1. interface</h3>
+<h3 id="_interface_24">28.1. interface</h3>
 <div class="paragraph">
 <p>Allocate and deallocate <code>MeshBB</code> structure:</p>
 </div>
@@ -5393,7 +5519,7 @@ f0  = sqrtf(2*g*T/dt)*rnd</pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_interface_24">interface</h5>
+<h5 id="_interface_25">interface</h5>
 <div class="paragraph">
 <p>Helpers are stored  in <code>RbcForce</code> structure.
 Informations about stress free state and random forces are stored
@@ -5762,7 +5888,7 @@ linear velocity of the rigid object.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_interface_25">30.1.2. Interface</h4>
+<h4 id="_interface_26">30.1.2. Interface</h4>
 <div class="paragraph">
 <p>allocate and deallocate the quantities:</p>
 </div>
@@ -5926,7 +6052,7 @@ Default value for no periodicty is set via</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_interface_26">30.2.2. interface</h4>
+<h4 id="_interface_27">30.2.2. interface</h4>
 <div class="paragraph">
 <p>naming:</p>
 </div>
@@ -6005,7 +6131,7 @@ a specific time. It is passed to device kernels.</p>
 </ul>
 </div>
 <div class="sect3">
-<h4 id="_interface_27">31.1.1. interface</h4>
+<h4 id="_interface_28">31.1.1. interface</h4>
 <div class="paragraph">
 <p>allocate/deallocate the structure:</p>
 </div>
@@ -6087,9 +6213,9 @@ a specific time. It is passed to device kernels.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_configuration_7">31.1.2. configuration</h4>
+<h4 id="_configuration_8">31.1.2. configuration</h4>
 <div class="sect4">
-<h5 id="_none">none</h5>
+<h5 id="_none_2">none</h5>
 <div class="paragraph">
 <p>no body force (default value)</p>
 </div>
@@ -6236,7 +6362,7 @@ The <code>Restrain</code> module  shifts the center of mass velocity of \(P\) su
 single drop.</p>
 </div>
 <div class="sect3">
-<h4 id="_interface_28">31.3.1. interface</h4>
+<h4 id="_interface_29">31.3.1. interface</h4>
 <div class="paragraph">
 <p>allocate and free host structure:</p>
 </div>
@@ -6295,7 +6421,7 @@ single drop.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_configuration_8">31.3.2. configuration</h4>
+<h4 id="_configuration_9">31.3.2. configuration</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">restrain</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
@@ -6406,7 +6532,7 @@ the wall.</p>
 The isosurface \(S(x,y,z) = 0\) is located at the wall interface.</p>
 </div>
 <div class="sect2">
-<h3 id="_interface_29">32.1. interface</h3>
+<h3 id="_interface_30">32.1. interface</h3>
 <div class="paragraph">
 <p>allocate, deallocate the structure:</p>
 </div>
@@ -6529,7 +6655,7 @@ integration. <code>nsamples</code> is the number of samples per subdomain.</td>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_interface_30">interface</h5>
+<h5 id="_interface_31">interface</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">struct</span> <span class="tok-n">Array3d</span><span class="tok-p">;</span>
@@ -6603,7 +6729,7 @@ We obtain \(\mathbf{r}_w = \mathbf{r}_0 + h \mathbf{v}_0\).</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_interface_31">interface</h5>
+<h5 id="_interface_32">interface</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">bounce_back</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">WvelStep</span> <span class="tok-o">*</span><span class="tok-n">wv</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Sdf</span> <span class="tok-o">*</span><span class="tok-n">sdf</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">);</span></code></pre>
@@ -6617,7 +6743,7 @@ We obtain \(\mathbf{r}_w = \mathbf{r}_0 + h \mathbf{v}_0\).</p>
 <p>read and manage a scalar field on host</p>
 </div>
 <div class="sect4">
-<h5 id="_interface_32">interface</h5>
+<h5 id="_interface_33">interface</h5>
 <div class="paragraph">
 <p>allocate, deallocate:</p>
 </div>
@@ -6751,7 +6877,7 @@ We obtain \(\mathbf{r}_w = \mathbf{r}_0 + h \mathbf{v}_0\).</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_interface_33">interface</h5>
+<h5 id="_interface_34">interface</h5>
 <div class="paragraph">
 <p>allocate and destroy texture object:</p>
 </div>
@@ -7125,7 +7251,7 @@ particles.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_interface_34">34.2. interface</h3>
+<h3 id="_interface_35">34.2. interface</h3>
 <div class="paragraph">
 <p>allocate and deallocate the data:</p>
 </div>
@@ -7280,7 +7406,7 @@ specific time step. It is generated from <code>Wvel</code> structure.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_interface_35">interface</h5>
+<h5 id="_interface_36">interface</h5>
 <div class="paragraph">
 <p>Interface is splitted between host and device</p>
 </div>
@@ -7387,7 +7513,7 @@ position and velocity of particle.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_configuration_9">Configuration</h5>
+<h5 id="_configuration_10">Configuration</h5>
 <div class="sect5">
 <h6 id="_constant_2">constant</h6>
 <div class="paragraph">
