@@ -170,9 +170,10 @@
 <li><a href="#mesh_tri_area">23.2. tri_area: compute area of triangles in a mesh</a></li>
 <li><a href="#mesh_angle">23.3. angle: compute angles between triangles with a common edge</a></li>
 <li><a href="#edg_len_angle">23.4. edges length: compute length of the edges</a></li>
-<li><a href="#scatter_angle">23.5. "scatter": distribute scalar values between different elements of the mesh</a></li>
+<li><a href="#mesh_scatter">23.5. "scatter": distribute scalar values between different elements of the mesh</a></li>
 <li><a href="#mesh_triangles">23.6. Triangles</a></li>
-<li><a href="#mesh_volume">23.7. volume: compute volume of a mesh</a></li>
+<li><a href="#mesh_vert_area">23.7. vertices' area</a></li>
+<li><a href="#mesh_volume">23.8. volume: compute volume of a mesh</a></li>
 </ul>
 </li>
 <li><a href="#_pair_pairwise_interactions">24. pair: pairwise interactions</a>
@@ -4463,7 +4464,7 @@ submodules, see <a href="#algo_edg">edg</a> or <a href="#rbc_adj">adj</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="scatter_angle">23.5. "scatter": distribute scalar values between different elements of the mesh</h3>
+<h3 id="mesh_scatter">23.5. "scatter": distribute scalar values between different elements of the mesh</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">mesh_scatter_ini</span><span class="tok-p">(</span><span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">MeshScatter</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
@@ -4511,7 +4512,34 @@ submodules, see <a href="#algo_edg">edg</a> or <a href="#rbc_adj">adj</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="mesh_volume">23.7. volume: compute volume of a mesh</h3>
+<h3 id="mesh_vert_area">23.7. vertices' area</h3>
+<div class="paragraph">
+<p>Compute area associated with every vertices. Assume every adjusting
+triangle contributes one third it its area to a vertice.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">mesh_vert_area_ini</span><span class="tok-p">(</span><span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">MeshVertArea</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">mesh_vert_area_fin</span><span class="tok-p">(</span><span class="tok-n">MeshVertArea</span><span class="tok-o">*</span><span class="tok-p">);</span>
+
+<span class="tok-kt">void</span>  <span class="tok-nf">mesh_vert_area_apply</span><span class="tok-p">(</span><span class="tok-n">MeshVertArea</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nm</span><span class="tok-p">,</span> <span class="tok-n">Vectors</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">double</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>in initialization triangles are stored</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>compute area</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="mesh_volume">23.8. volume: compute volume of a mesh</h3>
 <div class="paragraph">
 <p>Compute the volume enclosed by a triangulated mesh on host.</p>
 </div>
