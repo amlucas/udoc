@@ -187,21 +187,21 @@
 <ul class="sectlevel2">
 <li><a href="#_dpd_interactions">25.1. dpd interactions</a></li>
 <li><a href="#_repulsive_lj">25.2. repulsive LJ</a></li>
-<li><a href="#_host_interface_2">25.3. Host interface</a></li>
-<li><a href="#_device_interface">25.4. device interface</a></li>
+<li><a href="#_host_interface_3">25.3. Host interface</a></li>
+<li><a href="#_device_interface_2">25.4. device interface</a></li>
 <li><a href="#_configuration_7">25.5. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#_parray">26. parray</a>
 <ul class="sectlevel2">
-<li><a href="#_host_interface_3">26.1. host interface</a></li>
-<li><a href="#_device_interface_2">26.2. device interface</a></li>
+<li><a href="#_host_interface_4">26.1. host interface</a></li>
+<li><a href="#_device_interface_3">26.2. device interface</a></li>
 </ul>
 </li>
 <li><a href="#_farray">27. farray</a>
 <ul class="sectlevel2">
-<li><a href="#_host_interface_4">27.1. host interface</a></li>
-<li><a href="#_device_interface_3">27.2. device interface</a></li>
+<li><a href="#_host_interface_5">27.1. host interface</a></li>
+<li><a href="#_device_interface_4">27.2. device interface</a></li>
 </ul>
 </li>
 <li><a href="#_partlist">28. partlist</a>
@@ -2985,11 +2985,14 @@ it is in a corner (exchange with 3 faces, 3 edges and one corner).</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">struct</span> <span class="tok-n">EMap</span> <span class="tok-p">{</span>
-    <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">counts</span><span class="tok-p">;</span>      <span class="tok-cm">/* number of entities leaving in each fragment */</span>
-    <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">starts</span><span class="tok-p">;</span>      <span class="tok-cm">/* cumulative sum of the above                 */</span>
-    <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">offsets</span><span class="tok-p">;</span>     <span class="tok-cm">/* offsets per fragment for each solute        */</span>
-    <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">ids</span><span class="tok-p">[</span><span class="tok-n">NFRAGS</span><span class="tok-p">];</span> <span class="tok-cm">/* indices of leaving objects                  */</span>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">enum</span> <span class="tok-p">{</span><span class="tok-n">MAX_FRAGS</span><span class="tok-o">=</span><span class="tok-mi">26</span><span class="tok-p">};</span>
+
+<span class="tok-k">struct</span> <span class="tok-n">EMap</span> <span class="tok-p">{</span>
+    <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">counts</span><span class="tok-p">;</span>         <span class="tok-cm">/* number of entities leaving in each fragment */</span>
+    <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">starts</span><span class="tok-p">;</span>         <span class="tok-cm">/* cumulative sum of the above                 */</span>
+    <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">offsets</span><span class="tok-p">;</span>        <span class="tok-cm">/* offsets per fragment for each solute        */</span>
+    <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">ids</span><span class="tok-p">[</span><span class="tok-n">MAX_FRAGS</span><span class="tok-p">];</span> <span class="tok-cm">/* indices of leaving objects                  */</span>
+    <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">cap</span><span class="tok-p">;</span>            <span class="tok-cm">/* capacity of ids                             */</span>
 <span class="tok-p">};</span></code></pre>
 </div>
 </div>
@@ -3059,9 +3062,8 @@ note that above, <code>[oid][fid]</code> is implemented as <code>[oid * (nfrags 
 </div>
 <div class="sect3">
 <h4 id="_interface_16">16.1.2. interface</h4>
-<div class="paragraph">
-<p>Host interface:</p>
-</div>
+<div class="sect4">
+<h5 id="_host_interface_2">Host interface:</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">emap_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">nw</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nfrags</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">cap</span><span class="tok-p">[],</span> <span class="tok-cm">/**/</span> <span class="tok-n">EMap</span> <span class="tok-o">*</span><span class="tok-n">map</span><span class="tok-p">);</span>               <i class="conum" data-value="1"></i><b>(1)</b>
@@ -3087,23 +3089,23 @@ note that above, <code>[oid][fid]</code> is implemented as <code>[oid * (nfrags 
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>scan the map structure to get starts</td>
+<td>scan the map structure to get starts and offsets</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>copy counts from device to host</td>
+<td>copy counts (total number of entities per fragment) from device to host</td>
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>Device interface:</p>
 </div>
+<div class="sect4">
+<h5 id="_device_interface">Device interface:</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">static</span> <span class="tok-n">__device__</span> <span class="tok-kt">int</span> <span class="tok-n">emap_code</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">r</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">])</span> <i class="conum" data-value="1"></i><b>(1)</b>
-<span class="tok-k">static</span> <span class="tok-n">__device__</span> <span class="tok-kt">int</span> <span class="tok-n">emap_code_box</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-n">float3</span> <span class="tok-n">lo</span><span class="tok-p">,</span> <span class="tok-n">float3</span> <span class="tok-n">hi</span><span class="tok-p">)</span>  <i class="conum" data-value="2"></i><b>(2)</b>
-<span class="tok-k">static</span> <span class="tok-n">__device__</span> <span class="tok-kt">void</span> <span class="tok-n">emap_add</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">soluteid</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">pid</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">fid</span><span class="tok-p">,</span> <span class="tok-n">EMap</span> <span class="tok-n">m</span><span class="tok-p">)</span> <i class="conum" data-value="3"></i><b>(3)</b>
-<span class="tok-k">static</span> <span class="tok-n">__device__</span> <span class="tok-kt">int</span> <span class="tok-n">emap_decode</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">code</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">int</span> <span class="tok-n">fids</span><span class="tok-p">[</span><span class="tok-n">MAX_DSTS</span><span class="tok-p">])</span> <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-n">_I_</span> <span class="tok-kt">int</span> <span class="tok-n">emap_code</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-n">r</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">])</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-n">_I_</span> <span class="tok-kt">int</span> <span class="tok-n">emap_code_box</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-n">float3</span> <span class="tok-n">lo</span><span class="tok-p">,</span> <span class="tok-n">float3</span> <span class="tok-n">hi</span><span class="tok-p">)</span>  <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-n">_I_</span> <span class="tok-kt">void</span> <span class="tok-n">emap_add</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">nfrags</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">soluteid</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">pid</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">fid</span><span class="tok-p">,</span> <span class="tok-n">EMap</span> <span class="tok-n">m</span><span class="tok-p">)</span> <i class="conum" data-value="3"></i><b>(3)</b>
+<span class="tok-n">_I_</span> <span class="tok-kt">int</span> <span class="tok-n">emap_decode</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">code</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">int</span> <span class="tok-n">fids</span><span class="tok-p">[</span><span class="tok-n">MAX_DSTS</span><span class="tok-p">])</span> <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -3114,17 +3116,18 @@ note that above, <code>[oid][fid]</code> is implemented as <code>[oid * (nfrags 
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>get code (local fragment id) from box position</td>
+<td>get code (local fragment id) from box positions</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>add a quantity to the map</td>
+<td>add an entity id <code>pid</code> to the map in fragment <code>fid</code> and object <code>soluteid</code>. Does not add if the capacity is exceeded</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
 <td>get destination fragments from code</td>
 </tr>
 </table>
+</div>
 </div>
 </div>
 </div>
@@ -3481,6 +3484,7 @@ received meshes</p>
     <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">starts</span><span class="tok-p">;</span>
     <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">offsets</span><span class="tok-p">;</span>
     <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">indices</span><span class="tok-p">[</span><span class="tok-n">NFRAGS</span><span class="tok-p">];</span>
+    <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">cap</span><span class="tok-p">;</span>
 <span class="tok-p">};</span></code></pre>
 </div>
 </div>
@@ -4913,7 +4917,7 @@ potential. It is given by</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_host_interface_2">25.3. Host interface</h3>
+<h3 id="_host_interface_3">25.3. Host interface</h3>
 <div class="paragraph">
 <p>allocate, deallocate the structure:</p>
 </div>
@@ -4980,7 +4984,7 @@ parameters (see below).</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_device_interface">25.4. device interface</h3>
+<h3 id="_device_interface_2">25.4. device interface</h3>
 <div class="paragraph">
 <p>Inside a CUDA kernel, the pairwise force can be called by the generic function</p>
 </div>
@@ -5101,7 +5105,7 @@ matrix convention. For example the interaction table for 3 colors</p>
 <p>Generic particle array to be passed to interaction kernels.</p>
 </div>
 <div class="sect2">
-<h3 id="_host_interface_3">26.1. host interface</h3>
+<h3 id="_host_interface_4">26.1. host interface</h3>
 <div class="paragraph">
 <p>A <code>PaArray</code> structure can be configured by pushing particles and,
 optionally, colors:</p>
@@ -5157,7 +5161,7 @@ views can be generated from the <code>PaArray</code> structure:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_device_interface_2">26.2. device interface</h3>
+<h3 id="_device_interface_3">26.2. device interface</h3>
 <div class="paragraph">
 <p>Generic particle (see <em>pair</em> module)  can be fetched depending on the view:</p>
 </div>
@@ -5200,7 +5204,7 @@ Implemented versions:</p>
 </ul>
 </div>
 <div class="sect2">
-<h3 id="_host_interface_4">27.1. host interface</h3>
+<h3 id="_host_interface_5">27.1. host interface</h3>
 <div class="paragraph">
 <p>A <code>FoArray</code> structure can be configured by pushing forces and,
 optionally, stresses:</p>
@@ -5256,7 +5260,7 @@ views can be generated from the <code>FoArray</code> structure:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_device_interface_3">27.2. device interface</h3>
+<h3 id="_device_interface_4">27.2. device interface</h3>
 <div class="paragraph">
 <p>Generic forces (see <em>pair</em> module) can be added to the generic force
 array depending on the view type:</p>
