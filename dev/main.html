@@ -2975,7 +2975,7 @@ within a given distance from the subdomain boundaries.</p>
 quantities.
 As opposed to the <em>distr</em> module, the mapping is not <em>one to one</em>.
 A single quantity can be exchanged with up to 7 neighboring nodes if
-it is in a corner.</p>
+it is in a corner (exchange with 3 faces, 3 edges and one corner).</p>
 </div>
 <div class="sect3">
 <h4 id="_data_structure_3">16.1.1. data structure</h4>
@@ -2992,6 +2992,69 @@ it is in a corner.</p>
     <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">ids</span><span class="tok-p">[</span><span class="tok-n">NFRAGS</span><span class="tok-p">];</span> <span class="tok-cm">/* indices of leaving objects                  */</span>
 <span class="tok-p">};</span></code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>for <code>nw</code> objects and <code>nfrags</code> fragments, the <code>counts</code>, <code>starts</code> and
+<code>offsets</code> arrays all have the same size <code>n = (nw + 1) * (nfrags + 1)</code>
+for convenience.</p>
+</div>
+<div class="paragraph">
+<p>The <code>nfrags + 1</code> part is for the starts, which is exclusive scan of
+counts in the fragment dimension. Therefore the last element is the sum of counts, i.e. number
+of entities for a given object.</p>
+</div>
+<div class="paragraph">
+<p>The <code>nw + 1</code> part is for offsets, which are an exclusive prefix sum of
+counts in the object id dimension: the last row is the number of
+entities of all objects leaving per fragment.</p>
+</div>
+<div class="paragraph">
+<p><strong>example:</strong> Given <code>nw = 2</code> objects, with <code>nfrags = 5</code> fragments, with the following
+ counts:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>object 0: 0 2 2 1 4
+object 1: 1 1 0 0 3
+-&gt; counts = 0 2 2 1 4 _  1 1 0 0 3 _  _ _ _ _ _ _
+-&gt; starts = 0 0 2 4 5 9  0 1 1 1 1 4  _ _ _ _ _ _</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>where <code>_</code> stands for "not set".</p>
+</div>
+<div class="paragraph">
+<p>The offset array is then given by (we rewrite counts row by row for better understanding):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>counts  = 0 2 2 1 4 _
+          1 1 0 0 3 _
+          _ _ _ _ _ _
+
+offsets = 0 0 0 0 0 _
+          0 2 2 1 4 _
+	  1 3 2 1 7 _</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>starts</code> and <code>offsets</code> are results of the scan operation (see below).</p>
+</div>
+<div class="paragraph">
+<p>The index <code>j</code> used to retrieve the ith entity of a given object in a
+given fragment is then given by</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>j = offsets[oid][fid] + starts[oid][fid] + i</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>where <code>oid</code> is the object id, <code>fid</code> the fragment.
+note that above, <code>[oid][fid]</code> is implemented as <code>[oid * (nfrags + 1) + fid]</code>.</p>
+</div>
+<div class="paragraph">
+<p>The id is then <code>ids[fid][j]</code>.</p>
 </div>
 </div>
 <div class="sect3">
