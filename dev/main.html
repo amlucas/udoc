@@ -153,7 +153,8 @@
 <li><a href="#_mesh_2">21.2. Mesh</a></li>
 <li><a href="#_diagnostics">21.3. Diagnostics</a></li>
 <li><a href="#_point">21.4. Point</a></li>
-<li><a href="#io_restart">21.5. restart</a></li>
+<li><a href="#_vtk">21.5. VTK</a></li>
+<li><a href="#io_restart">21.6. restart</a></li>
 </ul>
 </li>
 <li><a href="#_inter_interprocessing_tools">22. inter: interprocessing tools</a>
@@ -233,7 +234,7 @@
 <li><a href="#_body_forces">32.1. body forces</a></li>
 <li><a href="#_move">32.2. move</a></li>
 <li><a href="#_restrain">32.3. restrain</a></li>
-<li><a href="#_time">32.4. Time</a></li>
+<li><a href="#_time_line">32.4. Time line</a></li>
 <li><a href="#_time_step">32.5. Time step</a></li>
 </ul>
 </li>
@@ -4085,13 +4086,86 @@ maximum degree.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="io_restart">21.5. restart</h3>
+<h3 id="_vtk">21.5. VTK</h3>
+<div class="paragraph">
+<p>Write vertices and triangles data to legacy vtk files. <code>VTK</code> structure
+uses <code>VTKConf</code> structure for initialization.</p>
+</div>
+<div class="paragraph">
+<p>A configuration structure.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">vtk_conf_ini</span><span class="tok-p">(</span><span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">VTKConf</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">vtk_conf_fin</span><span class="tok-p">(</span><span class="tok-n">VTKConf</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">vtk_conf_vert</span><span class="tok-p">(</span><span class="tok-n">VTKConf</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">keys</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">vtk_conf_tri</span><span class="tok-p">(</span><span class="tok-n">VTKConf</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">keys</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>initilize configuration structure</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>"register" a "key" for data on vertices</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>"register" a "key" for data on triangles</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Push data</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">vtk_ini</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxm</span><span class="tok-p">,</span> <span class="tok-kt">char</span> <span class="tok-k">const</span> <span class="tok-o">*</span><span class="tok-n">dir</span><span class="tok-p">,</span> <span class="tok-n">VTKConf</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">VTK</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">vtk_points</span><span class="tok-p">(</span><span class="tok-n">VTK</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nm</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Vectors</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+
+<span class="tok-kt">void</span> <span class="tok-nf">vtk_vert</span><span class="tok-p">(</span><span class="tok-n">VTK</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nm</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Scalars</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">keys</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">vtk_tri</span><span class="tok-p">(</span><span class="tok-n">VTK</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nm</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Scalars</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">keys</span><span class="tok-p">);</span>  <i class="conum" data-value="4"></i><b>(4)</b>
+
+<span class="tok-kt">void</span> <span class="tok-nf">vtk_write</span><span class="tok-p">(</span><span class="tok-n">VTK</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">id</span><span class="tok-p">);</span> <i class="conum" data-value="5"></i><b>(5)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">vtk_fin</span><span class="tok-p">(</span><span class="tok-n">VTK</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>initilize the structure, create directory</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>"push" coordinates of the vertices</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>"push" vertices data</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>"push" triangle data</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>write a file</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="io_restart">21.6. restart</h3>
 <div class="paragraph">
 <p>Dump and read restart files to restart simulation at a given time.
 Uses the <a href="#third_bop">bop</a> file format.</p>
 </div>
 <div class="sect3">
-<h4 id="_naming_2">21.5.1. naming</h4>
+<h4 id="_naming_2">21.6.1. naming</h4>
 <div class="paragraph">
 <p>The restart files are named as:</p>
 </div>
@@ -4120,7 +4194,7 @@ index starting from 0. Special values are described in  <a href="#io_restart_int
 </div>
 </div>
 <div class="sect3">
-<h4 id="io_restart_int">21.5.2. interface</h4>
+<h4 id="io_restart_int">21.6.2. interface</h4>
 <div class="paragraph">
 <p>Writing a single file for all ranks:</p>
 </div>
@@ -6787,28 +6861,35 @@ single drop.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_time">32.4. Time</h3>
+<h3 id="_time_line">32.4. Time line</h3>
 <div class="paragraph">
 <p>Keeps current simulation time.</p>
 </div>
-<div class="paragraph">
-<p><code>time_next(Time*, float dt)</code> is called every time step and updates the state of Time*.</p>
-</div>
-<div class="paragraph">
-<p><code>time_cross(Time*, float interval)</code> true if <code>n*interval</code> is in between
-current and previus timestep. In other wards did simulation "just
-crossed" <code>n*interval</code>.</p>
-</div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">time_ini</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">start</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Time</span><span class="tok-o">**</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">time_fin</span><span class="tok-p">(</span><span class="tok-n">Time</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">time_line_ini</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">start</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">TimeLine</span><span class="tok-o">**</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">time_line_fin</span><span class="tok-p">(</span><span class="tok-n">TimeLine</span><span class="tok-o">*</span><span class="tok-p">);</span>
 
-<span class="tok-kt">void</span> <span class="tok-nf">time_next</span><span class="tok-p">(</span><span class="tok-n">Time</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">);</span>
-<span class="tok-kt">int</span>  <span class="tok-nf">time_cross</span><span class="tok-p">(</span><span class="tok-n">Time</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">interval</span><span class="tok-p">);</span>
-<span class="tok-kt">float</span> <span class="tok-nf">time_current</span> <span class="tok-p">(</span><span class="tok-n">Time</span><span class="tok-o">*</span><span class="tok-p">);</span>
-<span class="tok-kt">long</span>  <span class="tok-nf">time_iteration</span><span class="tok-p">(</span><span class="tok-n">Time</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+<span class="tok-kt">void</span> <span class="tok-nf">time_line_advance</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-n">TimeLine</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">int</span>   <span class="tok-nf">time_line_cross</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">TimeLine</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">interval</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+
+<span class="tok-kt">float</span> <span class="tok-nf">time_line_get_current</span> <span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">TimeLine</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-kt">long</span>  <span class="tok-nf">time_line_get_iteration</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">TimeLine</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>should be called every time step</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>return <code>true</code> if <code>n*interval</code> is in between current and previus
+timesteps, in other words has the simulation just crossed
+<code>n*interval</code> for some <code>n</code>.</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
