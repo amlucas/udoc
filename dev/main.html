@@ -241,7 +241,7 @@
 </li>
 <li><a href="#sdf">33. sdf: signed distance function</a>
 <ul class="sectlevel2">
-<li><a href="#_interface_31">33.1. interface</a></li>
+<li><a href="#_interface_32">33.1. interface</a></li>
 <li><a href="#_submodules_3">33.2. submodules</a></li>
 </ul>
 </li>
@@ -258,7 +258,7 @@
 <li><a href="#_wall">35. wall</a>
 <ul class="sectlevel2">
 <li><a href="#_data_structure_8">35.1. data structure</a></li>
-<li><a href="#_interface_36">35.2. interface</a></li>
+<li><a href="#_interface_37">35.2. interface</a></li>
 <li><a href="#_submodules_4">35.3. submodules</a></li>
 </ul>
 </li>
@@ -6934,31 +6934,58 @@ single drop.</p>
 <div class="sect2">
 <h3 id="_time_line">32.4. Time line</h3>
 <div class="paragraph">
-<p>Keeps current simulation time.</p>
+<p>Manage simulation time.</p>
+</div>
+<div class="paragraph">
+<p>Allocate, deallocate structure:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">time_line_ini</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">start</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">TimeLine</span><span class="tok-o">**</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">time_line_fin</span><span class="tok-p">(</span><span class="tok-n">TimeLine</span><span class="tok-o">*</span><span class="tok-p">);</span>
-
-<span class="tok-kt">void</span> <span class="tok-nf">time_line_advance</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-n">TimeLine</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
-<span class="tok-kt">int</span>   <span class="tok-nf">time_line_cross</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">TimeLine</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">interval</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
-
-<span class="tok-kt">float</span> <span class="tok-nf">time_line_get_current</span> <span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">TimeLine</span><span class="tok-o">*</span><span class="tok-p">);</span>
-<span class="tok-kt">long</span>  <span class="tok-nf">time_line_get_iteration</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">TimeLine</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+<span class="tok-kt">void</span> <span class="tok-nf">time_line_fin</span><span class="tok-p">(</span><span class="tok-n">TimeLine</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Manipulate time:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">time_line_advance</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-n">TimeLine</span><span class="tok-o">*</span><span class="tok-p">);</span>           <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">int</span>  <span class="tok-nf">time_line_cross</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">TimeLine</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">interval</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>should be called every time step</td>
+<td>advance time by <code>dt</code> (should be called at every time step)</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>return <code>true</code> if <code>n*interval</code> is in between current and previus
-timesteps, in other words has the simulation just crossed
-<code>n*interval</code> for some <code>n</code>.</td>
+<td>return <code>true</code> if there exist integer <code>n</code> such that <code>n*interval</code>
+is in between current and previous times, in other words has the
+simulation just crossed <code>n*interval</code> for some <code>n</code>.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Getters:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">float</span> <span class="tok-nf">time_line_get_current</span> <span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">TimeLine</span><span class="tok-o">*</span><span class="tok-p">);</span>  <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">long</span>  <span class="tok-nf">time_line_get_iteration</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">TimeLine</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>get current time</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>get iteration id</td>
 </tr>
 </table>
 </div>
@@ -6966,29 +6993,130 @@ timesteps, in other words has the simulation just crossed
 <div class="sect2">
 <h3 id="_time_step">32.5. Time step</h3>
 <div class="paragraph">
-<p>Return time step based on the current state of the simulation. If
-<code>type=const</code> always return the same timestep. If <code>type=disp</code> return
-timestep based on the maximum accelaration. <code>TimeStepAccel</code> is
-constructed using <code>time_step_accel_push</code>.</p>
+<p>Time step manager.</p>
 </div>
 <div class="paragraph">
-<p><code>float time_step_dt(TimeStep*, MPI_Comm, TimeStepAccel*);</code></p>
+<p>Two possible modes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>const</code>: constant timestep</p>
+</li>
+<li>
+<p><code>disp</code>: adaptive time step based on the maximum acceleration of
+given particles</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="_interface_31">32.5.1. interface</h4>
+<div class="paragraph">
+<p>allocate, deallocate the object:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">time_step_ini</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">TimeStep</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">time_step_fin</span><span class="tok-p">(</span><span class="tok-n">TimeStep</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The mode is initialised from <a href="#conf">configuration file</a>. See
+<a href="#scheme_time_step_conf">Configuration</a> for syntax.</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">float</span> <span class="tok-nf">time_step_dt</span><span class="tok-p">(</span><span class="tok-n">TimeStep</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-n">TimeStepAccel</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">float</span> <span class="tok-nf">time_step_dt0</span><span class="tok-p">(</span><span class="tok-n">TimeStep</span><span class="tok-o">*</span><span class="tok-p">);</span>                          <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">time_step_log</span><span class="tok-p">(</span><span class="tok-n">TimeStep</span><span class="tok-o">*</span><span class="tok-p">);</span>                           <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Compute and return current timestep depending on the mode.
+See <a href="#scheme_time_step_acc">acceleration manager</a> for <code>ImeStepAccel</code> argument.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>return previous timestep</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>print time step informations to screen</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="scheme_time_step_acc">32.5.2. acceleration manager</h4>
+<div class="paragraph">
+<p>Helper structure to pack multiple arrays of acceleration</p>
+</div>
+<div class="paragraph">
+<p>allocate, deallocate the structure:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">time_step_accel_ini</span><span class="tok-p">(</span><span class="tok-cm">/**/</span> <span class="tok-n">TimeStepAccel</span><span class="tok-o">**</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">time_step_accel_fin</span><span class="tok-p">(</span><span class="tok-n">TimeStepAccel</span><span class="tok-o">*</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">time_step_accel_push</span><span class="tok-p">(</span><span class="tok-n">TimeStepAccel</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">m</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-n">Force</span><span class="tok-o">*</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">time_step_accel_reset</span><span class="tok-p">(</span><span class="tok-n">TimeStepAccel</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+<span class="tok-kt">void</span> <span class="tok-nf">time_step_accel_fin</span><span class="tok-p">(</span><span class="tok-n">TimeStepAccel</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>interface:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">time_step_ini</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">TimeStep</span><span class="tok-o">**</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">time_step_fin</span><span class="tok-p">(</span><span class="tok-n">TimeStep</span><span class="tok-o">*</span><span class="tok-p">);</span>
-<span class="tok-kt">float</span> <span class="tok-nf">time_step_dt</span><span class="tok-p">(</span><span class="tok-n">TimeStep</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-n">TimeStepAccel</span><span class="tok-o">*</span><span class="tok-p">);</span>
-<span class="tok-kt">float</span> <span class="tok-nf">time_step_dt0</span><span class="tok-p">(</span><span class="tok-n">TimeStep</span><span class="tok-o">*</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">time_step_log</span><span class="tok-p">(</span><span class="tok-n">TimeStep</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">time_step_accel_push</span><span class="tok-p">(</span><span class="tok-n">TimeStepAccel</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">m</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-n">Force</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">time_step_accel_reset</span><span class="tok-p">(</span><span class="tok-n">TimeStepAccel</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>add an array of forces. <code>m</code> is the mass of the particles.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>remove all pushed arrays</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="scheme_time_step_conf">32.5.3. Configuration</h4>
+<div class="paragraph">
+<p>constant timestep <code>dt = 1e-3</code> (no log):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">time</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
+<span class="tok-s">     type = &quot;const&quot;</span>
+<span class="tok-s">     dt = 1e-3</span>
+<span class="tok-s">     screenlog = false</span>
+<span class="tok-na">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>adaptive timestep with maximum <code>dt = 1e-2</code> and maximum displacement
+<code>dx = 0.1</code> (active log):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cfg"><span></span><span class="tok-na">time</span> <span class="tok-o">=</span> <span class="tok-s">{</span>
+<span class="tok-s">     type = &quot;disp&quot;</span>
+<span class="tok-s">     dt = 1e-2</span>
+<span class="tok-s">     dx = 0.1</span>
+<span class="tok-s">     screenlog = true</span>
+<span class="tok-na">}</span></code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -7038,7 +7166,7 @@ the wall.</p>
 The isosurface \(S(x,y,z) = 0\) is located at the wall interface.</p>
 </div>
 <div class="sect2">
-<h3 id="_interface_31">33.1. interface</h3>
+<h3 id="_interface_32">33.1. interface</h3>
 <div class="paragraph">
 <p>allocate, deallocate the structure:</p>
 </div>
@@ -7161,7 +7289,7 @@ integration. <code>nsamples</code> is the number of samples per subdomain.</td>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_interface_32">interface</h5>
+<h5 id="_interface_33">interface</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">struct</span> <span class="tok-n">Array3d</span><span class="tok-p">;</span>
@@ -7235,7 +7363,7 @@ We obtain \(\mathbf{r}_w = \mathbf{r}_0 + h \mathbf{v}_0\).</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_interface_33">interface</h5>
+<h5 id="_interface_34">interface</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">bounce_back</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">WvelStep</span> <span class="tok-o">*</span><span class="tok-n">wv</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Coords</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Sdf</span> <span class="tok-o">*</span><span class="tok-n">sdf</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">);</span></code></pre>
@@ -7249,7 +7377,7 @@ We obtain \(\mathbf{r}_w = \mathbf{r}_0 + h \mathbf{v}_0\).</p>
 <p>read and manage a scalar field on host</p>
 </div>
 <div class="sect4">
-<h5 id="_interface_34">interface</h5>
+<h5 id="_interface_35">interface</h5>
 <div class="paragraph">
 <p>allocate, deallocate:</p>
 </div>
@@ -7383,7 +7511,7 @@ We obtain \(\mathbf{r}_w = \mathbf{r}_0 + h \mathbf{v}_0\).</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_interface_35">interface</h5>
+<h5 id="_interface_36">interface</h5>
 <div class="paragraph">
 <p>allocate and destroy texture object:</p>
 </div>
@@ -7757,7 +7885,7 @@ particles.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_interface_36">35.2. interface</h3>
+<h3 id="_interface_37">35.2. interface</h3>
 <div class="paragraph">
 <p>allocate and deallocate the data:</p>
 </div>
@@ -7912,7 +8040,7 @@ specific time step. It is generated from <code>Wvel</code> structure.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_interface_37">interface</h5>
+<h5 id="_interface_38">interface</h5>
 <div class="paragraph">
 <p>Interface is splitted between host and device</p>
 </div>
