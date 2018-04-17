@@ -149,8 +149,9 @@
 </li>
 <li><a href="#grid_sampler">21. grid_sampler: particle to grid average</a>
 <ul class="sectlevel2">
-<li><a href="#_interface_22">21.1. interface</a></li>
-<li><a href="#grid_sampler_data">21.2. grid sampler data</a></li>
+<li><a href="#_quantities">21.1. quantities</a></li>
+<li><a href="#_interface_22">21.2. interface</a></li>
+<li><a href="#grid_sampler_data">21.3. grid sampler data</a></li>
 </ul>
 </li>
 <li><a href="#_io">22. IO</a>
@@ -227,13 +228,13 @@
 <li><a href="#_red_blood_cell">31. Red blood cell</a>
 <ul class="sectlevel2">
 <li><a href="#rbc_energy">31.1. Elastic energies</a></li>
-<li><a href="#_quantities">31.2. Quantities</a></li>
+<li><a href="#_quantities_2">31.2. Quantities</a></li>
 <li><a href="#_submodules_3">31.3. Submodules</a></li>
 </ul>
 </li>
 <li><a href="#_rigid">32. Rigid</a>
 <ul class="sectlevel2">
-<li><a href="#_quantities_2">32.1. Quantities</a></li>
+<li><a href="#_quantities_3">32.1. Quantities</a></li>
 <li><a href="#_update">32.2. update</a></li>
 </ul>
 </li>
@@ -3956,13 +3957,22 @@ number of particles in each fragment layer.</td>
 The particle to grid process is simple binning.</p>
 </div>
 <div class="sect2">
-<h3 id="_interface_22">21.1. interface</h3>
+<h3 id="_quantities">21.1. quantities</h3>
+<div class="paragraph">
+<p>The number density and velocity (3 components) are computed by
+default.
+Optionally, the stress tensor (6 components) and the color proportions
+can be sampled as well.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_interface_22">21.2. interface</h3>
 <div class="paragraph">
 <p>Allocate and free the structure:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">grid_sampler_ini</span><span class="tok-p">(</span><span class="tok-kt">bool</span> <span class="tok-n">stress</span><span class="tok-p">,</span> <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-n">int3</span> <span class="tok-n">N</span><span class="tok-p">,</span> <span class="tok-n">GridSampler</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">grid_sampler_ini</span><span class="tok-p">(</span><span class="tok-kt">bool</span> <span class="tok-n">colors</span><span class="tok-p">,</span> <span class="tok-kt">bool</span> <span class="tok-n">stress</span><span class="tok-p">,</span> <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">,</span> <span class="tok-n">int3</span> <span class="tok-n">N</span><span class="tok-p">,</span> <span class="tok-n">GridSampler</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
 <span class="tok-kt">void</span> <span class="tok-nf">grid_sampler_fin</span><span class="tok-p">(</span><span class="tok-n">GridSampler</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
@@ -3971,7 +3981,9 @@ The particle to grid process is simple binning.</p>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
 <td>create a sampler for binning a subdomain of size <code>L</code>. <code>N</code> is the
-number of bins. Allocate space for stress when <code>stress</code> is set to true.</td>
+number of bins. Allocate space for stress when <code>stress</code> is set to
+true. Allocate space for the color proportions when <code>colors</code> is
+set to true.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
@@ -4010,7 +4022,7 @@ and dump to file (see <a href="#io_grid">grid</a>).</td>
 </div>
 </div>
 <div class="sect2">
-<h3 id="grid_sampler_data">21.2. grid sampler data</h3>
+<h3 id="grid_sampler_data">21.3. grid sampler data</h3>
 <div class="paragraph">
 <p>helper to pass data to the grid sampler.</p>
 </div>
@@ -4029,7 +4041,8 @@ and dump to file (see <a href="#io_grid">grid</a>).</td>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">grid_sampler_data_reset</span><span class="tok-p">(</span><span class="tok-n">GridSampleData</span> <span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">grid_sampler_data_push</span><span class="tok-p">(</span><span class="tok-kt">long</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-o">*</span><span class="tok-n">ss</span><span class="tok-p">,</span> <span class="tok-n">GridSampleData</span> <span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+<span class="tok-kt">void</span> <span class="tok-nf">grid_sampler_data_push</span><span class="tok-p">(</span><span class="tok-kt">long</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">cc</span><span class="tok-p">,</span>
+                            <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-o">*</span><span class="tok-n">ss</span><span class="tok-p">,</span> <span class="tok-n">GridSampleData</span> <span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -4042,7 +4055,8 @@ and dump to file (see <a href="#io_grid">grid</a>).</td>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
 <td>add data (pointers only, <strong>not</strong> a deep copy) to the structure. The
 <code>pp</code> pointer is mandatory. The stress <code>ss</code> pointer is used only when
-<code>stress</code> is activated in grid sampler.</td>
+<code>stress</code> is activated in grid sampler. The colors <code>cc</code> pointer is
+only used when <code>colors</code> is activated in the grid sampler.</td>
 </tr>
 </table>
 </div>
@@ -5918,7 +5932,7 @@ k_v
 </div>
 </div>
 <div class="sect2">
-<h3 id="_quantities">31.2. Quantities</h3>
+<h3 id="_quantities_2">31.2. Quantities</h3>
 <div class="paragraph">
 <p><code>RbcQuants</code> structure contains particles of membrane and connectivity.</p>
 </div>
@@ -6519,7 +6533,7 @@ with the frozen particles.</p>
 particles may bounce back.</p>
 </div>
 <div class="sect2">
-<h3 id="_quantities_2">32.1. Quantities</h3>
+<h3 id="_quantities_3">32.1. Quantities</h3>
 <div class="sect3">
 <h4 id="_data_structure_6">32.1.1. data structure</h4>
 <div class="paragraph">
