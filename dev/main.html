@@ -3974,8 +3974,8 @@ can be sampled as well.</p>
 </div>
 <div class="paragraph">
 <p>The cell quantities \(Q^i_t\) are averaged on space, depending on
-the quantity. Let \(j \in [1, C_i\)] denote the particle ids inside
-cell \(i\), where \(C_i\) is the number of particles inside this
+the quantity. Let \(j \in [1, n_i\)] denote the particle ids inside
+cell \(i\), where \(n_i\) is the number of particles inside this
 cell. \(V_i\) denotes the volume of the cell.</p>
 </div>
 <div class="paragraph">
@@ -3983,7 +3983,7 @@ cell. \(V_i\) denotes the volume of the cell.</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[\mathbf{u}^i_t = \frac{1}{C_i} \sum\limits_{j = 1}^{C_i} \mathbf{u}_j\]
+\[\mathbf{u}^i_t = \frac{1}{n_i} \sum\limits_{j = 1}^{n_i} \mathbf{u}_j\]
 </div>
 </div>
 <div class="paragraph">
@@ -3991,7 +3991,7 @@ cell. \(V_i\) denotes the volume of the cell.</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[\rho^i_t = \frac{C_i}{V_i}\]
+\[\rho^i_t = \frac{n_i}{V_i}\]
 </div>
 </div>
 <div class="paragraph">
@@ -3999,7 +3999,7 @@ cell. \(V_i\) denotes the volume of the cell.</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[S^i_{\alpha, \beta} = \frac{1}{V_i} \sum\limits_{j = 1}^{C_i} S_j^{\alpha, \beta}\]
+\[S^i_{\alpha, \beta} = \frac{1}{V_i} \sum\limits_{j = 1}^{n_i} S_j^{\alpha, \beta}\]
 </div>
 </div>
 <div class="paragraph">
@@ -4007,7 +4007,7 @@ cell. \(V_i\) denotes the volume of the cell.</p>
 </div>
 <div class="stemblock">
 <div class="content">
-\[c^i_{\alpha} = \frac{1}{C_i} \sum\limits_{j = 1}^{C_i} \delta_{c_j, \alpha}\]
+\[c^i_{\alpha} = \frac{1}{n_i} \sum\limits_{j = 1}^{n_i} \delta_{c_j, \alpha}\]
 </div>
 </div>
 </div>
