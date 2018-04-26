@@ -170,7 +170,6 @@
 <ul class="sectlevel2">
 <li><a href="#inter_color">23.1. color</a></li>
 <li><a href="#inter_freeze">23.2. freeze</a></li>
-<li><a href="#inter_gen_rig">23.3. gen_rig</a></li>
 </ul>
 </li>
 <li><a href="#_math">24. Math</a>
@@ -187,10 +186,12 @@
 <li><a href="#mesh_tri_area">25.2. tri_area: compute area of triangles in a mesh</a></li>
 <li><a href="#mesh_angle">25.3. angle: compute angles between triangles with a common edge</a></li>
 <li><a href="#edg_len_angle">25.4. edges length: compute length of the edges</a></li>
-<li><a href="#mesh_scatter">25.5. "scatter": distribute scalar values between different elements of the mesh</a></li>
-<li><a href="#mesh_triangles">25.6. Triangles</a></li>
-<li><a href="#mesh_vert_area">25.7. vertices' area</a></li>
-<li><a href="#mesh_volume">25.8. volume: compute volume of a mesh</a></li>
+<li><a href="#_gen_generate_mesh">25.5. gen: generate mesh</a></li>
+<li><a href="#mesh_matrices">25.6. matrices: affine transformation</a></li>
+<li><a href="#mesh_scatter">25.7. "scatter": distribute scalar values between different elements of the mesh</a></li>
+<li><a href="#mesh_triangles">25.8. Triangles</a></li>
+<li><a href="#mesh_vert_area">25.9. vertices' area</a></li>
+<li><a href="#mesh_volume">25.10. volume: compute volume of a mesh</a></li>
 </ul>
 </li>
 <li><a href="#_pair_pairwise_interactions">26. pair: pairwise interactions</a>
@@ -214,10 +215,11 @@
 <li><a href="#_submodules_3">28.3. Submodules</a></li>
 </ul>
 </li>
-<li><a href="#_rigid">29. Rigid</a>
+<li><a href="#_rig_rigid_objects">29. rig: rigid objects</a>
 <ul class="sectlevel2">
 <li><a href="#_quantities_3">29.1. Quantities</a></li>
 <li><a href="#_update">29.2. update</a></li>
+<li><a href="#_submodules_4">29.3. Submodules</a></li>
 </ul>
 </li>
 <li><a href="#_scheme">30. scheme</a>
@@ -232,13 +234,13 @@
 <li><a href="#_sim_simulation">31. sim: simulation</a>
 <ul class="sectlevel2">
 <li><a href="#_interface_33">31.1. interface</a></li>
-<li><a href="#_submodules_4">31.2. submodules</a></li>
+<li><a href="#_submodules_5">31.2. submodules</a></li>
 </ul>
 </li>
 <li><a href="#sdf">32. sdf: signed distance function</a>
 <ul class="sectlevel2">
 <li><a href="#_interface_34">32.1. interface</a></li>
-<li><a href="#_submodules_5">32.2. submodules</a></li>
+<li><a href="#_submodules_6">32.2. submodules</a></li>
 </ul>
 </li>
 <li><a href="#_struct_helper_structures">33. Struct: helper structures</a>
@@ -262,7 +264,7 @@
 <ul class="sectlevel2">
 <li><a href="#_data_structure_8">35.1. data structure</a></li>
 <li><a href="#_interface_40">35.2. interface</a></li>
-<li><a href="#_submodules_6">35.3. submodules</a></li>
+<li><a href="#_submodules_7">35.3. submodules</a></li>
 </ul>
 </li>
 <li><a href="#_third_party_dependencies">36. third party dependencies</a>
@@ -4570,9 +4572,6 @@ the whole simulation, such as wall frozen particles or rigid frozen particles.</
 <p>freeze particles into walls</p>
 </li>
 <li>
-<p>freeze particles into solids</p>
-</li>
-<li>
 <p>generate initial solvent colors</p>
 </li>
 </ul>
@@ -4642,20 +4641,15 @@ also used to remove objects colliding with the newly created wall</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">inter_freeze</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-n">InterWalInfos</span><span class="tok-p">,</span> <span class="tok-n">InterFluInfos</span><span class="tok-p">,</span> <span class="tok-n">InterRbcInfos</span><span class="tok-p">,</span> <span class="tok-n">InterRigInfos</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">inter_freeze_walls</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">maxn</span><span class="tok-p">,</span> <span class="tok-n">Sdf</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">FluQuants</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">WallQuants</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">inter_freeze</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-n">InterWalInfos</span><span class="tok-p">,</span> <span class="tok-n">InterFluInfos</span><span class="tok-p">,</span> <span class="tok-n">InterRbcInfos</span><span class="tok-p">,</span> <span class="tok-n">InterRigInfos</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td><a href="#inter_gen_rig">create rigid</a> bodies, remove rigid bodies and rbcs colliding with
+<td>create rigid bodies, remove rigid bodies and rbcs colliding with
 the walls and remove solvent at rigid bodies locations</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>create walls from <a href="#sdf">sdf</a></td>
 </tr>
 </table>
 </div>
@@ -4666,7 +4660,7 @@ the walls and remove solvent at rigid bodies locations</td>
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">struct</span> <span class="tok-n">InterWalInfos</span> <span class="tok-p">{</span>
     <span class="tok-kt">bool</span> <span class="tok-n">active</span><span class="tok-p">;</span>
-    <span class="tok-n">Sdf</span> <span class="tok-o">*</span><span class="tok-n">sdf</span><span class="tok-p">;</span>
+    <span class="tok-k">const</span> <span class="tok-n">Sdf</span> <span class="tok-o">*</span><span class="tok-n">sdf</span><span class="tok-p">;</span>
 <span class="tok-p">};</span>
 
 <span class="tok-k">struct</span> <span class="tok-n">InterFluInfos</span> <span class="tok-p">{</span>
@@ -4683,57 +4677,9 @@ the walls and remove solvent at rigid bodies locations</td>
     <span class="tok-kt">bool</span> <span class="tok-n">empty_pp</span><span class="tok-p">;</span>
     <span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">;</span>
     <span class="tok-k">const</span> <span class="tok-n">RigPinInfo</span> <span class="tok-o">*</span><span class="tok-n">pi</span><span class="tok-p">;</span>
+    <span class="tok-k">const</span> <span class="tok-n">MeshRead</span> <span class="tok-o">*</span><span class="tok-n">mesh</span><span class="tok-p">;</span>
     <span class="tok-kt">float</span> <span class="tok-n">mass</span><span class="tok-p">;</span>
     <span class="tok-kt">int</span> <span class="tok-n">numdensity</span><span class="tok-p">;</span>
-<span class="tok-p">};</span></code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="inter_gen_rig">23.3. gen_rig</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">inter_gen_rig_from_solvent</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-n">RigGenInfo</span><span class="tok-p">,</span> <span class="tok-cm">/* io */</span> <span class="tok-n">FluInfo</span><span class="tok-p">,</span> <span class="tok-cm">/* o */</span> <span class="tok-n">RigInfo</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">inter_set_rig_ids</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Solid</span> <span class="tok-o">*</span><span class="tok-n">ss</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>generate rigidparticles from solvent</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>generate rigid bodies global ids</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>To avoid long argument list, the data is packed in helper structures:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">struct</span> <span class="tok-n">RigGenInfo</span> <span class="tok-p">{</span>
-    <span class="tok-kt">float</span> <span class="tok-n">mass</span><span class="tok-p">;</span>
-    <span class="tok-kt">int</span> <span class="tok-n">numdensity</span><span class="tok-p">;</span>
-    <span class="tok-k">const</span> <span class="tok-n">RigPinInfo</span> <span class="tok-o">*</span><span class="tok-n">pi</span><span class="tok-p">;</span>
-    <span class="tok-kt">int</span> <span class="tok-n">nt</span><span class="tok-p">,</span> <span class="tok-n">nv</span><span class="tok-p">;</span>
-    <span class="tok-k">const</span> <span class="tok-n">int4</span> <span class="tok-o">*</span><span class="tok-n">tt</span><span class="tok-p">;</span>
-    <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-o">*</span><span class="tok-n">vv</span><span class="tok-p">;</span>
-    <span class="tok-kt">bool</span> <span class="tok-n">empty_pp</span><span class="tok-p">;</span>
-<span class="tok-p">};</span>
-
-<span class="tok-k">struct</span> <span class="tok-n">FluInfo</span> <span class="tok-p">{</span>
-    <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">;</span>
-    <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">n</span><span class="tok-p">;</span>
-<span class="tok-p">};</span>
-
-<span class="tok-k">struct</span> <span class="tok-n">RigInfo</span> <span class="tok-p">{</span>
-    <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">ns</span><span class="tok-p">,</span> <span class="tok-o">*</span><span class="tok-n">nps</span><span class="tok-p">,</span> <span class="tok-o">*</span><span class="tok-n">n</span><span class="tok-p">;</span>
-    <span class="tok-kt">float</span> <span class="tok-o">*</span><span class="tok-n">rr0</span><span class="tok-p">;</span>
-    <span class="tok-n">Solid</span> <span class="tok-o">*</span><span class="tok-n">ss</span><span class="tok-p">;</span>
-    <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">;</span>
 <span class="tok-p">};</span></code></pre>
 </div>
 </div>
@@ -5083,7 +5029,103 @@ submodules, see <a href="#algo_edg">edg</a> or <a href="#rbc_adj">adj</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="mesh_scatter">25.5. "scatter": distribute scalar values between different elements of the mesh</h3>
+<h3 id="_gen_generate_mesh">25.5. gen: generate mesh</h3>
+<div class="paragraph">
+<p>Generate mesh vertices from template mesh and affine transform
+matrices (see <a href="#mesh_matrices">matrices submodule</a>).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-cm">/* vv : vertices of the mesh template : x y z x y z, ...   */</span>
+<span class="tok-kt">int</span>  <span class="tok-nf">mesh_gen_from_file</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-o">*</span><span class="tok-n">vv</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">ic</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">mesh_gen_from_matrices</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-o">*</span><span class="tok-n">vv</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Matrices</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">pn</span><span class="tok-p">,</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">);</span>  <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">mesh_shift</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>generate and filter meshes from file <code>ic</code>. Only those
+belonging to subdomain are kept.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>generate from a matrices array</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>shift a set of vertices particles from global to local coordinates</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="mesh_matrices">25.6. matrices: affine transformation</h3>
+<div class="paragraph">
+<p>An array of <code>4 x 4</code> affine transformation matrices.</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\begin{bmatrix}
+    \vec{y} \\ 1
+\end{bmatrix}
+=
+\left[
+    \begin{array}{ccc|c}
+        \, &amp; A &amp; &amp; \vec{b} \ \\ 0 &amp; \ldots &amp; 0 &amp; 1
+    \end{array}
+\right]
+\begin{bmatrix}
+    \vec{x} \\ 1
+\end{bmatrix}\]
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">matrices_read</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">path</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Matrices</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">matrices_read_filter</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">path</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Matrices</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+
+<span class="tok-kt">void</span> <span class="tok-nf">matrices_get</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Matrices</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">double</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">matrices_get_r</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Matrices</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">double</span> <span class="tok-n">r</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">]);</span> <i class="conum" data-value="4"></i><b>(4)</b>
+<span class="tok-kt">int</span>  <span class="tok-nf">matrices_get_n</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Matrices</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="5"></i><b>(5)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">matrices_log</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Matrices</span><span class="tok-o">*</span><span class="tok-p">);</span>   <i class="conum" data-value="6"></i><b>(6)</b>
+
+<span class="tok-kt">void</span> <span class="tok-nf">matrices_fin</span><span class="tok-p">(</span><span class="tok-n">Matrices</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>read from input file</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>read from input file and keep only matrices which "belong" to this
+MPI rank</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>return matrix as <code>double[16]</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>return the shift of the ith matrix as <code>double[3]</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>return the number of matrices</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>print the array of matrices to <code>stderr</code> using <code>msg_print</code></td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="mesh_scatter">25.7. "scatter": distribute scalar values between different elements of the mesh</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">mesh_scatter_ini</span><span class="tok-p">(</span><span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">MeshScatter</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
@@ -5106,7 +5148,7 @@ submodules, see <a href="#algo_edg">edg</a> or <a href="#rbc_adj">adj</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="mesh_triangles">25.6. Triangles</h3>
+<h3 id="mesh_triangles">25.8. Triangles</h3>
 <div class="paragraph">
 <p>Triangles on device. It is created from <code>MeshRead*</code>.</p>
 </div>
@@ -5132,7 +5174,7 @@ submodules, see <a href="#algo_edg">edg</a> or <a href="#rbc_adj">adj</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="mesh_vert_area">25.7. vertices' area</h3>
+<h3 id="mesh_vert_area">25.9. vertices' area</h3>
 <div class="paragraph">
 <p>Compute area associated with every vertices. Assume every adjusting
 triangle contributes one third it its area to a vertice.</p>
@@ -5159,7 +5201,7 @@ triangle contributes one third it its area to a vertice.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="mesh_volume">25.8. volume: compute volume of a mesh</h3>
+<h3 id="mesh_volume">25.10. volume: compute volume of a mesh</h3>
 <div class="paragraph">
 <p>Compute the volume enclosed by a triangulated mesh on host.</p>
 </div>
@@ -5740,29 +5782,40 @@ k_v
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rbc_ini</span><span class="tok-p">(</span><span class="tok-kt">bool</span> <span class="tok-n">ids</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">RbcQuants</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rbc_ini</span><span class="tok-p">(</span><span class="tok-kt">long</span> <span class="tok-n">maxnc</span><span class="tok-p">,</span> <span class="tok-kt">bool</span> <span class="tok-n">ids</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">RbcQuants</span><span class="tok-o">*</span><span class="tok-p">);</span>
 <span class="tok-kt">void</span> <span class="tok-nf">rbc_fin</span><span class="tok-p">(</span><span class="tok-n">RbcQuants</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>The generation is made in two stages: mesh generations and other
+quantities (global ids).
+This allows to remove red blood cells colliding with other entities
+before creating global ids.</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rbc_gen_quants</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">ic</span><span class="tok-p">,</span> <span class="tok-n">RbcQuants</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">rbc_strt_quants</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">base</span><span class="tok-p">,</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">id</span><span class="tok-p">,</span> <span class="tok-n">RbcQuants</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">rbc_strt_dump</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">base</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">id</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">RbcQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rbc_gen_mesh</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">ic</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">RbcQuants</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">rbc_gen_freeze</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">RbcQuants</span><span class="tok-o">*</span><span class="tok-p">);</span>                                         <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">rbc_strt_quants</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">base</span><span class="tok-p">,</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">id</span><span class="tok-p">,</span> <span class="tok-n">RbcQuants</span><span class="tok-o">*</span><span class="tok-p">);</span>  <i class="conum" data-value="3"></i><b>(3)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">rbc_strt_dump</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">base</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">id</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">RbcQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span>             <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Generate quantities from file "ic" (see matrices submodule)</td>
+<td>Generate mesh from file "ic" (see <a href="#mesh_gen">[mesh_gen]</a>)</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Generate quantities from <a href="#io_restart">restart</a></td>
+<td>Generate global ids of rbc</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Generate quantities from <a href="#io_restart">restart</a></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
 <td>Dump a <a href="#io_restart">restart</a> state of the quantities</td>
 </tr>
 </table>
@@ -5866,71 +5919,7 @@ if <code>nm</code> exceeds <code>nm_max</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="rbc_matrices">28.3.3. matrices: affine transformation</h4>
-<div class="paragraph">
-<p>An array of <code>4 x 4</code> affine transformation matrices.</p>
-</div>
-<div class="stemblock">
-<div class="content">
-\[\begin{bmatrix}
-    \vec{y} \\ 1
-\end{bmatrix}
-=
-\left[
-    \begin{array}{ccc|c}
-        \, &amp; A &amp; &amp; \vec{b} \ \\ 0 &amp; \ldots &amp; 0 &amp; 1
-    \end{array}
-\right]
-\begin{bmatrix}
-    \vec{x} \\ 1
-\end{bmatrix}\]
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">matrices_read</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">path</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Matrices</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">matrices_read_filter</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">path</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Matrices</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
-
-<span class="tok-kt">void</span> <span class="tok-nf">matrices_get</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Matrices</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">double</span><span class="tok-o">**</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">matrices_get_r</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Matrices</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">i</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">double</span> <span class="tok-n">r</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">]);</span> <i class="conum" data-value="4"></i><b>(4)</b>
-<span class="tok-kt">int</span>  <span class="tok-nf">matrices_get_n</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Matrices</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="5"></i><b>(5)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">matrices_log</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Matrices</span><span class="tok-o">*</span><span class="tok-p">);</span>   <i class="conum" data-value="6"></i><b>(6)</b>
-
-<span class="tok-kt">void</span> <span class="tok-nf">matrices_fin</span><span class="tok-p">(</span><span class="tok-n">Matrices</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>read from input file</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>read from input file and keep only matrices which "belong" to this
-MPI rank</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>return matrix as <code>double[16]</code></td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>return the shift of the ith matrix as <code>double[3]</code></td>
-</tr>
-<tr>
-<td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>return the number of matrices</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="6"></i><b>6</b></td>
-<td>print the array of matrices to <code>stderr</code> using <code>msg_print</code></td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_forces">28.3.4. Forces</h4>
+<h4 id="_forces">28.3.3. Forces</h4>
 <div class="sect4">
 <h5 id="_model">Model</h5>
 <div class="paragraph">
@@ -6061,7 +6050,7 @@ file:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_force_area_volume_area_and_volume">28.3.5. force/area_volume: area and volume</h4>
+<h4 id="_force_area_volume_area_and_volume">28.3.4. force/area_volume: area and volume</h4>
 <div class="paragraph">
 <p>Compute area and volume for every object.</p>
 </div>
@@ -6096,7 +6085,7 @@ host version of <code>av</code> array</td>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_force_rnd_random_generator">28.3.6. force/rnd: random generator</h4>
+<h4 id="_force_rnd_random_generator">28.3.5. force/rnd: random generator</h4>
 <div class="paragraph">
 <p>Device random number generator for random forces in rbc</p>
 </div>
@@ -6140,39 +6129,7 @@ host version of <code>av</code> array</td>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_gen_generate_membranes">28.3.7. gen: generate membranes</h4>
-<div class="paragraph">
-<p>Generate membrane vertices from template mesh and affine transform
-matrices (see <a href="#rbc_matrices">matrices submodule</a>).</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-cm">/* vv : vertices of the mesh template : x y z x y z, ...   */</span>
-<span class="tok-kt">int</span> <span class="tok-nf">rbc_gen</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-o">*</span><span class="tok-n">vv</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">ic</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">rbc_gen0</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">float</span> <span class="tok-o">*</span><span class="tok-n">vv</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Matrices</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">pn</span><span class="tok-p">,</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">);</span>    <i class="conum" data-value="2"></i><b>(2)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">rbc_shift</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Particle</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>generate and filter membranes from file <code>ic</code>. Only membranes
-belonging to subdomain are kept.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>generate membranes from a matrices array</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>shift a set of particles from global to local coordinates</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect3">
-<h4 id="rbc_params">28.3.8. params: rbc parameters</h4>
+<h4 id="rbc_params">28.3.6. params: rbc parameters</h4>
 <div class="paragraph">
 <p>Parameters for the membrane forces.
 Consists of two structures: <code>RbcParams</code> (<em>hidden</em>, on host) and
@@ -6225,7 +6182,7 @@ Consists of two structures: <code>RbcParams</code> (<em>hidden</em>, on host) an
 </div>
 </div>
 <div class="sect3">
-<h4 id="_shape">28.3.9. shape</h4>
+<h4 id="_shape">28.3.7. shape</h4>
 <div class="paragraph">
 <p>Helper for stress free state.
 Compute membrane quantities on host.</p>
@@ -6277,7 +6234,7 @@ z1 &#8230;&#8203;</code>. Also needs <a href="#rbc_adj">adjacency structure</a> 
 </div>
 </div>
 <div class="sect3">
-<h4 id="_stretch_rbc">28.3.10. stretch RBC</h4>
+<h4 id="_stretch_rbc">28.3.8. stretch RBC</h4>
 <div class="paragraph">
 <p>Apply a constant force to every vertex of every cell. The force is
 configured from the file <code>path</code>.</p>
@@ -6308,7 +6265,7 @@ fx_nv fy_nv fz_nv</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_rigid">29. Rigid</h2>
+<h2 id="_rig_rigid_objects">29. rig: rigid objects</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Rigid objects consist of frozen particles moving in a rigid fashion.
@@ -6318,6 +6275,9 @@ with the frozen particles.</p>
 <div class="paragraph">
 <p>Rigid objects also contain a surface representation on which other
 particles may bounce back.</p>
+</div>
+<div class="paragraph">
+<p>Rigid objects are numbered and need a unique id for dumping diagnosis.</p>
 </div>
 <div class="sect2">
 <h3 id="_quantities_3">29.1. Quantities</h3>
@@ -6339,13 +6299,13 @@ linear velocity of the rigid object.</p>
 
     <span class="tok-cm">/* mesh related quantities */</span>
     <span class="tok-kt">int</span> <span class="tok-n">nt</span><span class="tok-p">,</span> <span class="tok-n">nv</span><span class="tok-p">;</span>                   <span class="tok-cm">/* number of [t]riangles and [v]ertices                          */</span>
-    <span class="tok-n">int4</span> <span class="tok-o">*</span><span class="tok-n">htt</span><span class="tok-p">,</span> <span class="tok-o">*</span><span class="tok-n">dtt</span><span class="tok-p">;</span>              <span class="tok-cm">/* triangle indices of [h]ost and [d]evice                       */</span>
-    <span class="tok-kt">float</span> <span class="tok-o">*</span><span class="tok-n">hvv</span><span class="tok-p">,</span> <span class="tok-o">*</span><span class="tok-n">dvv</span><span class="tok-p">;</span>             <span class="tok-cm">/* vertices of [h]ost and [d]evice (template)                    */</span>
+    <span class="tok-n">int4</span> <span class="tok-o">*</span><span class="tok-n">dtt</span><span class="tok-p">;</span>                    <span class="tok-cm">/* triangle indices on device                                    */</span>
+    <span class="tok-kt">float</span> <span class="tok-o">*</span><span class="tok-n">dvv</span><span class="tok-p">;</span>                   <span class="tok-cm">/* vertices on device (template)                                 */</span>
     <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">i_pp_hst</span><span class="tok-p">,</span> <span class="tok-o">*</span><span class="tok-n">i_pp</span><span class="tok-p">;</span>    <span class="tok-cm">/* particles representing all meshes of all solids of that node  */</span>
 
     <span class="tok-n">Solid</span> <span class="tok-o">*</span><span class="tok-n">ss_dmp</span><span class="tok-p">,</span> <span class="tok-o">*</span><span class="tok-n">ss_dmp_bb</span><span class="tok-p">;</span>
 
-    <span class="tok-kt">int</span> <span class="tok-n">maxp</span><span class="tok-p">;</span> <span class="tok-cm">/* maximum particle number */</span>
+    <span class="tok-kt">long</span> <span class="tok-n">maxp</span><span class="tok-p">;</span> <span class="tok-cm">/* maximum particle number */</span>
 <span class="tok-p">};</span></code></pre>
 </div>
 </div>
@@ -6357,7 +6317,7 @@ linear velocity of the rigid object.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rig_ini</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">maxp</span><span class="tok-p">,</span> <span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span>
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rig_ini</span><span class="tok-p">(</span><span class="tok-kt">long</span> <span class="tok-n">maxs</span><span class="tok-p">,</span> <span class="tok-kt">long</span> <span class="tok-n">maxp</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">RigQuants</span><span class="tok-o">*</span><span class="tok-p">);</span>
 <span class="tok-kt">void</span> <span class="tok-nf">rig_fin</span><span class="tok-p">(</span><span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span></code></pre>
 </div>
 </div>
@@ -6365,22 +6325,37 @@ linear velocity of the rigid object.</p>
 <p><code>maxp</code> is the maximum particle number per node.</p>
 </div>
 <div class="paragraph">
-<p>generate the quantities from solvent particles or from <a href="#io_restart">restart</a> files:</p>
+<p>Rigid bodies generation is performed in two stages: create the mesh,
+then create the rigid particle template, properties and global ids.
+This allows to remove rigid bodies colliding with other entities
+before the second phase.
+The interface for generation is:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rig_gen_quants</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">bool</span> <span class="tok-n">empty_pp</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">numdensity</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">rig_mass</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">RigPinInfo</span> <span class="tok-o">*</span><span class="tok-n">pi</span><span class="tok-p">,</span> <span class="tok-n">MPI_Comm</span> <span class="tok-n">comm</span><span class="tok-p">,</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">opp</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">on</span><span class="tok-p">,</span> <span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">rig_strt_quants</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">base</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">id</span><span class="tok-p">,</span> <span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span></code></pre>
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rig_gen_mesh</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">ic</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">rig_gen_freeze</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">bool</span> <span class="tok-n">empty_pp</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">numdensity</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">rig_mass</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">RigPinInfo</span><span class="tok-o">*</span><span class="tok-p">,</span>
+                    <span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">opp</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">on</span><span class="tok-p">,</span> <span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span>          <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">rig_strt_quants</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">base</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">id</span><span class="tok-p">,</span> <span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>Rigid objects are numbered and need a unique id for dump.
-This is initialised using</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rig_set_ids</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span></code></pre>
-</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>generate the meshes from file <code>ic</code> (see <a href="#mesh_gen">[mesh_gen]</a>)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>generate particle template, global ids and properties of rigid
+objects given mesh. This operation will kill solvent particles inside
+the rigid objects</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>generate quantities from <a href="#io_restart">restart</a> files</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Restart files are dumped using the following functions (see <a href="#io_restart">restart</a>):</p>
@@ -6564,6 +6539,55 @@ structures</td>
 <td>update the mesh position</td>
 </tr>
 </table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_submodules_4">29.3. Submodules</h3>
+<div class="sect3">
+<h4 id="_gen">29.3.1. gen</h4>
+<div class="paragraph">
+<p>helper to generate rigid particles from solvents and compute rigid
+properties</p>
+</div>
+<div class="paragraph">
+<p>The solvent particles inside the given rigid objects are removed by
+this operation.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rig_gen_from_solvent</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-n">RigGenInfo</span><span class="tok-p">,</span> <span class="tok-cm">/*io*/</span> <span class="tok-n">FluInfo</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">RigInfo</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To avoid long argument list, the data is packed in helper structures:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">struct</span> <span class="tok-n">RigGenInfo</span> <span class="tok-p">{</span>
+    <span class="tok-kt">float</span> <span class="tok-n">mass</span><span class="tok-p">;</span>
+    <span class="tok-kt">int</span> <span class="tok-n">numdensity</span><span class="tok-p">;</span>
+    <span class="tok-k">const</span> <span class="tok-n">RigPinInfo</span> <span class="tok-o">*</span><span class="tok-n">pi</span><span class="tok-p">;</span>
+    <span class="tok-kt">int</span> <span class="tok-n">nt</span><span class="tok-p">,</span> <span class="tok-n">nv</span><span class="tok-p">;</span>
+    <span class="tok-k">const</span> <span class="tok-n">int4</span> <span class="tok-o">*</span><span class="tok-n">tt</span><span class="tok-p">;</span>     <span class="tok-cm">/* on device */</span>
+    <span class="tok-k">const</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">;</span> <span class="tok-cm">/* on device */</span>
+    <span class="tok-kt">bool</span> <span class="tok-n">empty_pp</span><span class="tok-p">;</span>
+    <span class="tok-k">const</span> <span class="tok-n">MeshRead</span> <span class="tok-o">*</span><span class="tok-n">mesh</span><span class="tok-p">;</span>
+<span class="tok-p">};</span>
+
+<span class="tok-k">struct</span> <span class="tok-n">FluInfo</span> <span class="tok-p">{</span>
+    <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">;</span>
+    <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">n</span><span class="tok-p">;</span>
+<span class="tok-p">};</span>
+
+<span class="tok-cm">/* everything on host */</span>
+<span class="tok-k">struct</span> <span class="tok-n">RigInfo</span> <span class="tok-p">{</span>
+    <span class="tok-kt">int</span> <span class="tok-n">ns</span><span class="tok-p">,</span> <span class="tok-o">*</span><span class="tok-n">nps</span><span class="tok-p">;</span>
+    <span class="tok-kt">float</span> <span class="tok-o">*</span><span class="tok-n">rr0</span><span class="tok-p">;</span>
+    <span class="tok-n">Solid</span> <span class="tok-o">*</span><span class="tok-n">ss</span><span class="tok-p">;</span>
+    <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">;</span>
+<span class="tok-p">};</span></code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -7099,7 +7123,7 @@ See <a href="#scheme_time_step_acc">acceleration manager</a> for <code>ImeStepAc
 </div>
 </div>
 <div class="sect2">
-<h3 id="_submodules_4">31.2. submodules</h3>
+<h3 id="_submodules_5">31.2. submodules</h3>
 <div class="sect3">
 <h4 id="_objinter_object_interactions">31.2.1. objinter : object interactions</h4>
 <div class="paragraph">
@@ -7267,7 +7291,7 @@ integration. <code>nsamples</code> is the number of samples per subdomain.</td>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_submodules_5">32.2. submodules</h3>
+<h3 id="_submodules_6">32.2. submodules</h3>
 <div class="paragraph">
 <p>Some tasks of the SDF object are splitted into submodules:</p>
 </div>
@@ -8222,7 +8246,7 @@ particles" copied from neighbouring ranks. See <a href="#wall_exch">exch</a>.</t
 </div>
 </div>
 <div class="sect2">
-<h3 id="_submodules_6">35.3. submodules</h3>
+<h3 id="_submodules_7">35.3. submodules</h3>
 <div class="sect3">
 <h4 id="wall_exch">35.3.1. exch</h4>
 <div class="paragraph">
