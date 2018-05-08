@@ -7119,7 +7119,35 @@ See <a href="#scheme_time_step_acc">acceleration manager</a> for <code>ImeStepAc
 <div class="sect2">
 <h3 id="_interface_33">31.1. interface</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>Allocate and deallocate the structure</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">sim_ini</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Sim</span><span class="tok-o">**</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">sim_fin</span><span class="tok-p">(</span><span class="tok-n">Sim</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Run simulation:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">sim_gen</span><span class="tok-p">(</span><span class="tok-n">Sim</span><span class="tok-o">*</span><span class="tok-p">);</span>  <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">sim_strt</span><span class="tok-p">(</span><span class="tok-n">Sim</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>run from scratch: this will generate all quantities in two stages
+(solvent only, equilibrating; freezing stage, adding walls and solutes)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>run from restart files</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
@@ -7182,8 +7210,9 @@ objects need solvent particles</td>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">objects_mesh_dump</span><span class="tok-p">(</span><span class="tok-n">Objects</span><span class="tok-o">*</span><span class="tok-p">);</span>          <i class="conum" data-value="1"></i><b>(1)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">objects_diag_dump</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">t</span><span class="tok-p">,</span> <span class="tok-n">Objects</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">objects_mesh_dump</span><span class="tok-p">(</span><span class="tok-n">Objects</span><span class="tok-o">*</span><span class="tok-p">);</span>                    <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">objects_diag_dump</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">t</span><span class="tok-p">,</span> <span class="tok-n">Objects</span><span class="tok-o">*</span><span class="tok-p">);</span>           <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">objects_part_dump</span><span class="tok-p">(</span><span class="tok-kt">long</span> <span class="tok-n">id</span><span class="tok-p">,</span> <span class="tok-n">Objects</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">IoBop</span><span class="tok-o">*</span><span class="tok-p">);</span>
 
 <span class="tok-kt">void</span> <span class="tok-nf">objects_strt_templ</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">base</span><span class="tok-p">,</span> <span class="tok-n">Objects</span><span class="tok-o">*</span><span class="tok-p">);</span>         <i class="conum" data-value="3"></i><b>(3)</b>
 <span class="tok-kt">void</span> <span class="tok-nf">objects_strt_dump</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">base</span><span class="tok-p">,</span> <span class="tok-kt">long</span> <span class="tok-n">id</span><span class="tok-p">,</span> <span class="tok-n">Objects</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
@@ -8903,7 +8932,7 @@ make install</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="sh"><span></span>git clone git@gitlab.ethz.ch:mavt-cse/bop.git
+<pre class="pygments highlight"><code data-lang="sh"><span></span>git clone git@github.com:amlucas/bop.git
 <span class="tok-nb">cd</span> bop
 ./configure <span class="tok-o">[</span>OPTIONS<span class="tok-o">]</span> <i class="conum" data-value="1"></i><b>(1)</b>
 make
