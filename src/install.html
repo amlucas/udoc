@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<meta name="author" content="updated 08 May 2018">
+<title>Installation procedure</title>
+<link rel="stylesheet" href="/udoc/css/main.css">
+<link rel="stylesheet" href="./pygments-default.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>Installation procedure</h1>
+<div class="details">
+<span id="author" class="author">updated 08 May 2018</span><br>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_install_necessary_libraries">1. Install necessary libraries</a>
+<ul class="sectlevel2">
+<li><a href="#_libconfig">1.1. libconfig</a></li>
+<li><a href="#_aest">1.2. aest</a></li>
+<li><a href="#_bop">1.3. bop</a></li>
+<li><a href="#_off">1.4. off</a></li>
+</ul>
+</li>
+<li><a href="#_install_udevicex">2. Install uDeviceX</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_install_necessary_libraries">1. Install necessary libraries</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_libconfig">1.1. libconfig</h3>
+<div class="paragraph">
+<p>Library for parsing input configuration scripts</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="shell"><span></span>git clone https://github.com/hyperrealm/libconfig.git
+<span class="tok-nb">cd</span> libconfig
+autoreconf
+./configure --prefix<span class="tok-o">=</span><span class="tok-si">${</span><span class="tok-nv">HOME</span><span class="tok-si">}</span>/prefix/libconfig --disable-cxx
+make -j
+make install
+<span class="tok-nb">export</span> <span class="tok-nv">PKG_CONFIG_PATH</span><span class="tok-o">=</span><span class="tok-nv">$PKG_CONFIG_PATH</span>:<span class="tok-nv">$HOME</span>/prefix/libconfig/lib/pkgconfig</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Also add the last line (export &#8230;&#8203;) in the ~/.bashrc file.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_aest">1.2. aest</h3>
+<div class="paragraph">
+<p>Library for running tests</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="shell"><span></span>git clone https://gitlab.ethz.ch/mavt-cse/atest.git
+<span class="tok-nb">cd</span> atest
+make install</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bop">1.3. bop</h3>
+<div class="paragraph">
+<p>Library for dumping data in Bricks of Particles</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="shell"><span></span>git clone https://github.com/amlucas/bop.git
+<span class="tok-nb">cd</span> bop
+./configure --prefix <span class="tok-nv">$HOME</span>/prefix/bop
+make -j
+make -s <span class="tok-nb">test</span>
+make install</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_off">1.4. off</h3>
+<div class="paragraph">
+<p>Library for triangular mesh representation</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="shell"><span></span>git clone https://gitlab.ethz.ch/mavt-cse/off.git
+<span class="tok-nb">cd</span> off
+make install</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_install_udevicex">2. Install uDeviceX</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The source code</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="shell"><span></span>git clone https://gitlab.ethz.ch/mavt-cse/uDeviceX.git
+<span class="tok-nb">cd</span> uDeviceX
+make install
+<span class="tok-nb">cd</span> src
+u.conf0 ./u/x
+u.make -j</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
