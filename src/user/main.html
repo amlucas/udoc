@@ -250,7 +250,7 @@ dbg = {
 <p>We here list simple run cases of <em>uDeviceX</em>.</p>
 </div>
 <div class="sect3">
-<h4 id="_equilibration">1.2.1. equilibration</h4>
+<h4 id="example_equilibration">1.2.1. equilibration</h4>
 <div class="paragraph">
 <p>A simple solvent at rest equilibrating at given temperature.
 We can already see non default parameters appearing:</p>
@@ -332,6 +332,101 @@ time = {
 <div class="paragraph">
 <p>Note that the parameters are inside an array. This is useful  when we
 set different colors.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_double_poiseuille">1.2.2. double_poiseuille</h4>
+<div class="paragraph">
+<p>Reverse poiseuille flow in a periodic box.
+The setup looks really like the previous case
+<a href="#example_equilibration">equilibration</a>, but we now add body forces:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code>bforce = {
+    type = "double_poiseuille" <i class="conum" data-value="1"></i><b>(1)</b>
+    a    = 1.0                 <i class="conum" data-value="2"></i><b>(2)</b>
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>type of body force</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>parameter of the body force</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Note that we also need to activate the <code>push</code> option for solvent:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code>flu = {
+  dpd = true
+  lj = false
+  a = [ 20.0 ]
+  g = [ 8.0  ]
+  spow = 0.25
+  mass = 1.0
+  push = true <i class="conum" data-value="1"></i><b>(1)</b>
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>activate body force for solvent</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In order to visualize the flow, we choose here to dump field data.
+The data is sampled via the sampling module, activated when the field
+dump is active.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code>sampler = {
+    n_per_dump = 1000      <i class="conum" data-value="1"></i><b>(1)</b>
+    grid_ref   = [1, 1, 1] <i class="conum" data-value="2"></i><b>(2)</b>
+}
+
+dump = {
+    freq_diag  = 1.0  <i class="conum" data-value="3"></i><b>(3)</b>
+    field      = true <i class="conum" data-value="4"></i><b>(4)</b>
+    freq_field = 2.0  <i class="conum" data-value="5"></i><b>(5)</b>
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>number of samples per dump</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>refinement of the grid to sample in each direction  (default is 1)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>frequency of diagnosis (in dpd time units)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>activeate the field dumps</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>frequency of field dumps (in dpd time units)</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
