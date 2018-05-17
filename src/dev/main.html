@@ -5796,8 +5796,8 @@ before creating global ids.</p>
 <div class="content">
 <pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rbc_gen_mesh</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">ic</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">RbcQuants</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
 <span class="tok-kt">void</span> <span class="tok-nf">rbc_gen_freeze</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">RbcQuants</span><span class="tok-o">*</span><span class="tok-p">);</span>                                               <i class="conum" data-value="2"></i><b>(2)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">rbc_strt_quants</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">base</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">id</span><span class="tok-p">,</span> <span class="tok-n">RbcQuants</span><span class="tok-o">*</span><span class="tok-p">);</span>  <i class="conum" data-value="3"></i><b>(3)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">rbc_strt_dump</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">base</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">id</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">RbcQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span>                   <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+<span class="tok-kt">void</span> <span class="tok-nf">rbc_strt_quants</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">base</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">name</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">id</span><span class="tok-p">,</span> <span class="tok-n">RbcQuants</span><span class="tok-o">*</span><span class="tok-p">);</span>  <i class="conum" data-value="3"></i><b>(3)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">rbc_strt_dump</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">base</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">name</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">id</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">RbcQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span> <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -6336,7 +6336,7 @@ The interface for generation is:</p>
 <pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rig_gen_mesh</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">ic</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
 <span class="tok-kt">void</span> <span class="tok-nf">rig_gen_freeze</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">bool</span> <span class="tok-n">empty_pp</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">numdensity</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">rig_mass</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">RigPinInfo</span><span class="tok-o">*</span><span class="tok-p">,</span>
                     <span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">opp</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">on</span><span class="tok-p">,</span> <span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span>          <i class="conum" data-value="2"></i><b>(2)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">rig_strt_quants</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">base</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">id</span><span class="tok-p">,</span> <span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+<span class="tok-kt">void</span> <span class="tok-nf">rig_strt_quants</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">base</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">name</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">id</span><span class="tok-p">,</span> <span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -6362,8 +6362,8 @@ the rigid objects</td>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rig_strt_dump_templ</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">base</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span>         <i class="conum" data-value="1"></i><b>(1)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">rig_strt_dump</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">base</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">id</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rig_strt_dump_templ</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">base</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">name</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span>         <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">rig_strt_dump</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">base</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">name</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-n">id</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -7414,7 +7414,8 @@ forces</a>).</p>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">wall_interact</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">PairParams</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">Wall</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">PFarrays</span><span class="tok-o">*</span><span class="tok-p">);</span>
-<span class="tok-kt">void</span> <span class="tok-nf">wall_bounce</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Wall</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-n">PFarrays</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+<span class="tok-kt">void</span> <span class="tok-nf">wall_bounce</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Wall</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-n">PFarrays</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">wall_repulse</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Wall</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">PFarrays</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -8540,8 +8541,22 @@ particles" copied from neighbouring ranks. See <a href="#wall_exch">exch</a>.</t
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">wall_force</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">PairParams</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">WvelStep</span> <span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Sdf</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">WallQuants</span><span class="tok-o">*</span><span class="tok-p">,</span>
-                <span class="tok-k">const</span> <span class="tok-n">WallTicket</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">PaArray</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">FoArray</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+                <span class="tok-k">const</span> <span class="tok-n">WallTicket</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">PaArray</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">FoArray</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+
+<span class="tok-kt">void</span> <span class="tok-nf">wall_repulse</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Sdf</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">long</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">PaArray</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">FoArray</span><span class="tok-o">*</span><span class="tok-p">);</span>     <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>compute pairwise interactions between wall particles and input particles</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>compute field interaction depending on the sdf and input particles</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
@@ -8577,11 +8592,26 @@ These particles are used in interactions and act as <em>ghost particles</em>.</p
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">wall_force_apply</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">PairParams</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">WvelStep</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">PaArray</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-n">RNDunif</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">WallForce</span><span class="tok-p">,</span>
-                      <span class="tok-cm">/**/</span> <span class="tok-k">const</span> <span class="tok-n">FoArray</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+                      <span class="tok-cm">/**/</span> <span class="tok-k">const</span> <span class="tok-n">FoArray</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+
+<span class="tok-kt">void</span> <span class="tok-nf">wall_force_repulse</span><span class="tok-p">(</span><span class="tok-n">Sdf_v</span><span class="tok-p">,</span> <span class="tok-kt">long</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">PaArray</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">FoArray</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>pairwise interactions: input particles with frozen particles</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>field interaction: input particles get force \(\mathbf{f}(s)\),
+where \(s\) is the sdf value at position of input particle.</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p>where the helper structure <code>WallForce</code> acts as a view to be passed to
+<p>The helper structure <code>WallForce</code> acts as a view to be passed to
 the kernel. It is defined as:</p>
 </div>
 <div class="listingblock">
@@ -8593,6 +8623,30 @@ the kernel. It is defined as:</p>
     <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">;</span>
     <span class="tok-n">int3</span> <span class="tok-n">L</span><span class="tok-p">;</span>
 <span class="tok-p">};</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The repulsive force \(\mathbf{f}\) is computed as:</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\mathbf{f}(s) = - \mathbf{\nabla} s \; \phi(s),\]
+</div>
+</div>
+<div class="paragraph">
+<p>where</p>
+</div>
+<div class="stemblock">
+<div class="content">
+\[\phi = \exp \left[ \lambda (s + 1) \right] - 1,\]
+</div>
+</div>
+<div class="paragraph">
+<p>when \(s&gt;-1\)  and 0 otherwise. For \(\lambda = 1\):</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/udoc/include/repulsive_wall.png" alt="repulsive wall">
 </div>
 </div>
 </div>
