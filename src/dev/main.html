@@ -169,7 +169,6 @@
 <li><a href="#_inter_interprocessing_tools">23. inter: interprocessing tools</a>
 <ul class="sectlevel2">
 <li><a href="#inter_color">23.1. color</a></li>
-<li><a href="#inter_freeze">23.2. freeze</a></li>
 </ul>
 </li>
 <li><a href="#_math">24. Math</a>
@@ -1522,6 +1521,21 @@ priority etc.</p>
 <div class="paragraph">
 <p>Note that the program raises an error if the argument is not found or
 if an error occured (e.g. wrong type).</p>
+</div>
+<div class="paragraph">
+<p>A convenient set of functions to look for variable in a given namespace:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c++"><span></span><span class="tok-kt">void</span> <span class="tok-nf">conf_lookup_int_ns</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">ns</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">desc</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">a</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">conf_lookup_float_ns</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">ns</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">desc</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-o">*</span><span class="tok-n">a</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">conf_lookup_bool_ns</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">ns</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">desc</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">a</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">conf_lookup_string_ns</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">ns</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">desc</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">**</span><span class="tok-n">a</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">conf_lookup_vint_ns</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">ns</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">desc</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">a</span><span class="tok-p">[]);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">conf_lookup_int3_ns</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">ns</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">desc</span><span class="tok-p">,</span> <span class="tok-n">int3</span> <span class="tok-o">*</span><span class="tok-n">a</span><span class="tok-p">);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">conf_lookup_vfloat_ns</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">ns</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">desc</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">a</span><span class="tok-p">[]);</span>
+<span class="tok-kt">void</span> <span class="tok-nf">conf_lookup_float3_ns</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">ns</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">desc</span><span class="tok-p">,</span> <span class="tok-n">float3</span> <span class="tok-o">*</span><span class="tok-n">a</span><span class="tok-p">);</span></code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p>Lookup variables from the configuration:</p>
@@ -4569,9 +4583,6 @@ the whole simulation, such as wall frozen particles or rigid frozen particles.</
 <div class="ulist">
 <ul>
 <li>
-<p>freeze particles into walls</p>
-</li>
-<li>
 <p>generate initial solvent colors</p>
 </li>
 </ul>
@@ -4630,57 +4641,6 @@ and the rest <code>BLUE</code></td>
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">inter_color_apply_hst</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">GenColor</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">cc</span><span class="tok-p">);</span>
 <span class="tok-kt">void</span> <span class="tok-nf">inter_color_apply_dev</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">GenColor</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">n</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">cc</span><span class="tok-p">);</span></code></pre>
 </div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="inter_freeze">23.2. freeze</h3>
-<div class="paragraph">
-<p>tools to generate quantities from solvent after equilibration.
-also used to remove objects colliding with the newly created wall</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">inter_freeze</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-n">InterWalInfos</span><span class="tok-p">,</span> <span class="tok-n">InterFluInfos</span><span class="tok-p">,</span> <span class="tok-n">InterRbcInfos</span><span class="tok-p">,</span> <span class="tok-n">InterRigInfos</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>create rigid bodies, remove rigid bodies and rbcs colliding with
-the walls and remove solvent at rigid bodies locations</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>To avoid long argument list, the data is packed in helper structures:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-k">struct</span> <span class="tok-n">InterWalInfos</span> <span class="tok-p">{</span>
-    <span class="tok-kt">bool</span> <span class="tok-n">active</span><span class="tok-p">;</span>
-    <span class="tok-k">const</span> <span class="tok-n">Sdf</span> <span class="tok-o">*</span><span class="tok-n">sdf</span><span class="tok-p">;</span>
-<span class="tok-p">};</span>
-
-<span class="tok-k">struct</span> <span class="tok-n">InterFluInfos</span> <span class="tok-p">{</span>
-    <span class="tok-n">FluQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">;</span>
-<span class="tok-p">};</span>
-
-<span class="tok-k">struct</span> <span class="tok-n">InterRbcInfos</span> <span class="tok-p">{</span>
-    <span class="tok-kt">bool</span> <span class="tok-n">active</span><span class="tok-p">;</span>
-    <span class="tok-n">RbcQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">;</span>
-<span class="tok-p">};</span>
-
-<span class="tok-k">struct</span> <span class="tok-n">InterRigInfos</span> <span class="tok-p">{</span>
-    <span class="tok-kt">bool</span> <span class="tok-n">active</span><span class="tok-p">;</span>
-    <span class="tok-kt">bool</span> <span class="tok-n">empty_pp</span><span class="tok-p">;</span>
-    <span class="tok-n">RigQuants</span> <span class="tok-o">*</span><span class="tok-n">q</span><span class="tok-p">;</span>
-    <span class="tok-k">const</span> <span class="tok-n">RigPinInfo</span> <span class="tok-o">*</span><span class="tok-n">pi</span><span class="tok-p">;</span>
-    <span class="tok-k">const</span> <span class="tok-n">MeshRead</span> <span class="tok-o">*</span><span class="tok-n">mesh</span><span class="tok-p">;</span>
-    <span class="tok-kt">float</span> <span class="tok-n">mass</span><span class="tok-p">;</span>
-    <span class="tok-kt">int</span> <span class="tok-n">numdensity</span><span class="tok-p">;</span>
-<span class="tok-p">};</span></code></pre>
 </div>
 </div>
 </div>
@@ -6023,7 +5983,7 @@ file:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rbc_force_set_conf</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">MeshRead</span> <span class="tok-o">*</span><span class="tok-n">cell</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">cfg</span><span class="tok-p">,</span> <span class="tok-n">RbcForce</span> <span class="tok-o">*</span><span class="tok-n">f</span><span class="tok-p">);</span></code></pre>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rbc_force_set_conf</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">MeshRead</span> <span class="tok-o">*</span><span class="tok-n">cell</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">cfg</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">name</span><span class="tok-p">,</span> <span class="tok-n">RbcForce</span> <span class="tok-o">*</span><span class="tok-n">f</span><span class="tok-p">);</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -6161,7 +6121,7 @@ Consists of two structures: <code>RbcParams</code> (<em>hidden</em>, on host) an
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rbc_params_set_conf</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-n">RbcParams</span> <span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rbc_params_set_conf</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">name</span><span class="tok-p">,</span> <span class="tok-n">RbcParams</span> <span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -6432,7 +6392,7 @@ axis = {1, 1, 0}</pre>
 <span class="tok-kt">void</span> <span class="tok-nf">rig_pininfo_fin</span><span class="tok-p">(</span><span class="tok-n">RigPinInfo</span> <span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
 <span class="tok-kt">void</span> <span class="tok-nf">rig_pininfo_set</span><span class="tok-p">(</span><span class="tok-n">int3</span> <span class="tok-n">com</span><span class="tok-p">,</span> <span class="tok-n">int3</span> <span class="tok-n">axis</span><span class="tok-p">,</span> <span class="tok-n">RigPinInfo</span> <span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b>
 <span class="tok-kt">void</span> <span class="tok-nf">rig_pininfo_set_pdir</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">pdir</span><span class="tok-p">,</span> <span class="tok-n">RigPinInfo</span> <span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="4"></i><b>(4)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">rig_pininfo_set_conf</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">cfg</span><span class="tok-p">,</span> <span class="tok-n">RigPinInfo</span> <span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="5"></i><b>(5)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">rig_pininfo_set_conf</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">cfg</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">ns</span><span class="tok-p">,</span> <span class="tok-n">RigPinInfo</span> <span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="5"></i><b>(5)</b>
 
 <span class="tok-kt">int</span> <span class="tok-nf">rig_pininfo_get_pdir</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">RigPinInfo</span> <span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="6"></i><b>(6)</b></code></pre>
 </div>
