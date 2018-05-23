@@ -8,8 +8,7 @@
 <meta name="author" content="updated 08 May 2018">
 <title>Installation procedure</title>
 <link rel="stylesheet" href="/udoc/css/main.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
-<link rel="stylesheet" href="./pygments-colorful.css">
+<link rel="stylesheet" href="./pygments-default.css">
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
@@ -29,6 +28,7 @@
 </ul>
 </li>
 <li><a href="#_install_udevicex">2. Install uDeviceX</a></li>
+<li><a href="#_to_modify_the_code">3. To modify the code</a></li>
 </ul>
 </div>
 </div>
@@ -79,7 +79,7 @@ make install</code></pre>
 <pre class="pygments highlight"><code data-lang="shell"><span></span>git clone https://github.com/amlucas/bop.git
 <span class="tok-nb">cd</span> bop
 ./configure --prefix <span class="tok-nv">$HOME</span>/prefix/bop
-make -j
+make <span class="tok-nv">MPICXX</span><span class="tok-o">=</span>CC -j
 make -s <span class="tok-nb">test</span>
 make install</code></pre>
 </div>
@@ -114,6 +114,22 @@ make install
 <span class="tok-nb">cd</span> src
 u.conf0 ./u/x
 u.make -j</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_to_modify_the_code">3. To modify the code</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Tool that updates file dependencies used to compile uDeviceX</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="shell"><span></span>git clone https://gitlab.ethz.ch/mavt-cse/comma.git
+<span class="tok-nb">cd</span> comma
+make<span class="tok-p">;</span> make install
+make tests</code></pre>
 </div>
 </div>
 </div>

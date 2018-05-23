@@ -7,8 +7,7 @@
 <meta name="generator" content="Asciidoctor 1.5.6.1">
 <title>User Documentation</title>
 <link rel="stylesheet" href="/udoc/css/main.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
-<link rel="stylesheet" href="./pygments-colorful.css">
+<link rel="stylesheet" href="./pygments-default.css">
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
@@ -77,27 +76,24 @@ by <code>udx</code>.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code>glb = {
-    restart    = false     <i class="conum" data-value="1"></i><b>(1)</b>
-    kBT        = 0.0444302 <i class="conum" data-value="2"></i><b>(2)</b>
-    numdensity = 10        <i class="conum" data-value="3"></i><b>(3)</b>
+    restart    = false     <b class="conum">(1)</b>
+    kBT        = 0.0444302 <b class="conum">(2)</b>
+    numdensity = 10        <b class="conum">(3)</b>
 }</code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>create initial conditions from restart files</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>temperature of the system (supposed uniform)</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>number density of solvent particles</td>
-</tr>
-</table>
+<ol>
+<li>
+<p>create initial conditions from restart files</p>
+</li>
+<li>
+<p>temperature of the system (supposed uniform)</p>
+</li>
+<li>
+<p>number density of solvent particles</p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect3">
@@ -108,22 +104,20 @@ by <code>udx</code>.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code>time = {
-     wall      = 0.0   <i class="conum" data-value="1"></i><b>(1)</b>
-     screenlog = false <i class="conum" data-value="2"></i><b>(2)</b>
+     wall      = 0.0   <b class="conum">(1)</b>
+     screenlog = false <b class="conum">(2)</b>
 }</code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>time of freezing step</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>dump the timestep informations to the console</td>
-</tr>
-</table>
+<ol>
+<li>
+<p>time of freezing step</p>
+</li>
+<li>
+<p>dump the timestep informations to the console</p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect3">
@@ -135,13 +129,14 @@ A description of the DPD parameters can be found in &lt;&lt;&gt;&gt;.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code>flu = {
-    mass         = 1.0    <i class="conum" data-value="1"></i><b>(1)</b>
-    colors       = false  <i class="conum" data-value="2"></i><b>(2)</b>
-    ids          = false  <i class="conum" data-value="3"></i><b>(3)</b>
-    stresses     = false  <i class="conum" data-value="4"></i><b>(4)</b>
-    recolor_freq = 0      <i class="conum" data-value="5"></i><b>(5)</b>
-    push         = true   <i class="conum" data-value="6"></i><b>(6)</b>
+    mass         = 1.0    <b class="conum">(1)</b>
+    colors       = false  <b class="conum">(2)</b>
+    ids          = false  <b class="conum">(3)</b>
+    stresses     = false  <b class="conum">(4)</b>
+    recolor_freq = 0      <b class="conum">(5)</b>
+    push         = true   <b class="conum">(6)</b>
     dpd          = true
+    adhesion     = false
     a = [2.6666667, 2.6666667, 2.6666667]
     g = [8.0, 8.0, 8.0]
     spow = 0.25
@@ -150,33 +145,27 @@ A description of the DPD parameters can be found in &lt;&lt;&gt;&gt;.</p>
 </div>
 </div>
 <div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>mass of one particle</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>each particle has a different color if set to <code>true</code></td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>each particle has unique global index if set to <code>true</code></td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>compute solvent stresses if set to <code>true</code></td>
-</tr>
-<tr>
-<td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>recolor the solvent according to membranes every <code>x</code> iterations;
-<code>0</code>: deactivated; membranes must be active if set to non <code>0</code>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="6"></i><b>6</b></td>
-<td>apply body forces on solvent if set to <code>true</code></td>
-</tr>
-</table>
+<ol>
+<li>
+<p>mass of one particle</p>
+</li>
+<li>
+<p>each particle has a different color if set to <code>true</code></p>
+</li>
+<li>
+<p>each particle has unique global index if set to <code>true</code></p>
+</li>
+<li>
+<p>compute solvent stresses if set to <code>true</code></p>
+</li>
+<li>
+<p>recolor the solvent according to membranes every <code>x</code> iterations;
+<code>0</code>: deactivated; membranes must be active if set to non <code>0</code>.</p>
+</li>
+<li>
+<p>apply body forces on solvent if set to <code>true</code></p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect3">
@@ -187,60 +176,51 @@ A description of the DPD parameters can be found in &lt;&lt;&gt;&gt;.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code>dflu = {
-    debug = false <i class="conum" data-value="1"></i><b>(1)</b>
+    debug = false <b class="conum">(1)</b>
 }
 
 dbg = {
-    verbose  = true  <i class="conum" data-value="2"></i><b>(2)</b>
-    dump     = true  <i class="conum" data-value="3"></i><b>(3)</b>
-    pos      = false <i class="conum" data-value="4"></i><b>(4)</b>
-    pos_soft = false <i class="conum" data-value="5"></i><b>(5)</b>
-    vel      = false <i class="conum" data-value="6"></i><b>(6)</b>
-    forces   = false <i class="conum" data-value="7"></i><b>(7)</b>
-    colors   = false <i class="conum" data-value="8"></i><b>(8)</b>
-    clist    = false <i class="conum" data-value="9"></i><b>(9)</b>
+    verbose  = true  <b class="conum">(2)</b>
+    dump     = true  <b class="conum">(3)</b>
+    pos      = false <b class="conum">(4)</b>
+    pos_soft = false <b class="conum">(5)</b>
+    vel      = false <b class="conum">(6)</b>
+    forces   = false <b class="conum">(7)</b>
+    colors   = false <b class="conum">(8)</b>
+    clist    = false <b class="conum">(9)</b>
 }</code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>activate debug mode for solvent distribution</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>activate verbose for debug informations</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>activate dump informations for debug modes</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>check positions of solvent</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>check positions of solvent and objects</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="6"></i><b>6</b></td>
-<td>check velocities</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="7"></i><b>7</b></td>
-<td>check forces</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="8"></i><b>8</b></td>
-<td>check colors of solvent</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="9"></i><b>9</b></td>
-<td>check cell lists</td>
-</tr>
-</table>
+<ol>
+<li>
+<p>activate debug mode for solvent distribution</p>
+</li>
+<li>
+<p>activate verbose for debug informations</p>
+</li>
+<li>
+<p>activate dump informations for debug modes</p>
+</li>
+<li>
+<p>check positions of solvent</p>
+</li>
+<li>
+<p>check positions of solvent and objects</p>
+</li>
+<li>
+<p>check velocities</p>
+</li>
+<li>
+<p>check forces</p>
+</li>
+<li>
+<p>check colors of solvent</p>
+</li>
+<li>
+<p>check cell lists</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -258,37 +238,33 @@ We can already see non default parameters appearing:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code>glb = {
-    L          = [8, 8, 8] <i class="conum" data-value="1"></i><b>(1)</b>
+    L          = [8, 8, 8] <b class="conum">(1)</b>
     numdensity = 10
     kBT        = 0.1
 }
 
 time = {
-    type = "const" <i class="conum" data-value="2"></i><b>(2)</b>
-    dt  = 1e-3     <i class="conum" data-value="3"></i><b>(3)</b>
-    end = 5.0      <i class="conum" data-value="4"></i><b>(4)</b>
+    type = "const" <b class="conum">(2)</b>
+    dt  = 1e-3     <b class="conum">(3)</b>
+    end = 5.0      <b class="conum">(4)</b>
 }</code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>domain size</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>timestep mode: constant in this case</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>step size (in dpd time units)</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>simulation time (in dpd time units)</td>
-</tr>
-</table>
+<ol>
+<li>
+<p>domain size</p>
+</li>
+<li>
+<p>timestep mode: constant in this case</p>
+</li>
+<li>
+<p>step size (in dpd time units)</p>
+</li>
+<li>
+<p>simulation time (in dpd time units)</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p>The dpd parameters are set as follows:</p>
@@ -296,38 +272,33 @@ time = {
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code>flu = {
-  dpd = true   <i class="conum" data-value="1"></i><b>(1)</b>
-  lj = false   <i class="conum" data-value="2"></i><b>(2)</b>
-  a = [ 20.0 ] <i class="conum" data-value="3"></i><b>(3)</b>
-  g = [ 8.0  ] <i class="conum" data-value="4"></i><b>(4)</b>
-  spow = 0.25  <i class="conum" data-value="5"></i><b>(5)</b>
+  dpd = true   <b class="conum">(1)</b>
+  lj = false   <b class="conum">(2)</b>
+  a = [ 20.0 ] <b class="conum">(3)</b>
+  g = [ 8.0  ] <b class="conum">(4)</b>
+  spow = 0.25  <b class="conum">(5)</b>
   mass = 1.0
 }</code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>activate dpd interaction</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>no lj interactions (same as default)</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>repulsion parameter</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>dissipation parameter</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>"envelope" power for the dissipative kernel</td>
-</tr>
-</table>
+<ol>
+<li>
+<p>activate dpd interaction</p>
+</li>
+<li>
+<p>no lj interactions (same as default)</p>
+</li>
+<li>
+<p>repulsion parameter</p>
+</li>
+<li>
+<p>dissipation parameter</p>
+</li>
+<li>
+<p>"envelope" power for the dissipative kernel</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p>Note that the parameters are inside an array. This is useful  when we
@@ -344,22 +315,20 @@ The setup looks really like the previous case
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code>bforce = {
-    type = "double_poiseuille" <i class="conum" data-value="1"></i><b>(1)</b>
-    a    = 1.0                 <i class="conum" data-value="2"></i><b>(2)</b>
+    type = "double_poiseuille" <b class="conum">(1)</b>
+    a    = 1.0                 <b class="conum">(2)</b>
 }</code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>type of body force</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>parameter of the body force</td>
-</tr>
-</table>
+<ol>
+<li>
+<p>type of body force</p>
+</li>
+<li>
+<p>parameter of the body force</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p>Note that we also need to activate the <code>push</code> option for solvent:</p>
@@ -373,17 +342,16 @@ The setup looks really like the previous case
   g = [ 8.0  ]
   spow = 0.25
   mass = 1.0
-  push = true <i class="conum" data-value="1"></i><b>(1)</b>
+  push = true <b class="conum">(1)</b>
 }</code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>activate body force for solvent</td>
-</tr>
-</table>
+<ol>
+<li>
+<p>activate body force for solvent</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p>In order to visualize the flow, we choose here to dump field data.
@@ -393,40 +361,35 @@ dump is active.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code>sampler = {
-    n_per_dump = 1000      <i class="conum" data-value="1"></i><b>(1)</b>
-    grid_ref   = [1, 1, 1] <i class="conum" data-value="2"></i><b>(2)</b>
+    n_per_dump = 1000      <b class="conum">(1)</b>
+    grid_ref   = [1, 1, 1] <b class="conum">(2)</b>
 }
 
 dump = {
-    freq_diag  = 1.0  <i class="conum" data-value="3"></i><b>(3)</b>
-    field      = true <i class="conum" data-value="4"></i><b>(4)</b>
-    freq_field = 2.0  <i class="conum" data-value="5"></i><b>(5)</b>
+    freq_diag  = 1.0  <b class="conum">(3)</b>
+    field      = true <b class="conum">(4)</b>
+    freq_field = 2.0  <b class="conum">(5)</b>
 }</code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>number of samples per dump</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>refinement of the grid to sample in each direction  (default is 1)</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>frequency of diagnosis (in dpd time units)</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>activeate the field dumps</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>frequency of field dumps (in dpd time units)</td>
-</tr>
-</table>
+<ol>
+<li>
+<p>number of samples per dump</p>
+</li>
+<li>
+<p>refinement of the grid to sample in each direction  (default is 1)</p>
+</li>
+<li>
+<p>frequency of diagnosis (in dpd time units)</p>
+</li>
+<li>
+<p>activeate the field dumps</p>
+</li>
+<li>
+<p>frequency of field dumps (in dpd time units)</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
