@@ -6,7 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.6.1">
 <title>uDeviceX Developer Documentaion</title>
-<link rel="stylesheet" href="/udoc/css/main.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<link rel="stylesheet" href="./asciidoctor.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <link rel="stylesheet" href="./pygments-colorful.css">
 </head>
@@ -7000,7 +7001,7 @@ simulation just crossed <code>n*interval</code> for some <code>n</code>.</td>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">float</span> <span class="tok-nf">time_line_get_current</span> <span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">TimeLine</span><span class="tok-o">*</span><span class="tok-p">);</span>  <i class="conum" data-value="1"></i><b>(1)</b>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">float</span> <span class="tok-nf">time_line_get_current</span>  <span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">TimeLine</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
 <span class="tok-kt">long</span>  <span class="tok-nf">time_line_get_iteration</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">TimeLine</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
@@ -7013,6 +7014,27 @@ simulation just crossed <code>n*interval</code> for some <code>n</code>.</td>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
 <td>get iteration id</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The time structure can also be initialised via <a href="#io_restart">restart</a> mechanism:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">time_line_strt_dump</span><span class="tok-p">(</span><span class="tok-n">MPI_Comm</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">base</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">id</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">TimeLine</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">time_line_strt_read</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">base</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">id</span><span class="tok-p">,</span> <span class="tok-n">TimeLine</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>dump time line state to a restart file in text format</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>read restart file to initialize time line state</td>
 </tr>
 </table>
 </div>
@@ -7493,7 +7515,7 @@ forces</a>).</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">wall_interact</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">PairParams</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">Wall</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">PFarrays</span><span class="tok-o">*</span><span class="tok-p">);</span>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">wall_interact</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">PairParams</span><span class="tok-o">*</span><span class="tok-p">[],</span> <span class="tok-n">Wall</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">PFarrays</span><span class="tok-o">*</span><span class="tok-p">);</span>
 <span class="tok-kt">void</span> <span class="tok-nf">wall_adhesion</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">PairParams</span><span class="tok-o">*</span><span class="tok-p">[],</span> <span class="tok-n">Wall</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">PFarrays</span><span class="tok-o">*</span><span class="tok-p">);</span>
 <span class="tok-kt">void</span> <span class="tok-nf">wall_bounce</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Wall</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Coords</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-n">PFarrays</span><span class="tok-o">*</span><span class="tok-p">);</span>
 <span class="tok-kt">void</span> <span class="tok-nf">wall_repulse</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Wall</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">WallRepulsePrm</span> <span class="tok-o">*</span><span class="tok-p">[],</span> <span class="tok-n">PFarrays</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>

@@ -6,7 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.6.1">
 <title>User Documentation</title>
-<link rel="stylesheet" href="/udoc/css/main.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<link rel="stylesheet" href="./asciidoctor.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <link rel="stylesheet" href="./pygments-colorful.css">
 </head>
@@ -121,7 +122,7 @@ by <code>udx</code>.</p>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>dump the timestep informations to the console</td>
+<td>dump the time step informations to the console</td>
 </tr>
 </table>
 </div>
@@ -129,24 +130,18 @@ by <code>udx</code>.</p>
 <div class="sect3">
 <h4 id="_flu">1.1.3. flu</h4>
 <div class="paragraph">
-<p>Describe the solvent parameters
-A description of the DPD parameters can be found in &lt;&lt;&gt;&gt;.</p>
+<p>Describe the solvent parameters</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code>flu = {
-    mass         = 1.0    <i class="conum" data-value="1"></i><b>(1)</b>
-    colors       = false  <i class="conum" data-value="2"></i><b>(2)</b>
-    ids          = false  <i class="conum" data-value="3"></i><b>(3)</b>
-    stresses     = false  <i class="conum" data-value="4"></i><b>(4)</b>
-    recolor_freq = 0      <i class="conum" data-value="5"></i><b>(5)</b>
-    push         = true   <i class="conum" data-value="6"></i><b>(6)</b>
-    dpd          = true
-    adhesion     = false
-    a = [2.6666667, 2.6666667, 2.6666667]
-    g = [8.0, 8.0, 8.0]
-    spow = 0.25
-    lj = false
+    mass         = 1.0         <i class="conum" data-value="1"></i><b>(1)</b>
+    colors       = false       <i class="conum" data-value="2"></i><b>(2)</b>
+    ids          = false       <i class="conum" data-value="3"></i><b>(3)</b>
+    stresses     = false       <i class="conum" data-value="4"></i><b>(4)</b>
+    recolor_freq = 0           <i class="conum" data-value="5"></i><b>(5)</b>
+    push         = true        <i class="conum" data-value="6"></i><b>(6)</b>
+    self         = "pair_flu"  <i class="conum" data-value="7"></i><b>(7)</b>
 }</code></pre>
 </div>
 </div>
@@ -170,14 +165,72 @@ A description of the DPD parameters can be found in &lt;&lt;&gt;&gt;.</p>
 </tr>
 <tr>
 <td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>recolor the solvent according to membranes every <code>x</code> iterations;
+<td>re-color the solvent according to membranes every <code>x</code> iterations;
 <code>0</code>: deactivated; membranes must be active if set to non <code>0</code>.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="6"></i><b>6</b></td>
 <td>apply body forces on solvent if set to <code>true</code></td>
 </tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>self interaction parameters (see below)</td>
+</tr>
 </table>
+</div>
+<div class="paragraph">
+<p>The interaction parameters are described in a separate namespace.
+In the <code>flu.self</code> case, the default is given by:</p>
+</div>
+<div class="paragraph">
+<p>The pair interaction parameters have all the same structure, allowing
+to share namespaces for common interactions.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code>pair_flu = {
+    dpd          = true  <i class="conum" data-value="1"></i><b>(1)</b>
+    adhesion     = false <i class="conum" data-value="2"></i><b>(2)</b>
+    lj           = false <i class="conum" data-value="3"></i><b>(3)</b>
+    a = [2.6666667, 2.6666667, 2.6666667] <i class="conum" data-value="4"></i><b>(4)</b>
+    g = [8.0, 8.0, 8.0]  <i class="conum" data-value="5"></i><b>(5)</b>
+    spow = 0.25  <i class="conum" data-value="6"></i><b>(6)</b>
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>activate DPD interactions</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>no repulsive Lennard-Jones potential</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>no adhesion interactions</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>repulsion parameters</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>dissipative parameters</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>envelope parameter for the random kernel</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Note that the parameters form an array.
+These correspond to different color interactions.
+In this case, a maximum of 2 colors is possible.
+The parameters correspond to <code>blue-blue</code>, <code>blue-red</code>,<code>red-red</code>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -297,12 +350,17 @@ time = {
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code>flu = {
-  dpd = true   <i class="conum" data-value="1"></i><b>(1)</b>
-  lj = false   <i class="conum" data-value="2"></i><b>(2)</b>
-  a = [ 20.0 ] <i class="conum" data-value="3"></i><b>(3)</b>
-  g = [ 8.0  ] <i class="conum" data-value="4"></i><b>(4)</b>
-  spow = 0.25  <i class="conum" data-value="5"></i><b>(5)</b>
-  mass = 1.0
+    self = "flu_pair"
+    mass = 1.0
+}
+
+flu_pair = {
+    dpd = true   <i class="conum" data-value="1"></i><b>(1)</b>
+    lj = false   <i class="conum" data-value="2"></i><b>(2)</b>
+    a = [ 20.0 ] <i class="conum" data-value="3"></i><b>(3)</b>
+    g = [ 8.0  ] <i class="conum" data-value="4"></i><b>(4)</b>
+    spow = 0.25  <i class="conum" data-value="5"></i><b>(5)</b>
+    adhesion = false
 }</code></pre>
 </div>
 </div>
@@ -326,13 +384,21 @@ time = {
 </tr>
 <tr>
 <td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>"envelope" power for the dissipative kernel</td>
+<td>"envelope" power for the random kernel</td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
 <p>Note that the parameters are inside an array. This is useful  when we
 set different colors.</p>
+</div>
+<div class="paragraph">
+<p>The temperature quickly equilibrates to the required value:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/udoc/include/examples/equilibration.T.png" alt="equilibration.T">
+</div>
 </div>
 </div>
 <div class="sect3">
@@ -358,7 +424,7 @@ The setup looks really like the previous case
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>parameter of the body force</td>
+<td>magnitude of the body force</td>
 </tr>
 </table>
 </div>
@@ -368,13 +434,18 @@ The setup looks really like the previous case
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code>flu = {
-  dpd = true
-  lj = false
-  a = [ 20.0 ]
-  g = [ 8.0  ]
-  spow = 0.25
-  mass = 1.0
-  push = true <i class="conum" data-value="1"></i><b>(1)</b>
+    mass = 1.0
+    self = "flu_pair"
+    push = true <i class="conum" data-value="1"></i><b>(1)</b>
+}
+
+flu_pair = {
+    dpd = true
+    lj = false
+    adhesion = false
+    a = [ 20.0 ]
+    g = [ 8.0  ]
+    spow = 0.25
 }</code></pre>
 </div>
 </div>
@@ -428,6 +499,14 @@ dump = {
 <td>frequency of field dumps (in dpd time units)</td>
 </tr>
 </table>
+</div>
+<div class="paragraph">
+<p>The velocity profile is shown below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/udoc/include/examples/double_poiseuille.U.png" alt="double poiseuille.U">
+</div>
 </div>
 </div>
 </div>
