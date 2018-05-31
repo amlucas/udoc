@@ -7309,9 +7309,9 @@ membrane centers of mass.</td>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">objects_clear_vel</span><span class="tok-p">(</span><span class="tok-n">Objects</span><span class="tok-o">*</span><span class="tok-p">);</span>        <i class="conum" data-value="1"></i><b>(1)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">objects_update</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-n">Objects</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">objects_distribute</span><span class="tok-p">(</span><span class="tok-n">Objects</span><span class="tok-o">*</span><span class="tok-p">);</span>       <i class="conum" data-value="3"></i><b>(3)</b>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">objects_clear_vel</span><span class="tok-p">(</span><span class="tok-n">Objects</span><span class="tok-o">*</span><span class="tok-p">);</span>         <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">objects_advance</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-n">Objects</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">objects_distribute</span><span class="tok-p">(</span><span class="tok-n">Objects</span><span class="tok-o">*</span><span class="tok-p">);</span>        <i class="conum" data-value="3"></i><b>(3)</b>
 <span class="tok-kt">void</span> <span class="tok-nf">objects_update_dpd_prms</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">kBT</span><span class="tok-p">,</span> <span class="tok-n">Objects</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
@@ -7323,7 +7323,9 @@ membrane centers of mass.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>advance objects for one timestep</td>
+<td>advance objects for one timestep;
+internal fast forces are computed there for time separation scheme
+of membranes</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
@@ -7341,8 +7343,7 @@ membrane centers of mass.</td>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">objects_clear_forces</span><span class="tok-p">(</span><span class="tok-n">Objects</span><span class="tok-o">*</span><span class="tok-p">);</span>                 <i class="conum" data-value="1"></i><b>(1)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">objects_internal_forces</span><span class="tok-p">(</span><span class="tok-kt">float</span> <span class="tok-n">dt</span><span class="tok-p">,</span> <span class="tok-n">Objects</span> <span class="tok-o">*</span><span class="tok-n">o</span><span class="tok-p">);</span>  <i class="conum" data-value="2"></i><b>(2)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">objects_body_forces</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">BForce</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">Objects</span> <span class="tok-o">*</span><span class="tok-n">o</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+<span class="tok-kt">void</span> <span class="tok-nf">objects_body_forces</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">BForce</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">Objects</span> <span class="tok-o">*</span><span class="tok-n">o</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -7353,13 +7354,12 @@ membrane centers of mass.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>compute internal forces (membranes only)</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
 <td>apply body forces to the objects</td>
 </tr>
 </table>
+</div>
+<div class="paragraph">
+<p>The internal membrane forces are computed inside advance (see above).</p>
 </div>
 <div class="paragraph">
 <p>Other forces can be set via the getter functions (see link with
