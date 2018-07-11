@@ -7383,7 +7383,7 @@ of membranes</td>
 <span class="tok-kt">void</span> <span class="tok-nf">objects_get_params_fsi</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Objects</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">PairParams</span><span class="tok-o">*</span><span class="tok-p">[]);</span>           <i class="conum" data-value="4"></i><b>(4)</b>
 <span class="tok-kt">void</span> <span class="tok-nf">objects_get_params_adhesion</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Objects</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">PairParams</span><span class="tok-o">*</span><span class="tok-p">[]);</span>      <i class="conum" data-value="5"></i><b>(5)</b>
 <span class="tok-kt">void</span> <span class="tok-nf">objects_get_params_repulsion</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Objects</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">WallRepulsePrm</span><span class="tok-o">*</span><span class="tok-p">[]);</span> <i class="conum" data-value="6"></i><b>(6)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">objects_get_params_cnt</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Objects</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">PairParams</span><span class="tok-o">***</span><span class="tok-p">);</span></code></pre>
+<span class="tok-kt">void</span> <span class="tok-nf">objects_get_params_cnt</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Objects</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">PairParams</span><span class="tok-o">***</span><span class="tok-p">);</span>           <i class="conum" data-value="7"></i><b>(7)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -7413,6 +7413,11 @@ for no interactions)</td>
 <tr>
 <td><i class="conum" data-value="6"></i><b>6</b></td>
 <td>get the parameters for repulsion with walls (one per object, NULL
+for no interactions)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>get the pair parameters for cnt interactions (one per object pair, NULL
 for no interactions)</td>
 </tr>
 </table>
@@ -7464,17 +7469,13 @@ forces</a>).</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">obj_inter_forces</span><span class="tok-p">(</span><span class="tok-n">ObjInter</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">PairParams</span> <span class="tok-o">**</span><span class="tok-n">fsi_prms</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">PairParams</span> <span class="tok-o">**</span><span class="tok-n">cnt_prms</span><span class="tok-p">,</span> <span class="tok-n">PFarray</span> <span class="tok-o">*</span><span class="tok-n">flu</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">flu_start</span><span class="tok-p">,</span> <span class="tok-n">PFarrays</span> <span class="tok-o">*</span><span class="tok-n">obj</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">obj_inter_forces</span><span class="tok-p">(</span><span class="tok-n">ObjInter</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">PairParams</span> <span class="tok-o">**</span><span class="tok-n">fsi_prms</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">PairParams</span> <span class="tok-o">**</span><span class="tok-n">cnt_prms</span><span class="tok-p">,</span> <span class="tok-n">PFarray</span> <span class="tok-o">*</span><span class="tok-n">flu</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">flu_start</span><span class="tok-p">,</span> <span class="tok-n">PFarrays</span> <span class="tok-o">*</span><span class="tok-n">obj</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>update the dpd (sigma) parameters of contact interactions given a new time step</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
 <td>compute interactions (contact and fsi), bulk and halo</td>
 </tr>
 </table>
