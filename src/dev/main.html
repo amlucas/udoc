@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.6.1">
+<meta name="generator" content="Asciidoctor 1.5.8">
 <title>uDeviceX Developer Documentaion</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <link rel="stylesheet" href="./asciidoctor.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="./pygments-colorful.css">
 </head>
 <body class="article toc2 toc-left">
@@ -100,7 +100,7 @@
 <li><a href="#_configuration_5">12.3. Configuration</a></li>
 </ul>
 </li>
-<li><a href="#_generic_d_evice_api">13. generic [d]evice API</a></li>
+<li><a href="#_generic_device_api">13. generic [d]evice API</a></li>
 <li><a href="#_debug">14. debug</a>
 <ul class="sectlevel2">
 <li><a href="#_interface_11">14.1. interface</a></li>
@@ -783,7 +783,7 @@ output:
 <h4 id="_interface">5.3.2. interface</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">minmax</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-k">const</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">no</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">float3</span> <span class="tok-o">*</span><span class="tok-n">min</span><span class="tok-p">,</span> <span class="tok-n">float3</span> <span class="tok-o">*</span><span class="tok-n">max</span><span class="tok-p">);</span></code></pre>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">minmax</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Particle</span> <span class="tok-o">*</span><span class="tok-n">pp</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nv</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nobj</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">float3</span> <span class="tok-o">*</span><span class="tok-n">lo</span><span class="tok-p">,</span> <span class="tok-n">float3</span> <span class="tok-o">*</span><span class="tok-n">hi</span><span class="tok-p">);</span></code></pre>
 </div>
 </div>
 </div>
@@ -1196,7 +1196,7 @@ The process to build cell lists is as follows:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">cnt_build_cells</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">nw</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">PaWrap</span> <span class="tok-o">*</span><span class="tok-n">pw</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Contact</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">cnt_build_cells</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">nw</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">PairParams</span> <span class="tok-o">**</span><span class="tok-n">prms</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">PaWrap</span> <span class="tok-o">*</span><span class="tok-n">pw</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">Contact</span> <span class="tok-o">*</span><span class="tok-n">c</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
 <span class="tok-kt">void</span> <span class="tok-nf">cnt_bulk</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Contact</span> <span class="tok-o">*</span><span class="tok-n">cnt</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nw</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">PairParams</span> <span class="tok-o">**</span><span class="tok-n">prms</span><span class="tok-p">,</span> <span class="tok-n">PaWrap</span> <span class="tok-o">*</span><span class="tok-n">pw</span><span class="tok-p">,</span> <span class="tok-n">FoWrap</span> <span class="tok-o">*</span><span class="tok-n">fw</span><span class="tok-p">);</span> <i class="conum" data-value="2"></i><b>(2)</b>
 <span class="tok-kt">void</span> <span class="tok-nf">cnt_halo</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">Contact</span> <span class="tok-o">*</span><span class="tok-n">cnt</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">nw</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">PairParams</span> <span class="tok-o">**</span><span class="tok-n">prms</span><span class="tok-p">,</span> <span class="tok-n">PaWrap</span> <span class="tok-o">*</span><span class="tok-n">pw</span><span class="tok-p">,</span> <span class="tok-n">FoWrap</span> <span class="tok-o">*</span><span class="tok-n">fw</span><span class="tok-p">,</span> <span class="tok-n">Pap26</span> <span class="tok-n">all_pp</span><span class="tok-p">,</span> <span class="tok-n">Fop26</span> <span class="tok-n">all_ff</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">int</span> <span class="tok-o">*</span><span class="tok-n">all_counts</span><span class="tok-p">);</span> <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
 </div>
@@ -2465,7 +2465,7 @@ A <em>view</em> structure <code>Coords_v</code> is public to device code:</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_generic_d_evice_api">13. generic [d]evice API</h2>
+<h2 id="_generic_device_api">13. generic [d]evice API</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The goal is to make cuda API and kernel functions generic. Meaning
@@ -2476,7 +2476,8 @@ they can be replaced by CPU calls.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">int</span> <span class="tok-nf">Malloc</span><span class="tok-p">(</span><span class="tok-kt">void</span> <span class="tok-o">**</span><span class="tok-n">p</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span><span class="tok-p">);</span>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">int</span> <span class="tok-nf">GetSymbolAddress</span><span class="tok-p">(</span><span class="tok-kt">void</span> <span class="tok-o">**</span><span class="tok-n">devPtr</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">void</span> <span class="tok-o">*</span><span class="tok-n">symbol</span><span class="tok-p">);</span>
+<span class="tok-kt">int</span> <span class="tok-nf">Malloc</span><span class="tok-p">(</span><span class="tok-kt">void</span> <span class="tok-o">**</span><span class="tok-n">p</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span><span class="tok-p">);</span>
 <span class="tok-kt">int</span> <span class="tok-nf">MemcpyToSymbol</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">void</span> <span class="tok-o">*</span><span class="tok-n">symbol</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">void</span> <span class="tok-o">*</span><span class="tok-n">src</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span> <span class="tok-n">count</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span> <span class="tok-n">offset</span><span class="tok-o">=</span><span class="tok-mi">0</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">kind</span><span class="tok-o">=</span><span class="tok-n">MemcpyHostToDevice</span><span class="tok-p">);</span>
 <span class="tok-kt">int</span> <span class="tok-nf">MemcpyFromSymbol</span><span class="tok-p">(</span><span class="tok-kt">void</span> <span class="tok-o">*</span><span class="tok-n">dst</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">void</span> <span class="tok-o">*</span><span class="tok-n">symbol</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span> <span class="tok-n">count</span><span class="tok-p">,</span> <span class="tok-kt">size_t</span> <span class="tok-n">offset</span><span class="tok-o">=</span><span class="tok-mi">0</span><span class="tok-p">,</span> <span class="tok-kt">int</span> <span class="tok-n">kind</span><span class="tok-o">=</span><span class="tok-n">MemcpyDeviceToHost</span><span class="tok-p">);</span>
 <span class="tok-kt">int</span> <span class="tok-nf">HostGetDevicePointer</span><span class="tok-p">(</span><span class="tok-kt">void</span> <span class="tok-o">**</span><span class="tok-n">pDevice</span><span class="tok-p">,</span> <span class="tok-kt">void</span> <span class="tok-o">*</span><span class="tok-n">pHost</span><span class="tok-p">,</span> <span class="tok-kt">unsigned</span> <span class="tok-kt">int</span> <span class="tok-n">flags</span><span class="tok-p">);</span>
@@ -4825,7 +4826,7 @@ determinant smaller than epsilon (hardcoded to <code>1e-8</code>).</td>
 <div class="sect3">
 <h4 id="_interface_25">24.3.1. interface</h4>
 <div class="sect4">
-<h5 id="_allocate_deallocate">Allocate/Deallocate</h5>
+<h5 id="_allocatedeallocate">Allocate/Deallocate</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">tform_ini</span><span class="tok-p">(</span><span class="tok-n">Tform</span><span class="tok-o">**</span><span class="tok-p">);</span>
@@ -6028,7 +6029,7 @@ inside.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rbc_force_ini</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">MeshRead</span> <span class="tok-o">*</span><span class="tok-n">cell</span><span class="tok-p">,</span> <span class="tok-n">RbcForce</span><span class="tok-o">**</span><span class="tok-p">);</span>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rbc_force_ini</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">RbcForce</span><span class="tok-o">**</span><span class="tok-p">);</span>
 <span class="tok-kt">void</span> <span class="tok-nf">rbc_force_fin</span><span class="tok-p">(</span><span class="tok-n">RbcForce</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
 </div>
 </div>
@@ -6040,8 +6041,9 @@ inside.</p>
 <pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rbc_force_set_stressful</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">nt</span><span class="tok-p">,</span> <span class="tok-kt">float</span> <span class="tok-n">totArea</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">RbcForce</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="1"></i><b>(1)</b>
 <span class="tok-kt">void</span> <span class="tok-nf">rbc_force_set_stressfree</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">fname</span><span class="tok-p">,</span> <span class="tok-cm">/**/</span> <span class="tok-n">RbcForce</span><span class="tok-o">*</span><span class="tok-p">);</span>    <i class="conum" data-value="2"></i><b>(2)</b>
 
-<span class="tok-kt">void</span> <span class="tok-nf">rbc_force_set_rnd0</span><span class="tok-p">(</span><span class="tok-n">RbcForce</span> <span class="tok-o">*</span><span class="tok-n">f</span><span class="tok-p">);</span>           <i class="conum" data-value="3"></i><b>(3)</b>
-<span class="tok-kt">void</span> <span class="tok-nf">rbc_force_set_rnd1</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">seed</span><span class="tok-p">,</span> <span class="tok-n">RbcForce</span> <span class="tok-o">*</span><span class="tok-n">f</span><span class="tok-p">);</span> <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+<span class="tok-kt">void</span> <span class="tok-nf">rbc_force_set_rnd0</span><span class="tok-p">(</span><span class="tok-n">RbcForce</span><span class="tok-o">*</span><span class="tok-p">);</span>           <i class="conum" data-value="3"></i><b>(3)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">rbc_force_set_rnd1</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">seed</span><span class="tok-p">,</span> <span class="tok-n">RbcForce</span><span class="tok-o">*</span><span class="tok-p">);</span> <i class="conum" data-value="4"></i><b>(4)</b>
+<span class="tok-kt">void</span> <span class="tok-nf">rbc_force_set_bending</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-n">RbcForce</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -6070,7 +6072,7 @@ file:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rbc_force_set_conf</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">MeshRead</span> <span class="tok-o">*</span><span class="tok-n">cell</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">cfg</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">name</span><span class="tok-p">,</span> <span class="tok-n">RbcForce</span> <span class="tok-o">*</span><span class="tok-n">f</span><span class="tok-p">);</span></code></pre>
+<pre class="pygments highlight"><code data-lang="cpp"><span></span><span class="tok-kt">void</span> <span class="tok-nf">rbc_force_set_conf</span><span class="tok-p">(</span><span class="tok-k">const</span> <span class="tok-n">MeshRead</span><span class="tok-o">*</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-n">Config</span> <span class="tok-o">*</span><span class="tok-n">cfg</span><span class="tok-p">,</span> <span class="tok-k">const</span> <span class="tok-kt">char</span> <span class="tok-o">*</span><span class="tok-n">name</span><span class="tok-p">,</span> <span class="tok-n">RbcForce</span><span class="tok-o">*</span><span class="tok-p">);</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -6097,7 +6099,7 @@ file:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_force_area_volume_area_and_volume">28.3.4. force/area_volume: area and volume</h4>
+<h4 id="_forcearea_volume_area_and_volume">28.3.4. force/area_volume: area and volume</h4>
 <div class="paragraph">
 <p>Compute area and volume for every object.</p>
 </div>
@@ -6132,7 +6134,7 @@ host version of <code>av</code> array</td>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_force_rnd_random_generator">28.3.5. force/rnd: random generator</h4>
+<h4 id="_forcernd_random_generator">28.3.5. force/rnd: random generator</h4>
 <div class="paragraph">
 <p>Device random number generator for random forces in rbc</p>
 </div>
@@ -9250,6 +9252,6 @@ MathJax.Hub.Config({
   TeX: { equationNumbers: { autoNumber: "none" } }
 });
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.6.0/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
 </body>
 </html>
