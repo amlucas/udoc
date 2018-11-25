@@ -7,7 +7,8 @@
 <meta name="generator" content="Asciidoctor 1.5.8">
 <meta name="author" content="Alexeev, D., Amoudruz, L., Bernaschi, M., Bisson, M., Conti, C., Economides, A., Fatica, M., Hadjidoukas, P., Joubert, W., Karniadakis G., Koumoutsakos, P., Kulakova, L., Litvinov, S., Lykov, K., Pivkin, I., Rossinelli, D., Tang, Y.-H.">
 <title>uDeviceX Documentation</title>
-<link rel="stylesheet" href="/udoc/css/main.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<link rel="stylesheet" href="./asciidoctor.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="./pygments-colorful.css">
 </head>
@@ -36,18 +37,18 @@
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_introduction">Introduction</a>
+<li><a href="#_introduction">1. Introduction</a>
 <ul class="sectlevel2">
-<li><a href="#_what_is_udevicex">what is <em>uDeviceX</em>?</a></li>
-<li><a href="#_code">code</a></li>
-<li><a href="#_tests">tests</a></li>
-<li><a href="#_systems_of_coordinates">systems of coordinates</a></li>
+<li><a href="#_what_is_udevicex">1.1. what is <em>uDeviceX</em>?</a></li>
+<li><a href="#_code">1.2. code</a></li>
+<li><a href="#_tests">1.3. tests</a></li>
+<li><a href="#_systems_of_coordinates">1.4. systems of coordinates</a></li>
 </ul>
 </li>
-<li><a href="#_installation">Installation</a></li>
-<li><a href="#_user_documentation">User Documentation</a></li>
-<li><a href="#_developer_documentation">Developer Documentation</a></li>
-<li><a href="#_list_of_units">List of units</a></li>
+<li><a href="#_installation">2. Installation</a></li>
+<li><a href="#_user_documentation">3. User Documentation</a></li>
+<li><a href="#_developer_documentation">4. Developer Documentation</a></li>
+<li><a href="#_list_of_units">5. List of units</a></li>
 </ul>
 </div>
 </div>
@@ -62,10 +63,10 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_introduction">Introduction</h2>
+<h2 id="_introduction">1. Introduction</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_what_is_udevicex">what is <em>uDeviceX</em>?</h3>
+<h3 id="_what_is_udevicex">1.1. what is <em>uDeviceX</em>?</h3>
 <div class="paragraph">
 <p>It is a dissipate particle dynamic particle (DPD) simulation code
 which can model multiphase flows, rigid and soft objects, boundary
@@ -95,7 +96,7 @@ trajectories of the objects, and averaged flow fields.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_code">code</h3>
+<h3 id="_code">1.2. code</h3>
 <div class="paragraph">
 <p>Code is organized in <em>units</em> which are executables.  <em>uDeviceX</em>
 installs several command line tools which have prefix <code>u.</code>, for
@@ -103,7 +104,7 @@ example <code>u.run</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_tests">tests</h3>
+<h3 id="_tests">1.3. tests</h3>
 <div class="paragraph">
 <p><em>uDeviceX</em> comes with tests. Each test is a shell script with some
 conventions. To run a test</p>
@@ -120,7 +121,7 @@ reference and report the result. Comparision can be exact or "fuzzy".</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_systems_of_coordinates">systems of coordinates</h3>
+<h3 id="_systems_of_coordinates">1.4. systems of coordinates</h3>
 <div class="paragraph">
 <p>There are several systems of coordinates in <em>uDeviceX</em>. Let focus on
 <code>X</code> direction, <code>Y</code> and <code>Z</code> are similar. A <em>global</em> system is used as a
@@ -154,7 +155,7 @@ margin <code>-1/2</code> in <em>texture</em> system corresponds to <code>xlo() -
 </div>
 </div>
 <div class="sect1">
-<h2 id="_installation">Installation</h2>
+<h2 id="_installation">2. Installation</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A description on how to install <em>uDeviceX</em> can be found in
@@ -163,7 +164,7 @@ the <a href="src/install.html">installation</a>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_user_documentation">User Documentation</h2>
+<h2 id="_user_documentation">3. User Documentation</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A description on how to run <em>uDeviceX</em> can be found in
@@ -172,7 +173,7 @@ the <a href="src/user/main.html">user documentation</a>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_developer_documentation">Developer Documentation</h2>
+<h2 id="_developer_documentation">4. Developer Documentation</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A description of the code can be found in the
@@ -181,7 +182,7 @@ the <a href="src/user/main.html">user documentation</a>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_list_of_units">List of units</h2>
+<h2 id="_list_of_units">5. List of units</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A description of units can be found in the <a href="src/units/main.html">units
