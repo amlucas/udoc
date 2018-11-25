@@ -39,8 +39,8 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>uDeviceX requires libraries and command line tools. In the following
-the library are installed in '$HOME/prefix' and command line tools are
-in '$HOME/bin'.</p>
+the library are installed in <code>$HOME/prefix</code> and command line tools are
+in <code>$HOME/bin</code>.</p>
 </div>
 </div>
 </div>
@@ -63,11 +63,12 @@ make install</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Also add the last line (export &#8230;&#8203;) to ~/.bashrc file.</p>
+<p>Also add the last line (export &#8230;&#8203;) to <code>$HOME/.profile</code> file.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="shell"><span></span><span class="tok-nb">export</span> <span class="tok-nv">PKG_CONFIG_PATH</span><span class="tok-o">=</span><span class="tok-nv">$PKG_CONFIG_PATH</span>:<span class="tok-nv">$HOME</span>/prefix/libconfig/lib/pkgconfig</code></pre>
+<pre class="pygments highlight"><code data-lang="shell"><span></span><span class="tok-nv">PKG_CONFIG_PATH</span><span class="tok-o">=</span><span class="tok-nv">$PKG_CONFIG_PATH</span>:<span class="tok-nv">$HOME</span>/prefix/libconfig/lib/pkgconfig
+<span class="tok-nb">export</span> PKG_CONFIG_PATH</code></pre>
 </div>
 </div>
 </div>
